@@ -1,5 +1,6 @@
 package lk.recruitment.management.asset.employee.entity;
 
+
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

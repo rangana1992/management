@@ -1,13 +1,16 @@
 package lk.recruitment.management.asset.userManagement.entity;
 
+
+import com.sun.istack.NotNull;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity

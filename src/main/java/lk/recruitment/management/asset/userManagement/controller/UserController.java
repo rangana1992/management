@@ -1,7 +1,8 @@
 package lk.recruitment.management.asset.userManagement.controller;
 
+
+import lk.recruitment.management.asset.designation.entity.Designation;
 import lk.recruitment.management.asset.employee.entity.Employee;
-import lk.recruitment.management.asset.employee.entity.Enum.Designation;
 import lk.recruitment.management.asset.employee.entity.Enum.EmployeeStatus;
 import lk.recruitment.management.asset.employee.service.EmployeeService;
 import lk.recruitment.management.asset.userManagement.entity.User;
@@ -13,10 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
