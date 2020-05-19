@@ -1,11 +1,8 @@
-package lk.recruitment.management.asset.district.entity;
-
-
-
+package lk.recruitment.management.asset.policeStation.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment.management.asset.agOffice.entity.AgOffice;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
+import lk.recruitment.management.asset.district.entity.District;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,22 +17,20 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("District")
-public class District {
+@JsonFilter("PoliceStation")
+public class PoliceStation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 2, max = 13, message = "Your name length should be 13")
+    @Size(min = 2, max = 60, message = "Your Stream length should be 13")
     private String name;
+    private String address;
+    private String land;
+    private String email;
 
-    @Enumerated(EnumType.STRING)
-    private Province province;
-
-    @OneToMany(mappedBy = "district")
-    private List<AgOffice> agOffices;
-
-
+    @ManyToOne
+    private AgOffice agOffice;
 
 
 }

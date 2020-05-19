@@ -9,10 +9,9 @@ import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
 import lk.recruitment.management.asset.commonAsset.model.FileInfo;
-import lk.recruitment.management.asset.designation.entity.Designation;
+import lk.recruitment.management.asset.employee.entity.Enum.Designation;
 import lk.recruitment.management.asset.employee.entity.Enum.EmployeeStatus;
 import lk.recruitment.management.asset.message.entity.EmailMessage;
-import lk.recruitment.management.asset.workingPlace.entity.WorkingPlace;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -86,10 +85,8 @@ public class Employee extends AuditEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfAssignment;
 
-    @ManyToOne
-    private WorkingPlace workingPlace;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
     private Designation designation;
 
     @ManyToMany(mappedBy = "employees")

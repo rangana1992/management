@@ -5,13 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Nationality {
-
-    SIN("Sinhala"),
-    TML("Tamil"),
-    MLM("Muslim"),
-    BGR("Burghers");
-
-
-    private final String nationality;
+public enum Result {
+    A("A Pass"), B("B Pass"), C("C Pass"), S("S Pass"), F("Fail");
+    private final String result;
 }

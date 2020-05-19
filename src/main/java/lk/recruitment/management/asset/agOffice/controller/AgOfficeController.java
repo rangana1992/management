@@ -1,12 +1,14 @@
-package lk.recruitment.management.asset.district.controller;
+package lk.recruitment.management.asset.agOffice.controller;
 
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
+import lk.recruitment.management.asset.agOffice.entity.AgOffice;
+import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
+import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.district.entity.District;
-import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -14,76 +16,83 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/district")
-public class DistrictController implements AbstractController<District, Integer> {
+@RequestMapping("/agOffice")
+public class AgOfficeController implements AbstractController<AgOffice, Integer> {
 
-    private final DistrictService districtService;
+    private final AgOfficeService agOfficeService;
 
     @Autowired
-    public DistrictController(DistrictService districtService) {
-        this.districtService = districtService;
+    public AgOfficeController(AgOfficeService agOfficeService) {
+        this.agOfficeService = agOfficeService;
     }
 
-    private String commonThing(Model model, Boolean booleanValue, District districtObject) {
+    private String commonThing(Model model, Boolean booleanValue, AgOffice agOfficeObject) {
         model.addAttribute("provinces", Province.values());
         model.addAttribute("addStatus", booleanValue);
-        model.addAttribute("district", districtObject);
-        return "district/addDistrict";
+        model.addAttribute("agOffice", agOfficeObject);
+        model.addAttribute("districtURL",
+                MvcUriComponentsBuilder
+                        .fromMethodName(DistrictController.class, "getDistrictByProvince", "")
+                        .toUriString());
+        return "agOffice/addAgOffice";
     }
 
     @GetMapping
     public String findAll(Model model) {
-        model.addAttribute("districts", districtService.findAll());
-        return "district/district";
+        model.addAttribute("agOffices", agOfficeService.findAll());
+        return "agOffice/agOffice";
     }
 
     @GetMapping("/add")
     public String form(Model model) {
-        return commonThing(model, false, new District());
+        return commonThing(model, false, new AgOffice());
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable Integer id, Model model) {
-        model.addAttribute("districtDetail", districtService.findById(id));
-        return "district/district-detail";
+        model.addAttribute("agOfficeDetail", agOfficeService.findById(id));
+        return "agOffice/agOffice-detail";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        return commonThing(model, true, districtService.findById(id));
+        return commonThing(model, true, agOfficeService.findById(id));
     }
 
     @PostMapping(value = {"/save", "/update"})
-    public String persist(@Valid @ModelAttribute District district, BindingResult bindingResult,
+    public String persist(@Valid @ModelAttribute AgOffice agOffice, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
-            return commonThing(model, false, district);
+            return commonThing(model, false, agOffice);
         }
-        redirectAttributes.addFlashAttribute("districtDetail", districtService.persist(district));
-        return "redirect:/district";
+        redirectAttributes.addFlashAttribute("agOfficeDetail", agOfficeService.persist(agOffice));
+        return "redirect:/agOffice";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, Model model) {
-        districtService.delete(id);
-        return "redirect:/district";
+        agOfficeService.delete(id);
+        return "redirect:/agOffice";
     }
-    @GetMapping(value = "/getDistrict/{province}")
+
+    @GetMapping(value = "/getAgOffice/{id}")
     @ResponseBody
-    public MappingJacksonValue getDistrictByProvince(@PathVariable String province) {
+    public MappingJacksonValue getAgOfficeByDistrict(@PathVariable Integer id) {
+        District district = new District();
+        district.setId(id);
 
         //MappingJacksonValue
-        List<District> districts = districtService.findByProvince(Province.valueOf(province));
-        //employeeService.findByWorkingPlace(workingPlaceService.findById(id));
+        List<AgOffice> agOffices = agOfficeService.findByDistrict(district);
 
         //Create new mapping jackson value and set it to which was need to filter
-        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(districts);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(agOffices);
 
         //simpleBeanPropertyFilter :-  need to give any id to addFilter method and created filter which was mentioned
         // what parameter's necessary to provide
@@ -92,11 +101,10 @@ public class DistrictController implements AbstractController<District, Integer>
         //filters :-  set front end required value to before filter
 
         FilterProvider filters = new SimpleFilterProvider()
-                .addFilter("District", simpleBeanPropertyFilter);
+                .addFilter("AgOffice", simpleBeanPropertyFilter);
         //Employee :- need to annotate relevant class with JsonFilter  {@JsonFilter("Employee") }
         mappingJacksonValue.setFilters(filters);
 
         return mappingJacksonValue;
     }
-
 }

@@ -1,16 +1,17 @@
 package lk.recruitment.management.asset.applicant.controller;
 
 
+import lk.recruitment.management.asset.agOffice.controller.AgOfficeController;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
+import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
+import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
 import lk.recruitment.management.asset.applicant.service.ApplicantFilesService;
-import lk.recruitment.management.asset.commonAsset.model.Enum.BloodGroup;
-import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
+import lk.recruitment.management.asset.commonAsset.model.Enum.*;
 import lk.recruitment.management.asset.commonAsset.service.CommonService;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
+import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.userManagement.entity.User;
 import lk.recruitment.management.asset.userManagement.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -56,10 +58,20 @@ public class ApplicantController {
     private String commonThings(Model model) {
         model.addAttribute("title", Title.values());
         model.addAttribute("gender", Gender.values());
+        model.addAttribute("applyingRanks", ApplyingRank.values());
         model.addAttribute("civilStatus", CivilStatus.values());
         model.addAttribute("applicantStatus", ApplicantStatus.values());
-
+        model.addAttribute("nationalities", Nationality.values());
         model.addAttribute("bloodGroup", BloodGroup.values());
+        model.addAttribute("provinces", Province.values());
+        model.addAttribute("districtURL",
+                MvcUriComponentsBuilder
+                        .fromMethodName(DistrictController.class, "getDistrictByProvince", "")
+                        .toUriString());
+        model.addAttribute("agOfficeURL",
+                MvcUriComponentsBuilder
+                        .fromMethodName(AgOfficeController.class, "getAgOfficeByDistrict", "")
+                        .toUriString());
         return "applicant/addApplicant";
     }
 

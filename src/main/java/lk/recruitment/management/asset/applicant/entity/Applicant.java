@@ -1,11 +1,12 @@
 package lk.recruitment.management.asset.applicant.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
+import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
 import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
+import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,9 +31,6 @@ public class Applicant extends AuditEntity {
     @Column(nullable = false)
     private String nameInFullName;
 
-    @NotNull
-    @Column(nullable = false)
-    private String code;
 
     @NotNull
     @Column(nullable = false)
@@ -41,9 +40,9 @@ public class Applicant extends AuditEntity {
     @Column(nullable = false)
     private String nic;
 
-    @NotNull
-    @Column(nullable = false)
-    private String applyingRank;
+    @Enumerated(EnumType.STRING)
+    private ApplyingRank applyingRank;
+
 
     @NotNull
     @Column(nullable = false)
@@ -59,6 +58,7 @@ public class Applicant extends AuditEntity {
 
     @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
     private String mobile;
+
 
     private String land;
 
@@ -80,8 +80,6 @@ public class Applicant extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
 
-    @Enumerated(EnumType.STRING)
-    private ApplicantStatus applicantStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
@@ -91,5 +89,8 @@ public class Applicant extends AuditEntity {
 
     @Transient
     private MultipartFile file;
+
+    @OneToMany(mappedBy ="applicant" )
+    private List<ApplicantSubjectResult> applicantSubjectResults;
 
 }
