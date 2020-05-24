@@ -9,6 +9,7 @@ import lk.recruitment.management.asset.agOffice.entity.AgOffice;
 import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
 import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.district.entity.District;
+import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -27,10 +28,12 @@ import java.util.List;
 public class AgOfficeController implements AbstractController<AgOffice, Integer> {
 
     private final AgOfficeService agOfficeService;
+    private final DistrictService districtService;
 
     @Autowired
-    public AgOfficeController(AgOfficeService agOfficeService) {
+    public AgOfficeController(AgOfficeService agOfficeService, DistrictService districtService) {
         this.agOfficeService = agOfficeService;
+        this.districtService = districtService;
     }
 
     private String commonThing(Model model, Boolean booleanValue, AgOffice agOfficeObject) {
@@ -63,6 +66,7 @@ public class AgOfficeController implements AbstractController<AgOffice, Integer>
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("districts", districtService.findAll());
         return commonThing(model, true, agOfficeService.findById(id));
     }
 

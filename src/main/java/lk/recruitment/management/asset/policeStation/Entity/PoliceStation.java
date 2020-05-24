@@ -3,6 +3,7 @@ package lk.recruitment.management.asset.policeStation.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment.management.asset.agOffice.entity.AgOffice;
 import lk.recruitment.management.asset.district.entity.District;
+import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,9 @@ public class PoliceStation {
 
     @ManyToOne
     private AgOffice agOffice;
+
+    @OneToMany (mappedBy = "policeStation")
+    private List<GramaNiladhari> gramaNiladharis;
 
 
 }

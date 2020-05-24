@@ -169,7 +169,8 @@
                                                     <div class="form-group">
                                                         <label class="active ">Photos :</label>
                                                         <div class="row">
-                                                            <div class="col" id="filesList" th:each="file, rowStat: ${files}">
+                                                            <div class="col" id="filesList"
+                                                                 th:each="file, rowStat: ${files}">
                                                                 <div class="col">
                                                                     <div class="alert alert-warning alert-dismissible fade show"
                                                                          role="alert">
@@ -181,7 +182,8 @@
                                                                                      th:src="${file.url}"/>
                                                                             </div>
                                                                             <div class="card-footer bg-secondary text-light text-center">
-                                                                                <p id="imgName" th:text="${file.filename}"></p>
+                                                                                <p id="imgName"
+                                                                                   th:text="${file.filename}"></p>
                                                                                 <span> Uploaded Date :
                                             <p id="imgCreateAt" th:text="${{file.createAt}}"></p>
                                             </span>
@@ -191,11 +193,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       <!-- <button class="btn btn-success" type="submit" tabindex="21">
-                                                            <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;
-                                                            &nbsp;<span id="submit"
-                                                                        th:text="${addStatus==true?'Save': 'Update'}"></span>
-                                                        </button>-->
+                                                        <!-- <button class="btn btn-success" type="submit" tabindex="21">
+                                                             <i class="fa fa-save " style="font-size: 20px"></i>&nbsp;
+                                                             &nbsp;<span id="submit"
+                                                                         th:text="${addStatus==true?'Save': 'Update'}"></span>
+                                                         </button>-->
                                                         <div class="form-row">
                                                             <label id="errorLabel" th:if="${#fields.hasErrors('*')}"
                                                                    th:text="'Errors: '">Errors: </label>
@@ -336,22 +338,24 @@
                                                                     th:value="${employeeStatuss}"
                                                                     th:selected="${employeeStatuss==employee.employeeStatus?'selected':'unselected'}"></option>
                                                         </select>
-
                                                     </div>
                                                     <div class="form-group" id="updateStatus"
                                                          th:if="${addStatus==false}">
                                                         <label class="control-label" for="createdBy">Created By
                                                             :</label>
-
                                                         <input id="createdBy" th:field="*{createdBy}"
                                                                class="form-control" type="text"
                                                                readonly/>
-
                                                     </div>
-
-
                                                 </div>
-
+                                            </div>
+                                            <!--photo -->
+                                            <div class="col-md-6">
+                                                <input type="file" name="file" id="imgUpload"
+                                                       accept="image/png, image/jpeg">
+                                                <div class="col-md-3 ">
+                                                    <img src="" id="image" alt="" style="height: 100px;">
+                                                </div>
                                             </div>
                                             <div class="card-footer">
                                                 <button type="submit" class="btn btn-primary">

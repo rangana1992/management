@@ -1,5 +1,7 @@
 package lk.recruitment.management.util.interfaces;
 
+import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
+
 import java.util.List;
 
 public interface AbstractService<E, I> {
@@ -27,5 +29,4 @@ public interface AbstractService<E, I> {
      * Find All From The DB relevant to given Entity one parameter or many parameter
      */
     List<E> search(E e);
-
 }

@@ -19,14 +19,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
-                                        <!--<form role="form">-->
-                                        <a class="btn btn-primary" href="/home"> <i class="fa fa-home"></i> Home
-                                        </a>
-                                        <a href="/applicant" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp;
-                                            View List </a>
-
-                                        <!--
-                                                                                </form>-->
+                                        <form role="form">
+                                            <a class="btn btn-primary" href="/home"> <i class="fa fa-home"></i> Home
+                                            </a>
+                                            <a class="btn btn-primary" href="/applicant"><i class="fa fa-list"></i>&nbsp;
+                                                View List </a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -34,19 +32,21 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
-                                        <form th:action="${addStatus==true?'/applicant/save' :'/applicant/update'}"
-                                              method="post" th:object="${applicant}" enctype="multipart/form-data">
+                                        <form enctype="multipart/form-data"
+                                              method="post"
+                                              th:action="${addStatus==true?'/applicant/save' :'/applicant/update'}"
+                                              th:object="${applicant}">
                                             <div class="row">
                                                 <div class="col-md-6"><!--Left Side-->
                                                     <!--ID -->
-                                                    <div id="idStatus" th:if="${addStatus==false}"
-                                                         class="form-row text-right">
+                                                    <div class="form-row text-right" id="idStatus"
+                                                         th:if="${addStatus==false}">
 
                                                         <label class="control-label" for="id">ID :</label>
 
 
-                                                        <input id="id" th:field="*{id}" class="form-control" type="text"
-                                                               readonly/>
+                                                        <input class="form-control" id="id" readonly th:field="*{id}"
+                                                               type="text"/>
 
                                                     </div>
 
@@ -55,21 +55,23 @@
                                                     <div class="form-group">
 
                                                         <label class="control-label">Full Name :</label>
-                                                        <input id="name" th:field="*{nameInFullName}" class="form-control"
-                                                               type="text" required/>
-                                                        <span id="nameError" th:errors="*{nameInFullName}"
-                                                              th:if="${#fields.hasErrors('nameInFullName')}" class="error">Error Name</span>
+                                                        <input class="form-control" id="name"
+                                                               required
+                                                               th:field="*{nameInFullName}" type="text"/>
+                                                        <span class="error" id="nameError"
+                                                              th:errors="*{nameInFullName}"
+                                                              th:if="${#fields.hasErrors('nameInFullName')}">Error Name</span>
                                                     </div>
                                                     <!--Name with Initials-->
                                                     <div class="form-group">
                                                         <label class="control-label" for="callingName">Name With Initial
                                                             :</label>
-                                                        <input id="callingName" th:field="*{nameWithInitial}"
-                                                               class="form-control" tabindex="5" type="text"
-                                                               minlength="5"/>
-                                                        <span class="error" th:errors="*{nameWithInitial}"
-                                                              th:if="${#fields.hasErrors('nameWithInitial')}"
-                                                              id="callingNameError">Error
+                                                        <input class="form-control" id="callingName"
+                                                               minlength="5" tabindex="5" th:field="*{nameWithInitial}"
+                                                               type="text"/>
+                                                        <span class="error" id="callingNameError"
+                                                              th:errors="*{nameWithInitial}"
+                                                              th:if="${#fields.hasErrors('nameWithInitial')}">Error
                                                                        Calling                                                                                                                        Name</span>
                                                     </div>
                                                     <!--Nic-->
@@ -77,10 +79,10 @@
 
                                                         <label class="control-label" for="nic">NIC No :</label>
 
-                                                        <input id="nic" th:field="*{nic}" class="form-control"
-                                                               tabindex="6" type="text"
-                                                               maxlength="12"
-                                                               minlength="10" required/>
+                                                        <input class="form-control" id="nic" maxlength="12"
+                                                               minlength="10" required
+                                                               tabindex="6"
+                                                               th:field="*{nic}" type="text"/>
                                                         <span class="error" id="nicError" th:errors="*{nic}"
                                                               th:if="${#fields.hasErrors('nic')}">Error
                                                                NIC Number</span>
@@ -91,13 +93,13 @@
 
                                                         <label class="control-label" for="gender">Gender :</label>
 
-                                                        <select id="gender" th:field="*{gender}" class="form-control"
-                                                                tabindex="7" required>
+                                                        <select class="form-control" id="gender" required
+                                                                tabindex="7" th:field="*{gender}">
                                                             <option value="">Please select</option>
                                                             <option th:each="genders : ${gender}"
+                                                                    th:selected="${genders==applicant.gender?'selected':'unselected'}"
                                                                     th:text="${genders.gender}"
-                                                                    th:value="${genders}"
-                                                                    th:selected="${genders==applicant.gender?'selected':'unselected'}"></option>
+                                                                    th:value="${genders}"></option>
                                                         </select>
 
                                                     </div>
@@ -106,23 +108,24 @@
 
                                                         <label class="control-label" for="dateOfBirth">Birth date
                                                             :</label>
-                                                        <input id="dateOfBirth" th:field="*{dateOfBirth}"
-                                                               class="form-control" tabindex="8"
-                                                               placeholder="Ex: 1990 - 01 - 20"
-                                                               required type="date"/>
-                                                        <span th:errors="*{dateOfBirth}"
-                                                              th:if="${#fields.hasErrors('dateOfBirth')}" class="error">Error Birthday</span>
+                                                        <input class="form-control" id="dateOfBirth"
+                                                               placeholder="Ex: 1990 - 01 - 20" required
+                                                               tabindex="8"
+                                                               th:field="*{dateOfBirth}" type="date"/>
+                                                        <span class="error"
+                                                              th:errors="*{dateOfBirth}"
+                                                              th:if="${#fields.hasErrors('dateOfBirth')}">Error Birthday</span>
 
-
+                                                    </div>
                                                     <!--Designation-->
                                                     <div class="form-group">
 
                                                         <label class="control-label" for="applyingRank">Applying Rank
                                                             :</label>
 
-                                                        <select id="applyingRank" th:field="*{applyingRank}"
-                                                                class="form-control" tabindex="10"
-                                                                required>
+                                                        <select class="form-control" id="applyingRank"
+                                                                required tabindex="10"
+                                                                th:field="*{applyingRank}">
                                                             <option value="">Please select</option>
                                                             <option th:each="applyingRank : ${applyingRanks}"
                                                                     th:text="${applyingRank.applyingRank}"
@@ -130,109 +133,76 @@
                                                         </select>
 
                                                     </div>
-
-                                                        <!--Nationality-->
-                                                        <div class="form-group">
-
-                                                            <label class="control-label" for="nationality">Nationality
-                                                                :</label>
-
-                                                            <select id="nationality" th:field="*{nationality}"
-                                                                    class="form-control" tabindex="10"
-                                                                    required>
-                                                                <option value="">Please select</option>
-                                                                <option th:each="nationality : ${nationalities}"
-                                                                        th:text="${nationality.nationality}"
-                                                                        th:value="${nationality}"></option>
-                                                            </select>
-
-                                                        </div>
-
-                                                        <!--Province-->
-                                                        <div class="form-group ">
-                                                            <label th:for="province" class="form-label "> Province </label>
-
-                                                            <select class="form-control" id="province">
-                                                                <option value="" disabled>Please Select</option>
-                                                                <option th:each="province : ${provinces}"
-                                                                        th:text="${province.province}"
-                                                                        th:value="${province}"></option>
-                                                            </select>
-                                                        </div>
-                                                        <!--District-->
-                                                        <div class="form-group ">
-                                                            <label for="district" class="form-label "> District </label>
-
-                                                            <select class="form-control" id="district">
-                                                                <option value="">Please Select</option>
-                                                            </select>
-                                                        </div>
-                                                        <!--AgOffice-->
-                                                        <div class="form-group ">
-                                                            <label th:for="${'agOffice'}" class="form-label "> Ag Office </label>
-
-                                                            <select class="form-control" id="agOffice">
-                                                                <option value="">Please Select</option>
-                                                            </select>
-                                                        </div>
-
-
-
-                                                        <!--Height-->
-
-                                                        <div class="form-group">
-
-                                                            <label class="control-label" for="height">Height :</label>
-
-                                                            <input id="height" th:field="*{height}" class="form-control"
-                                                                   tabindex="6" type="text"
-                                                                   maxlength="12"
-                                                                   minlength="10" required/>
-
-                                                        </div>
-
-                                                        <!--Weight-->
-
-                                                        <div class="form-group">
-
-                                                            <label class="control-label" for="weight">Weight :</label>
-
-                                                            <input id="weight" th:field="*{weight}" class="form-control"
-                                                                   tabindex="6" type="text"
-                                                                   maxlength="12"
-                                                                   minlength="10" required/>
-
-                                                        </div>
-
-                                                        <!--chest-->
-
-                                                        <div class="form-group">
-
-                                                            <label class="control-label" for="chest">Chest :</label>
-
-                                                            <input id="chest" th:field="*{chest}" class="form-control"
-                                                                   tabindex="6" type="text"
-                                                                   maxlength="12"
-                                                                   minlength="10" required/>
-
-                                                        </div>
-
-
-                                                <div class="col-md-6"><!--Right Side-->
+                                                    <!--Nationality-->
                                                     <div class="form-group">
 
+                                                        <label class="control-label" for="nationality">Nationality
+                                                            :</label>
+
+                                                        <select class="form-control" id="nationality"
+                                                                required tabindex="10"
+                                                                th:field="*{nationality}">
+                                                            <option value="">Please select</option>
+                                                            <option th:each="nationality : ${nationalities}"
+                                                                    th:text="${nationality.nationality}"
+                                                                    th:value="${nationality}"></option>
+                                                        </select>
+
+                                                    </div>
+                                                    <!--CivilStatus-->
+                                                    <div class="form-group">
                                                         <label class="control-label" for="civilStatus">Civil Status
                                                             :</label>
 
-                                                        <select th:field="*{civilStatus}" id="civilStatus"
-                                                                class="form-control" tabindex="11"
-                                                                required>
+                                                        <select class="form-control" id="civilStatus"
+                                                                required tabindex="11"
+                                                                th:field="*{civilStatus}">
                                                             <option value="">Please select</option>
                                                             <option th:each="civilStatu : ${civilStatus}"
+                                                                    th:selected="${civilStatu==applicant.civilStatus?'selected':'unselected'}"
                                                                     th:text="${civilStatu.CivilStatus}"
-                                                                    th:value="${civilStatu}"
-                                                                    th:selected="${civilStatu==applicant.civilStatus?'selected':'unselected'}"></option>
+                                                                    th:value="${civilStatu}"></option>
                                                         </select>
+
+                                                    </div>
+
+                                                </div>
+                                                <!--Right Side-->
+                                                <div class="col-md-6">
+                                                    <!--Height-->
+                                                    <div class="form-group">
+
+                                                        <label class="control-label" for="height">Height(cm) :</label>
+
+                                                        <input class="form-control" id="height" maxlength="12"
+                                                               minlength="10" required
+                                                               tabindex="6"
+                                                               th:field="*{height}" type="number" min="0"/>
+                                                        <span><i><small>(Height must be 162cm)</small></i></span>
+
+                                                    </div>
+                                                    <!--Weight-->
+                                                    <div class="form-group">
+
+                                                        <label class="control-label" for="weight">Weight(Kg) :</label>
+
+                                                        <input class="form-control" id="weight" maxlength="12"
+                                                               minlength="10" required
+                                                               tabindex="6"
+                                                               th:field="*{weight}" type="number" min="0" step="0.5"/>
+                                                        <span><i><small>(Weight must be 60Kg)</small></i></span>
+
+                                                    </div>
+                                                    <!--chest-->
+                                                    <div class="form-group">
+
+                                                        <label class="control-label" for="chest">Chest(cm) :</label>
+
+                                                        <input class="form-control" id="chest" maxlength="12"
+                                                               minlength="10" required
+                                                               tabindex="6"
+                                                               th:field="*{chest}" type="number" min="0"/>
+                                                        <span><i><small>(Chest must be 34cm(Male) & 36cm(Female))</small></i></span>
 
                                                     </div>
                                                     <!--Address-->
@@ -240,11 +210,12 @@
 
                                                         <label class="control-label" for="address">Address :</label>
 
-                                                        <textarea id="address" th:field="*{address}"
-                                                                  class="form-control" tabindex="12"
-                                                                  required></textarea>
-                                                        <span class="error" th:errors="*{address}"
-                                                              th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
+                                                        <textarea class="form-control" id="address"
+                                                                  required tabindex="12"
+                                                                  th:field="*{address}" rows="2"></textarea>
+                                                        <span class="error" id="addressError"
+                                                              th:errors="*{address}"
+                                                              th:if="${#fields.hasErrors('address')}">Error Address</span>
 
                                                     </div>
                                                     <!--Mobile Number-->
@@ -253,51 +224,106 @@
                                                         <label class="control-label" for="mobile">Mobile No
                                                             :</label>
 
-                                                        <input id="mobile" th:field="*{mobile}"
-                                                               class="form-control mobile" tabindex="13"
-                                                               type="text"
+                                                        <input class="form-control mobile" id="mobile"
                                                                maxlength="10" min="9"
-                                                               required/>
-                                                        <span class="error" th:errors="*{mobile}"
-                                                              th:if="${#fields.hasErrors('mobile')}"
-                                                              id="mobileOneError">Error Mobile Number</span>
+                                                               required
+                                                               tabindex="13" th:field="*{mobile}"
+                                                               type="text"/>
+                                                        <span class="error" id="mobileOneError"
+                                                              th:errors="*{mobile}"
+                                                              th:if="${#fields.hasErrors('mobile')}">Error Mobile Number</span>
 
                                                     </div>
-
                                                     <!--Land No-->
                                                     <div class="form-group">
                                                         <label class="control-label" for="land">Land No
                                                             :</label>
-                                                        <input id="land" th:field="*{land}"
-                                                               class="form-control" tabindex="5" type="text"
-                                                               minlength="5"/>
-                                                        <span class="error" th:errors="*{land}"
-                                                              th:if="${#fields.hasErrors('land')}"
-                                                              id="land">Error
+                                                        <input class="form-control" id="land"
+                                                               minlength="5" tabindex="5" th:field="*{land}"
+                                                               type="text"/>
+                                                        <span class="error" id="land"
+                                                              th:errors="*{land}"
+                                                              th:if="${#fields.hasErrors('land')}">Error
                                                                        Calling                                                                                                                        Name</span>
                                                     </div>
-
-
                                                     <!--Email-->
                                                     <div class="form-group">
 
                                                         <label class="control-label" for="email">Email :</label>
 
-                                                        <input id="email" th:field="*{email}" class="form-control"
-                                                               tabindex="16" type="email"
-                                                               required/>
-                                                        <span class="error" th:errors="*{email}"
-                                                              th:if="${#fields.hasErrors('email')}" id="emailError">Error Email</span>
+                                                        <input class="form-control" id="email" required
+                                                               tabindex="16" th:field="*{email}"
+                                                               type="email"/>
+                                                        <span class="error" id="emailError"
+                                                              th:errors="*{email}"
+                                                              th:if="${#fields.hasErrors('email')}">Error Email</span>
 
                                                     </div>
+                                                </div>
+                                                <div class="form-row col-md-12">
+                                                    <!--Province-->
+                                                    <div class=" col-md-3  ">
+                                                        <label class="form-label " th:for="province"> Province </label>
 
+                                                        <select class="form-control" id="province">
+                                                            <option value="">Please Select</option>
+                                                            <option th:each="province : ${provinces}"
+                                                                    th:text="${province.province}"
+                                                                    th:value="${province}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <!--District-->
+                                                    <div class=" col-md-3 ">
+                                                        <label class="form-label " for="district"> District </label>
 
+                                                        <select class="form-control" id="district">
+                                                            <option value="">Please Select</option>
+                                                        </select>
+                                                    </div>
+                                                    <!--AgOffice-->
+                                                    <div class=" col-md-3 ">
+                                                        <label class="form-label " th:for="${'agOffice'}"> Ag
+                                                            Office </label>
 
+                                                        <select class="form-control" id="agOffice">
+                                                            <option value="">Please Select</option>
+                                                        </select>
+                                                    </div>
+                                                    <!--Police-->
+                                                    <div class=" col-md-3 ">
+                                                        <label class="form-label " th:for="${'policeStation'}"> Police
+                                                            Station </label>
 
+                                                        <select class="form-control" id="policeStation">
+                                                            <option value="">Please Select</option>
+                                                        </select>
+                                                    </div>
+                                                    <!--GramaNiladhariDivision-->
+                                                    <div class="form-group">
 
+                                                        <label class="control-label" for="gramaNiladhari">Grama
+                                                            Niladhari Division :</label>
+                                                        <select class="form-control" lass="form-control"
+                                                                id="gramaNiladhari" required
+                                                                tabindex="16" th:field="*{gramaNiladhari}">
+                                                            <option value="">Please Select</option>
+                                                        </select>
+                                                        <span class="error"
+                                                              th:errors="*{gramaNiladhari}"
+                                                              th:if="${#fields.hasErrors('gramaNiladhari')}">Grama Niladhari DivisionError Email</span>
+
+                                                    </div>
+                                                </div>
+                                                <!--photo -->
+                                                <div class="col-md-6">
+                                                    <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg">
+                                                    <div class="col-md-3 ">
+                                                        <img src="" id="image" alt="" style="height: 100px;">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="card-footer">
-                                                <button type="submit" class="btn btn-primary">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary" type="submit">
                                                     <i th:class="${addStatus==true?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
                                                     <span
                                                             th:text="${addStatus==true?'Save' : 'Update'}"></span>
@@ -321,58 +347,71 @@
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-
             reader.onload = function (e) {
-                $('#blah').attr('src', e.target.result);
+                $('#image').attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]); // convert to base64 string
         }
     }
 
-    $("#imgInp").change(function () {
+    $("#imgUpload").change(function () {
         readURL(this);
     });
-</script>
-<script>
 
     $('#province').bind("change", function () {
-        let url = "[[${districtURL}]]" + this.value;
-        optionFieldAdd(url, "district");
-        let agOffice =  $('#agOffice').val();
-        if (agOffice !== null && agOffice !== undefined) {
-            $('#agOffice').html(`<option value="">Please Select </option>`);
-        }
+        provinceChange($(this).val());
     });
-
     $('#district').bind("change", function () {
-        let url = "[[${agOfficeURL}]]" + this.value;
-        optionFieldAdd(url, "agOffice");
-
+        districtChange($(this).val());
+    });
+    $('#agOffice').bind("change", function () {
+        agOfficeChange($(this).val());
+    });
+    $('#gramaNiladhari').bind("change", function () {
+        policeStationChange($(this).val());
     });
 
     let optionFieldAdd = (url, id) => {
-        let html = "";
+        let html = "<option value=''>Please select</option>";
         $.get(url, function (data) {
             data.forEach((item) => {
                     html += `<option value="${item.id}">${item.name} </option>`
                 }
             )
-            console.log(id + "  id");
             $(`#${id}`).html(html);
         });
-    }
-    $(document).ready(function () {
-        let province = $("#district").val();
-        let district = $("#agOffice").val();
-        if (province !== null && province !== undefined) {
-            $('#province').val(province);
-        }
-        if (district !== null && district !== undefined) {
-            $('#district').val(district);
-        }
+    };
 
-    });
+    function provinceChange(id) {
+        let url = "[[${districtURL}]]" + id;
+        optionFieldAdd(url, "district");
+        $('#district').html(`<option value="">Please Select </option>`);
+        $('#agOffice').html(`<option value="">Please Select </option>`);
+        $('#policeStation').html(`<option value="">Please Select </option>`);
+        $('#gramaNiladhari').html(`<option value="">Please Select </option>`);
+    }
+
+    function districtChange(id) {
+        let url = "[[${agOfficeURL}]]" + id;
+        optionFieldAdd(url, "agOffice");
+        $('#agOffice').html(`<option value="">Please Select </option>`);
+        $('#policeStation').html(`<option value="">Please Select </option>`);
+        $('#gramaNiladhari').html(`<option value="">Please Select </option>`);
+    }
+
+    function agOfficeChange(id) {
+        let url = "[[${policeStationURL}]]" + id;
+        optionFieldAdd(url, "policeStation");
+        $('#policeStation').html(`<option value="">Please Select </option>`);
+        $('#gramaNiladhari').html(`<option value="">Please Select </option>`);
+    }
+
+    function policeStationChange(id) {
+        let url = "[[${gramaNiladariURL}]]" + id;
+        optionFieldAdd(url, "gramaNiladhari");
+        $('#gramaNiladhari').html(`<option value="">Please Select </option>`);
+    }
 </script>
 </body>
 </html>

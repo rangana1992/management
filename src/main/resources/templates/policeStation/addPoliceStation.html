@@ -47,7 +47,7 @@
                                                 <label th:for="province" class="form-label "> Province </label>
 
                                                 <select class="form-control" id="province">
-                                                    <option value="" disabled>Please Select</option>
+                                                    <option value="" d>Please Select</option>
                                                     <option th:each="province : ${provinces}"
                                                             th:text="${province.province}"
                                                             th:value="${province}"></option>
@@ -155,10 +155,11 @@
     });
 
     let optionFieldAdd = (url, id) => {
-        let html = "";
+        let html = "<option value=\"\">Please Select</option>";
         $.get(url, function (data) {
             data.forEach((item) => {
-                    html += `<option value="${item.id}">${item.name} </option>`
+                    html += `
+                                <option value="${item.id}">${item.name} </option>`
                 }
             )
             console.log(id + "  id");

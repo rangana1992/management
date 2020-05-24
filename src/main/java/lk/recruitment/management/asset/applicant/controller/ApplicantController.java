@@ -12,6 +12,9 @@ import lk.recruitment.management.asset.commonAsset.service.CommonService;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
 import lk.recruitment.management.asset.district.controller.DistrictController;
+import lk.recruitment.management.asset.gramaNiladhari.controller.GramaNiladhariController;
+import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
+import lk.recruitment.management.asset.policeStation.Controller.PoliceStationController;
 import lk.recruitment.management.asset.userManagement.entity.User;
 import lk.recruitment.management.asset.userManagement.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
@@ -71,6 +74,14 @@ public class ApplicantController {
         model.addAttribute("agOfficeURL",
                 MvcUriComponentsBuilder
                         .fromMethodName(AgOfficeController.class, "getAgOfficeByDistrict", "")
+                        .toUriString());
+        model.addAttribute("policeStationURL",
+                MvcUriComponentsBuilder
+                        .fromMethodName(PoliceStationController.class, "getPoliceStationByAgOffice", "")
+                        .toUriString());
+        model.addAttribute("gramaNiladariURL",
+                MvcUriComponentsBuilder
+                        .fromMethodName(GramaNiladhariController.class, "getGramaNiladhariByPolice", "")
                         .toUriString());
         return "applicant/addApplicant";
     }

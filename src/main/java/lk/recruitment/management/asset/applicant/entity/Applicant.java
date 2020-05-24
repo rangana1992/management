@@ -6,6 +6,7 @@ import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
 import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
+import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
 import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
@@ -69,9 +70,6 @@ public class Applicant extends AuditEntity {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    private Title title;
-
-    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
@@ -86,6 +84,9 @@ public class Applicant extends AuditEntity {
 
     @ManyToOne
     private PoliceStation policeStation;
+
+    @ManyToOne
+    private GramaNiladhari gramaNiladhari;
 
     @Transient
     private MultipartFile file;

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <div class="content-wrapper"><!-- content-wrapper Start -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <!-- Form Header  Path -->
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>First sud Header</h4>
+                                        <form role="form">
+                                            <span id="formHeader"
+                                                  th:text="${addStatus==false?'New GramaNiladhari':'Update GramaNiladhari'}"></span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>Secondary Header </h4>
+                                        <form class=""
+                                              th:action="${addStatus==false?'/gramaNiladhari/save' :'/gramaNiladhari/update'}"
+                                              method="post" th:object="${gramaNiladhari}">
+                                            <!--/* id this comment not visualize */-->
+                                            <!--ID -->
+                                            <div class="form-row p-3" id="idStatus"
+                                                 th:if="${addStatus==true}">
+
+                                                <label class="control-label col-md-3" for="id">ID </label>
+
+
+                                                <input class="form-control col-md-7" id="id" readonly th:field="*{id}"
+                                                       type="text"/>
+
+                                            </div>
+                                            <!--Province-->
+                                            <div class=" form-row  p-3">
+                                                <label class="form-label  col-md-3" th:for="province"> Province </label>
+
+                                                <select class="form-control col-md-7" id="province"
+                                                        th:field="${gramaNiladhari.policeStation.agOffice.district.province}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="province : ${provinces}"
+                                                            th:text="${province.province}"
+                                                            th:value="${province}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--District-->
+                                            <div class=" form-row p-3">
+                                                <label class="form-label col-md-3 " for="district">
+                                                    District </label>
+                                                <select class="form-control col-md-7" id="district"
+                                                        th:field="${gramaNiladhari.policeStation.agOffice.district}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="district : ${districts}"
+                                                            th:text="${district.name}"
+                                                            th:value="${district.id}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--AgOffice-->
+                                            <div class=" form-row p-3">
+                                                <label class="form-label col-md-3 " th:for="${'agOffice'}"> Ag
+                                                    Office </label>
+
+                                                <select class="form-control col-md-7" id="agOffice"
+                                                        th:field="${gramaNiladhari.policeStation.agOffice}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="agOffice : ${agOffices}"
+                                                            th:text="${agOffice.name}"
+                                                            th:value="${agOffice.id}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--Police-->
+                                            <div class=" form-row p-3">
+                                                <label class="col-md-3 form-label"> Police Station </label>
+                                                <select class="col-md-7 form-control" id="policeStation"
+                                                        th:field="*{policeStation}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="policeStation : ${policeStations}"
+                                                            th:text="${policeStation.name}"
+                                                            th:value="${policeStation.id}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--GramaNiladhariDivision-->
+                                            <div class="form-row p-3">
+
+                                                <label class="control-label col-md-3" for="gramaniladharidivision">Grama
+                                                    Niladhari Division</label>
+
+                                                <input class="form-control col-md-7" id="gramaniladharidivision"
+                                                       required
+                                                       tabindex="16" th:field="*{name}"
+                                                       type="text"/>
+                                                <span class="error" id="gramaniladharidivisionError"
+                                                      th:errors="*{name}"
+                                                      th:if="${#fields.hasErrors('name')}">Grama Niladhari DivisionError Email</span>
+
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <br>
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                    <span
+                                                            th:text="${addStatus==false?'Save' : 'Update'}"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- content-wrapper end -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+</div><!-- wrapper end -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script>
+    $(document).ready(function () {
+
+        $('#province').bind("change", function () {
+            provinceChange($(this).val());
+        });
+        $('#district').bind("change", function () {
+            districtChange($(this).val());
+        });
+        $('#agOffice').bind("change", function () {
+            agOfficeChange($(this).val());
+        });
+
+        let optionFieldAdd = (url, id) => {
+            let html = "<option value=''>Please select</option>";
+            $.get(url, function (data) {
+                data.forEach((item) => {
+                        html += `<option value="${item.id}">${item.name} </option>`
+                    }
+                )
+                $(`#${id}`).html(html);
+            });
+        };
+
+        function provinceChange(id) {
+            let url = "[[${districtURL}]]" + id;
+            optionFieldAdd(url, "district");
+            $('#district').html(`<option value="">Please Select </option>`);
+            $('#agOffice').html(`<option value="">Please Select </option>`);
+            $('#policeStation').html(`<option value="">Please Select </option>`);
+        }
+
+        function districtChange(id) {
+            let url = "[[${agOfficeURL}]]" + id;
+            optionFieldAdd(url, "agOffice");
+            $('#agOffice').html(`<option value="">Please Select </option>`);
+            $('#policeStation').html(`<option value="">Please Select </option>`);
+        }
+
+        function agOfficeChange(id) {
+            let url = "[[${policeStationURL}]]" + id;
+            optionFieldAdd(url, "policeStation");
+            $('#policeStation').html(`<option value="">Please Select </option>`);
+        }
+
+    });
+</script>
+</body>
+</html>

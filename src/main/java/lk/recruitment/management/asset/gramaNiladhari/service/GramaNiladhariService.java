@@ -1,8 +1,9 @@
-package lk.recruitment.management.asset.policeStation.Service;
+package lk.recruitment.management.asset.gramaNiladhari.service;
 
 
-import lk.recruitment.management.asset.agOffice.entity.AgOffice;
-import lk.recruitment.management.asset.policeStation.Dao.PoliceStationDao;
+import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
+import lk.recruitment.management.asset.gramaNiladhari.dao.GramaNiladhariDao;
+import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
 import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
 import lk.recruitment.management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,36 +11,36 @@ import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 // spring transactional annotation need to tell spring to this method work through the project
 @CacheConfig(cacheNames = "policeStation")
-public class PoliceStationService implements AbstractService<PoliceStation, Integer> {
-    private final PoliceStationDao policeStationDao;
+public class GramaNiladhariService implements AbstractService<GramaNiladhari, Integer> {
+    private final GramaNiladhariDao policeStationDao;
 
     @Autowired
-    public PoliceStationService(PoliceStationDao policeStationDao) {
+    public GramaNiladhariService(GramaNiladhariDao policeStationDao) {
 
         this.policeStationDao = policeStationDao;
     }
 
     @Cacheable
-    public List<PoliceStation> findAll() {
+    public List<GramaNiladhari> findAll() {
         return policeStationDao.findAll();
     }
 
     @Cacheable
-    public PoliceStation findById(Integer id) {
+    public GramaNiladhari findById(Integer id) {
         return policeStationDao.getOne(id);
     }
 
     @Caching(evict = {@CacheEvict(value = "policeStation", allEntries = true)},
             put = {@CachePut(value = "policeStation", key = "#policeStation.id")})
     @Transactional
-    public PoliceStation persist(PoliceStation policeStation) {
+    public GramaNiladhari persist(GramaNiladhari policeStation) {
         return policeStationDao.save(policeStation);
     }
 
@@ -50,20 +51,22 @@ public class PoliceStationService implements AbstractService<PoliceStation, Inte
     }
 
     @Cacheable
-    public List<PoliceStation> search(PoliceStation policeStation) {
+    public List<GramaNiladhari> search(GramaNiladhari policeStation) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example<PoliceStation> policeStationExample = Example.of(policeStation, matcher);
+        Example<GramaNiladhari> policeStationExample = Example.of(policeStation, matcher);
         return policeStationDao.findAll(policeStationExample);
     }
 
-    public boolean isPoliceStationPresent(PoliceStation policeStation) {
+    public boolean isPoliceStationPresent(GramaNiladhari policeStation) {
         return policeStationDao.equals(policeStation);
     }
 
-    public List<PoliceStation> findByAgOffice(AgOffice agOffice) {
-        return policeStationDao.findByAgOffice(agOffice);
+
+    public List<GramaNiladhari> findByPoliceStation(PoliceStation policeStation) {
+        return policeStationDao.findByPoliceStation(policeStation);
     }
+
 }
