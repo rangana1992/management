@@ -20,14 +20,8 @@
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
                                         <form role="form">
-                                            <span id="formHeader" th:text="${districtDetail.province.province}+${' '}+${districtDetail.name}"></span>
                                             <a href="/district" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp; View List</a>
-                                            <a href="/district">
-                                                <button class="btn btn-primary">
 
-                                                    <i class="fa fa-step-backward mr-1"></i>Back
-                                                </button>
-                                            </a>
 
                                         </form>
                                     </div>
@@ -41,26 +35,57 @@
 
                                         <!--/* id this comment not visualize */-->
                                         <!--Id-->
-                                        <div class="form-group">
-                                            <label class="form-label "> Id </label>
 
-                                            <p class="display_detail" th:text="${districtDetail.id}"></p>
+                                           <div>
+                                            <label class="control-label col-md-3">ID </label>
+                                            <p class="display_detail" th:text="${gramaNiladhariDetail.id}"></p>
 
                                         </div>
                                         <!--Province-->
-                                        <div class="form-group">
-                                            <label th:for="${'province'}" class="form-label "> Province </label>
-                                            <p class="display_detail" th:text="${districtDetail.province.province}"></p>
+                                        <div class=" form-row  p-3">
+                                            <label class="form-label  col-md-3" > Province </label>
+
+                                            <p class="display_detail"
+                                               th:text="${gramaNiladhariDetail.policeStation.agOffice.district.province.province}"></p>
+                                        </div>
+                                        <!--District-->
+                                        <div class=" form-row p-3">
+                                            <label class="form-label col-md-3 " >
+                                                District </label>
+                                            <p class="display_detail"
+                                               th:text="${gramaNiladhariDetail.policeStation.agOffice.district.name}"></p>
+                                        </div>
+                                        <!--AgOffice-->
+                                        <div class=" form-row p-3">
+                                            <label class="form-label col-md-3 "> Ag
+                                                Office </label>
+
+                                            <p class="display_detail"
+                                               th:text="${gramaNiladhariDetail.policeStation.agOffice.name}"></p>
+                                        </div>
+                                        <!--Police-->
+                                        <div class=" form-row p-3">
+                                            <label class="col-md-3 form-label"> Police Station </label>
+                                            <p class="display_detail"
+                                               th:text="${gramaNiladhariDetail.policeStation.name}"></p>
+                                        </div>
+                                        <!--GramaNiladhariDivision-->
+                                        <div class="form-row p-3">
+
+                                            <label class="control-label col-md-3" >Grama
+                                                Niladhari Division</label>
+                                            <p class="display_detail"
+                                               th:text="${gramaNiladhariDetail.name}"></p>
 
                                         </div>
-                                        <!--District name-->
-                                        <div class="form-group">
-                                            <label class="form-label "> Name </label>
-                                            <p class="display_detail" th:text="${districtDetail.name}"></p>
-                                        </div>
-                                    </div>
 
                                 </div>
+                                        <a href="/gramaNiladhari">
+                                            <button class="btn btn-primary">
+
+                                                <i class="fa fa-step-backward mr-1"></i>Back
+                                            </button>
+                                        </a>
                             </div>
                         </div>
                     </div>
@@ -71,5 +96,7 @@
     <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
 <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+    </div>
+</div>
 </body>
 </html>

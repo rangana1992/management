@@ -43,34 +43,47 @@
 
                                             </div>
                                             <!--Province-->
-                                            <div class="form-group ">
-                                                <label th:for="province" class="form-label "> Province </label>
+                                            <div class=" form-group">
+                                                <label class="form-label  col-md-3" th:for="province"> Province </label>
 
-                                                <select class="form-control" id="province">
-                                                    <option value="" d>Please Select</option>
+                                                <select class="form-control col-md-7" id="province"
+                                                        th:field="${policeStation.agOffice.district.province}">
+                                                    <option value="">Please Select</option>
                                                     <option th:each="province : ${provinces}"
                                                             th:text="${province.province}"
-                                                            th:value="${province}"></option>
+                                                            th:value="${province}"
+                                                    ></option>
                                                 </select>
                                             </div>
                                             <!--District-->
-                                            <div class="form-group ">
-                                                <label for="district" class="form-label "> District </label>
-
-                                                <select class="form-control" id="district">
+                                            <div class=" form-group">
+                                                <label class="form-label col-md-3 " for="district">
+                                                    District </label>
+                                                <select class="form-control col-md-7" id="district"
+                                                        th:field="${policeStation.agOffice.district}">
                                                     <option value="">Please Select</option>
+                                                    <option th:each="district : ${districts}"
+                                                            th:text="${district.name}"
+                                                            th:value="${district.id}"
+                                                    ></option>
                                                 </select>
                                             </div>
                                             <!--AgOffice-->
-                                            <div class="form-group ">
-                                                <label th:for="${'agOffice'}" class="form-label "> Ag Office </label>
+                                            <div class=" form-group">
+                                                <label class="form-label col-md-3 " th:for="${'agOffice'}"> Ag
+                                                    Office </label>
 
-                                                <select class="form-control" th:field="*{agOffice}">
+                                                <select class="form-control col-md-7" id="agOffice"
+                                                        th:field="${policeStation.agOffice}">
                                                     <option value="">Please Select</option>
+                                                    <option th:each="agOffice : ${agOffices}"
+                                                            th:text="${agOffice.name}"
+                                                            th:value="${agOffice.id}"
+                                                    ></option>
                                                 </select>
                                             </div>
                                             <!--PoliceStation name-->
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label th:for="${'name'}" class="form-label "> Name </label>
 
                                                 <input type="text" class="form-control" th:field="*{name}">
@@ -78,7 +91,6 @@
                                                    th:errors="*{name}">Error Name</p>
 
                                             </div>
-
                                             <!--Land Number-->
                                             <div class="form-group">
 
@@ -117,7 +129,7 @@
                                                       th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
 
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
                                                     <span
@@ -166,17 +178,7 @@
             $(`#${id}`).html(html);
         });
     }
-    $(document).ready(function () {
-        let province = $("#district").val();
-        let district = $("#agOffice").val();
-        if (province !== null && province !== undefined) {
-            $('#province').val(province);
-        }
-        if (district !== null && district !== undefined) {
-            $('#district').val(district);
-        }
 
-    });
 </script>
 </body>
 </html>

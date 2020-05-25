@@ -20,8 +20,10 @@
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
                                         <form role="form">
-                                            <span id="formHeader" th:text="${agOfficeDetail.province.province}+${' '}+${agOfficeDetail.name}"></span>
-                                            <a href="/district" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp; View List</a>
+                                            <span id="formHeader"
+                                                  th:text="${agOfficeDetail.name}"></span>
+                                            <a href="/district" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp;
+                                                View List</a>
                                             <a href="/district">
                                                 <button class="btn btn-primary">
 
@@ -37,40 +39,66 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
-                                    <div class="container-fluid" th:fragment="agOfficeDetail">
+                                        <div class="container-fluid" th:fragment="agOfficeDetail">
+                                            <!--Id-->
+                                            <div class="form-group ">
+                                                <label class="form-label "> Id </label>
+                                                <p class="display_detail" th:text="${agOfficeDetail.id}"></p>
+                                            </div>
+                                            <!--Province-->
+                                            <div class="form-group ">
+                                                <label class="form-label "> Province </label>
+                                                <p class="display_detail"
+                                                   th:text="${agOfficeDetail.district.province}"></p>
+                                            </div>
+                                            <!--District-->
+                                            <div class="form-group ">
+                                                <label class="form-label "> District </label>
+                                                <p class="display_detail" th:text="${agOfficeDetail.district.name}"></p>
+                                            </div>
+                                            <!--AgOffice name-->
+                                            <div class="form-group ">
+                                                <label class="form-label "> Name </label>
+                                                <p class="display_detail" th:text="${agOfficeDetail.name}"></p>
+                                            </div>
 
-                                        <!--/* id this comment not visualize */-->
-                                        <!--Id-->
-                                        <div class="form-group">
-                                            <label class="form-label "> Id </label>
+                                            <!--Land Number-->
+                                            <div class="form-group">
 
-                                            <p class="display_detail" th:text="${agOfficeDetail.id}"></p>
+                                                <label class="control-label">Land No :</label>
+
+                                                <p class="display_detail" th:text="${agOfficeDetail.land}"></p>
+
+                                            </div>
+                                            <!--Email-->
+                                            <div class="form-group">
+
+                                                <label class="control-label">Email :</label>
+
+                                                <p class="display_detail" th:text="${agOfficeDetail.email}"></p>
+
+                                            </div>
+                                            <!--Address-->
+                                            <div class="form-group">
+
+                                                <label class="control-label">Address :</label>
+
+                                                <p class="display_detail" th:text="${agOfficeDetail.address}"></p>
+
 
                                         </div>
-                                        <!--Province-->
-                                        <div class="form-group">
-                                            <label th:for="${'province'}" class="form-label "> Province </label>
-                                            <p class="display_detail" th:text="${agOfficeDetail.province.province}"></p>
 
-                                        </div>
-                                        <!--District name-->
-                                        <div class="form-group">
-                                            <label class="form-label "> Name </label>
-                                            <p class="display_detail" th:text="${agOfficeDetail.name}"></p>
-                                        </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div><!-- content-wrapper end -->
-    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
-</div><!-- wrapper end -->
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+        </div><!-- content-wrapper end -->
+        <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    </div><!-- wrapper end -->
+    <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </div>
 </body>
 </html>

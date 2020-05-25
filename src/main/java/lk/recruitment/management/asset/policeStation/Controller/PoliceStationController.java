@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lk.recruitment.management.asset.agOffice.controller.AgOfficeController;
 import lk.recruitment.management.asset.agOffice.entity.AgOffice;
+import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
 import lk.recruitment.management.asset.district.controller.DistrictController;
+import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
 import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
 import lk.recruitment.management.util.interfaces.AbstractController;
@@ -28,10 +30,14 @@ import java.util.List;
 public class PoliceStationController implements AbstractController<PoliceStation, Integer> {
 
     private final PoliceStationService policeStationService;
+    private final AgOfficeService agOfficeService;
+    private  final DistrictService districtService;
 
     @Autowired
-    public PoliceStationController(PoliceStationService policeStationService) {
+    public PoliceStationController(PoliceStationService policeStationService, AgOfficeService agOfficeService, DistrictService districtService) {
         this.policeStationService = policeStationService;
+        this.agOfficeService = agOfficeService;
+        this.districtService = districtService;
     }
 
     private String commonThing(Model model, Boolean booleanValue, PoliceStation policeStationObject) {
@@ -69,6 +75,8 @@ public class PoliceStationController implements AbstractController<PoliceStation
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("districts", districtService.findAll());
+        model.addAttribute("agOffices", agOfficeService.findAll());
         return commonThing(model, true, policeStationService.findById(id));
     }
 

@@ -2,14 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+<div class="wrapper">
+    <!-- wrapper start -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav>
+    <!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside>
+    <!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
         <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
-
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>
+        <!-- Small Box Set -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
@@ -37,6 +40,7 @@
                                               th:action="${addStatus==true?'/applicant/save' :'/applicant/update'}"
                                               th:object="${applicant}">
                                             <div class="row">
+                                                <!--left side-->
                                                 <div class="col-md-6"><!--Left Side-->
                                                     <!--ID -->
                                                     <div class="form-row text-right" id="idStatus"
@@ -260,9 +264,10 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="form-row col-md-12">
+                                                <!--Gramaniladari find-->
+                                                <div class="form-row mb-2 col-md-12">
                                                     <!--Province-->
-                                                    <div class=" col-md-3  ">
+                                                    <div class=" col-md-2">
                                                         <label class="form-label " th:for="province"> Province </label>
 
                                                         <select class="form-control" id="province">
@@ -273,7 +278,7 @@
                                                         </select>
                                                     </div>
                                                     <!--District-->
-                                                    <div class=" col-md-3 ">
+                                                    <div class=" col-md-2">
                                                         <label class="form-label " for="district"> District </label>
 
                                                         <select class="form-control" id="district">
@@ -281,7 +286,7 @@
                                                         </select>
                                                     </div>
                                                     <!--AgOffice-->
-                                                    <div class=" col-md-3 ">
+                                                    <div class=" col-md-2 ">
                                                         <label class="form-label " th:for="${'agOffice'}"> Ag
                                                             Office </label>
 
@@ -290,7 +295,7 @@
                                                         </select>
                                                     </div>
                                                     <!--Police-->
-                                                    <div class=" col-md-3 ">
+                                                    <div class=" col-md-2 ">
                                                         <label class="form-label " th:for="${'policeStation'}"> Police
                                                             Station </label>
 
@@ -299,10 +304,9 @@
                                                         </select>
                                                     </div>
                                                     <!--GramaNiladhariDivision-->
-                                                    <div class="form-group">
-
-                                                        <label class="control-label" for="gramaNiladhari">Grama
-                                                            Niladhari Division :</label>
+                                                    <div class=" col-md-3"><label class="control-label"
+                                                                                  for="gramaNiladhari">Grama
+                                                        Niladhari Division :</label>
                                                         <select class="form-control" lass="form-control"
                                                                 id="gramaNiladhari" required
                                                                 tabindex="16" th:field="*{gramaNiladhari}">
@@ -315,11 +319,21 @@
                                                     </div>
                                                 </div>
                                                 <!--photo -->
-                                                <div class="col-md-6">
-                                                    <input type="file" name="file" id="imgUpload" accept="image/png, image/jpeg">
-                                                    <div class="col-md-3 ">
-                                                        <img src="" id="image" alt="" style="height: 100px;">
+                                                <div class="form-row col-md-6 mb-3">
+                                                    <div class="col-md-3 mr-5">
+                                                        <label class="control-label">Image</label>
+                                                        <input type="file" name="file" id="imgUpload"
+                                                               accept="image/png, image/jpeg"/>
                                                     </div>
+                                                    <div class="col-md-3"></div>
+                                                    <div class="col-md-3 ml-5">
+                                                        <img class="img-fluid ml-5" src="" id="image" alt=""
+                                                             style="height: 100px;">
+                                                    </div>
+                                                </div>
+                                                <!--Education Details-->
+                                                <div div class="form-row mb-2 col-md-12">
+
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -368,7 +382,7 @@
     $('#agOffice').bind("change", function () {
         agOfficeChange($(this).val());
     });
-    $('#gramaNiladhari').bind("change", function () {
+    $('#policeStation').bind("change", function () {
         policeStationChange($(this).val());
     });
 

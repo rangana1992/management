@@ -13,9 +13,10 @@
     </label>
     <button class="btn btn-success d-flex m-auto" type="submit">Submit
     </button>
-
 </form>
-
+<div class="row container">
+    <p th:text="${message}"></p>
+</div>
 <!--footer is included-->
 </div><!-- content-wrapper end -->
 <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->

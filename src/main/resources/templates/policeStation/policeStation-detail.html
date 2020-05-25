@@ -20,15 +20,10 @@
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
                                         <form role="form">
-                                            <span id="formHeader" th:text="${districtDetail.province.province}+${' '}+${districtDetail.name}"></span>
-                                            <a href="/district" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp; View List</a>
-                                            <a href="/district">
-                                                <button class="btn btn-primary">
-
-                                                    <i class="fa fa-step-backward mr-1"></i>Back
-                                                </button>
-                                            </a>
-
+                                            <span id="formHeader"
+                                                  th:text="${policeStationDetail.name}"></span>
+                                            <a href="/district" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp;
+                                                View List</a>
                                         </form>
                                     </div>
                                 </div>
@@ -37,29 +32,70 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
-                                    <div class="container-fluid" th:fragment="districtDetail">
-
-                                        <!--/* id this comment not visualize */-->
-                                        <!--Id-->
-                                        <div class="form-group">
-                                            <label class="form-label "> Id </label>
-
-                                            <p class="display_detail" th:text="${districtDetail.id}"></p>
-
+                                        <div class="container-fluid" th:fragment="policeStationDetail">
+                                            <!--Id-->
+                                            <div class="form-group ">
+                                                <label class="control-label "> Id </label>
+                                                <p class="display_detail" th:text="${policeStationDetail.id}"></p>
+                                            </div>
+                                            <!--Province-->
+                                            <div class=" form-group">
+                                                <label class="control-label  "> Province </label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.agOffice.district.province.province}"></p>
+                                            </div>
+                                            <!--District-->
+                                            <div class=" form-group">
+                                                <label class="control-label  ">
+                                                    District </label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.agOffice.district.name}">
+                                                </p>
+                                            </div>
+                                            <!--AgOffice-->
+                                            <div class=" form-group">
+                                                <label class="control-label "> Ag
+                                                    Office </label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.agOffice.name}"></p>
+                                            </div>
+                                            <!--PoliceStation name-->
+                                            <div class="form-group">
+                                                <label class="control-label "> Name </label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.name}">
+                                                </p>
+                                            </div>
+                                            <!--Land Number-->
+                                            <div class="form-group">
+                                                <label class="control-label">Land No :</label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.land}">
+                                                </p>
+                                            </div>
+                                            <!--Email-->
+                                            <div class="form-group">
+                                                <label class="control-label">Email :</label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.email}">
+                                                </p>
+                                            </div>
+                                            <!--Address-->
+                                            <div class="form-group">
+                                                <label class="control-label">Address :</label>
+                                                <p class="display_detail"
+                                                   th:text="${policeStationDetail.land}">
+                                                </p>
+                                            </div>
                                         </div>
-                                        <!--Province-->
                                         <div class="form-group">
-                                            <label th:for="${'province'}" class="form-label "> Province </label>
-                                            <p class="display_detail" th:text="${districtDetail.province.province}"></p>
-
-                                        </div>
-                                        <!--District name-->
-                                        <div class="form-group">
-                                            <label class="form-label "> Name </label>
-                                            <p class="display_detail" th:text="${districtDetail.name}"></p>
+                                            <a href="/policeStation">
+                                                <button class="btn btn-primary"><i
+                                                        class="fa fa-step-backward mr-1"></i>Back
+                                                </button>
+                                            </a>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -67,9 +103,11 @@
                 </div>
             </div>
         </div>
-    </div><!-- content-wrapper end -->
-    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
-</div><!-- wrapper end -->
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+        <!-- content-wrapper end -->
+        <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+        <!-- wrapper end -->
+        <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+    </div>
+</div>
 </body>
 </html>

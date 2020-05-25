@@ -89,7 +89,7 @@
                                             <div class=" form-row p-3">
                                                 <label class="col-md-3 form-label"> Police Station </label>
                                                 <select class="col-md-7 form-control" id="policeStation"
-                                                        th:field="*{policeStation}">
+                                                        th:field="*{policeStation}" required>
                                                     <option value="">Please Select</option>
                                                     <option th:each="policeStation : ${policeStations}"
                                                             th:text="${policeStation.name}"
