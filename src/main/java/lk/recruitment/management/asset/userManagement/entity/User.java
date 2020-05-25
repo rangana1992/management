@@ -1,6 +1,8 @@
 package lk.recruitment.management.asset.userManagement.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 import lk.recruitment.management.asset.employee.entity.Employee;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -11,10 +13,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter

@@ -1,5 +1,6 @@
 package lk.recruitment.management.asset.userManagement.entity;
 
+
 import lk.recruitment.management.asset.userManagement.entity.Enum.UserSessionLogStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

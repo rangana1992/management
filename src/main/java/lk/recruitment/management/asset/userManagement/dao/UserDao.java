@@ -1,5 +1,6 @@
 package lk.recruitment.management.asset.userManagement.dao;
 
+
 import lk.recruitment.management.asset.employee.entity.Employee;
 import lk.recruitment.management.asset.userManagement.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface UserDao extends JpaRepository<User, Integer > {
 
     @Query( value = "select id from User where employee_id=?1", nativeQuery = true )
-    Integer findByEmployeeId(@Param( "employee_id" ) Integer id);
+    Integer findByEmployeeId(@Param("employee_id") Integer id);
 
     @Query( "select id from User where username=?1" )
     Integer findUserIdByUserName(String userName);

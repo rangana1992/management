@@ -1,5 +1,6 @@
 package lk.recruitment.management.asset.employee.entity.Enum;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

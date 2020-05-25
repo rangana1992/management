@@ -1,5 +1,6 @@
 package lk.recruitment.management.asset.userManagement;
 
+
 import lk.recruitment.management.asset.userManagement.entity.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

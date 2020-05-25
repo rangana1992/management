@@ -1,5 +1,6 @@
 package lk.recruitment.management.asset.userManagement.dao;
 
+
 import lk.recruitment.management.asset.userManagement.entity.Enum.UserSessionLogStatus;
 import lk.recruitment.management.asset.userManagement.entity.User;
 import lk.recruitment.management.asset.userManagement.entity.UserSessionLog;
