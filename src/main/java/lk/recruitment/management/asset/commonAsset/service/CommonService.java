@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.util.regex.Pattern;
+
 @Service
 public class CommonService {
     //common things to employee and offender - start
@@ -46,10 +48,19 @@ public class CommonService {
     //common mobile number length employee,offender,guardian, petitioner - start
     // private final mobile length validator
     public String commonMobileNumberLengthValidator(String number) {
-        if ( number.length() == 9 ) {
+        if (number.length() == 9) {
             number = "0".concat(number);
         }
         return number;
+    }
+
+    public boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
     }
 
 }

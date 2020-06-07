@@ -4,38 +4,57 @@
     <meta charset="UTF-8">
     <title>Thymeleaf Springboot </title>
 </head>
-<body id="loginBack">
-<div class="col full-height " id="loginPage">
-    <div class="col-8 col-sm-4 form-box bg-transparent ui-widget-content" id="draggable">
-        <form th:action="${'/login'}" method="post">
-            <br/>
-            <fieldset>
-                <!--   <legend class="text-lg-center bg-white"><h3><strong> Excise Department - Sri Lanka</strong></h3>
-                   </legend>-->
-                <div class="form-label-group">
-                    <input type="text" id="username" th:name="${'username'}" class="form-control" placeholder="username"
+
+<body style="background-color: #4317ac;">
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="login100-more" style="background-image: url('../img/loginimage.jpg');"></div>
+
+        <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+            <form class="login100-form validate-form"  th:action="${'/login'}" method="post">
+				<span class="login100-form-title p-b-59">
+
+                    login
+				</span>
+
+                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter Valid Email">
+                    <input class="input100" type="text" id="username" th:name="${'username'}"  placeholder="username"
                            required>
-                    <label for="username">Username</label>
+                    <span class="focus-input100"></span>
                 </div>
-                <div class="form-label-group">
-                    <input type="password" id="inputPassword" th:name="${'password'}" class="form-control"
+
+                <div class="wrap-input100 validate-input m-b-20" data-validate="Password">
+                    <input class="input100" type="password" id="inputPassword" th:name="${'password'}"
                            placeholder="password"
                            required>
-                    <label for="inputPassword">Password</label>
+                    <span class="focus-input100"></span>
                 </div>
-                <div class="form-group text-right">
-                    <button class="btn btn-primary " type="submit">LOGIN</button>
+                <input type="checkbox" name="remember-me" />
+                <p style="align: center"><a href="/forgottenPassword">Forgotten Password</a></p>
+                <div class="container-login100-form-btn" >
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn "></div>
+                        <button class="login100-form-btn" type="submit">
+                            Login
+                        </button>
+                    </div>
                 </div>
-            </fieldset>
-            <div class="container-fluid " th:if="${param.error}">
-                <p class="bg-white text-capitalize text-danger text-lg-center">Invalid username or password. </p>
+                <div class="container-fluid ">
+                    <span id="errorMessage" th:text="${#request.getParameter('err')}" class="bg-white text-capitalize text-danger text-lg-center"></span>
+                </div>
+
+
+            </form>
+
+            <div class="container-fluid " th:if="${err}">
+                <p>Invalid username or password. </p>
             </div>
-            <div class="container-fluid ">
-                <p id="errorMessage" th:text="${err}" class="bg-white text-capitalize text-danger text-lg-center"></p>
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
+
 <!--footer include-->
 <footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 <!--script include-->

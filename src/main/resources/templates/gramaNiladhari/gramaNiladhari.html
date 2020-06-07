@@ -32,13 +32,13 @@
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
                                         <!--if not empty list-->
-                                        <div class="row" id="gramaNiladhariListTable" th:if="${not #lists.isEmpty(gramaNiladharis)}">
+                                        <div class="container-fluid" id="gramaNiladhariListTable" th:if="${not #lists.isEmpty(gramaNiladharis)}">
                                             <table class="table table-hover table-striped" id="myTable">
                                                 <thead class="thead-inverse">
                                                 <tr>
                                                     <th>Index</th>
                                                     <th>Province</th>
-                                                    <th>GramaNiladhari</th>
+                                                    <th>Grama Niladhari</th>
                                                     <th>Modify</th>
                                                 </tr>
                                                 </thead>
@@ -56,7 +56,7 @@
                                                         <a class="btn btn-danger btn-sm" id="gramaNiladhariRemove"
                                                            th:href="${'/gramaNiladhari/remove/' + gramaNiladhari.id}"
                                                            th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
-                                                           th:onclick="if(!(confirm('Are you want to delete this civilStatus ?'))) return false"
+                                                           th:onclick="if(!(confirm('Are you want to delete this Grama Niladhari Division ?'))) return false"
                                                         ><i
                                                                 aria-hidden="true" class="fa fa-trash"></i>
                                                             Delete</a>

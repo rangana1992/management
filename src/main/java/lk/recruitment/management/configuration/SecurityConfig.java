@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
@@ -22,7 +23,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] ALL_PERMIT_URL = {"/favicon.ico", "/img/**", "/css/**", "/js/**", "/webjars/**",
-            "/login", "/select/**", "/", "/index","/register/**"};
+            "/login", "/select/**", "/", "/index", "/register/**", "/forgottenPassword"};
 
     @Bean
     public UserDetailsServiceImpl userDetailsService() {
@@ -64,6 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomLogoutSuccessHandler();
     }
 
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
@@ -85,12 +91,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         //this is used the normal admin to give access every url mapping
                                         .antMatchers("/employee").hasRole("ADMIN")
                                         //Need to login for access those are
-                                           .antMatchers("/employee/**").hasRole("ADMIN")
-                                           .antMatchers("/employee1/**").hasRole("MANAGER")
-                                           .antMatchers("/user/**").hasRole("ADMIN")
-                                           .antMatchers("/petition/**").hasRole("ADMIN")
-                                           .antMatchers("/minutePetition/**").hasRole("MANAGER")
-                                           .antMatchers("/invoiceProcess/add").hasRole("CASHIER")
+                                        .antMatchers("/employee/**").hasRole("ADMIN")
+                                        .antMatchers("/employee1/**").hasRole("MANAGER")
+                                        .antMatchers("/user/**").hasRole("ADMIN")
+                                        .antMatchers("/petition/**").hasRole("ADMIN")
+                                        .antMatchers("/minutePetition/**").hasRole("MANAGER")
+                                        .antMatchers("/invoiceProcess/add").hasRole("CASHIER")
                                         .anyRequest()
                                         .authenticated())
                 // Login form
@@ -103,8 +109,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         .usernameParameter("username")
                                         .passwordParameter("password")
                                         .successHandler(customAuthenticationSuccessHandler())
-                                        .failureForwardUrl("/login")
-                          )
+                                        .failureHandler(authenticationFailureHandler())
+                )
                 //Logout controlling
                 .logout(
                         logout ->
@@ -114,15 +120,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         .deleteCookies("JSESSIONID")
                                         .invalidateHttpSession(true)
                                         .clearAuthentication(true))
+                //remember me
+                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400)
+                .and()
                 //session management
                 .sessionManagement(
                         sessionManagement ->
                                 sessionManagement
-                                        .sessionFixation().migrateSession()
+                                        .sessionFixation()
+                                        .migrateSession()
                                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                                         .invalidSessionUrl("/login")
-                                        .maximumSessions(1)
-                                        .expiredUrl("/l")
+                                        .maximumSessions(2)
                                         .sessionRegistry(sessionRegistry()))
                 //Cross site disable
                 .csrf(AbstractHttpConfigurer::disable)

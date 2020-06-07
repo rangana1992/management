@@ -135,6 +135,7 @@ public class ApplicantController {
     @PostMapping(value = {"/save", "/update"})
     public String addApplicant(@Valid @ModelAttribute Applicant applicant, BindingResult result, Model model
     ) {
+        System.out.println(applicant.getGramaNiladhari().getName());
         if (result.hasErrors()) {
             model.addAttribute("addStatus", true);
             model.addAttribute("applicant", applicant);
@@ -143,6 +144,8 @@ public class ApplicantController {
         try {
             applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
             applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
+
+
             //after save applicant files and save applicant
             applicantService.persist(applicant);
 
