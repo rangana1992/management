@@ -6,20 +6,36 @@
 </head>
 
 <body style="background-color: #4317ac;">
+<style>
+    .checkbox-round {
+        width: 1.3em;
+        height: 1.3em;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
 
+    .checkbox-round:checked {
+        background-color: #2b4c80;
+    }
+</style>
 <div class="limiter">
     <div class="container-login100">
         <div class="login100-more" style="background-image: url('../img/loginimage.jpg');"></div>
 
         <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-            <form class="login100-form validate-form"  th:action="${'/login'}" method="post">
+            <form class="login100-form validate-form" th:action="${'/login'}" method="post">
 				<span class="login100-form-title p-b-59">
 
                     login
 				</span>
 
                 <div class="wrap-input100 validate-input m-b-20" data-validate="Enter Valid Email">
-                    <input class="input100" type="text" id="username" th:name="${'username'}"  placeholder="username"
+                    <input class="input100" type="text" id="username" th:name="${'username'}" placeholder="username"
                            required>
                     <span class="focus-input100"></span>
                 </div>
@@ -30,9 +46,15 @@
                            required>
                     <span class="focus-input100"></span>
                 </div>
-                <input type="checkbox" name="remember-me" />
-                <p style="align: center"><a href="/forgottenPassword">Forgotten Password</a></p>
-                <div class="container-login100-form-btn" >
+                <div class="form-group">
+                    <label style="align: center">
+                        <input type="checkbox" class="checkbox-round" name="remember-me"/> Remember me
+                    </label>
+                    <p style="align: center">
+                        <a href="/forgottenPassword">Forgotten Password</a>
+                    </p>
+                </div>
+                <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn "></div>
                         <button class="login100-form-btn" type="submit">
@@ -41,7 +63,8 @@
                     </div>
                 </div>
                 <div class="container-fluid ">
-                    <span id="errorMessage" th:text="${#request.getParameter('err')}" class="bg-white text-capitalize text-danger text-lg-center"></span>
+                    <span id="errorMessage" th:text="${#request.getParameter('err')}"
+                          class="bg-white text-capitalize text-danger text-lg-center"></span>
                 </div>
 
 

@@ -1,6 +1,7 @@
 package lk.recruitment.management.asset.applicant.service;
 
 
+import lk.recruitment.management.asset.applicant.controller.ApplicantController;
 import lk.recruitment.management.asset.applicant.dao.ApplicantFilesDao;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
@@ -18,53 +19,55 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@CacheConfig( cacheNames = "applicantFile" )
+@CacheConfig(cacheNames = "applicantFiles")
 public class ApplicantFilesService {
-    private final ApplicantFilesDao applicantFileDao;
+    private final ApplicantFilesDao applicantFilesDao;
 
     @Autowired
-    public ApplicantFilesService(ApplicantFilesDao applicantFileDao) {
-        this.applicantFileDao = applicantFileDao;
+    public ApplicantFilesService(ApplicantFilesDao applicantFilesDao) {
+        this.applicantFilesDao = applicantFilesDao;
     }
 
     public ApplicantFiles findByName(String filename) {
-        return applicantFileDao.findByName(filename);
+        return applicantFilesDao.findByName(filename);
     }
 
     public void persist(ApplicantFiles storedFile) {
-        applicantFileDao.save(storedFile);
+        applicantFilesDao.save(storedFile);
     }
 
 
-    public List< ApplicantFiles > search(ApplicantFiles applicantFile) {
+    public List<ApplicantFiles> search(ApplicantFiles applicantFile) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example< ApplicantFiles > applicantFileExample = Example.of(applicantFile, matcher);
-        return applicantFileDao.findAll(applicantFileExample);
+        Example<ApplicantFiles> applicantFileExample = Example.of(applicantFile, matcher);
+        return applicantFilesDao.findAll(applicantFileExample);
     }
 
     public ApplicantFiles findById(Integer id) {
-        return applicantFileDao.getOne(id);
+        return applicantFilesDao.getOne(id);
     }
 
     public ApplicantFiles findByNewID(String filename) {
-        return applicantFileDao.findByNewId(filename);
+        return applicantFilesDao.findByNewId(filename);
     }
 
     @Cacheable
-    public List<FileInfo> applicantFileDownloadLinks(Applicant applicant) {
-        return applicantFileDao.findByApplicantOrderByIdDesc(applicant)
-                .stream()
-                .map(applicantFile -> {
-                    String filename = applicantFile.getName();
-                    String url = MvcUriComponentsBuilder
-                            .fromMethodName(EmployeeController.class, "downloadFile", applicantFile.getNewId())
-                            .build()
-                            .toString();
-                    return new FileInfo(filename, applicantFile.getCreatedAt(), url);
-                })
-                .collect(Collectors.toList());
+    public FileInfo applicantFileDownloadLinks(Applicant applicant) {
+        FileInfo fileInfo = new FileInfo();
+        ApplicantFiles applicantFiles = applicantFilesDao.findByApplicant(applicant);
+        fileInfo.setFilename(applicantFiles.getName());
+        fileInfo.setUrl(MvcUriComponentsBuilder
+                .fromMethodName(ApplicantController.class, "downloadFile", applicantFiles.getNewId())
+                .build()
+                .toString());
+        fileInfo.setCreateAt(applicantFiles.getCreatedAt());
+        return fileInfo;
+    }
+
+    public ApplicantFiles findByApplicant(Applicant savedApplicant) {
+        return applicantFilesDao.findByApplicant(savedApplicant);
     }
 }

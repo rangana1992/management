@@ -269,7 +269,6 @@
                                                     <!--Province-->
                                                     <div class=" col-md-2">
                                                         <label class="form-label " th:for="province"> Province </label>
-
                                                         <select class="form-control" id="province">
                                                             <option value="">Please Select</option>
                                                             <option th:each="province : ${provinces}"
@@ -283,6 +282,9 @@
 
                                                         <select class="form-control" id="district">
                                                             <option value="">Please Select</option>
+                                                            <option th:each="district : ${districts}"
+                                                                    th:text="${district.name}"
+                                                                    th:value="${district.id}"></option>
                                                         </select>
                                                     </div>
                                                     <!--AgOffice-->
@@ -292,6 +294,9 @@
 
                                                         <select class="form-control" id="agOffice">
                                                             <option value="">Please Select</option>
+                                                            <option th:each="agOffice : ${agOffices}"
+                                                                    th:text="${agOffice.name}"
+                                                                    th:value="${agOffice.id}"></option>
                                                         </select>
                                                     </div>
                                                     <!--Police-->
@@ -300,26 +305,27 @@
                                                             Station </label>
 
                                                         <select class="form-control" id="policeStation">
-                                                            <option value="">Please Select</option>
+                                                            <option value=""> Please Select</option>
+                                                            <option th:each="policeStation : ${policeStations}"
+                                                                    th:text="${policeStation.name}"
+                                                                    th:value="${policeStation.id}"></option>
                                                         </select>
                                                     </div>
                                                     <!--GramaNiladhariDivision-->
-                                                    <div class=" col-md-3"><label class="control-label"
-                                                                                  for="gramaNiladhari">Grama
-                                                        Niladhari Division :</label>
-                                                        <select class="form-control"
-                                                                id="gramaNiladhari" required
-                                                                tabindex="16" th:field="*{gramaNiladhari}">
+                                                    <div class=" col-md-3">
+                                                        <label class="control-label" for="gramaNiladhari">Grama
+                                                            Niladhari Division :</label>
+                                                        <select class="form-control" id="gramaNiladhari" required
+                                                                tabindex="16" th:name="${'gramaNiladhari'}">
                                                             <option value="">Please Select</option>
+                                                            <option th:each="gramaNiladhari : ${gramaNiladharis}"
+                                                                    th:text="${gramaNiladhari.name}"
+                                                                    th:value="${gramaNiladhari.id}"></option>
                                                         </select>
-                                                        <span class="error"
-                                                              th:errors="*{gramaNiladhari}"
-                                                              th:if="${#fields.hasErrors('gramaNiladhari')}">Grama Niladhari DivisionError Email</span>
-
                                                     </div>
                                                 </div>
                                                 <!--photo -->
-                                                <div class="form-row col-md-6 mb-3">
+                                                <div class="form-row col-md-6 mb-3 ">
                                                     <div class="col-md-3 mr-5">
                                                         <label class="control-label">Image</label>
                                                         <input type="file" name="file" id="imgUpload"
@@ -327,12 +333,15 @@
                                                     </div>
                                                     <div class="col-md-3"></div>
                                                     <div class="col-md-3 ml-5">
-                                                        <img class="img-fluid ml-5" src="" id="image" alt=""
-                                                             style="height: 100px;">
+                                                        <!--photo details-->
+                                                        <img class="img-fluid ml-5" th:if="${addStatus==false}" th:src="${file.url}" id="image" alt=""
+                                                             style="height: 100px;" >
+                                                        <img class="img-fluid ml-5" th:if="${addStatus==true}" src="" id="image" alt=""
+                                                             style="height: 100px;" >
                                                     </div>
                                                 </div>
                                                 <!--Education Details-->
-                                                <div div class="form-row mb-2 col-md-12">
+                                                <div class="form-row mb-2 col-md-12">
 
                                                 </div>
                                             </div>
@@ -355,6 +364,17 @@
     </div><!-- content-wrapper end -->
     <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
+
+<div th:if="${addStatus==false}">
+    <input type="text" id="addStatusValue" hidden th:value="${addStatus}">
+    <input type="text" id="provinceValue" hidden
+           th:value="${applicant.gramaNiladhari.policeStation.agOffice.district.province}">
+    <input type="text" id="districtValue" hidden
+           th:value="${applicant.gramaNiladhari.policeStation.agOffice.district.id}">
+    <input type="text" id="agOfficeValue" hidden th:value="${applicant.gramaNiladhari.policeStation.agOffice.id}">
+    <input type="text" id="policeStationValue" hidden th:value="${applicant.gramaNiladhari.policeStation.id}">
+    <input type="text" id="gramaNiladhariValue" hidden th:value="${applicant.gramaNiladhari.id}">
+</div>
 <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 <script>
 
@@ -371,6 +391,7 @@
 
     $("#imgUpload").change(function () {
         readURL(this);
+        $("#previousImg").css("display", "none");
     });
 
     $('#province').bind("change", function () {
@@ -426,6 +447,18 @@
         optionFieldAdd(url, "gramaNiladhari");
         $('#gramaNiladhari').html(`<option value="">Please Select </option>`);
     }
+
+    $(document).ready(function () {
+        let addStatusValue = $("#addStatusValue").val();
+
+        if (addStatusValue !== undefined) {
+            $('#province').val($('#provinceValue').val());
+            $('#district').val($('#districtValue').val());
+            $('#agOffice').val($('#agOfficeValue').val());
+            $('#policeStation').val($('#policeStationValue').val());
+            $('#gramaNiladhari').val($('#gramaNiladhariValue').val());
+        }
+    })
 </script>
 </body>
 </html>
