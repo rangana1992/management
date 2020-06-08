@@ -1,0 +1,15 @@
+#blah {
+    height: 100px !important;
+}
+.layout-fixed .main-sidebar {
+     top: 230px !important;}
+
+[class*=sidebar-dark-] {
+    background-color: #0B0A29 !important;
+}
+#navIcon {
+    top: 10rem;
+    position: fixed;
+    left: 1.25rem;
+    z-index: 1032;
+}

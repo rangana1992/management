@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--Styles, meta data, and title are included-->
+<head th:replace="~{fragments/header :: headerFragment}">
+    <meta charset="UTF-8">
+    <title>Thymeleaf Springboot </title>
+</head>
+<body style="background-color: #4317ac;">
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="login100-more" style="background-image: url('../img/newpolice.jpeg');"></div>
+
+        <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+            <form class="login100-form validate-form" action="/register" method="post">
+					<span class="login100-form-title p-b-59">
+						SIGN IN
+					</span>
+                <input type="text" name="newOrOld" th:value="${newOrOld}" hidden required>
+                <div class="wrap-input100 validate-input" data-validate="Email is required">
+                    <span class="label-input100">Email</span>
+                    <input class="input100" type="email" name="email" th:placeholder="${newOrOld=='new'?'Type your Email Here':'Please enter your registered user name '}" required>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="row container" style="margin-top:-30px; margin-bottom: 25px;">
+                    <span style="color: red" th:text="${message}"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn "></div>
+                        <button class="login100-form-btn" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<!--footer is included-->
+</div><!-- content-wrapper end -->
+<footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+</div><!-- wrapper end -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+</body>
+</html>
+
