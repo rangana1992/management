@@ -2,6 +2,7 @@ package lk.recruitment.management.asset.applicant.controller;
 
 
 import lk.recruitment.management.asset.agOffice.controller.AgOfficeController;
+import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
@@ -12,10 +13,11 @@ import lk.recruitment.management.asset.commonAsset.service.CommonService;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
 import lk.recruitment.management.asset.district.controller.DistrictController;
+import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.asset.gramaNiladhari.controller.GramaNiladhariController;
-import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
+import lk.recruitment.management.asset.gramaNiladhari.service.GramaNiladhariService;
 import lk.recruitment.management.asset.policeStation.Controller.PoliceStationController;
-import lk.recruitment.management.asset.userManagement.entity.User;
+import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
 import lk.recruitment.management.asset.userManagement.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,19 +43,27 @@ public class ApplicantController {
     private final DateTimeAgeService dateTimeAgeService;
     private final CommonService commonService;
     private final UserService userService;
+    private final DistrictService districtService;
+    private final AgOfficeService agOfficeService;
+    private final PoliceStationService policeStationService;
+    private final GramaNiladhariService gramaNiladhariService;
 
 
     @Autowired
     public ApplicantController(ApplicantService applicantService, ApplicantFilesService applicantFilesService,
                                DateTimeAgeService dateTimeAgeService, CommonService commonService,
-                               UserService userService) {
+                               UserService userService, DistrictService districtService, AgOfficeService agOfficeService, PoliceStationService policeStationService, GramaNiladhariService gramaNiladhariService) {
         this.applicantService = applicantService;
         this.applicantFilesService = applicantFilesService;
 
         this.dateTimeAgeService = dateTimeAgeService;
         this.commonService = commonService;
         this.userService = userService;
+        this.districtService = districtService;
 
+        this.agOfficeService = agOfficeService;
+        this.policeStationService = policeStationService;
+        this.gramaNiladhariService = gramaNiladhariService;
     }
 //----> Applicant details management - start <----//
 
@@ -119,7 +129,15 @@ public class ApplicantController {
         Applicant applicant = applicantService.findById(id);
         model.addAttribute("applicant", applicant);
         model.addAttribute("addStatus", false);
-        model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicant));
+        model.addAttribute("file", applicantFilesService.applicantFileDownloadLinks(applicant));
+        //district list
+        model.addAttribute("districts", districtService.findAll());
+        //ag office list
+        model.addAttribute("agOffices", agOfficeService.findAll());
+        //police station list
+        model.addAttribute("policeStations", policeStationService.findAll());
+        //gramaniladari division list
+        model.addAttribute("gramaNiladharis", gramaNiladhariService.findAll());
         return commonThings(model);
     }
 
@@ -135,6 +153,7 @@ public class ApplicantController {
     @PostMapping(value = {"/save", "/update"})
     public String addApplicant(@Valid @ModelAttribute Applicant applicant, BindingResult result, Model model
     ) {
+        System.out.println(applicant.getGramaNiladhari().getName());
         if (result.hasErrors()) {
             model.addAttribute("addStatus", true);
             model.addAttribute("applicant", applicant);
@@ -143,27 +162,29 @@ public class ApplicantController {
         try {
             applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
             applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
+
+
             //after save applicant files and save applicant
-            applicantService.persist(applicant);
+            Applicant savedApplicant = applicantService.persist(applicant);
 
 
             //save applicant images file
-                if (applicant.getFile().getOriginalFilename() != null) {
-                    ApplicantFiles applicantFiles = applicantFilesService.findByName(applicant.getFile().getOriginalFilename());
-                    if (applicantFiles != null) {
-                        // update new contents
-                        applicantFiles.setPic(applicant.getFile().getBytes());
-                        // Save all to database
-                    } else {
-                        applicantFiles = new ApplicantFiles(applicant.getFile().getOriginalFilename(),
-                                applicant.getFile().getContentType(),
-                                applicant.getFile().getBytes(),
-                                applicant.getNic().concat("-" + LocalDateTime.now()),
-                                UUID.randomUUID().toString().concat("applicant"));
-                        applicantFiles.setApplicant(applicant);
-                    }
-                    applicantFilesService.persist(applicantFiles);
+            if (applicant.getFile().getOriginalFilename() != null) {
+                ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(savedApplicant);
+                if (applicantFiles != null) {
+                    // update new contents
+                    applicantFiles.setPic(applicant.getFile().getBytes());
+                    // Save all to database
+                } else {
+                    applicantFiles = new ApplicantFiles(applicant.getFile().getOriginalFilename(),
+                            applicant.getFile().getContentType(),
+                            applicant.getFile().getBytes(),
+                            applicant.getNic().concat("-" + LocalDateTime.now()),
+                            UUID.randomUUID().toString().concat("applicant"));
+                    applicantFiles.setApplicant(applicant);
                 }
+                applicantFilesService.persist(applicantFiles);
+            }
             return "redirect:/applicant";
 
         } catch (Exception e) {

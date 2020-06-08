@@ -34,7 +34,7 @@
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
                                         <!--if not empty list-->
-                                        <div class="row" id="subjectListTable" th:if="${not #lists.isEmpty(subjects)}">
+                                        <div class="container-fluid" id="subjectListTable" th:if="${not #lists.isEmpty(subjects)}">
                                             <table class="table table-hover table-striped" id="myTable">
                                                 <thead class="thead-inverse">
                                                 <tr>
@@ -60,7 +60,7 @@
                                                            th:href="${'/subject/edit/' + subject.id}"><i
                                                                 class="fa fa-edit"></i>&nbsp;Edit</a>
                                                         <a class="btn btn-danger btn-sm" id="subjectRemove"
-                                                           th:href="${'/subject/remove/' + subject.id}"
+                                                           th:href="${'/subject/delete/' + subject.id}"
                                                            th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
                                                            th:onclick="if(!(confirm('Are you want to delete this civilStatus ?'))) return false"
                                                         ><i

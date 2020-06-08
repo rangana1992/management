@@ -83,9 +83,6 @@ public class Applicant extends AuditEntity {
     private LocalDate dateOfBirth;
 
     @ManyToOne
-    private PoliceStation policeStation;
-
-    @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
     @Transient

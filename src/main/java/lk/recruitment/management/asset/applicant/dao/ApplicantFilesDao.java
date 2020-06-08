@@ -18,4 +18,6 @@ public interface ApplicantFilesDao extends JpaRepository<ApplicantFiles, Integer
     ApplicantFiles findByNewName(String filename);
 
     ApplicantFiles findByNewId(String filename);
+
+    ApplicantFiles findByApplicant(Applicant savedApplicant);
 }

@@ -44,22 +44,19 @@
                                             <thead>
                                             <tr>
                                                 <th> Index</th>
-                                                <th> Pay Role Number</th>
                                                 <th> Name</th>
-                                                <th> Mobile</th>
-                                                <th> Designation</th>
-                                                <th> Status</th>
+                                                <th> Rank</th>
+                                                <th> Police Station</th>
                                                 <th> Modify</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr th:each="applicant, rowCount : ${applicants}">
                                                 <td th:text="${rowCount.count}"></td>
-                                                <td th:text="${applicant.payRoleNumber}"></td>
-                                                <td th:text="${applicant.callingName}"></td>
-                                                <td th:text="${applicant.mobileOne}"></td>
-                                                <td th:if="${applicant.designation.name != null}" th:text="${applicant.designation.name}"></td>
-                                                <td th:text="${applicant.applicantStatus.applicantStatus}"></td>
+                                                <td th:text="${applicant.nameWithInitial}"></td>
+                                                <td th:text="${applicant.applyingRank}"></td>
+                                                <td th:text="${applicant.gramaNiladhari.policeStation.name}"></td>
+
                                                 <td>
                                                     <a id="applicantView" th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>

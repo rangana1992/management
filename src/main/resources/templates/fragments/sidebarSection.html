@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    .main-sidebar{margin-top: 100px}
+</style>
 <aside th:fragment="sidebarSectionFragment" class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index.html" class="brand-link">
@@ -11,7 +14,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel ">
+            <li class="nav-item" id="navIcon">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
             <div class="image">
                 <img src="/img/prasad.jpg" class="img-circle elevation-2" alt="User Image">
             </div>

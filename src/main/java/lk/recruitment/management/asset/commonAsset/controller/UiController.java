@@ -42,7 +42,7 @@ public class UiController {
                     petitionSet.add(petitionService.findById(minutePetition.getPetition().getId()));
                 });
         model.addAttribute("petitions", petitionSet.toArray());*/
-        return "mainWindow";
+        return "mainWindow1";
     }
 
     @GetMapping(value = {"/login"})
