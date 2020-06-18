@@ -25,13 +25,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter("Applicant")
-@ToString
 public class Applicant extends AuditEntity {
+
+    @Column(unique = true)
+    private String code;
 
     @NotNull
     @Column(nullable = false)
     private String nameInFullName;
-
 
     @NotNull
     @Column(nullable = false)
@@ -60,7 +61,6 @@ public class Applicant extends AuditEntity {
     @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
     private String mobile;
 
-
     private String land;
 
     @Column(unique = true)
@@ -78,7 +78,6 @@ public class Applicant extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
 
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
@@ -88,7 +87,10 @@ public class Applicant extends AuditEntity {
     @Transient
     private MultipartFile file;
 
-    @OneToMany(mappedBy ="applicant" )
+    @OneToMany(mappedBy = "applicant")
     private List<ApplicantSubjectResult> applicantSubjectResults;
+
+    @OneToMany(mappedBy = "applicant")
+    private List<NonRelative> nonRelatives;
 
 }

@@ -23,6 +23,8 @@ import lk.recruitment.management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -163,7 +165,8 @@ public class ApplicantController {
             applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
             applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
 
-
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            applicant.setEmail(authentication.getName());
             //after save applicant files and save applicant
             Applicant savedApplicant = applicantService.persist(applicant);
 

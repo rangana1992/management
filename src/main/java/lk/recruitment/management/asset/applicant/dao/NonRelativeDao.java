@@ -2,14 +2,11 @@ package lk.recruitment.management.asset.applicant.dao;
 
 
 import lk.recruitment.management.asset.applicant.entity.Applicant;
+import lk.recruitment.management.asset.applicant.entity.NonRelative;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApplicantDao extends JpaRepository<Applicant, Integer> {
-    Applicant findFirstByOrderByIdDesc();
+public interface NonRelativeDao extends JpaRepository<NonRelative, Integer> {
 
-    Applicant findByNic(String nic);
-
-    Applicant findByEmail(String email);
 }
