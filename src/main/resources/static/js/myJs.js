@@ -630,9 +630,6 @@ $(".reveal").on('click', function () {
     } else {
         $pwd.attr('type', 'password');
     }
-<<<<<<< HEAD
-});
-=======
 });
 
 /* -------headerDate-------*/
@@ -655,4 +652,3 @@ console.log(today);
 today = dd+'/'+mm+'/'+yyyy;
 console.log(today);*/
 /* -------headerDate end-------*/
->>>>>>> 91f85027310061c07b943da05e7d17bef4d99704

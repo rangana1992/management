@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <div class="content-wrapper"><!-- content-wrapper Start -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <!-- Form Header  Path -->
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+
+
+
+
+
+
+
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>First sud Header</h4>
+                                        <form role="form">
+                                            <a class="btn btn-success" id="newBriefing" th:href="${'/applicant/add'}">
+                                                <i class="fas fa-plus-square"></i>  Add Applicant </a>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>Secondary Header </h4>
+                                    <div class="card-body">
+                                        <table id="example2" class="table table-hover table-dark">
+                                            <thead>
+                                            <tr>
+                                                <th> Index</th>
+                                                <th> Name</th>
+                                                <th> Rank</th>
+                                                <th> Police Station</th>
+                                                <th> Modify</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="applicant, rowCount : ${applicants}">
+                                                <td th:text="${rowCount.count}"></td>
+                                                <td th:text="${applicant.nameWithInitial}"></td>
+                                                <td th:text="${applicant.applyingRank}"></td>
+                                                <td th:text="${applicant.gramaNiladhari.policeStation.name}"></td>
+
+                                                <td>
+                                                    <a id="applicantView" th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
+                                                            class="fa fa-folder-open"></i>&nbsp;View</a>
+                                                    <a id="applicantEdit" th:href="${'/applicant/edit/' + applicant.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                                    <a id="applicantRemove" th:href="${'/applicant/remove/' + applicant.id}"
+                                                       th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
+                                                        Delete</a>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="row" th:if="${ #lists.isEmpty(applicants)}">
+                                        <!-- <div class="col-sm-12">-->
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h3 class="text-center text-danger">
+                                                <strong>There is no applicant upto now please add applicant to the system
+                                                    using add user button.
+                                                </strong>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- content-wrapper end -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+</div><!-- wrapper end -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+</body>
+</html>
