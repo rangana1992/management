@@ -1,11 +1,9 @@
 package lk.recruitment.management.asset.applicant.controller;
 
 
-import lk.recruitment.management.asset.applicant.entity.ApplicantSubjectResult;
-import lk.recruitment.management.asset.applicant.entity.Enum.Result;
+import lk.recruitment.management.asset.applicant.entity.ApplicantResult;
+import lk.recruitment.management.asset.applicant.entity.Enum.SubjectResult;
 import lk.recruitment.management.asset.applicant.service.ApplicantSubjectResultService;
-import lk.recruitment.management.asset.employee.entity.Enum.StreamLevel;
-import lk.recruitment.management.asset.subject.entity.Stream;
 import lk.recruitment.management.asset.subject.service.StreamService;
 import lk.recruitment.management.asset.subject.service.SubjectService;
 import lk.recruitment.management.util.interfaces.AbstractController;
@@ -19,7 +17,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/applicantSubjectResult")
-public class ApplicantSubjectResultController implements AbstractController<ApplicantSubjectResult, Integer> {
+public class ApplicantSubjectResultController implements AbstractController<ApplicantResult, Integer> {
 
     private final ApplicantSubjectResultService applicantSubjectResultService;
     private final SubjectService subjectService;
@@ -32,12 +30,12 @@ public class ApplicantSubjectResultController implements AbstractController<Appl
     }
 
 
-    private String commonThing(Model model, Boolean booleanValue, ApplicantSubjectResult applicantSubjectResultObject) {
+    private String commonThing(Model model, Boolean booleanValue, ApplicantResult applicantResultObject) {
         model.addAttribute("streamLevels",streamService.findAll() );
-        model.addAttribute("results", Result.values() );
+        model.addAttribute("results", SubjectResult.values() );
         model.addAttribute("subject", subjectService.findAll() );
         model.addAttribute("addStatus", booleanValue);
-        model.addAttribute("applicantSubjectResult", applicantSubjectResultObject);
+        model.addAttribute("applicantSubjectResult", applicantResultObject);
         return "applicant/applicantSubjectResult";
     }
 
@@ -49,7 +47,7 @@ public class ApplicantSubjectResultController implements AbstractController<Appl
 
        @GetMapping("/add")
     public String form(Model model) {
-        return commonThing(model, false, new ApplicantSubjectResult());
+        return commonThing(model, false, new ApplicantResult());
     }
 
     @GetMapping("/{id}")
@@ -64,12 +62,12 @@ public class ApplicantSubjectResultController implements AbstractController<Appl
     }
 
     @PostMapping(value = {"/save", "/update"})
-    public String persist(@Valid @ModelAttribute ApplicantSubjectResult applicantSubjectResult, BindingResult bindingResult,
+    public String persist(@Valid @ModelAttribute ApplicantResult applicantResult, BindingResult bindingResult,
                           RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
-            return commonThing(model, false, applicantSubjectResult);
+            return commonThing(model, false, applicantResult);
         }
-        redirectAttributes.addFlashAttribute("applicantSubjectResultDetail", applicantSubjectResultService.persist(applicantSubjectResult));
+        redirectAttributes.addFlashAttribute("applicantSubjectResultDetail", applicantSubjectResultService.persist(applicantResult));
         return "redirect:/applicantSubjectResult";
     }
 

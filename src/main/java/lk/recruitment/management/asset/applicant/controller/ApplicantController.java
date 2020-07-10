@@ -4,9 +4,7 @@ package lk.recruitment.management.asset.applicant.controller;
 import lk.recruitment.management.asset.agOffice.controller.AgOfficeController;
 import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
-import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
-import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
-import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
+import lk.recruitment.management.asset.applicant.entity.Enum.*;
 import lk.recruitment.management.asset.applicant.service.ApplicantFilesService;
 import lk.recruitment.management.asset.commonAsset.model.Enum.*;
 import lk.recruitment.management.asset.commonAsset.service.CommonService;
@@ -95,6 +93,10 @@ public class ApplicantController {
                 MvcUriComponentsBuilder
                         .fromMethodName(GramaNiladhariController.class, "getGramaNiladhariByPolice", "")
                         .toUriString());
+        model.addAttribute("attempts", Attempt.values());
+        model.addAttribute("streamLevels", StreamLevel.values());
+        model.addAttribute("compulsoryOLSubjects", CompulsoryOLSubject.values());
+        model.addAttribute("subjectResults", SubjectResult.values());
         return "applicant/addApplicant";
     }
 

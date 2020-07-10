@@ -1,11 +1,11 @@
 package lk.recruitment.management.asset.applicant.dao;
 
 
-import lk.recruitment.management.asset.applicant.entity.ApplicantSubjectResult;
+import lk.recruitment.management.asset.applicant.entity.ApplicantResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApplicantSubjectResultDao extends JpaRepository<ApplicantSubjectResult, Integer > {
+public interface ApplicantSubjectResultDao extends JpaRepository<ApplicantResult, Integer > {
 
 }
