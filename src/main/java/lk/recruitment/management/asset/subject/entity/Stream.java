@@ -1,7 +1,6 @@
 package lk.recruitment.management.asset.subject.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment.management.asset.employee.entity.Enum.StreamLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

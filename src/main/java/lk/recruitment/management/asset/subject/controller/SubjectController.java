@@ -1,7 +1,7 @@
 package lk.recruitment.management.asset.subject.controller;
 
 
-import lk.recruitment.management.asset.employee.entity.Enum.StreamLevel;
+import lk.recruitment.management.asset.applicant.entity.Enum.StreamLevel;
 import lk.recruitment.management.asset.subject.entity.Subject;
 import lk.recruitment.management.asset.subject.service.SubjectService;
 import lk.recruitment.management.util.interfaces.AbstractController;

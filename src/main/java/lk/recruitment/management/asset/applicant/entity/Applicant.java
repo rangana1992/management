@@ -5,9 +5,7 @@ import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
 import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
 import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,13 +23,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter("Applicant")
-@ToString
 public class Applicant extends AuditEntity {
+
+    @Column(unique = true)
+    private String code;
 
     @NotNull
     @Column(nullable = false)
     private String nameInFullName;
-
 
     @NotNull
     @Column(nullable = false)
@@ -60,7 +59,6 @@ public class Applicant extends AuditEntity {
     @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
     private String mobile;
 
-
     private String land;
 
     @Column(unique = true)
@@ -78,7 +76,6 @@ public class Applicant extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
 
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
@@ -88,7 +85,10 @@ public class Applicant extends AuditEntity {
     @Transient
     private MultipartFile file;
 
-    @OneToMany(mappedBy ="applicant" )
-    private List<ApplicantSubjectResult> applicantSubjectResults;
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
+    private List<ApplicantResult> applicantResults;
+
+    @OneToMany(mappedBy = "applicant")
+    private List<NonRelative> nonRelatives;
 
 }
