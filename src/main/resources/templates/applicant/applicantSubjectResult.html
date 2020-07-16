@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
         <div class="container-fluid">
@@ -49,9 +49,9 @@
                                         <label for="subject" class="control-label">Select Subject</label>
                                         <div>
                                             <select class="form-control" id="subject">
-                                                <option th:each="sub : ${subject}"
-                                                        th:text="${sub.name}"
-                                                        th:value="${sub.id}">
+                                                <option data-th-each="sub : ${subject}"
+                                                        data-th-text="${sub.name}"
+                                                        data-th-value="${sub.id}">
 
                                                 </option>
                                             </select>
@@ -62,9 +62,9 @@
                                         <label for="result" class="control-label">Select Result</label>
                                         <div>
                                             <select class="form-control" id="result">
-                                                <option th:each="result : ${results}"
-                                                        th:text="${result.result}"
-                                                        th:value="${result}">
+                                                <option data-th-each="result : ${results}"
+                                                        data-th-text="${result.result}"
+                                                        data-th-value="${result}">
 
                                                 </option>
                                             </select>
@@ -176,8 +176,8 @@
                         <div class="card-body">
                             <p class="card-text">
                             <form class="form-horizontal"
-                                  th:action="${addStatus==false?'/applicantResult/save' :'/applicantResult/update'}"
-                                  method="post" th:object="${applicantResult}">
+                                  data-th-action="${addStatus==false?'/applicantResult/save' :'/applicantResult/update'}"
+                                  method="post" data-th-object="${applicantResult}">
                                 <fieldset>
 
 
@@ -294,8 +294,8 @@
 
 
     </div><!-- content-wrapper end -->
-    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

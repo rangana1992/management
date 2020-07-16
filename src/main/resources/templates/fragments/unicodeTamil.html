@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: headerFragment}">
+<head data-th-replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
     <title>Thymeleaf Springboot </title>
 </head>
 <body>
-<nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
 
-<div class="container-fluid" onload="javascript:txtBox.box1.focus();" th:fragment="unicodeTamilFragment">
+<div class="container-fluid" onload="javascript:txtBox.box1.focus();" data-th-fragment="unicodeTamilFragment">
     <!-- modal tamil button -->
     <!--
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-xl"><i
@@ -39,7 +39,7 @@
                                         Arial (ஏரியல்)
                                     </label>
                                     <textarea id="tamilishWrite" onKeyUp="startText();"
-                                              style="font-size: 14pt; width: 400px;
+                                              style="font-size: 14pt; widdata-th- 400px;
                                                            font-family: Times, serif;"
                                               onClick="startText();" name="box3"
                                               rows="7"
@@ -54,7 +54,7 @@
                                         Unicode (யுனிகோட்)
                                     </label>
                                     <textarea id="tamilCode"
-                                              style="font-size: 14pt; width: 400px;
+                                              style="font-size: 14pt; widdata-th- 400px;
                                                            font-family: Times, serif;"
                                               name="box4" rows="7">
                                     </textarea>
@@ -863,8 +863,8 @@
 </div>
 
 <!--footer include-->
-<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
 <!--script include-->
-<script th:replace="~{fragments/script :: scriptFragment}"></script>
+<script data-th-replace="~{fragments/script :: scriptFragment}"></script>
 </body>
 </html>

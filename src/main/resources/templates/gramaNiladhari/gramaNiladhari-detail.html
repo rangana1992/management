@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
         <div class="content-header">
             <div class="container-fluid">
@@ -31,14 +31,14 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
-                                    <div class="container-fluid" th:fragment="districtDetail">
+                                    <div class="container-fluid" data-th-fragment="districtDetail">
 
                                         <!--/* id this comment not visualize */-->
                                         <!--Id-->
 
                                            <div>
                                             <label class="control-label col-md-3">ID </label>
-                                            <p class="display_detail" th:text="${gramaNiladhariDetail.id}"></p>
+                                            <p class="display_detail" data-th-text="${gramaNiladhariDetail.id}"></p>
 
                                         </div>
                                         <!--Province-->
@@ -46,14 +46,14 @@
                                             <label class="form-label  col-md-3" > Province </label>
 
                                             <p class="display_detail"
-                                               th:text="${gramaNiladhariDetail.policeStation.agOffice.district.province.province}"></p>
+                                               data-th-text="${gramaNiladhariDetail.policeStation.agOffice.district.province.province}"></p>
                                         </div>
                                         <!--District-->
                                         <div class=" form-row p-3">
                                             <label class="form-label col-md-3 " >
                                                 District </label>
                                             <p class="display_detail"
-                                               th:text="${gramaNiladhariDetail.policeStation.agOffice.district.name}"></p>
+                                               data-th-text="${gramaNiladhariDetail.policeStation.agOffice.district.name}"></p>
                                         </div>
                                         <!--AgOffice-->
                                         <div class=" form-row p-3">
@@ -61,13 +61,13 @@
                                                 Office </label>
 
                                             <p class="display_detail"
-                                               th:text="${gramaNiladhariDetail.policeStation.agOffice.name}"></p>
+                                               data-th-text="${gramaNiladhariDetail.policeStation.agOffice.name}"></p>
                                         </div>
                                         <!--Police-->
                                         <div class=" form-row p-3">
                                             <label class="col-md-3 form-label"> Police Station </label>
                                             <p class="display_detail"
-                                               th:text="${gramaNiladhariDetail.policeStation.name}"></p>
+                                               data-th-text="${gramaNiladhariDetail.policeStation.name}"></p>
                                         </div>
                                         <!--GramaNiladhariDivision-->
                                         <div class="form-row p-3">
@@ -75,7 +75,7 @@
                                             <label class="control-label col-md-3" >Grama
                                                 Niladhari Division</label>
                                             <p class="display_detail"
-                                               th:text="${gramaNiladhariDetail.name}"></p>
+                                               data-th-text="${gramaNiladhariDetail.name}"></p>
 
                                         </div>
 
@@ -93,9 +93,9 @@
             </div>
         </div>
     </div><!-- content-wrapper end -->
-    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
     </div>
 </div>
 </body>
