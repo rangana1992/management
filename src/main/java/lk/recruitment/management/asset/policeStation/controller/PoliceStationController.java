@@ -1,4 +1,4 @@
-package lk.recruitment.management.asset.policeStation.Controller;
+package lk.recruitment.management.asset.policeStation.controller;
 
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -10,7 +10,7 @@ import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
 import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.district.service.DistrictService;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
 import lk.recruitment.management.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;

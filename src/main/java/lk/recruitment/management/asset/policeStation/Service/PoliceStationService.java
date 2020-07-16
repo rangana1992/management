@@ -2,8 +2,8 @@ package lk.recruitment.management.asset.policeStation.Service;
 
 
 import lk.recruitment.management.asset.agOffice.entity.AgOffice;
-import lk.recruitment.management.asset.policeStation.Dao.PoliceStationDao;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.dao.PoliceStationDao;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import lk.recruitment.management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;

@@ -2,16 +2,14 @@ package lk.recruitment.management.asset.gramaNiladhari.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment.management.ApplicationCreateRestController;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity

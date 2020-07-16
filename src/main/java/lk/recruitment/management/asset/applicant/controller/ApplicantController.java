@@ -14,7 +14,7 @@ import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.asset.gramaNiladhari.controller.GramaNiladhariController;
 import lk.recruitment.management.asset.gramaNiladhari.service.GramaNiladhariService;
-import lk.recruitment.management.asset.policeStation.Controller.PoliceStationController;
+import lk.recruitment.management.asset.policeStation.controller.PoliceStationController;
 import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
 import lk.recruitment.management.asset.userManagement.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;

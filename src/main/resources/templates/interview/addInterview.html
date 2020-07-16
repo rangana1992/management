@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
         <!--add form-->
@@ -27,8 +27,8 @@
                                             <form role="form">
 
                                                 <span id="formHeader"
-                                                      th:text="${addStatus==false?'New Subject':'Update Subject'}"></span>
-                                                <a href="/subject" class="btn btn-primary">
+                                                      data-th-text="${addStatus==false?'New Interview':'Update Interview'}"></span>
+                                                <a href="/interview" class="btn btn-primary">
                                                     <i class="fa fa-list"></i>&nbsp; View List
                                                 </a>
 
@@ -40,51 +40,51 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4>Secondary Header </h4>
-                                            <form th:action="${addStatus==false?'/subject/save' :'/subject/update'}"
-                                                  method="post" th:object="${subject}"
+                                            <form data-th-action="${addStatus==false?'/interview/save' :'/interview/update'}"
+                                                  method="post" data-th-object="${interview}"
                                                   class="mt-3">
                                                 <div class="offset-3 col-6">
                                                     <!--/* id this comment not visualize */-->
                                                     <!--Id-->
-                                                    <div class="form-group row" th:if="${addStatus==true}">
+                                                    <div class="form-group row" data-th-if="${addStatus==true}">
                                                         <label for="id" class="col-sm-2 col-form-label "> Id </label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" th:field="*{id}"
+                                                            <input type="text" class="form-control" data-th-field="*{id}"
                                                                    id="id" readonly>
                                                         </div>
                                                     </div>
 
-                                                    <!--Subject name-->
+                                                    <!--Interview name-->
                                                     <div class="form-group row">
-                                                        <label th:for="${'name'}" class="col-sm-2 col-form-label ">
-                                                            Subject Name </label>
+                                                        <label data-th-for="${'name'}" class="col-sm-2 col-form-label ">
+                                                            Interview Name </label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" th:field="*{name}"
+                                                            <input type="text" class="form-control" data-th-field="*{name}"
                                                                    required>
-                                                            <p class="text-danger" th:if="${#fields.hasErrors('name')}"
-                                                               th:errors="*{name}">Error Name</p>
+                                                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"
+                                                               data-th-errors="*{name}">Error Name</p>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label th:for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
+                                                        <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
                                                             Interview Status </label>
-                                                        <select class="form-control" th:field="*{interviewStatus}">
-                                                            <option th:each="interviewStatus : ${interviewStatuss}"
-                                                                    th:text="${interviewStatus.interviewStatus}"
-                                                                    th:value="${interviewStatus}">
+                                                        <select class="form-control" data-th-field="*{interviewStatus}" required>
+                                                            <option data-th-each="interviewStatus : ${interviewStatuss}"
+                                                                    data-th-text="${interviewStatus.interviewStatus}"
+                                                                    data-th-value="${interviewStatus}">
 
                                                             </option>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label th:for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
+                                                        <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
                                                             Interview Parameters </label>
-                                                        <select class="form-control" th:field="*{interviewParameters}" multiple row="6">
-                                                            <option th:each="interviewParameter : ${interviewParameters}"
-                                                                    th:text="${interviewParameter.name}"
-                                                                    th:value="${interviewParameter.id}">
+                                                        <select class="form-control" data-th-field="*{interviewParameters}" required multiple row="6">
+                                                            <option data-th-each="interviewParameter : ${interviewParameters}"
+                                                                    data-th-text="${interviewParameter.name}"
+                                                                    data-th-value="${interviewParameter.id}">
 
                                                             </option>
                                                         </select>
@@ -93,9 +93,9 @@
                                                     <div class="form-group row">
                                                         <div class="offset-sm-2 col-sm-10">
                                                             <button type="submit" class="btn btn-primary">
-                                                                <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                                <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
                                                                 <span
-                                                                        th:text="${addStatus==false?'Save' : 'Update'}"></span>
+                                                                        data-th-text="${addStatus==false?'Save' : 'Update'}"></span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -115,8 +115,8 @@
             </div>
         </div>
     </div><!-- content-wrapper end -->
-    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

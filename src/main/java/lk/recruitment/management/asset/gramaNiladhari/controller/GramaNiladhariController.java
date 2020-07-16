@@ -12,8 +12,8 @@ import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
 import lk.recruitment.management.asset.gramaNiladhari.service.GramaNiladhariService;
 
-import lk.recruitment.management.asset.policeStation.Controller.PoliceStationController;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.controller.PoliceStationController;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
 import lk.recruitment.management.util.interfaces.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
