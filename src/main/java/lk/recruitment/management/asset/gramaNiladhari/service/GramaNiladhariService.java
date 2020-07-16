@@ -1,10 +1,9 @@
 package lk.recruitment.management.asset.gramaNiladhari.service;
 
 
-import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
 import lk.recruitment.management.asset.gramaNiladhari.dao.GramaNiladhariDao;
 import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import lk.recruitment.management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
