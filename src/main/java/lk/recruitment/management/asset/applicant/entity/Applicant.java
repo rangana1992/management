@@ -1,6 +1,7 @@
 package lk.recruitment.management.asset.applicant.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
 import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
@@ -25,7 +26,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter("Applicant")
-@ToString
 public class Applicant extends AuditEntity {
 
     @NotNull
@@ -78,6 +78,8 @@ public class Applicant extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private Nationality nationality;
 
+    @Enumerated(EnumType.STRING)
+    private ApplicantStatus applicantStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
@@ -87,6 +89,21 @@ public class Applicant extends AuditEntity {
 
     @Transient
     private MultipartFile file;
+
+    @Transient
+    private MultipartFile nicImage;
+
+    @Transient
+    private MultipartFile birthCertificateImage;
+
+    @Transient
+    private MultipartFile gramaNilahdariImage;
+
+    @Transient
+    private List<MultipartFile> educationalImages;
+
+    @Transient
+    private List<MultipartFile> sportImages;
 
     @OneToMany(mappedBy ="applicant" )
     private List<ApplicantSubjectResult> applicantSubjectResults;
