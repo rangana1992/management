@@ -72,4 +72,9 @@ public class UiController {
     public String getUnicodeSinhala() {
         return "fragments/unicodeSinhala";
     }
+
+    @GetMapping("/education")
+    public String form(){
+        return "education/addEducation";
+    }
 }

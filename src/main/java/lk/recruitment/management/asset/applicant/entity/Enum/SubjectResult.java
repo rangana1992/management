@@ -5,7 +5,12 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Result {
-    A("A Pass"), B("B Pass"), C("C Pass"), S("S Pass"), F("Fail");
-    private final String result;
+public enum SubjectResult {
+    A("A"),
+    B("B"),
+    C("C"),
+    S("S"),
+    W("W");
+
+    private final String subjectResult;
 }

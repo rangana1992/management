@@ -3,6 +3,7 @@ package lk.recruitment.management.asset.userManagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
+import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.employee.entity.Employee;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class User extends AuditEntity {
     @NotNull
     private Employee employee;
 
+
     @Column(nullable = false,unique = true)
     @Size(min = 5, message = "user name should include at least five characters")
     private String username;
@@ -49,11 +51,6 @@ public class User extends AuditEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    /*@ManyToMany(fetch = FetchType.EAGER)
-    //@Fetch( FetchMode.SUBSELECT)
-    @JoinTable(name = "user_working_place",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "working_place_id"))
-    private Set< WorkingPlace > workingPlaces;*/
+
 
 }

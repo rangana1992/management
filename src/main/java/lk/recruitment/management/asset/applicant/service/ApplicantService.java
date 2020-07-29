@@ -1,7 +1,6 @@
 package lk.recruitment.management.asset.applicant.service;
 
 
-
 import lk.recruitment.management.asset.applicant.dao.ApplicantDao;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.util.interfaces.AbstractService;
@@ -16,8 +15,8 @@ import java.util.List;
 
 @Service
 // spring transactional annotation need to tell spring to this method work through the project
-@CacheConfig( cacheNames = "applicant" )
-public class ApplicantService implements AbstractService<Applicant, Integer > {
+@CacheConfig(cacheNames = "applicant")
+public class ApplicantService implements AbstractService<Applicant, Integer> {
 
     private final ApplicantDao applicantDao;
 
@@ -27,7 +26,7 @@ public class ApplicantService implements AbstractService<Applicant, Integer > {
     }
 
     @Cacheable
-    public List< Applicant > findAll() {
+    public List<Applicant> findAll() {
         return applicantDao.findAll();
     }
 
@@ -36,26 +35,26 @@ public class ApplicantService implements AbstractService<Applicant, Integer > {
         return applicantDao.getOne(id);
     }
 
-    @Caching( evict = {@CacheEvict( value = "applicant", allEntries = true )},
-            put = {@CachePut( value = "applicant", key = "#applicant.id" )} )
+    @Caching(evict = {@CacheEvict(value = "applicant", allEntries = true)},
+            put = {@CachePut(value = "applicant", key = "#applicant.id")})
     @Transactional
     public Applicant persist(Applicant applicant) {
         return applicantDao.save(applicant);
     }
 
-    @CacheEvict( allEntries = true )
+    @CacheEvict(allEntries = true)
     public boolean delete(Integer id) {
         applicantDao.deleteById(id);
         return false;
     }
 
     @Cacheable
-    public List< Applicant > search(Applicant applicant) {
+    public List<Applicant> search(Applicant applicant) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example< Applicant > applicantExample = Example.of(applicant, matcher);
+        Example<Applicant> applicantExample = Example.of(applicant, matcher);
         return applicantDao.findAll(applicantExample);
     }
 
@@ -71,5 +70,9 @@ public class ApplicantService implements AbstractService<Applicant, Integer > {
     @Cacheable
     public Applicant findByNic(String nic) {
         return applicantDao.findByNic(nic);
+    }
+
+    public Applicant findByEmail(String email) {
+        return applicantDao.findByEmail(email);
     }
 }

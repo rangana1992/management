@@ -4,9 +4,7 @@ package lk.recruitment.management.asset.applicant.controller;
 import lk.recruitment.management.asset.agOffice.controller.AgOfficeController;
 import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
-import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
-import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
-import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
+import lk.recruitment.management.asset.applicant.entity.Enum.*;
 import lk.recruitment.management.asset.applicant.service.ApplicantFilesService;
 import lk.recruitment.management.asset.commonAsset.model.Enum.*;
 import lk.recruitment.management.asset.commonAsset.service.CommonService;
@@ -16,13 +14,15 @@ import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.asset.gramaNiladhari.controller.GramaNiladhariController;
 import lk.recruitment.management.asset.gramaNiladhari.service.GramaNiladhariService;
-import lk.recruitment.management.asset.policeStation.Controller.PoliceStationController;
+import lk.recruitment.management.asset.policeStation.controller.PoliceStationController;
 import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
 import lk.recruitment.management.asset.userManagement.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -93,6 +93,10 @@ public class ApplicantController {
                 MvcUriComponentsBuilder
                         .fromMethodName(GramaNiladhariController.class, "getGramaNiladhariByPolice", "")
                         .toUriString());
+        model.addAttribute("attempts", Attempt.values());
+        model.addAttribute("streamLevels", StreamLevel.values());
+        model.addAttribute("compulsoryOLSubjects", CompulsoryOLSubject.values());
+        model.addAttribute("subjectResults", SubjectResult.values());
         return "applicant/addApplicant";
     }
 
@@ -163,7 +167,8 @@ public class ApplicantController {
             applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
             applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
 
-
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            applicant.setEmail(authentication.getName());
             //after save applicant files and save applicant
             Applicant savedApplicant = applicantService.persist(applicant);
 

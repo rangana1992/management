@@ -1,8 +1,8 @@
-package lk.recruitment.management.asset.policeStation.Dao;
+package lk.recruitment.management.asset.policeStation.dao;
 
 
 import lk.recruitment.management.asset.agOffice.entity.AgOffice;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

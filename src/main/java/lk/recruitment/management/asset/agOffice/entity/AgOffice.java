@@ -2,7 +2,7 @@ package lk.recruitment.management.asset.agOffice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment.management.asset.district.entity.District;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
+import lk.recruitment.management.asset.policeStation.entity.PoliceStation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

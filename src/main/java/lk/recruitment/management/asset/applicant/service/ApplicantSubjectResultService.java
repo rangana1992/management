@@ -2,7 +2,7 @@ package lk.recruitment.management.asset.applicant.service;
 
 
 import lk.recruitment.management.asset.applicant.dao.ApplicantSubjectResultDao;
-import lk.recruitment.management.asset.applicant.entity.ApplicantSubjectResult;
+import lk.recruitment.management.asset.applicant.entity.ApplicantResult;
 import lk.recruitment.management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 // spring transactional annotation need to tell spring to this method work through the project
 @CacheConfig( cacheNames = "applicantSubjectResult" )
-public class ApplicantSubjectResultService implements AbstractService<ApplicantSubjectResult, Integer > {
+public class ApplicantSubjectResultService implements AbstractService<ApplicantResult, Integer > {
 
     private final ApplicantSubjectResultDao applicantSubjectResultDao;
 
@@ -26,20 +26,20 @@ public class ApplicantSubjectResultService implements AbstractService<ApplicantS
     }
 
     @Cacheable
-    public List<ApplicantSubjectResult> findAll() {
+    public List<ApplicantResult> findAll() {
         return applicantSubjectResultDao.findAll();
     }
 
     @Cacheable
-    public ApplicantSubjectResult findById(Integer id) {
+    public ApplicantResult findById(Integer id) {
         return applicantSubjectResultDao.getOne(id);
     }
 
     @Caching(evict = {@CacheEvict(value = "applicantSubjectResult", allEntries = true)},
-            put = {@CachePut(value = "applicantSubjectResult", key = "#applicantSubjectResult.id")})
+            put = {@CachePut(value = "applicantSubjectResult", key = "#applicantResult.id")})
     @Transactional
-    public ApplicantSubjectResult persist(ApplicantSubjectResult applicantSubjectResult) {
-        return applicantSubjectResultDao.save(applicantSubjectResult);
+    public ApplicantResult persist(ApplicantResult applicantResult) {
+        return applicantSubjectResultDao.save(applicantResult);
     }
 
     @CacheEvict(allEntries = true)
@@ -49,17 +49,17 @@ public class ApplicantSubjectResultService implements AbstractService<ApplicantS
     }
 
     @Cacheable
-    public List<ApplicantSubjectResult> search(ApplicantSubjectResult applicantSubjectResult) {
+    public List<ApplicantResult> search(ApplicantResult applicantResult) {
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-        Example<ApplicantSubjectResult> applicantSubjectResultExample = Example.of(applicantSubjectResult, matcher);
+        Example<ApplicantResult> applicantSubjectResultExample = Example.of(applicantResult, matcher);
         return applicantSubjectResultDao.findAll(applicantSubjectResultExample);
     }
 
-    public boolean isApplicantSubjectResultPresent(ApplicantSubjectResult applicantSubjectResult) {
-        return applicantSubjectResultDao.equals(applicantSubjectResult);
+    public boolean isApplicantSubjectResultPresent(ApplicantResult applicantResult) {
+        return applicantSubjectResultDao.equals(applicantResult);
     }
 
 }
