@@ -8,13 +8,15 @@ import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
 import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
 import lk.recruitment.management.util.audit.AuditEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
@@ -86,6 +88,9 @@ public class Applicant extends AuditEntity {
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
+    @OneToMany(mappedBy ="applicant" )
+    private List<ApplicantResult> applicantResults;
+
     @OneToMany
     private List<NonRelative> nonRelatives;
 
@@ -107,7 +112,6 @@ public class Applicant extends AuditEntity {
     @Transient
     private List<MultipartFile> sportImages;
 
-    @OneToMany(mappedBy ="applicant" )
-    private List<ApplicantResult> applicantResults;
+
 
 }

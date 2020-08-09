@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,7 +23,7 @@ import javax.validation.constraints.Size;
 @JsonFilter("NonRelative")
 public class NonRelative extends AuditEntity {
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String name;
 
