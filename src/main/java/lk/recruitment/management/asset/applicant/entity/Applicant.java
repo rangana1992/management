@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -26,16 +27,16 @@ import java.util.List;
 @JsonFilter("Applicant")
 public class Applicant extends AuditEntity {
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String nameInFullName;
 
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String nameWithInitial;
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String nic;
 
@@ -43,15 +44,15 @@ public class Applicant extends AuditEntity {
     private ApplyingRank applyingRank;
 
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String height;
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String weight;
 
-    @NotNull
+    @NotEmpty
     @Column(nullable = false)
     private String chest;
 
@@ -84,6 +85,9 @@ public class Applicant extends AuditEntity {
 
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
+
+    @OneToMany
+    private List<NonRelative> nonRelatives;
 
     @Transient
     private MultipartFile file;
