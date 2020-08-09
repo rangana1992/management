@@ -6,9 +6,7 @@ import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
 import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
 import lk.recruitment.management.asset.gramaNiladhari.entity.GramaNiladhari;
-import lk.recruitment.management.asset.policeStation.Entity.PoliceStation;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -106,6 +104,6 @@ public class Applicant extends AuditEntity {
     private List<MultipartFile> sportImages;
 
     @OneToMany(mappedBy ="applicant" )
-    private List<ApplicantSubjectResult> applicantSubjectResults;
+    private List<ApplicantResult> applicantResults;
 
 }
