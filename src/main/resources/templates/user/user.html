@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
 
@@ -25,7 +25,7 @@
                                         <div class="card-body">
                                             <h4>First sud Header</h4>
                                             <form role="form">
-                                                <a class="btn btn-success" id="newUser" th:href="${'/user/add'}">
+                                                <a class="btn btn-success" id="newUser" data-th-href="${'/user/add'}">
                                                     <i class="fa fa-user-plus" style="font-size: 18px;"></i> &nbsp; Add User </a>
 
                                             </form>
@@ -36,7 +36,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4>Secondary Header </h4>
-                                            <div class="row" id="userListTable" th:if="${not #lists.isEmpty(users)}">
+                                            <div class="row" id="userListTable" data-th-if="${not #lists.isEmpty(users)}">
                                                 <table class="table table-hover table-striped" id="myTable">
                                                     <thead class="thead-inverse">
                                                     <tr>
@@ -48,17 +48,17 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr th:each="user, rowCount : ${users}" scope="row">
-                                                        <th th:text="${rowCount.count}"></th>
-                                                        <th th:text="${user.username}"></th>
-                                                        <th th:text="${user.enabled==true?'Active':'Blocked'}"></th>
-                                                        <th th:text="${{user.createdAt}}"></th>
+                                                    <tr data-th-each="user, rowCount : ${users}" scope="row">
+                                                        <th data-th-text="${rowCount.count}"></th>
+                                                        <th data-th-text="${user.username}"></th>
+                                                        <th data-th-text="${user.enabled==true?'Active':'Blocked'}"></th>
+                                                        <th data-th-text="${{user.createdAt}}"></th>
                                                         <th><a class="btn btn-success btn-sm" id="userView"><i
-                                                                class="fa fa-folder-open" th:href="${'/user/' + user.id}"></i>&nbsp;View</a>
-                                                            <a class="btn btn-primary btn-sm" id="userEdit" th:href="${'/user/edit/' + user.id}"><i
+                                                                class="fa fa-folder-open" data-th-href="${'/user/' + user.id}"></i>&nbsp;View</a>
+                                                            <a class="btn btn-primary btn-sm" id="userEdit" data-th-href="${'/user/edit/' + user.id}"><i
                                                                     class="fa fa-edit"></i>&nbsp;Edit</a>
-                                                            <a class="btn btn-danger btn-sm" id="userRemove" th:href="${'/user/remove/' + user.id}"
-                                                               th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                                                            <a class="btn btn-danger btn-sm" id="userRemove" data-th-href="${'/user/remove/' + user.id}"
+                                                               data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
                                                             ><i
                                                                     aria-hidden="true" class="fa fa-trash"></i>
                                                                 Delete</a>
@@ -67,7 +67,7 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="row" id="userNotList" th:if="${ #lists.isEmpty(users)}">
+                                            <div class="row" id="userNotList" data-th-if="${ #lists.isEmpty(users)}">
                                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -90,8 +90,8 @@
                 </div>
             </div>
         </div><!-- content-wrapper end -->
-        <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+        <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
     </div><!-- wrapper end -->
-    <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+    <script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

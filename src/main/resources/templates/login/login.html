@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: headerFragment}">
+<head data-th-replace="~{fragments/header :: headerFragment}">
     <meta charset="UTF-8">
     <title>Thymeleaf Springboot </title>
 </head>
@@ -8,7 +8,7 @@
 <body style="background-color: #4317ac;">
 <style>
     .checkbox-round {
-        width: 1.3em;
+        widdata-th- 1.3em;
         height: 1.3em;
         background-color: white;
         border-radius: 50%;
@@ -28,20 +28,20 @@
         <div class="login100-more" style="background-image: url('../img/loginimage.jpg');"></div>
 
         <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-            <form class="login100-form validate-form" th:action="${'/login'}" method="post">
+            <form class="login100-form validate-form" data-th-action="${'/login'}" method="post">
 				<span class="login100-form-title p-b-59">
 
                     login
 				</span>
 
                 <div class="wrap-input100 validate-input m-b-20" data-validate="Enter Valid Email">
-                    <input class="input100" type="text" id="username" th:name="${'username'}" placeholder="username"
+                    <input class="input100" type="text" id="username" data-th-name="${'username'}" placeholder="username"
                            required>
                     <span class="focus-input100"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input m-b-20" data-validate="Password">
-                    <input class="input100" type="password" id="inputPassword" th:name="${'password'}"
+                    <input class="input100" type="password" id="inputPassword" data-th-name="${'password'}"
                            placeholder="password"
                            required>
                     <span class="focus-input100"></span>
@@ -63,14 +63,14 @@
                     </div>
                 </div>
                 <div class="container-fluid ">
-                    <span id="errorMessage" th:text="${#request.getParameter('err')}"
+                    <span id="errorMessage" data-th-text="${#request.getParameter('err')}"
                           class="bg-white text-capitalize text-danger text-lg-center"></span>
                 </div>
 
 
             </form>
 
-            <div class="container-fluid " th:if="${err}">
+            <div class="container-fluid " data-th-if="${err}">
                 <p>Invalid username or password. </p>
             </div>
         </div>
@@ -79,9 +79,9 @@
 </div>
 
 <!--footer include-->
-<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
+<footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
 <!--script include-->
-<script th:replace="~{fragments/script :: scriptFragment}"></script>
+<script data-th-replace="~{fragments/script :: scriptFragment}"></script>
 
 </body>
 </html>

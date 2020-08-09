@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
 
@@ -27,7 +27,7 @@
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
                                         <form role="form">
-                                            <a class="btn btn-success" id="newBriefing" th:href="${'/employee/add'}">
+                                            <a class="btn btn-success" id="newBriefing" data-th-href="${'/employee/add'}">
                                                 <i class="fa fa-briefing-plus"></i>  Add Employee </a>
 
                                         </form>
@@ -52,26 +52,26 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="employee, rowCount : ${employees}">
-                                                <td th:text="${rowCount.count}"></td>
-                                                <td th:text="${employee.payRoleNumber}"></td>
-                                                <td th:text="${employee.callingName}"></td>
-                                                <td th:text="${employee.mobileOne}"></td>
-                                                <td th:if="${employee.designation.name != null}" th:text="${employee.designation.name}"></td>
-                                                <td th:text="${employee.employeeStatus.employeeStatus}"></td>
+                                            <tr data-th-each="employee, rowCount : ${employees}">
+                                                <td data-th-text="${rowCount.count}"></td>
+                                                <td data-th-text="${employee.payRoleNumber}"></td>
+                                                <td data-th-text="${employee.callingName}"></td>
+                                                <td data-th-text="${employee.mobileOne}"></td>
+                                                <td data-th-if="${employee.designation.name != null}" data-th-text="${employee.designation.name}"></td>
+                                                <td data-th-text="${employee.employeeStatus.employeeStatus}"></td>
                                                 <td>
-                                                    <a id="employeeView" th:href="${'/employee/' + employee.id}" class="btn btn-success btn-sm"><i
+                                                    <a id="employeeView" data-th-href="${'/employee/' + employee.id}" class="btn btn-success btn-sm"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>
-                                                    <a id="employeeEdit" th:href="${'/employee/edit/' + employee.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                                                    <a id="employeeRemove" th:href="${'/employee/remove/' + employee.id}"
-                                                       th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
+                                                    <a id="employeeEdit" data-th-href="${'/employee/edit/' + employee.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                                    <a id="employeeRemove" data-th-href="${'/employee/remove/' + employee.id}"
+                                                       data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
                                                         Delete</a>
                                                 </td>
                                             </tr>
                                             </tfoot>
                                         </table>
                                     </div>
-                                    <div class="row" th:if="${ #lists.isEmpty(employees)}">
+                                    <div class="row" data-th-if="${ #lists.isEmpty(employees)}">
                                         <!-- <div class="col-sm-12">-->
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -94,8 +94,8 @@
         </div>
 
     </div><!-- content-wrapper end -->
-    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

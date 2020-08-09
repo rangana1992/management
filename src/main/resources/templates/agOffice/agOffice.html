@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
         <div class="content-header">
             <div class="container-fluid">
@@ -20,7 +20,7 @@
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
                                         <form role="form">
-                                            <a class="btn btn-success" id="newAgOffice" th:href="${'/agOffice/add'}">
+                                            <a class="btn btn-success" id="newAgOffice" data-th-href="${'/agOffice/add'}">
                                                 <i class="fas fa-hotel" style="font-size: 18px;"></i> &nbsp; Add
                                                 AgOffice </a>
 
@@ -35,7 +35,7 @@
                                         <h4>Secondary Header </h4>
                                         <!--if not empty list-->
                                         <div class="container-fluid" id="agOfficeListTable"
-                                             th:if="${not #lists.isEmpty(agOffices)}">
+                                             data-th-if="${not #lists.isEmpty(agOffices)}">
                                             <table class="table table-hover table-striped" id="myTable">
                                                 <thead class="thead-inverse">
                                                 <tr>
@@ -47,22 +47,22 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="agOffice, rowCount : ${agOffices}" scope="row">
-                                                    <th th:text="${rowCount.count}"></th>
-                                                    <th th:text="${agOffice.name}"></th>
-                                                    <th th:text="${agOffice.land}"></th>
-                                                    <th th:text="${agOffice.district.name}"></th>
+                                                <tr data-th-each="agOffice, rowCount : ${agOffices}" scope="row">
+                                                    <th data-th-text="${rowCount.count}"></th>
+                                                    <th data-th-text="${agOffice.name}"></th>
+                                                    <th data-th-text="${agOffice.land}"></th>
+                                                    <th data-th-text="${agOffice.district.name}"></th>
 
                                                     <th><a class="btn btn-success btn-sm"
-                                                           th:href="${'/agOffice/' + agOffice.id}" id="agOfficeView"><i
+                                                           data-th-href="${'/agOffice/' + agOffice.id}" id="agOfficeView"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>
                                                         <a class="btn btn-primary btn-sm" id="agOfficeEdit"
-                                                           th:href="${'/agOffice/edit/' + agOffice.id}"><i
+                                                           data-th-href="${'/agOffice/edit/' + agOffice.id}"><i
                                                                 class="fa fa-edit"></i>&nbsp;Edit</a>
                                                         <a class="btn btn-danger btn-sm" id="agOfficeRemove"
-                                                           th:href="${'/agOffice/remove/' + agOffice.id}"
-                                                           th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
-                                                           th:onclick="if(!(confirm('Are you want to delete this civilStatus ?'))) return false"
+                                                           data-th-href="${'/agOffice/remove/' + agOffice.id}"
+                                                           data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                                                           data-th-onclick="if(!(confirm('Are you want to delete this civilStatus ?'))) return false"
                                                         ><i
                                                                 aria-hidden="true" class="fa fa-trash"></i>
                                                             Delete</a>
@@ -73,7 +73,7 @@
                                             </table>
                                         </div>
                                         <!--if empty list-->
-                                        <div class="row" id="agOfficeNotList" th:if="${ #lists.isEmpty(agOffices)}">
+                                        <div class="row" id="agOfficeNotList" data-th-if="${ #lists.isEmpty(agOffices)}">
                                             <div class="col-sm-12">
                                                 <div class="alert alert-warning alert-dismissible fade show"
                                                      role="alert">
@@ -96,7 +96,7 @@
                                             </script>
                                         </div>
                                         <!--Show saved agOffice-->
-                                        <div class="row" th:if="${agOfficeDetail!=null}">
+                                        <div class="row" data-th-if="${agOfficeDetail!=null}">
                                             <div class="col-sm-12">
                                                 <div class="alert alert-success alert-dismissible fade show"
                                                      role="alert">
@@ -105,7 +105,7 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                     <div class="container">
-                                                        <div th:replace="~{agOffice/agOffice-detail :: agOfficeDetail}"></div>
+                                                        <div data-th-replace="~{agOffice/agOffice-detail :: agOfficeDetail}"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -126,8 +126,8 @@
             </div>
         </div>
     </div><!-- content-wrapper end --></div><!-- wrapper end -->
-<footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+<footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 
-<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>
