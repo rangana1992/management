@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
         <!--add form-->
@@ -27,7 +27,7 @@
                                             <form role="form">
 
                                                 <span id="formHeader"
-                                                      data-th-text="${addStatus==false?'New Subject':'Update Subject'}"></span>
+                                                      th:text="${addStatus==false?'New Subject':'Update Subject'}"></span>
                                                 <a href="/interviewParameter" class="btn btn-primary">
                                                     <i class="fa fa-list"></i>&nbsp; View List
                                                 </a>
@@ -40,58 +40,49 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4>Secondary Header </h4>
-                                            <form data-th-action="${addStatus==false?'/interviewParameter/save' :'/interviewParameter/update'}"
-                                                  method="post" data-th-object="${interviewParameter}"
+                                            <form th:action="${addStatus==false?'/interviewParameter/save' :'/interviewParameter/update'}"
+                                                  method="post" th:object="${interviewParameter}"
                                                   class="mt-3">
                                                 <div class="offset-3 col-6">
                                                     <!--/* id this comment not visualize */-->
                                                     <!--Id-->
-                                                    <div class="form-group row" data-th-if="${addStatus==true}">
+                                                    <div class="form-group row" th:if="${addStatus==true}">
                                                         <label for="id" class="col-sm-2 col-form-label "> Id </label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" data-th-field="*{id}"
+                                                            <input type="text" class="form-control" th:field="*{id}"
                                                                    id="id" readonly>
                                                         </div>
                                                     </div>
 
                                                     <!--Subject name-->
                                                     <div class="form-group row">
-                                                        <label data-th-for="${'name'}" class="col-sm-2 col-form-label ">
-                                                            Task </label>
+                                                        <label th:for="${'name'}" class="col-sm-2 col-form-label ">
+                                                            Parameter Name </label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" data-th-field="*{name}"
+                                                            <input type="text" class="form-control" th:field="*{name}"
                                                                    required>
-                                                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"
-                                                               data-th-errors="*{name}">Error Name</p>
+                                                            <p class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                                               th:errors="*{name}">Error Name</p>
                                                         </div>
                                                     </div>
                                                     <!--Max-->
                                                     <div class="form-group row">
-                                                        <label data-th-for="${'max'}" class="col-sm-2 col-form-label ">
-                                                            Point </label>
+                                                        <label th:for="${'max'}" class="col-sm-2 col-form-label ">
+                                                            Subject Name </label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" data-th-field="*{max}"
+                                                            <input type="text" class="form-control" th:field="*{max}"
                                                                    required>
-                                                            <p class="text-danger" data-th-if="${#fields.hasErrors('max')}"
-                                                               data-th-errors="*{max}">Error Name</p>
+                                                            <p class="text-danger" th:if="${#fields.hasErrors('max')}"
+                                                               th:errors="*{max}">Error Name</p>
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <div class="offset-sm-2 col-sm-10">
-                                                            <a href="/interviewParameter">
-                                                                <button class="btn btn-secondary btn-outline-secondary"
-                                                                        tabindex="65" type="button">Back
-                                                                </button>
-                                                            </a>
-
-                                                            <button class="btn btn-warning mr-5 " tabindex="65" type="reset">
-                                                                Clear
-                                                            </button>
                                                             <button type="submit" class="btn btn-primary">
-                                                                <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                                <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
                                                                 <span
-                                                                        data-th-text="${addStatus==false?'Save' : 'Update'}"></span>
+                                                                        th:text="${addStatus==false?'Save' : 'Update'}"></span>
                                                             </button>
                                                         </div>
                                                     </div>
@@ -111,8 +102,8 @@
             </div>
         </div>
     </div><!-- content-wrapper end -->
-    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

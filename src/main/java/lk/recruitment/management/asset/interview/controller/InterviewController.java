@@ -39,8 +39,15 @@ public class InterviewController implements AbstractController<Interview, Intege
     @GetMapping
     public String findAll(Model model) {
         model.addAttribute("interviews", interviewService.findAll());
-        return "interview/interview";
+   return "interview/interview";
+
     }
+//    @GetMapping("/test")
+//    public String findAlla(Model model) {
+//        model.addAttribute("interviews", interviewService.findAll());
+//        return "interview/interviewDateSet";
+//    }
+
 
     @GetMapping("/add")
     public String form(Model model) {

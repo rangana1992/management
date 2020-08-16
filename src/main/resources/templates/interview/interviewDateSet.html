@@ -1,16 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
-
-
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
         <div class="content-header">
@@ -34,66 +32,68 @@
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
                                         <!--if not empty list-->
-                                        <div class="container-fluid" id="streamListTable" th:if="${not #lists.isEmpty(streams)}">
+                                        <div class="container-fluid" id="interviewListTable"
+                                             data-th-if="${not #lists.isEmpty(interviews)}">
                                             <table class="table table-hover table-striped" id="myTable">
                                                 <thead class="thead-inverse">
                                                 <tr>
                                                     <th>S No</th>
-                                                    <th>Stream</th>
-
-
+                                                    <th> Name</th>
+                                                    <th>Interview Status</th>
+                                                    <th>Interview Parameter</th>
 
                                                     <th>Modify</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="stream, rowCount : ${streams}" scope="row">
-                                                    <th th:text="${rowCount.count}"></th>
-                                                    <th th:text="${stream.name}"></th>
-                                                   <!-- <th th:text="${stream.streamLevel.streamLevel}"></th>-->
+                                                <tr data-th-each="interview, rowCount : ${interviews}" scope="row">
+                                                    <th data-th-text="${rowCount.count}"></th>
+                                                    <th data-th-text="${interview.name}"></th>
+                                                    <th data-th-text="${interview.interviewStatus.interviewStatus}"></th>
+                                                    <th>
+                                                        <ol>
+                                                            <li data-th-each="interviewParameter : ${interview.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+ ${interviewParameter.max}"></li>
+                                                        </ol>
+                                                    </th>
 
 
-
-                                                    <th><a class="btn btn-success btn-sm" th:href="${'/stream/' + stream.id}" id="streamView"><i
+                                                    <th><a class="btn btn-success btn-sm"
+                                                           data-th-href="${'/interview/' + interview.id}" id="interviewView"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>
-                                                        <a class="btn btn-primary btn-sm" id="streamEdit"
-                                                           th:href="${'/stream/edit/' + stream.id}"><i
+                                                        <a class="btn btn-primary btn-sm" id="interviewEdit"
+                                                           data-th-href="${'/interview/edit/' + interview.id}"><i
                                                                 class="fa fa-edit"></i>&nbsp;Edit</a>
-                                                        <a class="btn btn-danger btn-sm" id="streamRemove"
-                                                           th:href="${'/stream/remove/' + stream.id}"
-                                                           th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
-                                                           th:onclick="if(!(confirm('Are you want to delete this civilStatus ?'))) return false"
-                                                        ><i
-                                                                aria-hidden="true" class="fa fa-trash"></i>
-                                                            Delete</a>
-
                                                     </th>
                                                 </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <!--if empty list-->
-                                        <div class="row" id="streamNotList" th:if="${ #lists.isEmpty(streams)}">
+                                        <div class="row" id="interviewNotList" data-th-if="${ #lists.isEmpty(interviews)}">
                                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                                 <h3 class="text-center text-danger">
-                                                    <strong>There is no stream upto know please add stream to the system
-                                                        using add stream button.
+                                                    <strong>There is no interview upto know please add interview to the
+                                                        system
+                                                        using add interview button.
                                                     </strong>
                                                 </h3>
                                             </div>
                                         </div>
-                                        <!--Show saved stream-->
-                                        <div class="row" th:if="${streamDetail!=null}">
+                                        <!--Show saved interview-->
+                                        <div class="row" data-th-if="${interviewDetail!=null}">
                                             <div class="col-sm-12">
-                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <div class="alert alert-success alert-dismissible fade show"
+                                                     role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                            aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                     <div class="container">
-                                                        <div th:replace="~{stream/stream-detail :: streamDetail}"></div>
+                                                        <div data-th-replace="~{interview/interview-detail :: interviewDetail}"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,16 +105,17 @@
                                         </div>
 
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div></div>
-        </div><!-- content-wrapper end -->
-        <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
-        </div><!-- wrapper end -->
-        <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
-        </body>
-        </html>
+        </div>
+    </div><!-- content-wrapper end -->
+    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+</div><!-- wrapper end -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+</body>
+</html>
