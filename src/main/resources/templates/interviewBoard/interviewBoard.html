@@ -33,7 +33,7 @@
                                         <h4>Secondary Header </h4>
                                         <!--if not empty list-->
                                         <div class="container-fluid" id="interviewListTable"
-                                             data-th-if="${not #lists.isEmpty(interviews)}">
+                                             data-th-if="${not #lists.isEmpty(interviewBoards)}">
                                             <table class="table table-hover table-striped" id="myTable">
                                                 <thead class="thead-inverse">
                                                 <tr>
@@ -46,22 +46,22 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr data-th-each="interview, rowCount : ${interviews}" scope="row">
+                                                <tr data-th-each="interviewBoard, rowCount : ${interviewBoards}" scope="row">
                                                     <th data-th-text="${rowCount.count}"></th>
-                                                    <th data-th-text="${interview.name}"></th>
-                                                    <th data-th-text="${interview.interviewStatus.interviewStatus}"></th>
+                                                    <th data-th-text="${interviewBoard.name}"></th>
+                                                    <th data-th-text="${interviewBoard.interviewBoardStatus.interviewBoardStatus}"></th>
                                                     <th>
                                                         <ol>
-                                                            <li data-th-each="interviewParameter : ${interview.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+ ${interviewParameter.max}"></li>
+                                                            <li data-th-each="employee : ${interviewBoard.employees}" data-th-text="${employee.name} + ${'  '}+ ${employee.designation}"></li>
                                                         </ol>
                                                     </th>
 
 
                                                     <th><a class="btn btn-success btn-sm"
-                                                           data-th-href="${'/interview/' + interview.id}" id="interviewView"><i
+                                                           data-th-href="${'/interviewBoard/' + interviewBoard.id}" id="interviewView"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>
                                                         <a class="btn btn-primary btn-sm" id="interviewEdit"
-                                                           data-th-href="${'/interview/edit/' + interview.id}"><i
+                                                           data-th-href="${'/interviewBoard/edit/' + interviewBoard.id}"><i
                                                                 class="fa fa-edit"></i>&nbsp;Edit</a>
                                                     </th>
                                                 </tr>
@@ -69,7 +69,7 @@
                                             </table>
                                         </div>
                                         <!--if empty list-->
-                                        <div class="row" id="interviewNotList" data-th-if="${ #lists.isEmpty(interviews)}">
+                                        <div class="row" id="interviewNotList" data-th-if="${ #lists.isEmpty(interviewBoards)}">
                                             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"
                                                         aria-label="Close">
@@ -84,7 +84,7 @@
                                             </div>
                                         </div>
                                         <!--Show saved interview-->
-                                        <div class="row" data-th-if="${interviewDetail!=null}">
+                                        <div class="row" data-th-if="${interviewBoardDetail!=null}">
                                             <div class="col-sm-12">
                                                 <div class="alert alert-success alert-dismissible fade show"
                                                      role="alert">

@@ -70,6 +70,7 @@ public class InterviewController implements AbstractController<Interview, Intege
         if (bindingResult.hasErrors()) {
             return commonThing(model, true, interview);
         }
+        System.out.println("Parameter count : " +interview.getInterviewParameters().size());
         redirectAttributes.addFlashAttribute("interviewDetail", interviewService.persist(interview));
         return "redirect:/interview";
     }

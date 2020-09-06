@@ -33,8 +33,8 @@ public class InterviewBoardController implements AbstractController<InterviewBoa
         model.addAttribute("addStatus", booleanValue);
         model.addAttribute("interviewBoard", interviewBoard);
         model.addAttribute("employees", employeeService.findAll());
-        model.addAttribute("interviewBoardStatus", InterviewBoardStatus.values());
-        return "interviewBoard/addInterview";
+        model.addAttribute("interviewBoardStatuses", InterviewBoardStatus.values());
+        return "interviewBoard/addInterviewBoard";
     }
 
 

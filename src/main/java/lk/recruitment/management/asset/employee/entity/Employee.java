@@ -1,8 +1,6 @@
 package lk.recruitment.management.asset.employee.entity;
 
 
-
-
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment.management.asset.commonAsset.model.Enum.BloodGroup;
 import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
@@ -11,7 +9,7 @@ import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
 import lk.recruitment.management.asset.commonAsset.model.FileInfo;
 import lk.recruitment.management.asset.employee.entity.Enum.Designation;
 import lk.recruitment.management.asset.employee.entity.Enum.EmployeeStatus;
-import lk.recruitment.management.asset.message.entity.EmailMessage;
+import lk.recruitment.management.asset.interviewBoard.entity.InterviewBoard;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -79,18 +77,17 @@ public class Employee extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private EmployeeStatus employeeStatus;
 
+    @Enumerated(EnumType.STRING)
+    private Designation designation;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfAssignment;
 
-
-    @Enumerated(EnumType.STRING)
-    private Designation designation;
-
     @ManyToMany(mappedBy = "employees")
-    private List<EmailMessage> emailMessages;
+    private List<InterviewBoard> interviewBoards;
 
     @Transient
     private MultipartFile file;

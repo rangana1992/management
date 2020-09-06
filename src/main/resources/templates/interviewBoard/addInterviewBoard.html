@@ -28,7 +28,7 @@
 
                                                 <span id="formHeader"
                                                       data-th-text="${addStatus==false?'New Interview':'Update Interview'}"></span>
-                                                <a href="/interview" class="btn btn-primary">
+                                                <a href="/interviewBoard" class="btn btn-primary">
                                                     <i class="fa fa-list"></i>&nbsp; View List
                                                 </a>
 
@@ -40,8 +40,8 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4>Secondary Header </h4>
-                                            <form data-th-action="${addStatus==false?'/interview/save' :'/interview/update'}"
-                                                  method="post" data-th-object="${interview}"
+                                            <form data-th-action="${addStatus==false?'/interviewBoard/save' :'/interviewBoard/update'}"
+                                                  method="post" data-th-object="${interviewBoard}"
                                                   class="mt-3">
                                                 <div class="offset-3 col-6">
                                                     <!--/* id this comment not visualize */-->
@@ -54,10 +54,10 @@
                                                         </div>
                                                     </div>
 
-                                                    <!--Interview name-->
+                                                    <!--Interview Board name-->
                                                     <div class="form-group row">
                                                         <label data-th-for="${'name'}" class="col-sm-2 col-form-label ">
-                                                            Interview Name </label>
+                                                            Interview Board Name </label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" data-th-field="*{name}"
                                                                    required>
@@ -68,11 +68,11 @@
 
                                                     <div class="form-group row">
                                                         <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
-                                                            Interview Status </label>
-                                                        <select class="form-control" data-th-field="*{interviewStatus}" required>
-                                                            <option data-th-each="interviewStatus : ${interviewStatuss}"
-                                                                    data-th-text="${interviewStatus.interviewStatus}"
-                                                                    data-th-value="${interviewStatus}">
+                                                            Interview Board Status </label>
+                                                        <select class="form-control" data-th-field="*{interviewBoardStatus}" required>
+                                                            <option data-th-each="interviewBoardStatus : ${interviewBoardStatuses}"
+                                                                    data-th-text="${interviewBoardStatus.interviewBoardStatus}"
+                                                                    data-th-value="${interviewBoardStatus}">
 
                                                             </option>
                                                         </select>
@@ -80,11 +80,11 @@
 
                                                     <div class="form-group row">
                                                         <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
-                                                            Interview Parameters </label>
-                                                        <select class="form-control" data-th-field="*{interviewParameters}" required multiple row="6">
-                                                            <option data-th-each="interviewParameter : ${interviewParameters}"
-                                                                    data-th-text="${interviewParameter.name}"
-                                                                    data-th-value="${interviewParameter.id}">
+                                                            Employee </label>
+                                                        <select class="form-control" data-th-field="*{employees}" required multiple row="6">
+                                                            <option data-th-each="employee : ${employees}"
+                                                                    data-th-text="${employee.name}"
+                                                                    data-th-value="${employee.id}">
 
                                                             </option>
                                                         </select>
