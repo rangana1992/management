@@ -89,6 +89,9 @@ public class Applicant extends AuditEntity {
     private List<ApplicantResult> applicantResults;
 
     @OneToMany(mappedBy ="applicant" )
+    private List<ApplicantDegreeResult> applicantDegreeResults;
+
+    @OneToMany(mappedBy ="applicant" )
     private List<NonRelative> nonRelatives;
 
     @Transient
