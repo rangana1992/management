@@ -1,36 +1,31 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+<!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>First sud Header</h4>
+
                                         <form role="form">
-                                            <span id="formHeader"
-                                                  data-th-text="${agOfficeDetail.name}"></span>
-                                            <a href="/district" class="btn btn-primary"><i class="fa fa-list"></i>&nbsp;
-                                                View List</a>
-                                            <a href="/district">
-                                                <button class="btn btn-primary">
-
-                                                    <i class="fa fa-step-backward mr-1"></i>Back
-                                                </button>
-                                            </a>
-
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" th:href="${'/agOffice'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; AG Office List </a>
+                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -38,28 +33,28 @@
                             <div class="col-md-9">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Secondary Header </h4>
-                                        <div class="container-fluid" data-th-fragment="agOfficeDetail">
+                                        <h4></h4>
+                                        <div class="container-fluid" th:fragment="agOfficeDetail">
                                             <!--Id-->
                                             <div class="form-group ">
                                                 <label class="form-label "> Id </label>
-                                                <p class="display_detail" data-th-text="${agOfficeDetail.id}"></p>
+                                                <p class="display_detail" th:text="${agOfficeDetail.id}"></p>
                                             </div>
                                             <!--Province-->
                                             <div class="form-group ">
                                                 <label class="form-label "> Province </label>
                                                 <p class="display_detail"
-                                                   data-th-text="${agOfficeDetail.district.province}"></p>
+                                                   th:text="${agOfficeDetail.district.province}"></p>
                                             </div>
                                             <!--District-->
                                             <div class="form-group ">
                                                 <label class="form-label "> District </label>
-                                                <p class="display_detail" data-th-text="${agOfficeDetail.district.name}"></p>
+                                                <p class="display_detail" th:text="${agOfficeDetail.district.name}"></p>
                                             </div>
                                             <!--AgOffice name-->
                                             <div class="form-group ">
                                                 <label class="form-label "> Name </label>
-                                                <p class="display_detail" data-th-text="${agOfficeDetail.name}"></p>
+                                                <p class="display_detail" th:text="${agOfficeDetail.name}"></p>
                                             </div>
 
                                             <!--Land Number-->
@@ -67,7 +62,7 @@
 
                                                 <label class="control-label">Land No :</label>
 
-                                                <p class="display_detail" data-th-text="${agOfficeDetail.land}"></p>
+                                                <p class="display_detail" th:text="${agOfficeDetail.land}"></p>
 
                                             </div>
                                             <!--Email-->
@@ -75,7 +70,7 @@
 
                                                 <label class="control-label">Email :</label>
 
-                                                <p class="display_detail" data-th-text="${agOfficeDetail.email}"></p>
+                                                <p class="display_detail" th:text="${agOfficeDetail.email}"></p>
 
                                             </div>
                                             <!--Address-->
@@ -83,7 +78,7 @@
 
                                                 <label class="control-label">Address :</label>
 
-                                                <p class="display_detail" data-th-text="${agOfficeDetail.address}"></p>
+                                                <p class="display_detail" th:text="${agOfficeDetail.address}"></p>
 
 
                                         </div>
@@ -96,9 +91,9 @@
                 </div>
             </div>
         </div><!-- content-wrapper end -->
-        <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+        <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
     </div><!-- wrapper end -->
-    <script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+    <script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </div>
 </body>
 </html>

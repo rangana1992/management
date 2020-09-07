@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
         <div class="content-header">
             <div class="container-fluid">
@@ -21,7 +21,7 @@
                                         <h4>First sud Header</h4>
                                         <form role="form">
                                             <span id="formHeader"
-                                                  data-th-text="${addStatus==false?'New Non Relative':'Update Non Relative'}"></span>
+                                                  th:text="${addStatus==false?'New Non Relative':'Update Non Relative'}"></span>
                                         </form>
                                     </div>
                                 </div>
@@ -30,8 +30,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Secondary Header </h4>
-                                        <form data-th-action="${addStatus==false?'/nonRelative/save' :'/nonRelative/update'}"
-                                              method="post" data-th-object="${applicant}">
+                                        <form th:action="${addStatus==false?'/nonRelative/save' :'/nonRelative/update'}"
+                                              method="post" th:object="${applicant}">
                                             <div class="row">
                                                 <!--O L-->
                                                 <div class="col-md-6">
@@ -410,9 +410,9 @@
                                             <div class="form-group text-center">
                                                 <br>
                                                 <button class="btn btn-primary" type="submit">
-                                                    <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                    <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
                                                     <span
-                                                            data-th-text="${addStatus==false?'Save' : 'Update'}"></span>
+                                                            th:text="${addStatus==false?'Save' : 'Update'}"></span>
                                                 </button>
                                             </div>
                                         </form>
@@ -426,9 +426,9 @@
             </div>
         </div>
     </div><!-- content-wrapper end -->
-    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 <script>
     $(document).ready(function () {
 

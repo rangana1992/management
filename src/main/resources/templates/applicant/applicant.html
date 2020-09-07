@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+<!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
 
 
@@ -22,25 +22,27 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>First sud Header</h4>
+<!--                                        <h4>First sud Header</h4>-->
                                         <form role="form">
-                                            <a class="btn btn-success" id="newBriefing" data-th-href="${'/applicant/add'}">
-                                                <i class="fas fa-plus-square"></i>  Add Applicant </a>
-
-
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" th:href="${'/applicant/add'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Add Applicant </a>
+                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Secondary Header </h4>
+                                        <h4>Applicant Details</h4>
                                     <div class="card-body">
-                                        <table id="example2" class="table table-hover table-dark">
+                                        <table class="table  table-hover " id="myTable">
                                             <thead>
                                             <tr>
                                                 <th> Index</th>
@@ -51,25 +53,25 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr data-th-each="applicant, rowCount : ${applicants}">
-                                                <td data-th-text="${rowCount.count}"></td>
-                                                <td data-th-text="${applicant.nameWithInitial}"></td>
-                                                <td data-th-text="${applicant.applyingRank}"></td>
-                                                <td data-th-text="${applicant.gramaNiladhari.policeStation.name}"></td>
+                                            <tr th:each="applicant, rowCount : ${applicants}">
+                                                <td th:text="${rowCount.count}"></td>
+                                                <td th:text="${applicant.nameWithInitial}"></td>
+                                                <td th:text="${applicant.applyingRank}"></td>
+                                                <td th:text="${applicant.gramaNiladhari.policeStation.name}"></td>
 
                                                 <td>
-                                                    <a id="applicantView" data-th-href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
+                                                    <a id="applicantView" th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>
-                                                    <a id="applicantEdit" data-th-href="${'/applicant/edit/' + applicant.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                                                    <a id="applicantRemove" data-th-href="${'/applicant/remove/' + applicant.id}"
-                                                       data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
+                                                    <a id="applicantEdit" th:href="${'/applicant/edit/' + applicant.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                                                    <a id="applicantRemove" th:href="${'/applicant/remove/' + applicant.id}"
+                                                       th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
                                                         Delete</a>
                                                 </td>
                                             </tr>
                                             </tfoot>
                                         </table>
                                     </div>
-                                    <div class="row" data-th-if="${ #lists.isEmpty(applicants)}">
+                                    <div class="row" th:if="${ #lists.isEmpty(applicants)}">
                                         <!-- <div class="col-sm-12">-->
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -92,8 +94,8 @@
         </div>
 
     </div><!-- content-wrapper end -->
-    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

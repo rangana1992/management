@@ -17,8 +17,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("PoliceStation")
-@ToString
+@JsonFilter("ApplicantResult")
 public class ApplicantResult extends AuditEntity {
     private String indexNumber;
 

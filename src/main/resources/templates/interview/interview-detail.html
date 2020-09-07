@@ -8,7 +8,8 @@
     <div class="content-wrapper"><!-- content-wrapper Start -->
         <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>
+        <!-- Small Box Set -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
@@ -19,7 +20,7 @@
                                     <div class="card-body">
                                         <h4>First sud Header</h4>
                                         <form role="form">
-                                            <a href="/subject">
+                                            <a href="/interview">
                                                 <button class="btn btn-primary">
 
                                                     <i class="fa fa-step-backward mr-1"></i>Back
@@ -45,7 +46,8 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Name </label>
                                                 <div class="col-sm-10">
-                                                    <p class="display_detail" data-th-text="${interviewDetail.name}"></p>
+                                                    <p class="display_detail"
+                                                       data-th-text="${interviewDetail.name}"></p>
                                                 </div>
                                             </div>
 
@@ -61,9 +63,9 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Interview Parameter </label>
                                                 <div class="col-sm-10">
-                                                    <p class="display_detail"
-                                                       data-th-each="interviewParameter : ${interviewDetail.interviewParameters}"
-                                                       data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></p>
+                                                    <ol class="display_detail">
+                                                        <li data-th-each="interviewParameter : ${interviewDetail.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></li>
+                                                    </ol>
                                                 </div>
                                             </div>
                                         </div>

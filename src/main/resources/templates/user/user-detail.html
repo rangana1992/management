@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
         <div class="content-header">
@@ -22,7 +22,7 @@
                                         <h4>First sud Header</h4>
                                         <form role="form">
        <span id="formHeader"
-             data-th-text="${userDetail.employee.title.title}+${' '}+${userDetail.employee.name}"></span>
+             th:text="${userDetail.employee.title.title}+${' '}+${userDetail.employee.name}"></span>
 
                                             <a href="/user" class="btn btn-primary">
                                                 <i class="fa fa-list"></i>&nbsp; View List
@@ -46,7 +46,7 @@
                                                             <label class="control-label">ID :</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <strong><span id="id" data-th-text="${userDetail.id}"></span></strong>
+                                                            <strong><span id="id" th:text="${userDetail.id}"></span></strong>
                                                         </div>
                                                     </div>
                                                     <!--User Name-->
@@ -55,7 +55,7 @@
                                                             <label class="control-label">User Name :</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <strong><span id="userName" data-th-text="${userDetail.username}"></span></strong>
+                                                            <strong><span id="userName" th:text="${userDetail.username}"></span></strong>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -68,7 +68,7 @@
                                                         </div>
                                                         <div class="col-md-8">
                                                             <strong><span id="employeeName"
-                                                                          data-th-text="${userDetail.employee.name}+ ${' - '}+${userDetail.employee.nic}"></span></strong>
+                                                                          th:text="${userDetail.employee.name}+ ${' - '}+${userDetail.employee.nic}"></span></strong>
                                                         </div>
                                                     </div>
                                                     <!--Created date-->
@@ -77,7 +77,7 @@
                                                             <label class="control-label">Created Date :</label>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <strong><span id="createDate" data-th-text="${{userDetail.createdAt}}"></span></strong>
+                                                            <strong><span id="createDate" th:text="${{userDetail.createdAt}}"></span></strong>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
@@ -93,9 +93,9 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr data-th-each="roles, count : ${userDetail.roles}">
-                                                                    <th data-th-text="${count.count}"></th>
-                                                                    <th data-th-text="${roles.roleName}"></th>
+                                                                <tr th:each="roles, count : ${userDetail.roles}">
+                                                                    <th th:text="${count.count}"></th>
+                                                                    <th th:text="${roles.roleName}"></th>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -116,8 +116,8 @@
             </div>
         </div>
     </div><!-- content-wrapper end -->
-    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 </body>
 </html>

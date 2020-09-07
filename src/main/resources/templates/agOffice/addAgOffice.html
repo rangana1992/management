@@ -1,138 +1,144 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-selected="" replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
-    <nav data-th-selected="" replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-selected="" replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-selected="" replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
-        <section data-th-selected="" replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+<!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
+<!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>First sud Header</h4>
+<!--                                        <h4>First sud Header</h4>-->
                                         <form role="form">
-                                            <span id="formHeader"
-                                                  data-th-selected="" text="${addStatus==false?'New AgOffice':'Update AgOffice'}"></span>
-
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" th:href="${'/agOffice'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; AG Office View </a>
+                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Secondary Header </h4>
-                                        <form data-th-selected="" action="${addStatus==false?'/agOffice/save' :'/agOffice/update'}"
-                                              method="post" data-th-selected="" object="${agOffice}">
+                                        <h4>Add AG Office</h4>
+                                        <form th:action="${addStatus==false?'/agOffice/save' :'/agOffice/update'}"
+                                              method="post" th:object="${agOffice}">
                                             <!--/* id this comment not visualize */-->
                                             <!--Id-->
-                                            <div class="form-group " data-th-selected="" if="${addStatus==true}">
-                                                <label for="id" class="form-label "> Id </label>
+                                            <div class="form-group  col-md-9" th:if="${addStatus==true}">
+                                                <label for="id" class="form-label col-md-3 "> Id </label>
 
-                                                <input type="text" class="form-control" data-th-selected="" field="*{id}" id="id"
+                                                <input type="text" class="form-control" th:field="*{id}" id="id"
                                                        readonly>
 
                                             </div>
                                             <!--Province-->
-                                            <div class="form-group ">
-                                                <label data-th-selected="" for="${'province'}" class="form-label "> Province </label>
-                                                <select class="form-control" id="province"
-                                                        data-th-selected="" if="${not #lists.isEmpty(districts)}"
-                                                        data-th-selected="" value="${agOffice.district.province}">
+                                            <div class=" form-row p-3">
+                                                <label th:for="${'province'}" class="form-label col-md-3 " > Province </label>
+                                                <select class="form-control  col-md-9" id="province"
+                                                        th:if="${not #lists.isEmpty(districts)}"
+                                                        th:value="${agOffice.district.province}">
                                                     <option value="" disabled>Please Select</option>
-                                                    <option data-th-selected="" each="province : ${provinces}"
-                                                            data-th-selected="" text="${province.province}"
-                                                            data-th-selected="" value="${province}"
+                                                    <option th:each="province : ${provinces}"
+                                                            th:text="${province.province}"
+                                                            th:value="${province}"
                                                     ></option>
                                                 </select>
-                                                <select class="form-control" id="province"
-                                                        data-th-selected="" if="${ #lists.isEmpty(districts)}">
+                                                <select class="form-control  col-md-9" id="province"
+                                                        th:if="${ #lists.isEmpty(districts)}">
                                                     <option value="" >Please Select</option>
-                                                    <option data-th-selected="" each="province : ${provinces}"
-                                                            data-th-selected="" text="${province.province}"
-                                                            data-th-selected="" value="${province}"
+                                                    <option th:each="province : ${provinces}"
+                                                            th:text="${province.province}"
+                                                            th:value="${province}"
                                                     ></option>
                                                 </select>
                                             </div>
                                             <!--District-->
-                                            <div class="form-group ">
-                                                <label data-th-selected="" for="${'district'}" class="form-label "> District </label>
+                                            <div class=" form-row p-3">
+                                                <label th:for="${'district'}" class="form-label col-md-3"  > District </label>
 
-                                                <select class="form-control" data-th-selected="" field="*{district}">
+                                                <select class="form-control  col-md-9" th:field="*{district}">
                                                     <option value="">Please Select</option>
-                                                    <option data-th-selected="" each="district : ${districts}"
-                                                            data-th-selected="" text="${district.name}"
-                                                            data-th-selected="" value="${district.id}"
+                                                    <option th:each="district : ${districts}"
+                                                            th:text="${district.name}"
+                                                            th:value="${district.id}"
                                                     ></option>
 
                                                 </select>
-                                                <p class="text-danger" data-th-selected="" if="${#fields.hasErrors('district')}"
-                                                   data-th-selected="" errors="*{district}">Error Name</p>
+                                                <p class="text-danger" th:if="${#fields.hasErrors('district')}"
+                                                   th:errors="*{district}">Error Name</p>
 
 
                                             </div>
                                             <!--AgOffice name-->
-                                            <div class="form-group ">
-                                                <label data-th-selected="" for="${'name'}" class="form-label "> Name </label>
+                                            <div class=" form-row p-3">
+                                                <label th:for="${'name'}" class="form-label col-md-3" > Name </label>
 
-                                                <input type="text" class="form-control" data-th-selected="" field="*{name}">
-                                                <p class="text-danger" data-th-selected="" if="${#fields.hasErrors('name')}"
-                                                   data-th-selected="" errors="*{name}">Error Name</p>
+                                                <input type="text" class="form-control  col-md-9" th:field="*{name}">
+                                                <p class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                                   th:errors="*{name}">Error Name</p>
 
                                             </div>
 
                                             <!--Land Number-->
-                                            <div class="form-group">
+                                            <div class=" form-row p-3">
 
-                                                <label class="control-label" for="land">Land No :</label>
+                                                <label class="control-label col-md-3 " for="land">Land No :</label>
 
-                                                <input id="land" data-th-selected="" field="*{land}" class="form-control land"
+                                                <input id="land" th:field="*{land}" class="form-control  col-md-9 land"
                                                        type="text" tabindex="15"
                                                        maxlength="10"
                                                        min="9"/>
-                                                <span class="error" data-th-selected="" errors="*{land}"
-                                                      data-th-selected="" if="${#fields.hasErrors('land')}" id="landError">Error Land Number</span>
+                                                <span class="error" th:errors="*{land}"
+                                                      th:if="${#fields.hasErrors('land')}" id="landError">Error Land Number</span>
 
                                             </div>
                                             <!--Email-->
-                                            <div class="form-group">
+                                            <div class=" form-row p-3">
 
-                                                <label class="control-label" for="email">Email :</label>
+                                                <label class="control-label col-md-3 " for="email">Email :</label>
 
-                                                <input id="email" data-th-selected="" field="*{email}" class="form-control"
+                                                <input id="email" th:field="*{email}" class="form-control  col-md-9"
                                                        tabindex="16" type="email"
                                                        required/>
-                                                <span class="error" data-th-selected="" errors="*{email}"
-                                                      data-th-selected="" if="${#fields.hasErrors('email')}"
+                                                <span class="error" th:errors="*{email}"
+                                                      th:if="${#fields.hasErrors('email')}"
                                                       id="emailError">Error Email</span>
 
                                             </div>
                                             <!--Address-->
-                                            <div class="form-group">
+                                            <div class="form-row p-3">
 
-                                                <label class="control-label" for="address">Address :</label>
+                                                <label class="control-label col-md-3 " for="address">Address :</label>
 
-                                                <textarea id="address" data-th-selected="" field="*{address}"
-                                                          class="form-control" tabindex="12"
+                                                <textarea id="address" th:field="*{address}"
+                                                          class="form-control  col-md-9" tabindex="12"
                                                           required></textarea>
-                                                <span class="error" data-th-selected="" errors="*{address}"
-                                                      data-th-selected="" if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
+                                                <span class="error" th:errors="*{address}"
+                                                      th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
 
                                             </div>
-                                            <div class="form-group row">
+                                            <div align="right">
+                                                <button class="btn btn-warning mr-5 darkmode--activated" tabindex="65" type="reset">
+                                                    Clear
+                                                </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i data-th-selected="" class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                    <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
                                                     <span
-                                                            data-th-selected="" text="${addStatus==false?'Save' : 'Update'}"></span>
+                                                            th:text="${addStatus==false?'Save' : 'Update'}"></span>
                                                 </button>
                                             </div>
                                         </form>
@@ -145,9 +151,9 @@
             </div>
         </div>
     </div><!-- content-wrapper end -->
-    <footer data-th-selected="" replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+    <footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
-<script data-th-selected="" replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
 <script>
     $('#province').bind("change", function () {
         optionFieldAdd(this.value);

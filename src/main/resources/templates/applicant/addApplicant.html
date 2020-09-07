@@ -10,31 +10,35 @@
     <!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
         <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>
+        <!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
+        <!--        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>-->
         <!-- Small Box Set -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>First sud Header</h4>
+                                        <!--                                        <h4>First sud Header</h4>-->
                                         <form role="form">
-                                            <a class="btn btn-primary" href="/home"> <i class="fa fa-home"></i> Home
-                                            </a>
-                                            <a class="btn btn-primary" href="/applicant"><i class="fa fa-list"></i>&nbsp;
-                                                View List </a>
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" data-th-href="${'/applicant'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp;
+                                                    Applicant View </a>
+                                                <a class="btn btn-info" id="newDistrict" data-th-href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back
+                                                    to Home </a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Secondary Header </h4>
+                                        <h4>Add New Applicant</h4>
                                         <form enctype="multipart/form-data"
                                               method="post"
                                               data-th-action="${addStatus==true?'/applicant/save' :'/applicant/update'}"
@@ -169,7 +173,6 @@
                                                         </select>
 
 
-
                                                     </div>
 
                                                 </div>
@@ -201,35 +204,27 @@
                                                     </div>
                                                     <!--chest-->
                                                     <div class="form-group">
-
                                                         <label class="control-label" for="chest">Chest(cm) :</label>
-
                                                         <input class="form-control" id="chest" maxlength="12"
                                                                minlength="10" required
                                                                tabindex="6"
                                                                data-th-field="*{chest}" type="number" min="0"/>
                                                         <span><i><small>(Chest must be 34cm(Male) & 36cm(Female))</small></i></span>
-
                                                     </div>
                                                     <!--Address-->
                                                     <div class="form-group">
-
                                                         <label class="control-label" for="address">Address :</label>
-
                                                         <textarea class="form-control" id="address"
                                                                   required tabindex="12"
                                                                   data-th-field="*{address}" rows="2"></textarea>
                                                         <span class="error" id="addressError"
                                                               data-th-errors="*{address}"
                                                               data-th-if="${#fields.hasErrors('address')}">Error Address</span>
-
                                                     </div>
                                                     <!--Mobile Number-->
                                                     <div class="form-group">
-
                                                         <label class="control-label" for="mobile">Mobile No
                                                             :</label>
-
                                                         <input class="form-control mobile" id="mobile"
                                                                maxlength="10" min="9"
                                                                required
@@ -238,7 +233,6 @@
                                                         <span class="error" id="mobileOneError"
                                                               data-th-errors="*{mobile}"
                                                               data-th-if="${#fields.hasErrors('mobile')}">Error Mobile Number</span>
-
                                                     </div>
                                                     <!--Land No-->
                                                     <div class="form-group">
@@ -338,12 +332,15 @@
                                                     <div class="col-md-3"></div>
                                                     <div class="col-md-3 ml-5">
                                                         <!--photo details-->
-                                                        <img class="img-fluid ml-5" data-th-if="${addStatus==false}" data-th-src="${file.url}" id="image" alt=""
-                                                             style="height: 100px;" >
-                                                        <img class="img-fluid ml-5" data-th-if="${addStatus==true}" src="" id="image" alt=""
-                                                             style="height: 100px;" >
+                                                        <img class="img-fluid ml-5" data-th-if="${addStatus==false}"
+                                                             data-th-src="${file.url}" id="image" alt=""
+                                                             style="height: 100px;">
+                                                        <img class="img-fluid ml-5" data-th-if="${addStatus==true}" src=""
+                                                             id="image" alt=""
+                                                             style="height: 100px;">
                                                     </div>
-                                                </div><!--/* Educational Detail */-->
+                                                </div>
+                                                <!--/* Educational Detail */-->
                                                 <div class="form-row container-fluid border-right">
                                                     <div class="form-group form-row col-12 pt-5 flex-column">
                                                         <p class="font-weight-bold font-italic ml-5 border-bottom p-3 darkmode--activated">
@@ -358,29 +355,42 @@
                                                                     Ordinary Level Exam</p>
                                                             </div>
                                                             <div class="form-row container-fluid">
-                                                                <div class="form-group form-row container-fluid" data-th-if="${addStatus==true}">
+                                                                <div class="form-group form-row container-fluid"
+                                                                     data-th-if="${addStatus==true}">
                                                                     <!--/*Index number one O/L*/-->
                                                                     <div class="form-row">
                                                                         <!--/*index one*/-->
-                                                                        <label class="darkmode--activated col-sm-3" for="indexOneOL">Index No
+                                                                        <label class="darkmode--activated col-sm-3"
+                                                                               for="indexOneOL">Index No
                                                                             :</label>
-                                                                        <input  class="col-sm-4 form-control" id="indexOneOL" required tabindex="18" type="text"/>
+                                                                        <input class="col-sm-4 form-control"
+                                                                               id="indexOneOL" required tabindex="18"
+                                                                               type="text"/>
                                                                         <!--/*Year one*/-->
-                                                                        <label class="darkmode--activated col-sm-2 pl-3" for="yearOneOL">Year
+                                                                        <label class="darkmode--activated col-sm-2 pl-3"
+                                                                               for="yearOneOL">Year
                                                                             :</label>
-                                                                        <input class="col-sm-2 form-control" id="yearOneOL" maxlength="4" required tabindex="19"
+                                                                        <input class="col-sm-2 form-control"
+                                                                               id="yearOneOL" maxlength="4" required
+                                                                               tabindex="19"
                                                                                type="text"/>
                                                                     </div>
                                                                     <!--/*Index number two O/L*/-->
                                                                     <div class="form-row">
                                                                         <!--/*index Two*/-->
-                                                                        <label class="darkmode--activated col-sm-3" for="indexTwoOL">Index No
+                                                                        <label class="darkmode--activated col-sm-3"
+                                                                               for="indexTwoOL">Index No
                                                                             :</label>
-                                                                        <input class="col-sm-4 form-control" id="indexTwoOL" tabindex="20" type="text"/>
+                                                                        <input class="col-sm-4 form-control"
+                                                                               id="indexTwoOL" tabindex="20"
+                                                                               type="text"/>
                                                                         <!--/*Year Two*/-->
-                                                                        <label class="darkmode--activated col-sm-2 pl-3" for="yearTwoOL">Year
+                                                                        <label class="darkmode--activated col-sm-2 pl-3"
+                                                                               for="yearTwoOL">Year
                                                                             :</label>
-                                                                        <input class="col-sm-2 form-control" id="yearTwoOL" maxlength="4" tabindex="21"
+                                                                        <input class="col-sm-2 form-control"
+                                                                               id="yearTwoOL" maxlength="4"
+                                                                               tabindex="21"
                                                                                type="text"/>
                                                                     </div>
                                                                 </div>
@@ -391,7 +401,8 @@
                                                                         <tr>
                                                                             <th>Subject</th>
                                                                             <th>Result</th>
-                                                                            <th data-th-if="${addStatus==false}">Year</th>
+                                                                            <th data-th-if="${addStatus==false}">Year
+                                                                            </th>
                                                                             <th>Attempt</th>
                                                                         </tr>
                                                                         </thead>
@@ -400,23 +411,34 @@
                                                                         <tr data-th-each="studentResult, index : ${student.studentResults}"
                                                                             data-th-if="${#strings.equals(studentResult.streamLevel,'OL')}">
                                                                             <td>
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].id'}"
-                                                                                       data-th-value="${studentResult.id}" hidden type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].streamLevel'}"
-                                                                                       data-th-value="${studentResult.streamLevel}" hidden
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].id'}"
+                                                                                       data-th-value="${studentResult.id}"
+                                                                                       hidden type="text">
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].streamLevel'}"
+                                                                                       data-th-value="${studentResult.streamLevel}"
+                                                                                       hidden
                                                                                        type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].compulsoryOLSubject'}"
-                                                                                       data-th-value="${studentResult.compulsoryOLSubject}" hidden
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].compulsoryOLSubject'}"
+                                                                                       data-th-value="${studentResult.compulsoryOLSubject}"
+                                                                                       hidden
                                                                                        type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].indexNumber'}"
-                                                                                       data-th-value="${studentResult.indexNumber}" hidden
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].indexNumber'}"
+                                                                                       data-th-value="${studentResult.indexNumber}"
+                                                                                       hidden
                                                                                        type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].subjectName'}"
-                                                                                       data-th-value="${studentResult.subjectName}" readonly
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].subjectName'}"
+                                                                                       data-th-value="${studentResult.subjectName}"
+                                                                                       readonly
                                                                                        type="text">
                                                                             </td>
                                                                             <td>
-                                                                                <select class="form-control" data-th-name="${'studentResults[__${index.index}__].subjectResult'}">
+                                                                                <select class="form-control"
+                                                                                        data-th-name="${'studentResults[__${index.index}__].subjectResult'}">
                                                                                     <option data-th-each="subjectResult : ${subjectResults}"
                                                                                             data-th-selected="${subjectResult==studentResult.subjectResult}"
                                                                                             data-th-text="${subjectResult.subjectResult}"
@@ -424,13 +446,17 @@
                                                                                 </select>
                                                                             </td>
                                                                             <td>
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].year'}"
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].year'}"
                                                                                        data-th-value="${studentResult.year}"
                                                                                        readonly type="text">
                                                                             </td>
                                                                             <td>
-                                                                                <select class="form-control" data-th-name="${'studentResults[__${index.index}__].attempt'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        data-th-name="${'studentResults[__${index.index}__].attempt'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-selected="${attempt==studentResult.attempt}"
                                                                                             data-th-text="${attempt.attempt}"
@@ -451,26 +477,37 @@
                                                                                        name="studentResults[0].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLOneSubName" name="studentResults[0].subjectName"
-                                                                                       placeholder="Subject Name" readonly
+                                                                                <input class="form-control"
+                                                                                       id="subOLOneSubName"
+                                                                                       name="studentResults[0].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly
                                                                                        type="text" value="Mathematics">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLOneSubYear" name="studentResults[0].year"
+                                                                                <input hidden id="subOLOneSubYear"
+                                                                                       name="studentResults[0].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[0].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[0].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[0].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[0].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="MATH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[0].subjectResult" required
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[0].subjectResult"
+                                                                                        required
                                                                                         tabindex="22">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -479,9 +516,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLOneAttempt" name="studentResults[0].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLOneAttempt"
+                                                                                        name="studentResults[0].attempt"
                                                                                         required tabindex="23">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -497,26 +538,37 @@
                                                                                        name="studentResults[1].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLTwoSubName" name="studentResults[1].subjectName"
-                                                                                       placeholder="Subject Name" readonly type="text"
+                                                                                <input class="form-control"
+                                                                                       id="subOLTwoSubName"
+                                                                                       name="studentResults[1].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly type="text"
                                                                                        value="Science">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLTwoSubYear" name="studentResults[1].year"
+                                                                                <input hidden id="subOLTwoSubYear"
+                                                                                       name="studentResults[1].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[1].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[1].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[1].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[1].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="SCIEN">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[1].subjectResult" required
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[1].subjectResult"
+                                                                                        required
                                                                                         tabindex="24">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -525,9 +577,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLTwoAttempt" name="studentResults[1].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLTwoAttempt"
+                                                                                        name="studentResults[1].attempt"
                                                                                         required tabindex="25">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -543,26 +599,38 @@
                                                                                        name="studentResults[2].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLThreeSubName" name="studentResults[2].subjectName"
-                                                                                       placeholder="Subject Name" readonly
-                                                                                       type="text" value="Sinhala Language & Literature">
+                                                                                <input class="form-control"
+                                                                                       id="subOLThreeSubName"
+                                                                                       name="studentResults[2].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly
+                                                                                       type="text"
+                                                                                       value="Sinhala Language & Literature">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLThreeSubYear" name="studentResults[2].year"
+                                                                                <input hidden id="subOLThreeSubYear"
+                                                                                       name="studentResults[2].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[2].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[2].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[2].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[2].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="SING">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[2].subjectResult" required
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[2].subjectResult"
+                                                                                        required
                                                                                         tabindex="26">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -571,10 +639,14 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLThreeAttempt" name="studentResults[2].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLThreeAttempt"
+                                                                                        name="studentResults[2].attempt"
                                                                                         required
                                                                                         tabindex="27">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -590,26 +662,38 @@
                                                                                        name="studentResults[3].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLFourSubName" name="studentResults[3].subjectName"
-                                                                                       placeholder="Subject Name" readonly
-                                                                                       type="text" value="English Language & Literature">
+                                                                                <input class="form-control"
+                                                                                       id="subOLFourSubName"
+                                                                                       name="studentResults[3].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly
+                                                                                       type="text"
+                                                                                       value="English Language & Literature">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLFourSubYear" name="studentResults[3].year"
+                                                                                <input hidden id="subOLFourSubYear"
+                                                                                       name="studentResults[3].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[3].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[3].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[3].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[3].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="ENG">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[3].subjectResult" required
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[3].subjectResult"
+                                                                                        required
                                                                                         tabindex="28">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -618,9 +702,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLFourAttempt" name="studentResults[3].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLFourAttempt"
+                                                                                        name="studentResults[3].attempt"
                                                                                         required tabindex="29">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -636,26 +724,37 @@
                                                                                        name="studentResults[4].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLFiveSubName" name="studentResults[4].subjectName"
-                                                                                       placeholder="Subject Name" readonly type="text"
+                                                                                <input class="form-control"
+                                                                                       id="subOLFiveSubName"
+                                                                                       name="studentResults[4].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly type="text"
                                                                                        value="Religion">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLFiveSubYear" name="studentResults[4].year"
+                                                                                <input hidden id="subOLFiveSubYear"
+                                                                                       name="studentResults[4].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[4].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[4].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[4].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[4].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="REG">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[4].subjectResult" required
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[4].subjectResult"
+                                                                                        required
                                                                                         tabindex="29">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -664,9 +763,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLFiveAttempt" name="studentResults[4].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLFiveAttempt"
+                                                                                        name="studentResults[4].attempt"
                                                                                         required tabindex="30">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -682,24 +785,35 @@
                                                                                        name="studentResults[5].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLSixSubName" name="studentResults[5].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="30" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subOLSixSubName"
+                                                                                       name="studentResults[5].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="30" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLSixSubYear" name="studentResults[5].year"
+                                                                                <input hidden id="subOLSixSubYear"
+                                                                                       name="studentResults[5].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[5].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[5].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[5].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[5].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[5].subjectResult" tabindex="33">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[5].subjectResult"
+                                                                                        tabindex="33">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -708,9 +822,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLSixAttempt" name="studentResults[5].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLSixAttempt"
+                                                                                        name="studentResults[5].attempt"
                                                                                         tabindex="34">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -726,24 +844,35 @@
                                                                                        name="studentResults[6].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLSevenSubName" name="studentResults[6].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="35" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subOLSevenSubName"
+                                                                                       name="studentResults[6].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="35" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLSevenSubYear" name="studentResults[6].year"
+                                                                                <input hidden id="subOLSevenSubYear"
+                                                                                       name="studentResults[6].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[6].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[6].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[6].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[6].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[6].subjectResult" tabindex="36">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[6].subjectResult"
+                                                                                        tabindex="36">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -752,9 +881,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLSevenAttempt" name="studentResults[6].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLSevenAttempt"
+                                                                                        name="studentResults[6].attempt"
                                                                                         tabindex="37">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -770,24 +903,35 @@
                                                                                        name="studentResults[7].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLEightSubName" name="studentResults[7].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="38" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subOLEightSubName"
+                                                                                       name="studentResults[7].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="38" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLEightSubYear" name="studentResults[7].year"
+                                                                                <input hidden id="subOLEightSubYear"
+                                                                                       name="studentResults[7].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[7].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[7].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[7].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[7].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[7].subjectResult" tabindex="39">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[7].subjectResult"
+                                                                                        tabindex="39">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -796,9 +940,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLEightAttempt" name="studentResults[7].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLEightAttempt"
+                                                                                        name="studentResults[7].attempt"
                                                                                         tabindex="40">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -814,25 +962,35 @@
                                                                                        name="studentResults[8].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLNineSubName" name="studentResults[8].subjectName"
+                                                                                <input class="form-control"
+                                                                                       id="subOLNineSubName"
+                                                                                       name="studentResults[8].subjectName"
                                                                                        placeholder="Subject Name"
                                                                                        tabindex="41" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLNineSubYear" name="studentResults[8].year"
+                                                                                <input hidden id="subOLNineSubYear"
+                                                                                       name="studentResults[8].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[8].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[8].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[8].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[8].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[8].subjectResult" tabindex="42">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[8].subjectResult"
+                                                                                        tabindex="42">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -841,9 +999,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLNineAttempt" name="studentResults[8].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLNineAttempt"
+                                                                                        name="studentResults[8].attempt"
                                                                                         tabindex="43">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -859,24 +1021,35 @@
                                                                                        name="studentResults[9].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subOLTenSubName" name="studentResults[9].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="44" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subOLTenSubName"
+                                                                                       name="studentResults[9].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="44" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subOLTenSubYear" name="studentResults[9].year"
+                                                                                <input hidden id="subOLTenSubYear"
+                                                                                       name="studentResults[9].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[9].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[9].streamLevel"
+                                                                                       type="text"
                                                                                        value="OL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[9].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[9].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[9].subjectResult" tabindex="45">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[9].subjectResult"
+                                                                                        tabindex="45">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -885,9 +1058,13 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select class="form-control" id="subOLTenAttempt" name="studentResults[9].attempt"
+                                                                                <select class="form-control"
+                                                                                        id="subOLTenAttempt"
+                                                                                        name="studentResults[9].attempt"
                                                                                         tabindex="46">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -909,18 +1086,24 @@
                                                                     Level Exam</p>
                                                             </div>
                                                             <div class="form-row container-fluid">
-                                                                <div class="form-group form-row container-fluid" data-th-if="${addStatus==true}">
+                                                                <div class="form-group form-row container-fluid"
+                                                                     data-th-if="${addStatus==true}">
                                                                     <!--/*Index number one A/L*/-->
                                                                     <div class="form-row">
                                                                         <!--/*index one*/-->
-                                                                        <label class="darkmode--activated col-sm-3" for="indexOneAL">Index No
+                                                                        <label class="darkmode--activated col-sm-3"
+                                                                               for="indexOneAL">Index No
                                                                             :</label>
-                                                                        <input class="col-sm-4 form-control" id="indexOneAL" tabindex="47"
+                                                                        <input class="col-sm-4 form-control"
+                                                                               id="indexOneAL" tabindex="47"
                                                                                type="text"/>
                                                                         <!--/*Year one*/-->
-                                                                        <label class="darkmode--activated col-sm-2 pl-3" for="yearOneAL">Year
+                                                                        <label class="darkmode--activated col-sm-2 pl-3"
+                                                                               for="yearOneAL">Year
                                                                             :</label>
-                                                                        <input class="col-sm-2 form-control" id="yearOneAL" maxlength="4" tabindex="48"
+                                                                        <input class="col-sm-2 form-control"
+                                                                               id="yearOneAL" maxlength="4"
+                                                                               tabindex="48"
                                                                                type="text"/>
                                                                     </div>
                                                                     <!--/*Index number two A/L*/-->
@@ -942,7 +1125,9 @@
                                                                         <tr>
                                                                             <th>Name</th>
                                                                             <th>Result</th>
-                                                                            <th data-th-if="${addStatus == false}">Year</th>
+                                                                            <th data-th-if="${addStatus == false}">
+                                                                                Year
+                                                                            </th>
                                                                         </tr>
                                                                         </thead>
                                                                         <!--/*when A/L result update state*/-->
@@ -950,23 +1135,34 @@
                                                                         <tr data-th-each="studentResult, index : ${student.studentResults}"
                                                                             data-th-if="${#strings.equals(studentResult.streamLevel,'AL')}">
                                                                             <td>
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].id'}"
-                                                                                       data-th-value="${studentResult.id}" hidden type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].streamLevel'}"
-                                                                                       data-th-value="${studentResult.streamLevel}" hidden
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].id'}"
+                                                                                       data-th-value="${studentResult.id}"
+                                                                                       hidden type="text">
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].streamLevel'}"
+                                                                                       data-th-value="${studentResult.streamLevel}"
+                                                                                       hidden
                                                                                        type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].compulsoryOLSubject'}"
-                                                                                       data-th-value="${studentResult.compulsoryOLSubject}" hidden
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].compulsoryOLSubject'}"
+                                                                                       data-th-value="${studentResult.compulsoryOLSubject}"
+                                                                                       hidden
                                                                                        type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].indexNumber'}"
-                                                                                       data-th-value="${studentResult.indexNumber}" hidden
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].indexNumber'}"
+                                                                                       data-th-value="${studentResult.indexNumber}"
+                                                                                       hidden
                                                                                        type="text">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].subjectName'}"
-                                                                                       data-th-value="${studentResult.subjectName}" readonly
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].subjectName'}"
+                                                                                       data-th-value="${studentResult.subjectName}"
+                                                                                       readonly
                                                                                        type="text">
                                                                             </td>
                                                                             <td data-th-if="${studentResult.mark== null}">
-                                                                                <select class="form-control" data-th-name="${'studentResults[__${index.index}__].subjectResult'}">
+                                                                                <select class="form-control"
+                                                                                        data-th-name="${'studentResults[__${index.index}__].subjectResult'}">
                                                                                     <option data-th-each="subjectResult : ${subjectResults}"
                                                                                             data-th-selected="${subjectResult==studentResult.subjectResult}"
                                                                                             data-th-text="${subjectResult.subjectResult}"
@@ -974,16 +1170,23 @@
                                                                                 </select>
                                                                             </td>
                                                                             <td data-th-if="${studentResult.mark != null}">
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].mark'}"
-                                                                                       data-th-value="${studentResult.mark}" type="text">
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].mark'}"
+                                                                                       data-th-value="${studentResult.mark}"
+                                                                                       type="text">
                                                                             </td>
                                                                             <td>
-                                                                                <input class="form-control" data-th-name="${'studentResults[__${index.index}__].year'}"
-                                                                                       data-th-value="${studentResult.year}" readonly type="text">
+                                                                                <input class="form-control"
+                                                                                       data-th-name="${'studentResults[__${index.index}__].year'}"
+                                                                                       data-th-value="${studentResult.year}"
+                                                                                       readonly type="text">
                                                                             </td>
                                                                             <td>
-                                                                                <select hidden class="form-control" data-th-name="${'studentResults[__${index.index}__].attempt'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select hidden class="form-control"
+                                                                                        data-th-name="${'studentResults[__${index.index}__].attempt'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-selected="${attempt==studentResult.attempt}"
                                                                                             data-th-text="${attempt.attempt}"
@@ -1003,24 +1206,35 @@
                                                                                        name="studentResults[10].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subALOneSubName" name="studentResults[10].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="51" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subALOneSubName"
+                                                                                       name="studentResults[10].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="51" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subALOneSubYear" name="studentResults[10].year"
+                                                                                <input hidden id="subALOneSubYear"
+                                                                                       name="studentResults[10].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[10].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[10].streamLevel"
+                                                                                       type="text"
                                                                                        value="AL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[10].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[10].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[10].subjectResult" tabindex="52">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[10].subjectResult"
+                                                                                        tabindex="52">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -1029,13 +1243,18 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select hidden class="form-control" id="subALOneAttempt" name="studentResults[10].attempt"
-                                                                                        tabindex="53" data-th-value="${'FIRST'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select hidden class="form-control"
+                                                                                        id="subALOneAttempt"
+                                                                                        name="studentResults[10].attempt"
+                                                                                        tabindex="53"
+                                                                                        data-th-value="${'FIRST'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"
-                                                                                            ></option>
+                                                                                    ></option>
                                                                                 </select>
                                                                             </td>
                                                                         </tr>
@@ -1048,24 +1267,35 @@
                                                                                        name="studentResults[11].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subALTwoSubName" name="studentResults[11].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="54" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subALTwoSubName"
+                                                                                       name="studentResults[11].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="54" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subALTwoSubYear" name="studentResults[11].year"
+                                                                                <input hidden id="subALTwoSubYear"
+                                                                                       name="studentResults[11].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[11].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[11].streamLevel"
+                                                                                       type="text"
                                                                                        value="AL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[11].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[11].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[11].subjectResult" tabindex="55">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[11].subjectResult"
+                                                                                        tabindex="55">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -1074,9 +1304,14 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select hidden class="form-control" id="subALTwoAttempt" name="studentResults[11].attempt"
-                                                                                        tabindex="56" data-th-value="${'FIRST'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select hidden class="form-control"
+                                                                                        id="subALTwoAttempt"
+                                                                                        name="studentResults[11].attempt"
+                                                                                        tabindex="56"
+                                                                                        data-th-value="${'FIRST'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -1092,24 +1327,35 @@
                                                                                        name="studentResults[12].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subALThreeSubName" name="studentResults[12].subjectName"
-                                                                                       placeholder="Subject Name" tabindex="57" type="text">
+                                                                                <input class="form-control"
+                                                                                       id="subALThreeSubName"
+                                                                                       name="studentResults[12].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       tabindex="57" type="text">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subALThreeSubYear" name="studentResults[12].year"
+                                                                                <input hidden id="subALThreeSubYear"
+                                                                                       name="studentResults[12].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[12].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[12].streamLevel"
+                                                                                       type="text"
                                                                                        value="AL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[12].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[12].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[12].subjectResult" tabindex="58">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[12].subjectResult"
+                                                                                        tabindex="58">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -1118,9 +1364,14 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select hidden class="form-control" id="subALThreeAttempt" name="studentResults[12].attempt"
-                                                                                        tabindex="59" data-th-value="${'FIRST'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select hidden class="form-control"
+                                                                                        id="subALThreeAttempt"
+                                                                                        name="studentResults[12].attempt"
+                                                                                        tabindex="59"
+                                                                                        data-th-value="${'FIRST'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -1136,25 +1387,36 @@
                                                                                        name="studentResults[13].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subALFourSubName" name="studentResults[13].subjectName"
-                                                                                       placeholder="Subject Name" readonly type="text"
+                                                                                <input class="form-control"
+                                                                                       id="subALFourSubName"
+                                                                                       name="studentResults[13].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly type="text"
                                                                                        value="English Language">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subALFourSubYear" name="studentResults[13].year"
+                                                                                <input hidden id="subALFourSubYear"
+                                                                                       name="studentResults[13].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[13].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[13].streamLevel"
+                                                                                       type="text"
                                                                                        value="AL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[13].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[13].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="ENG">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Subject result*/-->
-                                                                                <select class="form-control" name="studentResults[13].subjectResult" tabindex="60">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select class="form-control"
+                                                                                        name="studentResults[13].subjectResult"
+                                                                                        tabindex="60">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="result : ${subjectResults}"
                                                                                             data-th-text="${result.subjectResult}"
                                                                                             data-th-value="${result}"></option>
@@ -1163,9 +1425,14 @@
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select hidden class="form-control" id="subALFourAttempt" name="studentResults[13].attempt"
-                                                                                        tabindex="61" data-th-value="${'FIRST'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select hidden class="form-control"
+                                                                                        id="subALFourAttempt"
+                                                                                        name="studentResults[13].attempt"
+                                                                                        tabindex="61"
+                                                                                        data-th-value="${'FIRST'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -1181,33 +1448,47 @@
                                                                                        name="studentResults[14].indexNumber"
                                                                                        type="text">
                                                                                 <!--/*subject name*/-->
-                                                                                <input class="form-control" id="subALFiveSubName" name="studentResults[14].subjectName"
-                                                                                       placeholder="Subject Name" readonly type="text"
+                                                                                <input class="form-control"
+                                                                                       id="subALFiveSubName"
+                                                                                       name="studentResults[14].subjectName"
+                                                                                       placeholder="Subject Name"
+                                                                                       readonly type="text"
                                                                                        value="General Test">
                                                                                 <!--/*year*/-->
-                                                                                <input hidden id="subALFiveSubYear" name="studentResults[14].year"
+                                                                                <input hidden id="subALFiveSubYear"
+                                                                                       name="studentResults[14].year"
                                                                                        type="text">
                                                                                 <!--/*Stream level*/-->
-                                                                                <input hidden name="studentResults[14].streamLevel" type="text"
+                                                                                <input hidden
+                                                                                       name="studentResults[14].streamLevel"
+                                                                                       type="text"
                                                                                        value="AL">
                                                                                 <!--/*Compulsory subject*/-->
-                                                                                <input hidden name="studentResults[14].compulsoryOLSubject"
+                                                                                <input hidden
+                                                                                       name="studentResults[14].compulsoryOLSubject"
                                                                                        type="text"
                                                                                        value="OTH">
                                                                             </td>
                                                                             <!--/*result*/-->
                                                                             <td>
                                                                                 <!--/*Marks*/-->
-                                                                                <input class="form-control" name="studentResults[14].mark" placeholder="Marks"
+                                                                                <input class="form-control"
+                                                                                       name="studentResults[14].mark"
+                                                                                       placeholder="Marks"
                                                                                        tabindex="62"
                                                                                        type="text">
                                                                             </td>
                                                                             <!--/*Attempt*/-->
                                                                             <td>
                                                                                 <!--/*Attempt*/-->
-                                                                                <select hidden class="form-control" id="subALFiveAttempt" name="studentResults[14].attempt"
-                                                                                        tabindex="63" data-th-value="${'FIRST'}">
-                                                                                    <option disabled selected value="">Choose</option>
+                                                                                <select hidden class="form-control"
+                                                                                        id="subALFiveAttempt"
+                                                                                        name="studentResults[14].attempt"
+                                                                                        tabindex="63"
+                                                                                        data-th-value="${'FIRST'}">
+                                                                                    <option disabled selected value="">
+                                                                                        Choose
+                                                                                    </option>
                                                                                     <option data-th-each="attempt : ${attempts}"
                                                                                             data-th-text="${attempt.attempt}"
                                                                                             data-th-value="${attempt}"></option>
@@ -1220,14 +1501,121 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group form-row col-12 pt-3 flex-column">
+                                                        <table class="table table-striped table-inverse table-responsive"
+                                                               id="degreeTable">
+                                                            <thead class="thead-inverse">
+                                                            <tr>
+                                                                <th>Degree Name</th>
+                                                                <th>University Or Institute</th>
+                                                                <th>Year</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td scope="row"><input type="text" class="form-control"
+                                                                                       name="applicantDegreeResults[0].degreeName">
+                                                                </td>
+                                                                <td><input type="text" class="form-control"
+                                                                           name="applicantDegreeResults[0].universityName">
+                                                                </td>
+                                                                <td><input type="text" class="form-control"
+                                                                           name="applicantDegreeResults[0].year"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="container-fluid">
+                                                            <button class="btn btn-info" type="button" id="newDegree">
+                                                                Add New Degree
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--non relative-->
+                                            <div class="form-row container-fluid">
+                                                <div class="container-fluid">
+                                                    <h3>No Relatives</h3>
+                                                </div><!--non relative one-->
+                                                <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                                                    <div class="container-fluid">
+                                                        <h5>No Relatives One Details</h5>
+                                                    </div>
+                                                    <!-- Name-->
+                                                    <div class="form-group">
+                                                        <label class="control-label">Name :</label>
+                                                        <input class="form-control"
+                                                               required
+                                                               name="nonRelatives[0].name" type="text"/>
+                                                    </div>
+                                                    <!--Address-->
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="address">Address :</label>
+                                                        <textarea class="form-control"
+                                                                  required tabindex="12"
+                                                                  name="nonRelatives[0].address" rows="2"></textarea>
+                                                    </div>
+                                                    <!--Mobile Number-->
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="mobile">Mobile No
+                                                            :</label>
+                                                        <input class="form-control mobile"
+                                                               maxlength="10" min="9"
+                                                               required
+                                                               tabindex="13" name="nonRelatives[0].mobile"
+                                                               type="text"/>
+                                                    </div>
+                                                    <!--Land No-->
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="land">Land No
+                                                            :</label>
+                                                        <input class="form-control"
+                                                               minlength="5" tabindex="5" name="nonRelatives[0].land"
+                                                               type="text"/>
+                                                    </div>
+                                                </div>
+                                                <!--non relative two-->
+                                                <div class="form-group col-md-6 col-sm-6 text-left flex-column">
+                                                    <div class="container-fluid">
+                                                        <h5>No Relatives Two Details</h5>
+                                                    </div>
+                                                    <!-- Name-->
+                                                    <div class="form-group">
+                                                        <label class="control-label">Name :</label>
+                                                        <input class="form-control"
+                                                               required
+                                                               name="nonRelatives[1].name" type="text"/>
+                                                    </div>
+                                                    <!--Address-->
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="address">Address :</label>
+                                                        <textarea class="form-control"
+                                                                  required tabindex="12"
+                                                                  name="nonRelatives[1].address" rows="2"></textarea>
+                                                    </div>
+                                                    <!--Mobile Number-->
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="mobile">Mobile No
+                                                            :</label>
+                                                        <input class="form-control mobile"
+                                                               maxlength="10" min="9"
+                                                               required
+                                                               tabindex="13" name="nonRelatives[1].mobile"
+                                                               type="text"/>
+                                                    </div>
+                                                    <!--Land No-->
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="land">Land No
+                                                            :</label>
+                                                        <input class="form-control"
+                                                               minlength="5" tabindex="5" name="nonRelatives[1].land"
+                                                               type="text"/>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-12 col-sm-12 text-center flex-column ">
-                                                <a data-th-href="${'/student'}">
-                                                    <button class="btn btn-secondary btn-outline-secondary" tabindex="66" type="button">Back
-                                                    </button>
-                                                </a>
-                                                <button class="btn btn-warning mr-5 darkmode--activated" tabindex="65" type="reset">
+                                                <button class="btn btn-warning mr-5 darkmode--activated" tabindex="65"
+                                                        type="reset">
                                                     Clear
                                                 </button>
                                                 <button class="btn btn-success" tabindex="64" type="submit">
@@ -1288,7 +1676,6 @@
     $('#policeStation').bind("change", function () {
         policeStationChange($(this).val());
     });
-
     let optionFieldAdd = (url, id) => {
         let html = "<option value=''>Please select</option>";
         $.get(url, function (data) {
@@ -1341,6 +1728,7 @@
             $('#gramaNiladhari').val($('#gramaNiladhariValue').val());
         }
     })
+
     // to add subject result
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -1649,14 +2037,13 @@
             $("#subOLTenSubYear").val(olTwoYear);
         }
     });
-
     //AL result
     //subject one
     $("#subALOneAttempt").bind("change", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         //let alTwoIndexNumber = $("#indexTwoAL").val();
-       // let alTwoYear = $("#yearTwoAL").val();
+        // let alTwoYear = $("#yearTwoAL").val();
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
@@ -1684,7 +2071,7 @@
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         //let alTwoIndexNumber = $("#indexTwoAL").val();
-       // let alTwoYear = $("#yearTwoAL").val();
+        // let alTwoYear = $("#yearTwoAL").val();
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
@@ -1711,8 +2098,8 @@
     $("#subALThreeAttempt").bind("change", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-       /* let alTwoIndexNumber = $("#indexTwoAL").val();
-        let alTwoYear = $("#yearTwoAL").val();*/
+        /* let alTwoIndexNumber = $("#indexTwoAL").val();
+         let alTwoYear = $("#yearTwoAL").val();*/
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
@@ -1740,7 +2127,7 @@
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         //let alTwoIndexNumber = $("#indexTwoAL").val();
-       // let alTwoYear = $("#yearTwoAL").val();
+        // let alTwoYear = $("#yearTwoAL").val();
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
@@ -1767,8 +2154,8 @@
     $("#subALFiveAttempt").bind("change", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-       // let alTwoIndexNumber = $("#indexTwoAL").val();
-       // let alTwoYear = $("#yearTwoAL").val();
+        // let alTwoIndexNumber = $("#indexTwoAL").val();
+        // let alTwoYear = $("#yearTwoAL").val();
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
@@ -1791,6 +2178,17 @@
             $("#subALFiveSubYear").val(alTwoYear);
         }*/
     });
+    //DEGREE result table
+    $("#newDegree").bind("click", function () {
+        let rowLength = $('#degreeTable tbody > tr').length;
+        let html = `<tr>
+           <td scope="row"><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].degreeName"></td>
+           <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].universityName"></td>
+           <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year"></td>
+          </tr>`
+        $('#degreeTable tbody').append(html);
+    });
+
 </script>
 </body>
 </html>
