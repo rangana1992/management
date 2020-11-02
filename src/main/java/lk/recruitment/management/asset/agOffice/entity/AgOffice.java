@@ -23,7 +23,7 @@ public class AgOffice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 2, max = 60, message = "Your Stream length should be 13")
+    @Size(min = 2, max = 60, message = "Your Stream length should be 12")
     private String name;
     private String address;
     private String land;
