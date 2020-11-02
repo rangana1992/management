@@ -2,14 +2,14 @@ package lk.recruitment.management.asset.employee.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment.management.asset.commonAsset.model.Enum.BloodGroup;
-import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
-import lk.recruitment.management.asset.commonAsset.model.FileInfo;
+import lk.recruitment.management.asset.common_asset.model.Enum.BloodGroup;
+import lk.recruitment.management.asset.common_asset.model.Enum.CivilStatus;
+import lk.recruitment.management.asset.common_asset.model.Enum.Gender;
+import lk.recruitment.management.asset.common_asset.model.Enum.Title;
+import lk.recruitment.management.asset.common_asset.model.FileInfo;
 import lk.recruitment.management.asset.employee.entity.Enum.Designation;
 import lk.recruitment.management.asset.employee.entity.Enum.EmployeeStatus;
-import lk.recruitment.management.asset.interviewBoard.entity.InterviewBoard;
+import lk.recruitment.management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

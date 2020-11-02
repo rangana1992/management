@@ -1,18 +1,18 @@
 package lk.recruitment.management.asset.employee.controller;
 
 
-import lk.recruitment.management.asset.commonAsset.model.Enum.BloodGroup;
-import lk.recruitment.management.asset.commonAsset.model.Enum.CivilStatus;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Gender;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Title;
-import lk.recruitment.management.asset.commonAsset.service.CommonService;
+import lk.recruitment.management.asset.common_asset.model.Enum.BloodGroup;
+import lk.recruitment.management.asset.common_asset.model.Enum.CivilStatus;
+import lk.recruitment.management.asset.common_asset.model.Enum.Gender;
+import lk.recruitment.management.asset.common_asset.model.Enum.Title;
+import lk.recruitment.management.asset.common_asset.service.CommonService;
 import lk.recruitment.management.asset.employee.entity.Employee;
 import lk.recruitment.management.asset.employee.entity.EmployeeFiles;
 import lk.recruitment.management.asset.employee.entity.Enum.EmployeeStatus;
 import lk.recruitment.management.asset.employee.service.EmployeeFilesService;
 import lk.recruitment.management.asset.employee.service.EmployeeService;
-import lk.recruitment.management.asset.userManagement.entity.User;
-import lk.recruitment.management.asset.userManagement.service.UserService;
+import lk.recruitment.management.asset.user_management.entity.User;
+import lk.recruitment.management.asset.user_management.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

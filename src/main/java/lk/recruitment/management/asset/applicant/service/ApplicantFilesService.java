@@ -5,8 +5,7 @@ import lk.recruitment.management.asset.applicant.controller.ApplicantController;
 import lk.recruitment.management.asset.applicant.dao.ApplicantFilesDao;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
-import lk.recruitment.management.asset.commonAsset.model.FileInfo;
-import lk.recruitment.management.asset.employee.controller.EmployeeController;
+import lk.recruitment.management.asset.common_asset.model.FileInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @CacheConfig(cacheNames = "applicantFiles")

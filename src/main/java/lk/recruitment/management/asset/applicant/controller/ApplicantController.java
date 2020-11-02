@@ -1,22 +1,22 @@
 package lk.recruitment.management.asset.applicant.controller;
 
 
-import lk.recruitment.management.asset.agOffice.controller.AgOfficeController;
-import lk.recruitment.management.asset.agOffice.service.AgOfficeService;
+import lk.recruitment.management.asset.ag_office.controller.AgOfficeController;
+import lk.recruitment.management.asset.ag_office.service.AgOfficeService;
 import lk.recruitment.management.asset.applicant.entity.ApplicantFiles;
 import lk.recruitment.management.asset.applicant.entity.Enum.*;
 import lk.recruitment.management.asset.applicant.service.ApplicantFilesService;
-import lk.recruitment.management.asset.commonAsset.model.Enum.*;
-import lk.recruitment.management.asset.commonAsset.service.CommonService;
+import lk.recruitment.management.asset.common_asset.model.Enum.*;
+import lk.recruitment.management.asset.common_asset.service.CommonService;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
 import lk.recruitment.management.asset.district.controller.DistrictController;
 import lk.recruitment.management.asset.district.service.DistrictService;
-import lk.recruitment.management.asset.gramaNiladhari.controller.GramaNiladhariController;
-import lk.recruitment.management.asset.gramaNiladhari.service.GramaNiladhariService;
-import lk.recruitment.management.asset.policeStation.controller.PoliceStationController;
-import lk.recruitment.management.asset.policeStation.Service.PoliceStationService;
-import lk.recruitment.management.asset.userManagement.service.UserService;
+import lk.recruitment.management.asset.grama_niladhari.controller.GramaNiladhariController;
+import lk.recruitment.management.asset.grama_niladhari.service.GramaNiladhariService;
+import lk.recruitment.management.asset.police_station.controller.PoliceStationController;
+import lk.recruitment.management.asset.police_station.Service.PoliceStationService;
+import lk.recruitment.management.asset.user_management.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

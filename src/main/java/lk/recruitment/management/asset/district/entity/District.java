@@ -4,8 +4,8 @@ package lk.recruitment.management.asset.district.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment.management.asset.agOffice.entity.AgOffice;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
+import lk.recruitment.management.asset.ag_office.entity.AgOffice;
+import lk.recruitment.management.asset.common_asset.model.Enum.Province;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -4,7 +4,7 @@ package lk.recruitment.management.asset.district.controller;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
+import lk.recruitment.management.asset.common_asset.model.Enum.Province;
 import lk.recruitment.management.asset.district.entity.District;
 import lk.recruitment.management.asset.district.service.DistrictService;
 import lk.recruitment.management.util.interfaces.AbstractController;
