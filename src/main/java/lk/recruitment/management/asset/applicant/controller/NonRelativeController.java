@@ -5,7 +5,7 @@ import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.entity.NonRelative;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
 import lk.recruitment.management.asset.applicant.service.NonRelativeService;
-import lk.recruitment.management.asset.userManagement.service.UserService;
+import lk.recruitment.management.asset.user_management.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
 import java.util.stream.Collectors;
 
 @Controller

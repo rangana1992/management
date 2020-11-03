@@ -3,7 +3,7 @@ package lk.recruitment.management.asset.interview.controller;
 import lk.recruitment.management.asset.interview.entity.Enum.InterviewStatus;
 import lk.recruitment.management.asset.interview.entity.Interview;
 import lk.recruitment.management.asset.interview.service.InterviewService;
-import lk.recruitment.management.asset.interviewParameter.service.InterviewParameterService;
+import lk.recruitment.management.asset.interview_parameter.service.InterviewParameterService;
 import lk.recruitment.management.util.interfaces.AbstractController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

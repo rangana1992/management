@@ -1,7 +1,7 @@
 package lk.recruitment.management.asset.district.service;
 
 
-import lk.recruitment.management.asset.commonAsset.model.Enum.Province;
+import lk.recruitment.management.asset.common_asset.model.Enum.Province;
 import lk.recruitment.management.asset.district.dao.DistrictDao;
 import lk.recruitment.management.asset.district.entity.District;
 import lk.recruitment.management.util.interfaces.AbstractService;

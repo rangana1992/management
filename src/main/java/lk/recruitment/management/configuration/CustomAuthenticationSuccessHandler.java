@@ -1,11 +1,11 @@
 package lk.recruitment.management.configuration;
 
 
-import lk.recruitment.management.asset.userManagement.entity.Enum.UserSessionLogStatus;
-import lk.recruitment.management.asset.userManagement.entity.User;
-import lk.recruitment.management.asset.userManagement.entity.UserSessionLog;
-import lk.recruitment.management.asset.userManagement.service.UserService;
-import lk.recruitment.management.asset.userManagement.service.UserSessionLogService;
+import lk.recruitment.management.asset.user_management.entity.Enum.UserSessionLogStatus;
+import lk.recruitment.management.asset.user_management.entity.User;
+import lk.recruitment.management.asset.user_management.entity.UserSessionLog;
+import lk.recruitment.management.asset.user_management.service.UserService;
+import lk.recruitment.management.asset.user_management.service.UserSessionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
