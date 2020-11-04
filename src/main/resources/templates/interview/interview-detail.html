@@ -15,26 +15,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+<!--                            <div class="col-md-3">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h4>First sud Header</h4>-->
+<!--                                        <form role="form">-->
+<!--                                            <a href="/interview">-->
+<!--                                                <button class="btn btn-primary">-->
+
+<!--                                                    <i class="fa fa-step-backward mr-1"></i>Back-->
+<!--                                                </button>-->
+<!--                                            </a>-->
+
+<!--                                        </form>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>First sud Header</h4>
-                                        <form role="form">
-                                            <a href="/interview">
-                                                <button class="btn btn-primary">
-
-                                                    <i class="fa fa-step-backward mr-1"></i>Back
-                                                </button>
-                                            </a>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4>Secondary Header </h4>
+                                        <h4>Interview Details </h4>
                                         <div class="container-fluid" data-th-fragment="interviewDetail">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Id </label>
@@ -61,11 +61,9 @@
 
 
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label "> Interview Parameter </label>
-                                                <div class="col-sm-10">
-                                                    <ol class="display_detail">
-                                                        <li data-th-each="interviewParameter : ${interviewDetail.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></li>
-                                                    </ol>
+                                                <label class="col-sm-2 form-label "> Interview Parameter </label>
+                                                <div class="col-sm-10" data-th-each="interviewParameter : ${interviewDetail.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></>
+
                                                 </div>
                                             </div>
                                         </div>
