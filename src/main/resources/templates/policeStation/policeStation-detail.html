@@ -30,66 +30,75 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4>Police Station View</h4>
+                                        <table class="table table-hover table-borderless">
+                                            <tbody>
                                         <div class="container-fluid" th:fragment="policeStationDetail">
-                                            <!--Id-->
-                                            <div class="form-group ">
-                                                <label class="control-label "> Id </label>
+
+                                        <tr>
+                                            <th>
+                                        <!--Id-->
+
+                                                <label class="control-label "> Id </label></th><td>
                                                 <p class="display_detail" th:text="${policeStationDetail.id}"></p>
-                                            </div>
+                                        </td></tr>
                                             <!--Province-->
-                                            <div class=" form-group">
-                                                <label class="control-label  "> Province </label>
+
+                                            <tr><th>
+                                                <label class="control-label  "> Province </label></th><td>
                                                 <p class="display_detail"
                                                    th:text="${policeStationDetail.agOffice.district.province.province}"></p>
-                                            </div>
-                                            <!--District-->
-                                            <div class=" form-group">
+                                        </td></tr><tr><th>                                            <!--District-->
+
                                                 <label class="control-label  ">
-                                                    District </label>
+                                                    District </label></th><td>
                                                 <p class="display_detail"
                                                    th:text="${policeStationDetail.agOffice.district.name}">
-                                                </p>
-                                            </div>
+                                                </p></td></tr>
+
                                             <!--AgOffice-->
-                                            <div class=" form-group">
+
+                                                <tr><th>
                                                 <label class="control-label "> Ag
-                                                    Office </label>
+                                                    Office </label></th><td>
                                                 <p class="display_detail"
                                                    th:text="${policeStationDetail.agOffice.name}"></p>
-                                            </div>
-                                            <!--PoliceStation name-->
-                                            <div class="form-group">
-                                                <label class="control-label "> Name </label>
-                                                <p class="display_detail"
+                                                </td></tr>
+                                        <!--PoliceStation name-->
+                                            <tr><th>
+
+                                            <label class="control-label "> Name </label></th>
+                                              <td><p class="display_detail"
                                                    th:text="${policeStationDetail.name}">
-                                                </p>
-                                            </div>
-                                            <!--Land Number-->
-                                            <div class="form-group">
-                                                <label class="control-label">Land No :</label>
+                                              </p></td></tr>
+
+                                          <tr><th>
+                                        <!--Land Number-->
+
+                                              <label class="control-label">Land No :</label></th><td>
                                                 <p class="display_detail"
                                                    th:text="${policeStationDetail.land}">
                                                 </p>
-                                            </div>
-                                            <!--Email-->
-                                            <div class="form-group">
-                                                <label class="control-label">Email :</label>
+
+                                            </td></tr>
+                                        <!--Email-->
+                                            <tr><th>
+                                                <label class="control-label">Email :</label></th><td>
                                                 <p class="display_detail"
                                                    th:text="${policeStationDetail.email}">
-                                                </p>
-                                            </div>
-                                            <!--Address-->
-                                            <div class="form-group">
-                                                <label class="control-label">Address :</label>
+                                                </p></td></tr>
+                                            <tr><th>
+                                        <!--Address-->
+                                                <label class="control-label">Address :</label></th><td>
                                                 <p class="display_detail"
                                                    th:text="${policeStationDetail.land}">
-                                                </p>
-                                            </div>
-                                        </div>
+                                                </p></td></tr></div>
+                                            </tbody>
+                                        </table>
+
 
                                     </div>
                                 </div>
