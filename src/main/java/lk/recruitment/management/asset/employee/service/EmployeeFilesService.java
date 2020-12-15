@@ -67,4 +67,8 @@ public class EmployeeFilesService {
                 })
                 .collect(Collectors.toList());
     }
+
+  public EmployeeFiles findByEmployee(Employee employee) {
+        return employeeFilesDao.findByEmployee(employee);
+  }
 }

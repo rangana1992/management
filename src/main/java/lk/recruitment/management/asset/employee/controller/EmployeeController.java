@@ -119,25 +119,26 @@ public class EmployeeController {
             model.addAttribute("employee", employee);
             return commonThings(model);
         }
-        try {
-            employee.setMobileOne(commonService.commonMobileNumberLengthValidator(employee.getMobileOne()));
-            employee.setMobileTwo(commonService.commonMobileNumberLengthValidator(employee.getMobileTwo()));
-            employee.setLand(commonService.commonMobileNumberLengthValidator(employee.getLand()));
-            //after save employee files and save employee
-            employeeService.persist(employee);
+      employee.setMobileOne(commonService.commonMobileNumberLengthValidator(employee.getMobileOne()));
+      employee.setMobileTwo(commonService.commonMobileNumberLengthValidator(employee.getMobileTwo()));
+      employee.setLand(commonService.commonMobileNumberLengthValidator(employee.getLand()));
+      //after save employee files and save employee
+      Employee employeeDB = employeeService.persist(employee);
 
-            //if employee state is not working he or she cannot access to the system
-            if (!employee.getEmployeeStatus().equals(EmployeeStatus.WORKING)) {
-                User user = userService.findUserByEmployee(employeeService.findByNic(employee.getNic()));
-                //if employee not a user
-                if (user != null) {
-                    user.setEnabled(false);
-                    userService.persist(user);
-                }
-            }
+      //if employee state is not working he or she cannot access to the system
+      if (!employee.getEmployeeStatus().equals(EmployeeStatus.WORKING)) {
+        User user = userService.findUserByEmployee(employeeService.findByNic(employee.getNic()));
+        //if employee not a user
+        if (user != null) {
+          user.setEnabled(false);
+          userService.persist(user);
+        }
+      }
+        try {
+
             //save employee images file
                 if (employee.getFile().getOriginalFilename() != null) {
-                    EmployeeFiles employeeFiles = employeeFilesService.findByName(employee.getFile().getOriginalFilename());
+                    EmployeeFiles employeeFiles = employeeFilesService.findByEmployee(employeeDB);
                     if (employeeFiles != null) {
                         // update new contents
                         employeeFiles.setPic(employee.getFile().getBytes());
