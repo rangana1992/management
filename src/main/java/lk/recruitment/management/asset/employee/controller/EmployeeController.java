@@ -124,7 +124,6 @@ public class EmployeeController {
     return commonThings(model);
   }
 
-  //Employee add and update
   @PostMapping( value = {"/save", "/update"} )
   public String addEmployee(@Valid @ModelAttribute Employee employee, BindingResult result, Model model
                            ) {
