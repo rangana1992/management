@@ -157,6 +157,8 @@ public class ApplicantController {
     @PostMapping(value = {"/save", "/update"})
     public String addApplicant(@Valid @ModelAttribute Applicant applicant, BindingResult result, Model model
     ) {
+
+        result.getAllErrors().forEach(System.out::println);
         System.out.println(applicant.getGramaNiladhari().getName());
         if (result.hasErrors()) {
             model.addAttribute("addStatus", true);

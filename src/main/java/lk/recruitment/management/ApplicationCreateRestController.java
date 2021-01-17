@@ -1,6 +1,12 @@
 package lk.recruitment.management;
 
+import lk.recruitment.management.asset.common_asset.model.Enum.BloodGroup;
+import lk.recruitment.management.asset.common_asset.model.Enum.CivilStatus;
+import lk.recruitment.management.asset.common_asset.model.Enum.Gender;
+import lk.recruitment.management.asset.common_asset.model.Enum.Title;
 import lk.recruitment.management.asset.employee.entity.Employee;
+import lk.recruitment.management.asset.employee.entity.enums.Designation;
+import lk.recruitment.management.asset.employee.entity.enums.EmployeeStatus;
 import lk.recruitment.management.asset.employee.service.EmployeeService;
 import lk.recruitment.management.asset.user_management.entity.Role;
 import lk.recruitment.management.asset.user_management.entity.User;
@@ -10,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,19 +46,17 @@ public class ApplicationCreateRestController {
 
 //Employee
         Employee employee = new Employee();
-        /*employee.setPayRoleNumber("11111111");*/
         employee.setName("Admin User");
-     /*   employee.setCallingName("Admin");*/
+        employee.setCallingName("Admin");
         employee.setName("908670000V");
-       /* employee.setMobileOne("0750000000");*/
-      /*  employee.setTitle(Title.DR);*/
-       /* employee.setGender(Gender.MALE);*/
-       /* employee.setBloodGroup(BloodGroup.AP);*/
-        /* employee.setDesignation(Designation.ED);*/
-        /*employee.setCivilStatus(CivilStatus.UNMARRIED);*/
-        /*employee.setEmployeeStatus(EmployeeStatus.WORKING);*/
-       /* employee.setDateOfBirth(LocalDate.now().minusYears(18));*/
-      /*  employee.setDateOfAssignment(LocalDate.now());*/
+        employee.setMobileOne("0750000000");
+        employee.setTitle(Title.DR);
+        employee.setGender(Gender.MALE);
+         employee.setDesignation(Designation.WASP);
+        employee.setCivilStatus(CivilStatus.UNMARRIED);
+        employee.setEmployeeStatus(EmployeeStatus.WORKING);
+        employee.setDateOfBirth(LocalDate.now().minusYears(18));
+        employee.setDateOfAssignment(LocalDate.now());
         Employee employeeDb = employeeService.persist(employee);
 
 

@@ -30,6 +30,22 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        <!-- <h4>First sud Header</h4>-->
+                                        <form role="form">
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" th:href="${'/interview/add'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Add Interview </a>
+                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+
                                         <h4>Interview List </h4>
                                         <!--if not empty list-->
                                         <div class="container-fluid" id="interviewListTable"
