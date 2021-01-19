@@ -1639,7 +1639,7 @@
       </div >
     </div >
   </div ><!-- content-wrapper end -->
-  <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer ><!-- footer Section -->
+  <div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
 </div ><!-- wrapper end -->
 
 <div data-th-if="${addStatus==false}" >
@@ -1652,7 +1652,7 @@
   <input type="text" id="policeStationValue" hidden data-th-value="${applicant.gramaNiladhari.policeStation.id}" >
   <input type="text" id="gramaNiladhariValue" hidden data-th-value="${applicant.gramaNiladhari.id}" >
 </div >
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></script ><!-- script Fragment -->
+<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
 <script >
 
     function readURL(input) {
