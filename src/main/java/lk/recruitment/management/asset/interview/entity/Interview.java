@@ -1,6 +1,7 @@
 package lk.recruitment.management.asset.interview.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import lk.recruitment.management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment.management.asset.interview.entity.Enum.InterviewStatus;
 import lk.recruitment.management.asset.interview_parameter.entity.InterviewParameter;
 import lk.recruitment.management.util.audit.AuditEntity;
@@ -24,6 +25,9 @@ public class Interview extends AuditEntity {
 
     @Enumerated(EnumType.STRING)
     private InterviewStatus interviewStatus;
+
+    @OneToMany(mappedBy ="interview" )
+    private List< ApplicantInterview > applicantInterviews;
 
     @ManyToMany
     @JoinTable(name = "interview_interview_parameter",

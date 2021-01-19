@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment.management.asset.applicant.entity.Enum.Nationality;
+import lk.recruitment.management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment.management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment.management.asset.common_asset.model.Enum.Gender;
 import lk.recruitment.management.asset.grama_niladhari.entity.GramaNiladhari;
@@ -93,6 +94,9 @@ public class Applicant extends AuditEntity {
 
     @OneToMany(mappedBy ="applicant" )
     private List<NonRelative> nonRelatives;
+
+    @OneToMany(mappedBy ="applicant" )
+    private List< ApplicantInterview > applicantInterviews;
 
     @Transient
     private MultipartFile file;
