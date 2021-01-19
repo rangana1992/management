@@ -177,7 +177,7 @@ public class ApplicantController {
       applicant.setEmail(authentication.getName());
       //set no relative to applicant
       if ( !applicant.getNonRelatives().isEmpty() ) {
-          System.out.println(" non relative");
+        System.out.println(" non relative");
         List< NonRelative > relatives = new ArrayList<>();
         applicant.getNonRelatives().forEach(x -> {
           x.setApplicant(applicant);
@@ -187,7 +187,7 @@ public class ApplicantController {
       }
       //set degree result to applicant
       if ( !applicant.getApplicantDegreeResults().isEmpty() ) {
-          System.out.println(" degree result");
+        System.out.println(" degree result");
         List< ApplicantDegreeResult > applicantDegreeResults = new ArrayList<>();
         applicant.getApplicantDegreeResults().forEach(x -> {
           x.setApplicant(applicant);
@@ -197,11 +197,13 @@ public class ApplicantController {
       }
       //applicant result
       if ( !applicant.getApplicantResults().isEmpty() ) {
-          System.out.println(" applicant result");
+        System.out.println(" applicant result");
         List< ApplicantResult > applicantResults = new ArrayList<>();
         applicant.getApplicantResults().forEach(x -> {
-          x.setApplicant(applicant);
-          applicantResults.add(x);
+          if ( x.getSubjectResult() != null ) {
+            x.setApplicant(applicant);
+            applicantResults.add(x);
+          }
         });
         applicant.setApplicantResults(applicantResults);
       }

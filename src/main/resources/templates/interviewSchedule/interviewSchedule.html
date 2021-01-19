@@ -18,11 +18,10 @@
 </div >
 <div class="container-fluid" >
   <div class="container" >
-    Total Applicant Count = <span data-th-text="${totalApplicantCount}" ></span >
+    Total Applicant Count = <span data-th-text="${totalApplicantCount}" id="totalApplicantCount"></span >
   </div >
   <div class="container" >
     <form action="/interviewSchedule" method="post">
-
 
     <table class="table table-striped table-inverse table-responsive" id="interviewSchedule" >
       <thead class="thead-inverse" >
@@ -36,18 +35,32 @@
       </thead >
       <tbody >
       <tr >
-        <td ><input type="date" name="interviewSchedule[0].date" ></td >
+        <td ><input type="date" class="form-control" name="interviewScheduleLists[0].date" ></td >
         <td >
-          <select name="" >
-            <option value="" ></option >
+          <select class="form-control" name="interviewScheduleLists[0].interviewBoardId">
+            <option value="" >Please select</option >
+            <option data-th-each="interviewBordOne : ${interviewBoard}"
+            data-th-value="${interviewBordOne.id}"></option >
           </select >
         </td >
-        <td ><input type="text" name="interviewSchedule[0]" ></td >
-        <td ><input type="text" name="interviewSchedule[0]" ></td >
+        <td ><input type="text" id="co0" onkeyup="countFind(this)" class="form-control" name="interviewScheduleLists[0].count" ></td >
+        <td ><input type="text" class="form-control" id="rm0" value="" readonly></td >
+        <td>
+          <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger">Remove</button>
+        </td>
       </tr >
       </tbody >
     </table >
-
+      <div class="form-group col-md-12 col-sm-12 text-center flex-column " >
+        <button class="btn btn-info mr-5" type="button" id="newSchedule">New Schedule</button>
+        <button class="btn btn-warning mr-5"
+                type="reset" >
+          Clear
+        </button >
+        <button class="btn btn-success" type="submit" >
+          <span data-th-text="${'Save'}" ></span >
+        </button >
+      </div >
     </form >
   </div >
 </div >
@@ -66,21 +79,35 @@
 
 <script >
 
-    $("#newDegree").bind("click", function () {
-        let rowLength = $('#degreeTable tbody > tr').length;
+    $("#newSchedule").bind("click", function () {
+        let rowLength = $('#interviewSchedule tbody > tr').length;
         let html = `<tr>
-           <td scope="row"><input type="text" class="form-control" name="interviewScheduleLists[${rowLength}].date"></td>
-           <td><input type="text" class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId"></td>
-           <td><input type="text" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
-           <td><input type="text" class="form-control" value="" readonly></td>
-           <td> <button type="button" onclick="removeDegreeTableRow(this)" class="btn btn-danger">Remove</button></td>
+           <td scope="row"><input type="date" class="form-control" name="interviewScheduleLists[${rowLength}].date"></td>
+           <td>
+           <select class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId">
+            <option value="" >Please select</option >
+            <option data-th-each="interviewBordOne : ${'${interviewBoard}" data-th-value="${interviewBordOne.id}"'}></option >
+          </select >
+           </td>
+           <td><input type="text" id="co${rowLength}" onkeyup="countFind(this)" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
+           <td><input type="text" class="form-control" value="" id="rm${rowLength}" readonly></td>
+           <td> <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
-        $('#degreeTable> tbody:last-child').append(html);
+        $('#interviewSchedule > tbody:last-child').append(html);
     });
 
-    function removeDegreeTableRow(obj) {
-        document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
+    function removeScheduleInterview(obj) {
+        document.getElementById("interviewSchedule").deleteRow(obj.parentNode.parentNode.rowIndex);
+    }
 
+    function countFind(obj){
+        let selectedFiledId = obj.getAttribute('id').slice(2);
+        let totalCount = 0;
+        $.each( $('.count'), function( key, value ) {
+            console.log( key + ": " + value );
+            totalCount += value;
+        });
+        $(`#rm${selectedFiledId}`).val(totalCount);
     }
 
 </script >
