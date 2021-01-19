@@ -3,6 +3,7 @@ package lk.recruitment.management.asset.applicant.service;
 
 import lk.recruitment.management.asset.applicant.dao.ApplicantDao;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
+import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment.management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
@@ -39,6 +40,9 @@ public class ApplicantService implements AbstractService<Applicant, Integer> {
             put = {@CachePut(value = "applicant", key = "#applicant.id")})
     @Transactional
     public Applicant persist(Applicant applicant) {
+        if(applicant.getId()==null){
+            applicant.setApplicantStatus(ApplicantStatus.P);
+        }
         return applicantDao.save(applicant);
     }
 
@@ -74,5 +78,9 @@ public class ApplicantService implements AbstractService<Applicant, Integer> {
 
     public Applicant findByEmail(String email) {
         return applicantDao.findByEmail(email);
+    }
+
+    public int accordingToApplicantStatus(ApplicantStatus applicantStatus){
+        return applicantDao.countByApplicantStatus(applicantStatus);
     }
 }

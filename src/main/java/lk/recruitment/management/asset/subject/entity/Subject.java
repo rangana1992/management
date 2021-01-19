@@ -41,15 +41,4 @@ public class Subject {
     @OneToMany(mappedBy ="applicant" )
     private  List<ApplicantResult> applicantResults;
 
-
-
-
-
-
-    /*@Enumerated(EnumType.STRING)
-    private Province province;*/
-
-
-/*    @OneToMany(mappedBy = "district")
-    private List<WorkingPlace> workingPlaces;*/
 }
