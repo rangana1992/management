@@ -1,9 +1,11 @@
 applicant
 =============
-1. non relatives for applicant form & Degree Qualificaion
+1. non relatives for applicant form & Degree Qualification
 2. need to check educational result
 3. document upload -> nic, birth certificate, ol, al, degree
 4. user role mgt
+
+
 
 
 process

@@ -62,8 +62,26 @@
                 </div>
             </div>
         </div><!-- content-wrapper end -->
-        <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
+        <div data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
     </div><!-- wrapper end -->
-    <script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+    <div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+</div>
+    <script data-th-src="@{/js/combo-box-search.js}" ></script >
+<script >
+
+    //option tag remove
+    let optionElementRemove = (id) => {
+        let selectedValue = $(id).val();
+        let selectedItemId = `${id} option[value='${selectedValue}']`;
+        $(selectedItemId).remove();
+    }
+    //option tag add
+    function optionTagAdd(id, name, sellPrice, abQut, exDate) {
+        return `<option value="${id}">
+                      Item Name: ${name}  Sell Price : {sellPrice}
+                      Available quantity : ${abQut}  Expired Date : ${exDate}
+                    </option>`;
+    }
+</script >
 </body>
 </html>

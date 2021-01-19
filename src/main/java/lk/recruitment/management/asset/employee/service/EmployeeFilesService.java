@@ -70,4 +70,8 @@ public class EmployeeFilesService {
     public EmployeeFiles findByEmployee(Employee employee) {
         return employeeFilesDao.findByEmployee(employee);
     }
+
+  public EmployeeFiles findByEmployee(Employee employee) {
+        return employeeFilesDao.findByEmployee(employee);
+  }
 }
