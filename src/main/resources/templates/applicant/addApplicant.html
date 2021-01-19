@@ -246,7 +246,7 @@
                                                                        Calling                                                                                                                        Name</span >
                           </div >
                           <!--Email-->
-                          <div class="form-group" >
+                         <!-- <div class="form-group" >
 
                             <label class="control-label" for="email" >Email :</label >
 
@@ -257,7 +257,7 @@
                                   data-th-errors="*{email}"
                                   data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
 
-                          </div >
+                          </div >-->
                         </div >
                         <!--Gramaniladari find-->
                         <div class="form-row mb-2 col-md-12" >
@@ -1639,7 +1639,7 @@
       </div >
     </div >
   </div ><!-- content-wrapper end -->
-  <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer ><!-- footer Section -->
+  <div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
 </div ><!-- wrapper end -->
 
 <div data-th-if="${addStatus==false}" >
@@ -1652,7 +1652,7 @@
   <input type="text" id="policeStationValue" hidden data-th-value="${applicant.gramaNiladhari.policeStation.id}" >
   <input type="text" id="gramaNiladhariValue" hidden data-th-value="${applicant.gramaNiladhari.id}" >
 </div >
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></script ><!-- script Fragment -->
+<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
 <script >
 
     function readURL(input) {

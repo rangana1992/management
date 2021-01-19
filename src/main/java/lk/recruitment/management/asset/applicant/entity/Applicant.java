@@ -86,13 +86,13 @@ public class Applicant extends AuditEntity {
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
-    @OneToMany(mappedBy ="applicant",  cascade = CascadeType.MERGE )
+    @OneToMany(mappedBy ="applicant",  cascade = CascadeType.PERSIST )
     private List<ApplicantResult> applicantResults;
 
-    @OneToMany(mappedBy ="applicant" , cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy ="applicant" , cascade = CascadeType.PERSIST)
     private List<ApplicantDegreeResult> applicantDegreeResults;
 
-    @OneToMany(mappedBy ="applicant", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy ="applicant", cascade = CascadeType.PERSIST)
     private List<NonRelative> nonRelatives;
 
     @OneToMany(mappedBy ="applicant" )
