@@ -2,6 +2,8 @@ package lk.recruitment.management.asset.employee.service;
 
 
 
+import java.util.stream.Collectors;
+
 import lk.recruitment.management.asset.employee.dao.EmployeeDao;
 import lk.recruitment.management.asset.employee.entity.Employee;
 import lk.recruitment.management.util.interfaces.AbstractService;
@@ -10,10 +12,11 @@ import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
+import java.util.stream.Collectors;
 @Service
 // spring transactional annotation need to tell spring to this method work through the project
 @CacheConfig( cacheNames = "employee" )
@@ -43,12 +46,16 @@ public class EmployeeService implements AbstractService<Employee, Integer > {
         return employeeDao.save(employee);
     }
 
-    @CacheEvict( allEntries = true )
+    public boolean delete(Integer id) {
+  employeeDao.deleteById(id);
+        return false;
+    }
+   /* @CacheEvict( allEntries = true )
     public boolean delete(Integer id) {
         employeeDao.deleteById(id);
         return false;
     }
-
+*/
     @Cacheable
     public List< Employee > search(Employee employee) {
         ExampleMatcher matcher = ExampleMatcher
@@ -72,4 +79,6 @@ public class EmployeeService implements AbstractService<Employee, Integer > {
     public Employee findByNic(String nic) {
         return employeeDao.findByNic(nic);
     }
+
+
 }

@@ -39,7 +39,22 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h4>Add Police Station </h4>
+                                            <!--                                        <h4>First sud Header</h4>-->
+                                            <form role="form">
+                                                <div align="right">
+                                                    <a class="btn btn-success" id="newDistrict" th:href="${'/interview'}">
+                                                        <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Interview List </a>
+                                                    <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                        <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4>Add Interview </h4>
                                             <table class="table table-borderless table-hover">
                                                 <tbody>
                                             <form data-th-action="${addStatus==false?'/interview/save' :'/interview/update'}"

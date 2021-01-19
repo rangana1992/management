@@ -16,7 +16,7 @@ public interface EmployeeFilesDao extends JpaRepository< EmployeeFiles, Integer 
 
   EmployeeFiles findByNewName(String filename);
 
-  EmployeeFiles findByNewId(String filename);
+    EmployeeFiles findByNewId(String filename);
 
-  EmployeeFiles findByEmployee(Employee employee);
+    EmployeeFiles findByEmployee(Employee employee);
 }

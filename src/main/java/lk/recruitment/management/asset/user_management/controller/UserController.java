@@ -3,8 +3,8 @@ package lk.recruitment.management.asset.user_management.controller;
 
 
 import lk.recruitment.management.asset.employee.entity.Employee;
-import lk.recruitment.management.asset.employee.entity.Enum.Designation;
-import lk.recruitment.management.asset.employee.entity.Enum.EmployeeStatus;
+import lk.recruitment.management.asset.employee.entity.enums.Designation;
+import lk.recruitment.management.asset.employee.entity.enums.EmployeeStatus;
 import lk.recruitment.management.asset.employee.service.EmployeeService;
 import lk.recruitment.management.asset.user_management.entity.User;
 import lk.recruitment.management.asset.user_management.service.RoleService;

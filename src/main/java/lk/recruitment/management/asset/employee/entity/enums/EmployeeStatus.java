@@ -1,4 +1,4 @@
-package lk.recruitment.management.asset.employee.entity.Enum;
+package lk.recruitment.management.asset.employee.entity.enums;
 
 public enum EmployeeStatus {
     WORKING("Working"),
