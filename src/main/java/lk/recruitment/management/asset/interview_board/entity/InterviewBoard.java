@@ -1,6 +1,7 @@
 package lk.recruitment.management.asset.interview_board.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import lk.recruitment.management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment.management.asset.employee.entity.Employee;
 import lk.recruitment.management.asset.interview_board.entity.Enum.InterviewBoardStatus;
 import lk.recruitment.management.util.audit.AuditEntity;
@@ -33,4 +34,7 @@ public class InterviewBoard extends AuditEntity {
             joinColumns = @JoinColumn(name = "interview_board_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employee> employees;
+
+    @OneToMany(mappedBy = "interviewBoard")
+    private List< ApplicantInterview > applicantInterviews;
 }
