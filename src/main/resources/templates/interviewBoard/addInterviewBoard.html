@@ -65,10 +65,10 @@
                                                         </div></div>
 
                                                     <div class="form-group row">
-                                                        <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label ">
+                                                        <label data-th-for="${'employee'}" class="col-sm-4 col-form-label ">
                                                             Employee </label>
                                                         <div class="col-sm-8">
-                                                        <select class="form-control" data-th-field="*{employees}" required multiple row="6">
+                                                        <select id="employee" class="form-control" data-th-field="*{employees}" required multiple row="6">
                                                             <option data-th-each="employee : ${employees}"
                                                                     data-th-text="${employee.name}"
                                                                     data-th-value="${employee.id}">
@@ -106,5 +106,25 @@
     <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
 </div><!-- wrapper end -->
 <script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+<script data-th-src="@{/js/combo-box-search.js}" ></script >
+<script >
+    $("#employee").select2({
+        data: $(this).val()
+    })
+
+    //option tag remove
+    let optionElementRemove = (id) => {
+        let selectedValue = $(id).val();
+        let selectedItemId = `${id} option[value='${selectedValue}']`;
+        $(selectedItemId).remove();
+    }
+    //option tag add
+    function optionTagAdd(id, name, sellPrice, abQut, exDate) {
+        return `<option value="${id}">
+                      Item Name: ${name}  Sell Price : {sellPrice}
+                      Available quantity : ${abQut}  Expired Date : ${exDate}
+                    </option>`;
+    }
+</script >
 </body>
 </html>
