@@ -1514,7 +1514,7 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr>
-                                                                <td scope="row">
+                                                                <td >
                                                                     <input type="text" class="form-control"
                                                                                        name="applicantDegreeResults[0].degreeName">
                                                                 </td>
@@ -1522,10 +1522,9 @@
                                                                            name="applicantDegreeResults[0].universityName">
                                                                 </td>
                                                                 <td><input type="text" class="form-control"
-                                                                           name="applicantDegreeResults[0].year"></td>
-                                                                <td>
-
-                                                                <td></td>
+                                                                           name="applicantDegreeResults[0].year">
+                                                                </td>
+                                                                <td><button type="button" onclick="removeDegreeTableRow(this)" class="btn btn-danger">Remove</button></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -2192,7 +2191,7 @@
            <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year"></td>
            <td> <button type="button" onclick="removeDegreeTableRow(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
-        $('#degreeTable tbody').append(html);
+        $('#degreeTable> tbody:last-child').append(html);
     });
 function removeDegreeTableRow(obj){
     document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
