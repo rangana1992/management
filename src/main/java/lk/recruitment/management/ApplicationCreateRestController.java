@@ -46,7 +46,6 @@ public class ApplicationCreateRestController {
 
 //Employee
         Employee employee = new Employee();
-        employee.setName("Admin User");
         employee.setCallingName("Admin");
         employee.setName("908670000V");
         employee.setMobileOne("0750000000");
