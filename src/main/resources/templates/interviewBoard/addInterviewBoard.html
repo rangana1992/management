@@ -93,7 +93,15 @@
                               </tr >
                               </thead >
                               <tbody >
-
+                              <tr data-th-each="employee : ${interviewBoard.employees}" >
+                                <th>
+                                  <input id="na${employee.id}" type="text" class="form-control" value="${employee.name}" readonly>
+                                  <input id="id${employee.id}" type="hidden" name="employees" value="${employee.id}">
+                                </th>
+                                <th>
+                                  <button id="re${employee.id}" type="button" onclick="removeSelectedEmployee(this)" class="btn btn-danger">Remove</button>
+                                </th>
+                              </tr >
                               </tbody >
                             </table >
                           </div >
@@ -131,9 +139,9 @@
 <script >
     let selectedEmployeeList = [];
     let employee = {};
-
     $("#employeeOne").change(() => {
         let selectedValue = $("#employeeOne").val();
+
         employee.id = selectedValue;
 
         employee.name = $(`#employeeOne option[value=${selectedValue}]`).text();
@@ -142,6 +150,7 @@
         console.log(employee)
         addTable();
         optionElementRemove("#employeeOne");
+        employee = {};
     });
 
 
@@ -154,16 +163,16 @@
         $("#selectedEmployee tbody ").html(html);
     }
 
-    function addRow(id, name, index) {
+    function addRow(id, name) {
         console.log("add row")
         return `
        <tr>
        <th>
-        <input id="na${index}" type="text" class="form-control" value="${name}" readonly>
-        <input id="id${index}" type="hidden" name="employees${index}.id" value="${id}">
+        <input id="na${id}" type="text" class="form-control" value="${name}" readonly>
+        <input id="id${id}" type="hidden" name="employees" value="${id}">
         </th>
        <th>
-       <button id="re${index}" type="button" onclick="removeSelectedEmployee(this)" class="btn btn-danger">Remove</button>
+       <button id="re${id}" type="button" onclick="removeSelectedEmployee(this)" class="btn btn-danger">Remove</button>
         </th>
       </tr>       `;
     }
