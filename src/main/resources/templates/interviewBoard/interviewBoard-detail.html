@@ -66,22 +66,6 @@
     </div><!-- wrapper end -->
     <div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
 </div>
-    <script data-th-src="@{/js/combo-box-search.js}" ></script >
-<script >
 
-    //option tag remove
-    let optionElementRemove = (id) => {
-        let selectedValue = $(id).val();
-        let selectedItemId = `${id} option[value='${selectedValue}']`;
-        $(selectedItemId).remove();
-    }
-    //option tag add
-    function optionTagAdd(id, name, sellPrice, abQut, exDate) {
-        return `<option value="${id}">
-                      Item Name: ${name}  Sell Price : {sellPrice}
-                      Available quantity : ${abQut}  Expired Date : ${exDate}
-                    </option>`;
-    }
-</script >
 </body>
 </html>
