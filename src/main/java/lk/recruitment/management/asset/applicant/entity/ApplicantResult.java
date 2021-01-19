@@ -6,7 +6,6 @@ import lk.recruitment.management.asset.applicant.entity.Enum.Attempt;
 import lk.recruitment.management.asset.applicant.entity.Enum.CompulsoryOLSubject;
 import lk.recruitment.management.asset.applicant.entity.Enum.StreamLevel;
 import lk.recruitment.management.asset.applicant.entity.Enum.SubjectResult;
-import lk.recruitment.management.asset.subject.entity.Subject;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.*;
 
