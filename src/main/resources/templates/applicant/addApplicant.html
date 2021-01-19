@@ -1509,11 +1509,13 @@
                                                                 <th>Degree Name</th>
                                                                 <th>University Or Institute</th>
                                                                 <th>Year</th>
+                                                                <th>Modify</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr>
-                                                                <td scope="row"><input type="text" class="form-control"
+                                                                <td scope="row">
+                                                                    <input type="text" class="form-control"
                                                                                        name="applicantDegreeResults[0].degreeName">
                                                                 </td>
                                                                 <td><input type="text" class="form-control"
@@ -1521,6 +1523,9 @@
                                                                 </td>
                                                                 <td><input type="text" class="form-control"
                                                                            name="applicantDegreeResults[0].year"></td>
+                                                                <td>
+
+                                                                <td></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -2185,10 +2190,14 @@
            <td scope="row"><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].degreeName"></td>
            <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].universityName"></td>
            <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year"></td>
+           <td> <button type="button" onclick="removeDegreeTableRow(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
         $('#degreeTable tbody').append(html);
     });
+function removeDegreeTableRow(obj){
+    document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
 
+}
 </script>
 </body>
 </html>
