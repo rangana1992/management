@@ -40,7 +40,8 @@
           <select class="form-control" name="interviewScheduleLists[0].interviewBoardId">
             <option value="" >Please select</option >
             <option data-th-each="interviewBordOne : ${interviewBoard}"
-            data-th-value="${interviewBordOne.id}"></option >
+            data-th-value="${interviewBordOne.id}"
+            data-th-text="${interviewBordOne.name}"></option >
           </select >
         </td >
         <td ><input type="text" id="co0" onkeyup="countFind(this)" class="form-control" name="interviewScheduleLists[0].count" ></td >
@@ -86,7 +87,7 @@
            <td>
            <select class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId">
             <option value="" >Please select</option >
-            <option data-th-each="interviewBordOne : ${'${interviewBoard}" data-th-value="${interviewBordOne.id}"'}></option >
+            <option data-th-each="interviewBordOne : ${'${interviewBoard}" data-th-value="${interviewBordOne.id}"  data-th-text="${interviewBordOne.name}'}></option >
           </select >
            </td>
            <td><input type="text" id="co${rowLength}" onkeyup="countFind(this)" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
