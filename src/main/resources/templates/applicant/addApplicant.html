@@ -407,37 +407,37 @@
                                     </thead >
                                     <!--/* when O/L result update state */-->
                                     <tbody data-th-if="${addStatus == false}" >
-                                    <tr data-th-each="studentResult, index : ${student.studentResults}"
+                                    <tr data-th-each="studentResult, index : ${student.applicantResults}"
                                         data-th-if="${#strings.equals(studentResult.streamLevel,'OL')}" >
                                       <td >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].id'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].id'}"
                                                data-th-value="${studentResult.id}"
                                                hidden type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].streamLevel'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].streamLevel'}"
                                                data-th-value="${studentResult.streamLevel}"
                                                hidden
                                                type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].compulsoryOLSubject'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].compulsoryOLSubject'}"
                                                data-th-value="${studentResult.compulsoryOLSubject}"
                                                hidden
                                                type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].indexNumber'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].indexNumber'}"
                                                data-th-value="${studentResult.indexNumber}"
                                                hidden
                                                type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].subjectName'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].subjectName'}"
                                                data-th-value="${studentResult.subjectName}"
                                                readonly
                                                type="text" >
                                       </td >
                                       <td >
                                         <select class="form-control"
-                                                data-th-name="${'studentResults[__${index.index}__].subjectResult'}" >
+                                                data-th-name="${'applicantResults[__${index.index}__].subjectResult'}" >
                                           <option data-th-each="subjectResult : ${subjectResults}"
                                                   data-th-selected="${subjectResult==studentResult.subjectResult}"
                                                   data-th-text="${subjectResult.subjectResult}"
@@ -446,13 +446,13 @@
                                       </td >
                                       <td >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].year'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].year'}"
                                                data-th-value="${studentResult.year}"
                                                readonly type="text" >
                                       </td >
                                       <td >
                                         <select class="form-control"
-                                                data-th-name="${'studentResults[__${index.index}__].attempt'}" >
+                                                data-th-name="${'applicantResults[__${index.index}__].attempt'}" >
                                           <option disabled selected value="" >
                                             Choose
                                           </option >
@@ -473,27 +473,27 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLOneIndex"
-                                               name="studentResults[0].indexNumber"
+                                               name="applicantResults[0].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLOneSubName"
-                                               name="studentResults[0].subjectName"
+                                               name="applicantResults[0].subjectName"
                                                placeholder="Subject Name"
                                                readonly
                                                type="text" value="Mathematics" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLOneSubYear"
-                                               name="studentResults[0].year"
+                                               name="applicantResults[0].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[0].streamLevel"
+                                               name="applicantResults[0].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[0].compulsoryOLSubject"
+                                               name="applicantResults[0].compulsoryOLSubject"
                                                type="text"
                                                value="MATH" >
                                       </td >
@@ -501,7 +501,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[0].subjectResult"
+                                                name="applicantResults[0].subjectResult"
                                                 required
                                                 tabindex="22" >
                                           <option disabled selected value="" >
@@ -517,7 +517,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLOneAttempt"
-                                                name="studentResults[0].attempt"
+                                                name="applicantResults[0].attempt"
                                                 required tabindex="23" >
                                           <option disabled selected value="" >
                                             Choose
@@ -534,27 +534,27 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLTwoIndex"
-                                               name="studentResults[1].indexNumber"
+                                               name="applicantResults[1].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLTwoSubName"
-                                               name="studentResults[1].subjectName"
+                                               name="applicantResults[1].subjectName"
                                                placeholder="Subject Name"
                                                readonly type="text"
                                                value="Science" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLTwoSubYear"
-                                               name="studentResults[1].year"
+                                               name="applicantResults[1].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[1].streamLevel"
+                                               name="applicantResults[1].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[1].compulsoryOLSubject"
+                                               name="applicantResults[1].compulsoryOLSubject"
                                                type="text"
                                                value="SCIEN" >
                                       </td >
@@ -562,7 +562,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[1].subjectResult"
+                                                name="applicantResults[1].subjectResult"
                                                 required
                                                 tabindex="24" >
                                           <option disabled selected value="" >
@@ -578,7 +578,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLTwoAttempt"
-                                                name="studentResults[1].attempt"
+                                                name="applicantResults[1].attempt"
                                                 required tabindex="25" >
                                           <option disabled selected value="" >
                                             Choose
@@ -595,28 +595,28 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLThreeIndex"
-                                               name="studentResults[2].indexNumber"
+                                               name="applicantResults[2].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLThreeSubName"
-                                               name="studentResults[2].subjectName"
+                                               name="applicantResults[2].subjectName"
                                                placeholder="Subject Name"
                                                readonly
                                                type="text"
                                                value="Sinhala Language & Literature" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLThreeSubYear"
-                                               name="studentResults[2].year"
+                                               name="applicantResults[2].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[2].streamLevel"
+                                               name="applicantResults[2].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[2].compulsoryOLSubject"
+                                               name="applicantResults[2].compulsoryOLSubject"
                                                type="text"
                                                value="SING" >
                                       </td >
@@ -624,7 +624,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[2].subjectResult"
+                                                name="applicantResults[2].subjectResult"
                                                 required
                                                 tabindex="26" >
                                           <option disabled selected value="" >
@@ -640,7 +640,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLThreeAttempt"
-                                                name="studentResults[2].attempt"
+                                                name="applicantResults[2].attempt"
                                                 required
                                                 tabindex="27" >
                                           <option disabled selected value="" >
@@ -658,28 +658,28 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLFourIndex"
-                                               name="studentResults[3].indexNumber"
+                                               name="applicantResults[3].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLFourSubName"
-                                               name="studentResults[3].subjectName"
+                                               name="applicantResults[3].subjectName"
                                                placeholder="Subject Name"
                                                readonly
                                                type="text"
                                                value="English Language & Literature" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLFourSubYear"
-                                               name="studentResults[3].year"
+                                               name="applicantResults[3].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[3].streamLevel"
+                                               name="applicantResults[3].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[3].compulsoryOLSubject"
+                                               name="applicantResults[3].compulsoryOLSubject"
                                                type="text"
                                                value="ENG" >
                                       </td >
@@ -687,7 +687,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[3].subjectResult"
+                                                name="applicantResults[3].subjectResult"
                                                 required
                                                 tabindex="28" >
                                           <option disabled selected value="" >
@@ -703,7 +703,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLFourAttempt"
-                                                name="studentResults[3].attempt"
+                                                name="applicantResults[3].attempt"
                                                 required tabindex="29" >
                                           <option disabled selected value="" >
                                             Choose
@@ -720,27 +720,27 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLFiveIndex"
-                                               name="studentResults[4].indexNumber"
+                                               name="applicantResults[4].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLFiveSubName"
-                                               name="studentResults[4].subjectName"
+                                               name="applicantResults[4].subjectName"
                                                placeholder="Subject Name"
                                                readonly type="text"
                                                value="Religion" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLFiveSubYear"
-                                               name="studentResults[4].year"
+                                               name="applicantResults[4].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[4].streamLevel"
+                                               name="applicantResults[4].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[4].compulsoryOLSubject"
+                                               name="applicantResults[4].compulsoryOLSubject"
                                                type="text"
                                                value="REG" >
                                       </td >
@@ -748,7 +748,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[4].subjectResult"
+                                                name="applicantResults[4].subjectResult"
                                                 required
                                                 tabindex="29" >
                                           <option disabled selected value="" >
@@ -764,7 +764,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLFiveAttempt"
-                                                name="studentResults[4].attempt"
+                                                name="applicantResults[4].attempt"
                                                 required tabindex="30" >
                                           <option disabled selected value="" >
                                             Choose
@@ -781,26 +781,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLSixIndex"
-                                               name="studentResults[5].indexNumber"
+                                               name="applicantResults[5].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLSixSubName"
-                                               name="studentResults[5].subjectName"
+                                               name="applicantResults[5].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="30" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLSixSubYear"
-                                               name="studentResults[5].year"
+                                               name="applicantResults[5].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[5].streamLevel"
+                                               name="applicantResults[5].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[5].compulsoryOLSubject"
+                                               name="applicantResults[5].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -808,7 +808,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[5].subjectResult"
+                                                name="applicantResults[5].subjectResult"
                                                 tabindex="33" >
                                           <option disabled selected value="" >
                                             Choose
@@ -823,7 +823,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLSixAttempt"
-                                                name="studentResults[5].attempt"
+                                                name="applicantResults[5].attempt"
                                                 tabindex="34" >
                                           <option disabled selected value="" >
                                             Choose
@@ -840,26 +840,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLSevenIndex"
-                                               name="studentResults[6].indexNumber"
+                                               name="applicantResults[6].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLSevenSubName"
-                                               name="studentResults[6].subjectName"
+                                               name="applicantResults[6].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="35" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLSevenSubYear"
-                                               name="studentResults[6].year"
+                                               name="applicantResults[6].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[6].streamLevel"
+                                               name="applicantResults[6].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[6].compulsoryOLSubject"
+                                               name="applicantResults[6].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -867,7 +867,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[6].subjectResult"
+                                                name="applicantResults[6].subjectResult"
                                                 tabindex="36" >
                                           <option disabled selected value="" >
                                             Choose
@@ -882,7 +882,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLSevenAttempt"
-                                                name="studentResults[6].attempt"
+                                                name="applicantResults[6].attempt"
                                                 tabindex="37" >
                                           <option disabled selected value="" >
                                             Choose
@@ -899,26 +899,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLEightIndex"
-                                               name="studentResults[7].indexNumber"
+                                               name="applicantResults[7].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLEightSubName"
-                                               name="studentResults[7].subjectName"
+                                               name="applicantResults[7].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="38" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLEightSubYear"
-                                               name="studentResults[7].year"
+                                               name="applicantResults[7].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[7].streamLevel"
+                                               name="applicantResults[7].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[7].compulsoryOLSubject"
+                                               name="applicantResults[7].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -926,7 +926,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[7].subjectResult"
+                                                name="applicantResults[7].subjectResult"
                                                 tabindex="39" >
                                           <option disabled selected value="" >
                                             Choose
@@ -941,7 +941,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLEightAttempt"
-                                                name="studentResults[7].attempt"
+                                                name="applicantResults[7].attempt"
                                                 tabindex="40" >
                                           <option disabled selected value="" >
                                             Choose
@@ -958,26 +958,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLNineIndex"
-                                               name="studentResults[8].indexNumber"
+                                               name="applicantResults[8].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLNineSubName"
-                                               name="studentResults[8].subjectName"
+                                               name="applicantResults[8].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="41" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLNineSubYear"
-                                               name="studentResults[8].year"
+                                               name="applicantResults[8].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[8].streamLevel"
+                                               name="applicantResults[8].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[8].compulsoryOLSubject"
+                                               name="applicantResults[8].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -985,7 +985,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[8].subjectResult"
+                                                name="applicantResults[8].subjectResult"
                                                 tabindex="42" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1000,7 +1000,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLNineAttempt"
-                                                name="studentResults[8].attempt"
+                                                name="applicantResults[8].attempt"
                                                 tabindex="43" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1017,26 +1017,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subOLTenIndex"
-                                               name="studentResults[9].indexNumber"
+                                               name="applicantResults[9].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subOLTenSubName"
-                                               name="studentResults[9].subjectName"
+                                               name="applicantResults[9].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="44" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subOLTenSubYear"
-                                               name="studentResults[9].year"
+                                               name="applicantResults[9].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[9].streamLevel"
+                                               name="applicantResults[9].streamLevel"
                                                type="text"
                                                value="OL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[9].compulsoryOLSubject"
+                                               name="applicantResults[9].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -1044,7 +1044,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[9].subjectResult"
+                                                name="applicantResults[9].subjectResult"
                                                 tabindex="45" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1059,7 +1059,7 @@
                                         <!--/*Attempt*/-->
                                         <select class="form-control"
                                                 id="subOLTenAttempt"
-                                                name="studentResults[9].attempt"
+                                                name="applicantResults[9].attempt"
                                                 tabindex="46" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1131,37 +1131,37 @@
                                     </thead >
                                     <!--/*when A/L result update state*/-->
                                     <tbody data-th-if="${addStatus == false}" >
-                                    <tr data-th-each="studentResult, index : ${student.studentResults}"
+                                    <tr data-th-each="studentResult, index : ${student.applicantResults}"
                                         data-th-if="${#strings.equals(studentResult.streamLevel,'AL')}" >
                                       <td >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].id'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].id'}"
                                                data-th-value="${studentResult.id}"
                                                hidden type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].streamLevel'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].streamLevel'}"
                                                data-th-value="${studentResult.streamLevel}"
                                                hidden
                                                type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].compulsoryOLSubject'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].compulsoryOLSubject'}"
                                                data-th-value="${studentResult.compulsoryOLSubject}"
                                                hidden
                                                type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].indexNumber'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].indexNumber'}"
                                                data-th-value="${studentResult.indexNumber}"
                                                hidden
                                                type="text" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].subjectName'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].subjectName'}"
                                                data-th-value="${studentResult.subjectName}"
                                                readonly
                                                type="text" >
                                       </td >
                                       <td data-th-if="${studentResult.mark== null}" >
                                         <select class="form-control"
-                                                data-th-name="${'studentResults[__${index.index}__].subjectResult'}" >
+                                                data-th-name="${'applicantResults[__${index.index}__].subjectResult'}" >
                                           <option data-th-each="subjectResult : ${subjectResults}"
                                                   data-th-selected="${subjectResult==studentResult.subjectResult}"
                                                   data-th-text="${subjectResult.subjectResult}"
@@ -1170,19 +1170,19 @@
                                       </td >
                                       <td data-th-if="${studentResult.mark != null}" >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].mark'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].mark'}"
                                                data-th-value="${studentResult.mark}"
                                                type="text" >
                                       </td >
                                       <td >
                                         <input class="form-control"
-                                               data-th-name="${'studentResults[__${index.index}__].year'}"
+                                               data-th-name="${'applicantResults[__${index.index}__].year'}"
                                                data-th-value="${studentResult.year}"
                                                readonly type="text" >
                                       </td >
                                       <td >
                                         <select hidden class="form-control"
-                                                data-th-name="${'studentResults[__${index.index}__].attempt'}" >
+                                                data-th-name="${'applicantResults[__${index.index}__].attempt'}" >
                                           <option disabled selected value="" >
                                             Choose
                                           </option >
@@ -1202,26 +1202,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subALOneIndex"
-                                               name="studentResults[10].indexNumber"
+                                               name="applicantResults[10].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subALOneSubName"
-                                               name="studentResults[10].subjectName"
+                                               name="applicantResults[10].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="51" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subALOneSubYear"
-                                               name="studentResults[10].year"
+                                               name="applicantResults[10].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[10].streamLevel"
+                                               name="applicantResults[10].streamLevel"
                                                type="text"
                                                value="AL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[10].compulsoryOLSubject"
+                                               name="applicantResults[10].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -1229,7 +1229,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[10].subjectResult"
+                                                name="applicantResults[10].subjectResult"
                                                 tabindex="52" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1244,7 +1244,7 @@
                                         <!--/*Attempt*/-->
                                         <select hidden class="form-control"
                                                 id="subALOneAttempt"
-                                                name="studentResults[10].attempt"
+                                                name="applicantResults[10].attempt"
                                                 tabindex="53"
                                                 data-th-value="${'FIRST'}" >
                                           <option disabled selected value="" >
@@ -1263,26 +1263,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subALTwoIndex"
-                                               name="studentResults[11].indexNumber"
+                                               name="applicantResults[11].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subALTwoSubName"
-                                               name="studentResults[11].subjectName"
+                                               name="applicantResults[11].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="54" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subALTwoSubYear"
-                                               name="studentResults[11].year"
+                                               name="applicantResults[11].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[11].streamLevel"
+                                               name="applicantResults[11].streamLevel"
                                                type="text"
                                                value="AL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[11].compulsoryOLSubject"
+                                               name="applicantResults[11].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -1290,7 +1290,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[11].subjectResult"
+                                                name="applicantResults[11].subjectResult"
                                                 tabindex="55" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1305,7 +1305,7 @@
                                         <!--/*Attempt*/-->
                                         <select hidden class="form-control"
                                                 id="subALTwoAttempt"
-                                                name="studentResults[11].attempt"
+                                                name="applicantResults[11].attempt"
                                                 tabindex="56"
                                                 data-th-value="${'FIRST'}" >
                                           <option disabled selected value="" >
@@ -1323,26 +1323,26 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subALThreeIndex"
-                                               name="studentResults[12].indexNumber"
+                                               name="applicantResults[12].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subALThreeSubName"
-                                               name="studentResults[12].subjectName"
+                                               name="applicantResults[12].subjectName"
                                                placeholder="Subject Name"
                                                tabindex="57" type="text" >
                                         <!--/*year*/-->
                                         <input hidden id="subALThreeSubYear"
-                                               name="studentResults[12].year"
+                                               name="applicantResults[12].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[12].streamLevel"
+                                               name="applicantResults[12].streamLevel"
                                                type="text"
                                                value="AL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[12].compulsoryOLSubject"
+                                               name="applicantResults[12].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -1350,7 +1350,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[12].subjectResult"
+                                                name="applicantResults[12].subjectResult"
                                                 tabindex="58" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1365,7 +1365,7 @@
                                         <!--/*Attempt*/-->
                                         <select hidden class="form-control"
                                                 id="subALThreeAttempt"
-                                                name="studentResults[12].attempt"
+                                                name="applicantResults[12].attempt"
                                                 tabindex="59"
                                                 data-th-value="${'FIRST'}" >
                                           <option disabled selected value="" >
@@ -1383,27 +1383,27 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subALFourIndex"
-                                               name="studentResults[13].indexNumber"
+                                               name="applicantResults[13].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subALFourSubName"
-                                               name="studentResults[13].subjectName"
+                                               name="applicantResults[13].subjectName"
                                                placeholder="Subject Name"
                                                readonly type="text"
                                                value="English Language" >
                                         <!--/*year*/-->
                                         <input hidden id="subALFourSubYear"
-                                               name="studentResults[13].year"
+                                               name="applicantResults[13].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[13].streamLevel"
+                                               name="applicantResults[13].streamLevel"
                                                type="text"
                                                value="AL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[13].compulsoryOLSubject"
+                                               name="applicantResults[13].compulsoryOLSubject"
                                                type="text"
                                                value="ENG" >
                                       </td >
@@ -1411,7 +1411,7 @@
                                       <td >
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
-                                                name="studentResults[13].subjectResult"
+                                                name="applicantResults[13].subjectResult"
                                                 tabindex="60" >
                                           <option disabled selected value="" >
                                             Choose
@@ -1426,7 +1426,7 @@
                                         <!--/*Attempt*/-->
                                         <select hidden class="form-control"
                                                 id="subALFourAttempt"
-                                                name="studentResults[13].attempt"
+                                                name="applicantResults[13].attempt"
                                                 tabindex="61"
                                                 data-th-value="${'FIRST'}" >
                                           <option disabled selected value="" >
@@ -1444,27 +1444,27 @@
                                       <td >
                                         <!--/*index number*/-->
                                         <input hidden id="subALFiveIndex"
-                                               name="studentResults[14].indexNumber"
+                                               name="applicantResults[14].indexNumber"
                                                type="text" >
                                         <!--/*subject name*/-->
                                         <input class="form-control"
                                                id="subALFiveSubName"
-                                               name="studentResults[14].subjectName"
+                                               name="applicantResults[14].subjectName"
                                                placeholder="Subject Name"
                                                readonly type="text"
                                                value="General Test" >
                                         <!--/*year*/-->
                                         <input hidden id="subALFiveSubYear"
-                                               name="studentResults[14].year"
+                                               name="applicantResults[14].year"
                                                type="text" >
                                         <!--/*Stream level*/-->
                                         <input hidden
-                                               name="studentResults[14].streamLevel"
+                                               name="applicantResults[14].streamLevel"
                                                type="text"
                                                value="AL" >
                                         <!--/*Compulsory subject*/-->
                                         <input hidden
-                                               name="studentResults[14].compulsoryOLSubject"
+                                               name="applicantResults[14].compulsoryOLSubject"
                                                type="text"
                                                value="OTH" >
                                       </td >
@@ -1472,7 +1472,7 @@
                                       <td >
                                         <!--/*Marks*/-->
                                         <input class="form-control"
-                                               name="studentResults[14].mark"
+                                               name="applicantResults[14].mark"
                                                placeholder="Marks"
                                                tabindex="62"
                                                type="text" >
@@ -1482,7 +1482,7 @@
                                         <!--/*Attempt*/-->
                                         <select hidden class="form-control"
                                                 id="subALFiveAttempt"
-                                                name="studentResults[14].attempt"
+                                                name="applicantResults[14].attempt"
                                                 tabindex="63"
                                                 data-th-value="${'FIRST'}" >
                                           <option disabled selected value="" >
