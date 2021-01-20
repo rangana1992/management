@@ -121,7 +121,7 @@
         let remainCount = parseInt(document.getElementById("totalApplicantCount").innerHTML) - totalCount;
 
         console.log(remainCount)
-        if (remainCount > 0) {
+        if (remainCount >= 0) {
             $(`#rm${selectedFiledId}`).val(remainCount);
         } else {
             swal({
