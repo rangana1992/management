@@ -44,7 +44,7 @@ public class Applicant extends AuditEntity {
     private ApplyingRank applyingRank;
 
 
-    @NotNull
+
     @Column(nullable = false)
     private String height;
 
