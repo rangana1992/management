@@ -14,10 +14,7 @@ import lk.recruitment.management.asset.interview_board.entity.Enum.InterviewBoar
 import lk.recruitment.management.asset.interview_board.service.InterviewBoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +88,24 @@ public class InterviewScheduleController {
       startCount = endCount - 1;
     }
 
-    model.addAttribute("applicantInterview",
+    model.addAttribute("applicantInterviews",
+                       applicantInterviewService.findAll().stream().filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT)).collect(Collectors.toList()));
+    return "interviewSchedule/interviewSchedule";
+  }
+
+  @GetMapping( "/deactivate/{id}" )
+  public String deactivate(@PathVariable Integer id, Model model) {
+
+    ApplicantInterview applicantInterview = applicantInterviewService.findById(id);
+
+    Applicant applicant = applicantInterview.getApplicant();
+    applicant.setApplicantStatus(ApplicantStatus.REJ);
+    applicantService.persist(applicant);
+
+    applicantInterview.setApplicantInterviewStatus(ApplicantInterviewStatus.CL);
+    applicantInterviewService.persist(applicantInterview);
+
+    model.addAttribute("applicantInterviews",
                        applicantInterviewService.findAll().stream().filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT)).collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }

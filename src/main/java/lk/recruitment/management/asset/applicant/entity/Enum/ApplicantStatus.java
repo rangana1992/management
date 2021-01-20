@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum ApplicantStatus {
     P("Pending"),
     A("Approved"),
+    REJ("Reject"),
     NTA("Not Approved"),
     FST("First Interview"),
     FSTP("First Interview Pass"),
@@ -21,5 +22,6 @@ public enum ApplicantStatus {
     FTH("Forth Interview"),
     FTHP("Forth Interview Pass"),
     FTHR("Forth Interview Reject");
-    private final String applicantStatus;
+
+  private final String applicantStatus;
 }
