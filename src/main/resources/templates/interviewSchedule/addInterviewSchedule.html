@@ -124,11 +124,11 @@
         if (remainCount > 0) {
             $(`#rm${selectedFiledId}`).val(remainCount);
         } else {
-          swal({
-            title: "Please count again",
-            icon: "warning",
-            text: "There is no more applicant to create new interview ",
-          });
+            swal({
+                title: "Please count again",
+                icon: "warning",
+                text: "There is no more applicant to create new interview ",
+            });
             $(`#rm${selectedFiledId}`).val(0);
         }
     }
