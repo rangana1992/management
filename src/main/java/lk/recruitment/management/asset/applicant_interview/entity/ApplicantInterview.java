@@ -24,8 +24,6 @@ import java.time.LocalDate;
 @JsonFilter("ApplicantInterview")
 public class ApplicantInterview extends AuditEntity {
 
-  private int count;
-
   @Enumerated( EnumType.STRING)
   private ApplicantInterviewStatus applicantInterviewStatus;
 
@@ -38,6 +36,4 @@ public class ApplicantInterview extends AuditEntity {
   @ManyToOne
   private Applicant applicant;
 
-  @ManyToOne
-  private Interview interview;
 }

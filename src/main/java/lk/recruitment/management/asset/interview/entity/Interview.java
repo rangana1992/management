@@ -3,6 +3,7 @@ package lk.recruitment.management.asset.interview.entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment.management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment.management.asset.interview.entity.Enum.InterviewStatus;
+import lk.recruitment.management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment.management.asset.interview_parameter.entity.InterviewParameter;
 import lk.recruitment.management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class Interview extends AuditEntity {
     private InterviewStatus interviewStatus;
 
     @OneToMany(mappedBy ="interview" )
-    private List< ApplicantInterview > applicantInterviews;
+    private List< InterviewBoard > interviewBoards;
 
     @ManyToMany
     @JoinTable(name = "interview_interview_parameter",

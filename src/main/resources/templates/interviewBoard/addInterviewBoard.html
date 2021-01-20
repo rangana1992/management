@@ -51,6 +51,21 @@
                                data-th-errors="*{name}" >Error Name</p >
                           </div >
                         </div >
+                        <!--Interview-->
+                        <div class="form-group row" >
+                          <label for="interview" class="col-sm-4 col-form-label " >
+                            Interview Name </label >
+                          <div class="col-sm-8" >
+                            <select id="interview" class="form-control" data-th-field="*{interview}" >
+                              <option value="" >Please Select</option >
+                              <option data-th-each="interview : ${interviews}"
+                                      data-th-text="${interview.name}"
+                                      data-th-value="${interview.id}" >
+
+                              </option >
+                            </select >
+                          </div >
+                        </div >
                         <!--Active-->
                         <div class="form-group row" >
                           <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label " >
@@ -94,13 +109,16 @@
                               </thead >
                               <tbody >
                               <tr data-th-each="employee : ${interviewBoard.employees}" >
-                                <th>
-                                  <input id="na${employee.id}" type="text" class="form-control" value="${employee.name}" readonly>
-                                  <input id="id${employee.id}" type="hidden" name="employees" value="${employee.id}">
-                                </th>
-                                <th>
-                                  <button id="re${employee.id}" type="button" onclick="removeSelectedEmployee(this)" class="btn btn-danger">Remove</button>
-                                </th>
+                                <th >
+                                  <input id="na${employee.id}" type="text" class="form-control" value="${employee.name}"
+                                         readonly >
+                                  <input id="id${employee.id}" type="hidden" name="employees" value="${employee.id}" >
+                                </th >
+                                <th >
+                                  <button id="re${employee.id}" type="button" onclick="removeSelectedEmployee(this)"
+                                          class="btn btn-danger" >Remove
+                                  </button >
+                                </th >
                               </tr >
                               </tbody >
                             </table >
