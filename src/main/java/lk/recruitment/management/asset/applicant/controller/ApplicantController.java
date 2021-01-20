@@ -214,7 +214,7 @@ public class ApplicantController {
 
       //after save applicant files and save applicant
       Applicant savedApplicant = applicantService.persist(applicant);
-    result.getAllErrors().forEach(System.out::print);
+      result.getAllErrors().forEach(System.out::print);
 
       //save applicant images file
       if ( applicant.getFile().getOriginalFilename() != null ) {
@@ -289,7 +289,6 @@ public class ApplicantController {
     return commonPayment(model,
                          applicantService.findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
                                                                                                     dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
-                             , twoDate.getApplyingRank(), twoDate.getApplicantStatus())
-                        );
+                             , twoDate.getApplyingRank(), twoDate.getApplicantStatus()));
   }
 }
