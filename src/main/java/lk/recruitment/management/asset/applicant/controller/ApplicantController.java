@@ -175,9 +175,9 @@ public class ApplicantController {
     try {
       applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
       applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
-
-      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-      applicant.setEmail(authentication.getName());
+//
+//      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//      applicant.setEmail(authentication.getName());
       //set no relative to applicant
       if ( !applicant.getNonRelatives().isEmpty() ) {
         System.out.println(" non relative");
@@ -213,7 +213,7 @@ public class ApplicantController {
 
       //after save applicant files and save applicant
       Applicant savedApplicant = applicantService.persist(applicant);
-
+    result.getAllErrors().forEach(System.out::print);
 
       //save applicant images file
       if ( applicant.getFile().getOriginalFilename() != null ) {

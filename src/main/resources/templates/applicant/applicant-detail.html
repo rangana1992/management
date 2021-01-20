@@ -211,6 +211,9 @@
                                         <!--                                                            </div>-->
                                         <!--                                                        </div>-->
                                     </div>
+
+                                    <a th:href="${'/applicant/approve/' + applicantDetail.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Approved</a>
+                                    <a th:href="${'/applicant/reject/' + applicantDetail.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Reject</a>
                                 </div>
                             </div>
                         </div>
@@ -223,8 +226,6 @@
 </div>
 </div>
 
-<a th:href="${'/applicant/approve/' + applicantDetail.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Approved</a>
-<a th:href="${'/applicant/reject/' + applicantDetail.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Reject</a>
 </div><!-- content-wrapper end -->
 <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer>
 <!-- footer Section -->
