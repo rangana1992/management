@@ -7,6 +7,7 @@ import lk.recruitment.management.asset.applicant.entity.*;
 import lk.recruitment.management.asset.applicant.entity.Enum.*;
 import lk.recruitment.management.asset.applicant.service.ApplicantFilesService;
 import lk.recruitment.management.asset.common_asset.model.Enum.*;
+import lk.recruitment.management.asset.common_asset.model.TwoDate;
 import lk.recruitment.management.asset.common_asset.service.CommonService;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
 import lk.recruitment.management.asset.district.controller.DistrictController;
@@ -77,8 +78,8 @@ public class ApplicantController {
     model.addAttribute("title", Title.values());
     model.addAttribute("gender", Gender.values());
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("civilStatus", CivilStatus.values());
     model.addAttribute("applicantStatus", ApplicantStatus.values());
+    model.addAttribute("civilStatus", CivilStatus.values());
     model.addAttribute("nationalities", Nationality.values());
     model.addAttribute("bloodGroup", BloodGroup.values());
     model.addAttribute("provinces", Province.values());
@@ -117,13 +118,10 @@ public class ApplicantController {
   //Send all applicant data
   @RequestMapping
   public String applicantPage(Model model) {
-    model.addAttribute("applicants",
-                       applicantService.findAll()
-                           .stream()
-                           .filter(x -> x.getApplicantStatus().equals(ApplicantStatus.P) || x.getApplicantStatus().equals(ApplicantStatus.REJ))
-                           .collect(Collectors.toList()));
-    model.addAttribute("contendHeader", "Applicant Registration");
-    return "applicant/applicant";
+    return commonPayment(model, applicantService.findAll()
+        .stream()
+        .filter(x -> x.getApplicantStatus().equals(ApplicantStatus.P) || x.getApplicantStatus().equals(ApplicantStatus.REJ))
+        .collect(Collectors.toList()));
   }
 
   //Send on applicant details
@@ -132,6 +130,7 @@ public class ApplicantController {
     Applicant applicant = applicantService.findById(id);
     model.addAttribute("applicantDetail", applicant);
     model.addAttribute("addStatus", false);
+    model.addAttribute("age", dateTimeAgeService.getAge(applicant.getDateOfBirth()));
     model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicant));
     return "applicant/applicant-detail";
   }
@@ -215,7 +214,7 @@ public class ApplicantController {
 
       //after save applicant files and save applicant
       Applicant savedApplicant = applicantService.persist(applicant);
-    result.getAllErrors().forEach(System.out::print);
+      result.getAllErrors().forEach(System.out::print);
 
       //save applicant images file
       if ( applicant.getFile().getOriginalFilename() != null ) {
@@ -277,4 +276,19 @@ public class ApplicantController {
     return "redirect:/applicant";
   }
 
+  private String commonPayment(Model model, List< Applicant > applicants) {
+    model.addAttribute("applicants", applicants);
+    model.addAttribute("contendHeader", "Applicant Registration");
+    model.addAttribute("applyingRanks", ApplyingRank.values());
+    model.addAttribute("applicantStatuses", ApplicantStatus.values());
+    return "applicant/applicant";
+  }
+
+  @PostMapping( "/all/search" )
+  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
+    return commonPayment(model,
+                         applicantService.findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+                                                                                                    dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
+                             , twoDate.getApplyingRank(), twoDate.getApplicantStatus()));
+  }
 }

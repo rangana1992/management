@@ -1,100 +1,161 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
-    <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
-<!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!-- Form Header  Path -->
+                                <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
 
+    <div class="content-header" >
+      <div class="container-fluid" >
+        <div class="row" >
+          <div class="col-md-12" >
+            <div class="row" >
+              <div class="col-md-12" >
+                <div class="card" >
+                  <div class="card-body" >
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form" >
+                      <div align="right" >
+                        <a class="btn btn-success" th:href="${'/applicant/add'}" >
+                          <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Add Applicant </a >
+                        <a class="btn btn-info" th:href="${'/home'}" >
+                          <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
+                      </div >
+                    </form >
+                  </div >
+                </div >
+              </div >
+              <div class="col-md-12" >
+                <div class="card" >
+                  <!--all report-->
+                  <div class="card-body" >
+                    <div class="btn-group" role="group" aria-label="Basic example" >
+                      <a href="/applicant" >
+                        <button type="button" class="btn btn-secondary" >Left</button >
+                      </a >
+                    </div >
+                  </div >
+                  <div class="card-body" >
+                    <div class="row" >
+                      <!--Custom Invoice search-->
+                      <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
+                              data-target="#dataTargetCollapse"
+                              aria-expanded="false" aria-controls="dataTargetCollapse"
+                      > Applicant Search
+                      </button >
+                      <div class="collapse mx-auto" id="dataTargetCollapse" >
+                        <div class="container-fluid text-center" >
+                          <div class="row" >
+                              <h4 class="text-info" ><b > Custom Search</b ></h4 >
+                            <div class="container" >
+                              <form class="form-inline" data-th-action="@{/applicant/all/search}"
+                                    data-th-method="POST" >
+                                <div class="form-group" >
+                                  <label for="startDate" >FROM :</label >
+                                  <input class="form-control" id="startDate" name="startDate" type="date" />
+                                </div >
+                                <div class="form-group" >
+                                  <label for="endDate" >TO :</label >
+                                  <input class="form-control" id="endDate" name="endDate" type="date" />
+                                </div >
+                                <div class="form-group" >
+                                  <label class="control-label" for="applyingRank" >Applying Rank
+                                                                                   :</label >
+                                  <select class="form-control" id="applyingRank"
+                                          required
+                                          data-th-name="${'applyingRank'}" >
+                                    <option value="" >Please select</option >
+                                    <option data-th-each="applyingRank : ${applyingRanks}"
+                                            data-th-text="${applyingRank.applyingRank}"
+                                            data-th-value="${applyingRank}" ></option >
+                                  </select >
+                                </div >
+                                <div class="form-group" >
+                                  <label class="control-label" for="applicantStatus" >Applying Rank
+                                                                                      :</label >
+                                  <select class="form-control" id="applicantStatus" required
+                                          data-th-name="${'applicantStatus'}" >
+                                    <option value="" >Please select</option >
+                                    <option data-th-each="applicantStatus : ${applicantStatuses}"
+                                            data-th-text="${applicantStatus.applicantStatus}"
+                                            data-th-value="${applicantStatus}" ></option >
+                                  </select >
+                                </div >
+                                <div class="form-group" >
+                                  <button class="btn btn-success" id="btnSummaryFind" type="submit" ><span
+                                        class="glyphicon glyphicon-search" ></span >&nbsp;Search
+                                  </button >
+                                </div >
+                              </form >
+                            </div >
+                          </div >
+                        </div >
+                      </div >
+                    </div >
+                  </div >
+                  <div class="card-body" >
+                    <h4 >Applicant Details</h4 >
+                    <div class="card-body" >
+                      <table class="table  table-hover " id="myTable" >
+                        <thead >
+                        <tr >
+                          <th > Index</th >
+                          <th > Name</th >
+                          <th > Rank</th >
+                          <th > Police Station</th >
+                          <th > Modify</th >
+                        </tr >
+                        </thead >
+                        <tbody >
+                        <tr th:each="applicant, rowCount : ${applicants}" >
+                          <td th:text="${rowCount.count}" ></td >
+                          <td th:text="${applicant.nameWithInitial}" ></td >
+                          <td th:text="${applicant.applyingRank}" ></td >
+                          <td th:text="${applicant.gramaNiladhari.policeStation.name}" ></td >
 
+                          <td >
+                            <a th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
+                                  class="fa fa-folder-open" ></i >&nbsp;View</a >
+                            <a th:href="${'/applicant/remove/' + applicant.id}"
+                               th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                               class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
+                              Delete</a >
+                          </td >
+                        </tr >
+                        </tfoot>
+                      </table >
+                    </div >
+                    <div class="row" th:if="${ #lists.isEmpty(applicants)}" >
+                      <!-- <div class="col-sm-12">-->
+                      <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+                          <span aria-hidden="true" >&times;</span >
+                        </button >
+                        <h3 class="text-center text-danger" >
+                          <strong >There is no applicant upto now please add applicant to the system
+                                   using add applicant button.
+                          </strong >
+                        </h3 >
+                      </div >
+                    </div >
+                  </div >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
 
-
-
-
-
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-<!--                                        <h4>First sud Header</h4>-->
-                                        <form role="form">
-                                            <div align="right">
-                                                <a class="btn btn-success" id="newDistrict" th:href="${'/applicant/add'}">
-                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Add Applicant </a>
-                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
-                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4>Applicant Details</h4>
-                                    <div class="card-body">
-                                        <table class="table  table-hover " id="myTable">
-                                            <thead>
-                                            <tr>
-                                                <th> Index</th>
-                                                <th> Name</th>
-                                                <th> Rank</th>
-                                                <th> Police Station</th>
-                                                <th> Modify</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="applicant, rowCount : ${applicants}">
-                                                <td th:text="${rowCount.count}"></td>
-                                                <td th:text="${applicant.nameWithInitial}"></td>
-                                                <td th:text="${applicant.applyingRank}"></td>
-                                                <td th:text="${applicant.gramaNiladhari.policeStation.name}"></td>
-
-                                                <td>
-                                                    <a th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
-                                                            class="fa fa-folder-open"></i>&nbsp;View</a>
-                                                    <a th:href="${'/applicant/remove/' + applicant.id}"
-                                                       th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
-                                                        Delete</a>
-                                                </td>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                    <div class="row" th:if="${ #lists.isEmpty(applicants)}">
-                                        <!-- <div class="col-sm-12">-->
-                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            <h3 class="text-center text-danger">
-                                                <strong>There is no applicant upto now please add applicant to the system
-                                                    using add user button.
-                                                </strong>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div><!-- content-wrapper end -->
-    <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
-</div><!-- wrapper end -->
-<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
-</body>
-</html>
+  </div ><!-- content-wrapper end -->
+  <div th:replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
+</div ><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+</body >
+</html >

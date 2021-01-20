@@ -31,7 +31,6 @@ public class Applicant extends AuditEntity {
     @Column(nullable = false)
     private String nameInFullName;
 
-
     @NotNull
     @Column(nullable = false)
     private String nameWithInitial;
@@ -43,8 +42,6 @@ public class Applicant extends AuditEntity {
     @Enumerated(EnumType.STRING)
     private ApplyingRank applyingRank;
 
-
-    @NotNull
     @Column(nullable = false)
     private String height;
 
