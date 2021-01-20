@@ -60,10 +60,9 @@
                                                 <td th:text="${applicant.gramaNiladhari.policeStation.name}"></td>
 
                                                 <td>
-                                                    <a id="applicantView" th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
+                                                    <a th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm"><i
                                                             class="fa fa-folder-open"></i>&nbsp;View</a>
-                                                    <a id="applicantEdit" th:href="${'/applicant/edit/' + applicant.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
-                                                    <a id="applicantRemove" th:href="${'/applicant/remove/' + applicant.id}"
+                                                    <a th:href="${'/applicant/remove/' + applicant.id}"
                                                        th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
                                                         Delete</a>
                                                 </td>
