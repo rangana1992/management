@@ -51,6 +51,21 @@
                                data-th-errors="*{name}" >Error Name</p >
                           </div >
                         </div >
+                        <!--Interview-->
+                        <div class="form-group row" >
+                          <label for="interview" class="col-sm-4 col-form-label " >
+                            Employee </label >
+                          <div class="col-sm-8" >
+                            <select id="interview" class="form-control" data-th-field="*{interview}" >
+                              <option value="" >Please Select</option >
+                              <option data-th-each="interview : ${interviews}"
+                                      data-th-text="${interview.name}"
+                                      data-th-value="${interview.id}" >
+
+                              </option >
+                            </select >
+                          </div >
+
                         <!--Active-->
                         <div class="form-group row" >
                           <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label " >

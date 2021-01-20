@@ -38,6 +38,4 @@ public class ApplicantInterview extends AuditEntity {
   @ManyToOne
   private Applicant applicant;
 
-  @ManyToOne
-  private Interview interview;
 }

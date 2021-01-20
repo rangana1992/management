@@ -80,7 +80,11 @@ public class ApplicantService implements AbstractService<Applicant, Integer> {
         return applicantDao.findByEmail(email);
     }
 
-    public int accordingToApplicantStatus(ApplicantStatus applicantStatus){
+    public int countByApplicantStatus(ApplicantStatus applicantStatus){
         return applicantDao.countByApplicantStatus(applicantStatus);
     }
+    public List<Applicant> findByApplicantStatus(ApplicantStatus applicantStatus){
+        return applicantDao.findByApplicantStatus(applicantStatus);
+    }
+
 }
