@@ -130,6 +130,7 @@ public class ApplicantController {
     Applicant applicant = applicantService.findById(id);
     model.addAttribute("applicantDetail", applicant);
     model.addAttribute("addStatus", false);
+    model.addAttribute("age", dateTimeAgeService.getAge(applicant.getDateOfBirth()));
     model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicant));
     return "applicant/applicant-detail";
   }
