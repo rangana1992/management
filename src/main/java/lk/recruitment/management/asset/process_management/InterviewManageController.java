@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -25,6 +27,34 @@ public class InterviewManageController {
     model.addAttribute("btnText", btnText);
     return "interviewSchedule/interview";
   }
+
+/*
+ @GetMapping( value = "/pdf" )
+  public void allPdf(HttpServletRequest request, HttpServletResponse response) {
+    List< Applicant > employees = applicantService.getAllEmployeePdfAndExcel();
+    boolean isFlag = applicantService.createPdf(employees, context, request, response);
+
+    if ( isFlag ) {
+      String fullPath = request.getServletContext().getRealPath("/resources/report/" + "employees" + ".pdf");
+      fileHandelService.filedownload(fullPath, response, "employees.pdf");
+    }
+
+  }
+
+  @GetMapping( value = "/excel" )
+  public void allExcel(HttpServletRequest request, HttpServletResponse response) {
+    List< Applicant > employees = applicantService.getAllEmployeePdfAndExcel();
+    boolean isFlag = applicantService.createExcell(employees, context, request, response);
+    if ( isFlag ) {
+      String fullPath = request.getServletContext().getRealPath("/resources/report/" + "employees" + ".xls");
+      fileHandelService.filedownload(fullPath, response, "employees.xls");
+
+    }
+
+  }
+*/
+
+//todo-> no need to manage pdf to 3rd and 4th
 
   @GetMapping("/firstInterview")
   public String firstInterview(Model model) {

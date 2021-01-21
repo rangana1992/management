@@ -41,8 +41,8 @@ public class InterviewScheduleController {
   @GetMapping
   public String form(Model model) {
     model.addAttribute("totalApplicantCount", applicantService.countByApplicantStatus(ApplicantStatus.A));
-    model.addAttribute("interviewBoard", interviewBoardService.findAll().
-                           stream()
+    model.addAttribute("interviewBoard", interviewBoardService.findAll()
+                           .stream()
                            .filter(x -> x.getInterviewBoardStatus().equals(InterviewBoardStatus.ACT))
                            .collect(Collectors.toList())
                       );
@@ -89,7 +89,10 @@ public class InterviewScheduleController {
     }
 
     model.addAttribute("applicantInterviews",
-                       applicantInterviewService.findAll().stream().filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT)).collect(Collectors.toList()));
+                       applicantInterviewService.findAll()
+                           .stream()
+                           .filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
+                           .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
 
@@ -106,7 +109,10 @@ public class InterviewScheduleController {
     applicantInterviewService.persist(applicantInterview);
 
     model.addAttribute("applicantInterviews",
-                       applicantInterviewService.findAll().stream().filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT)).collect(Collectors.toList()));
+                       applicantInterviewService.findAll()
+                           .stream()
+                           .filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
+                           .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
 
