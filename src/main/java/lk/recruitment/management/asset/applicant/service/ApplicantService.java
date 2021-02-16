@@ -177,7 +177,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       result.setCellStyle(headerCellStyle);
 
       HSSFCell message = headerRow.createCell(7);
-      message.setCellValue("If applicant has not in your record, result mark as 'Completed' if not mark as 'Uncompleted' ");
+      message.setCellValue("If applicant has not in your record, result mark as 'Pass' if not mark as 'Failed' ");
       message.setCellStyle(headerCellStyle);
 
 

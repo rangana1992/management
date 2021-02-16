@@ -13,15 +13,19 @@
 <body >
 
 <div class="container-fluid form-row" >
-  <div class="col" ><span data-th-text="${headerTitle}" ></span ></div >
-  <div class="col"  data-th-if="${uriExcel!=null}">
-    <a data-th-href="${'/interviewManage/'+uriExcel}" >
-      <button type="button" class="btn btn-info" data-th-text="${btnTextExcel}" >      </button >
+  <div class="col" >
+    <a data-th-href="${'/interviewManage/'+uriCID}" >
+      <button type="button" class="btn btn-info" data-th-text="${btnTextCID}" >      </button >
     </a >
   </div >
-  <div class="col" data-th-if="${uriPdf!=null}">
-    <a data-th-href="${'/interviewManage/'+uriPdf}" >
-      <button type="button" class="btn btn-info" data-th-text="${btnTextPdf}">      </button >
+  <div class="col"  >
+    <a data-th-href="${'/interviewManage/'+uriSIS}" >
+      <button type="button" class="btn btn-info" data-th-text="${btnTextSIS}" >      </button >
+    </a >
+  </div >
+  <div class="col" >
+    <a data-th-href="${'/interviewManage/'+uriCRD}" >
+      <button type="button" class="btn btn-info" data-th-text="${btnTextCRD}">      </button >
     </a >
   </div >
 </div >
