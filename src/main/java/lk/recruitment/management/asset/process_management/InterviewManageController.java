@@ -29,7 +29,6 @@ public class InterviewManageController {
     this.fileHandelService = fileHandelService;
     this.context = context;
   }
-
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
                              String btnTextPdf, String uriExcel, String btnTextExcel) {
     model.addAttribute("applicants", applicants);
@@ -40,7 +39,6 @@ public class InterviewManageController {
     model.addAttribute("btnTextExcel", btnTextExcel);
     return "interviewSchedule/interview";
   }
-
   /*
    @GetMapping( value = "/pdf" )
     public void allPdf(HttpServletRequest request, HttpServletResponse response) {
@@ -51,14 +49,13 @@ public class InterviewManageController {
         String fullPath = request.getServletContext().getRealPath("/resources/report/" + "employees" + ".pdf");
         fileHandelService.filedownload(fullPath, response, "employees.pdf");
       }
-
     }
   */
   @GetMapping( value = "/{interviewType}" )
   public void allExcel(@PathVariable( "interviewType" ) String interviewType, HttpServletRequest request,
                        HttpServletResponse response) {
     List< Applicant > applicants;
-String sheetName;
+    String sheetName;
     switch ( interviewType ) {
       case "firstInterviewExcel":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FST);
@@ -80,14 +77,12 @@ String sheetName;
         applicants = null;
         sheetName = "No Applicant to show";
     }
-
     boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
     if ( isFlag ) {
       String fullPath = request.getServletContext().getRealPath("/resources/report/" + "applicants" + ".xls");
       fileHandelService.fileDownload(fullPath, response, "applicant.xls");
     }
   }
-
 
 //todo-> no need to manage pdf to 3rd and 4th
 
@@ -98,6 +93,7 @@ String sheetName;
   }
 
   //todo -> first interview result enter
+
   @GetMapping( "/secondInterview" )
   public String secondInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.SND), "Second Interview",
@@ -106,6 +102,7 @@ String sheetName;
   }
 
   //todo-> second interview result enter
+
   @GetMapping( "/thirdInterview" )
   public String thirdInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.TND), "Third Interview",
