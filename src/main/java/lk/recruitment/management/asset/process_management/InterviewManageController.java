@@ -33,6 +33,7 @@ public class InterviewManageController {
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
                              String btnTextPdf, String uriExcel, String btnTextExcel) {
     model.addAttribute("applicants", applicants);
+    System.out.println(applicants.size()+"   hehhe");
     model.addAttribute("headerTitle", title);
     model.addAttribute("uriPdf", uriPdf);
     model.addAttribute("btnTextPdf", btnTextPdf);
@@ -93,8 +94,8 @@ public class InterviewManageController {
     }
     boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
     if ( isFlag ) {
-      String fullPath = request.getServletContext().getRealPath("/resources/report/" + "applicants" + ".xls");
-      fileHandelService.fileDownload(fullPath, response, "applicant.xls");
+      String fullPath = request.getServletContext().getRealPath("/resources/report/" + sheetName + ".xls");
+      fileHandelService.fileDownload(fullPath, response, sheetName+".xls");
     }
   }
 

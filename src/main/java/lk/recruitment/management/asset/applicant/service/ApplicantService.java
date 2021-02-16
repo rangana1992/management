@@ -121,7 +121,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       new File(filePath).mkdirs();
     }
     try {
-      FileOutputStream outputStream = new FileOutputStream(file + "/" + "applicant" + ".xls");
+      FileOutputStream outputStream = new FileOutputStream(file + "/" + sheetName + ".xls");
       HSSFWorkbook workbook = new HSSFWorkbook();
       HSSFSheet workSheet = workbook.createSheet(sheetName);
       workSheet.setDefaultColumnWidth(30);

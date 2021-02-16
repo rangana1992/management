@@ -41,7 +41,7 @@
     <tbody >
     <tr data-th-each="applicant, rowCount : ${applicants}" >
       <td data-th-text="${rowCount.count}" ></td >
-      <td data-th-text="${rowCount.code}" ></td >
+      <td data-th-text="${applicant.code}" ></td >
       <td data-th-text="${applicant.nameWithInitial}" ></td >
       <td data-th-text="${applicant.applyingRank}" ></td >
       <td data-th-text="${applicant.gramaNiladhari.policeStation.name}" ></td >
