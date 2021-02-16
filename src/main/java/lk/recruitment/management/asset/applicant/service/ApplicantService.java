@@ -112,8 +112,8 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   }
 
   public boolean createExcel(List< Applicant > applicants, ServletContext context,
-                              HttpServletRequest request, HttpServletResponse response) {
-
+                              HttpServletRequest request, HttpServletResponse response, String sheetName) {
+    System.out.println("hey im here");
     String filePath = context.getRealPath("/resources/report");
     File file = new File(filePath);
     boolean exists = new File(filePath).exists();
@@ -123,7 +123,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     try {
       FileOutputStream outputStream = new FileOutputStream(file + "/" + "applicant" + ".xls");
       HSSFWorkbook workbook = new HSSFWorkbook();
-      HSSFSheet workSheet = workbook.createSheet("applicant");
+      HSSFSheet workSheet = workbook.createSheet(sheetName);
       workSheet.setDefaultColumnWidth(30);
 
 //header style
@@ -134,7 +134,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       headerCellStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
       headerCellStyle.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
       Font font = workbook.createFont();
-      font.setColor(HSSFColor.WHITE.index);
+      font.setColor(HSSFColor.BLUE_GREY.index);
       headerCellStyle.setFont(font);
 
       //cell style
@@ -152,28 +152,32 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       index.setCellValue("Index");
       index.setCellStyle(headerCellStyle);
 
-      HSSFCell fullName = headerRow.createCell(1);
+      HSSFCell registerNumber = headerRow.createCell(1);
+      registerNumber.setCellValue("Register Number");
+      registerNumber.setCellStyle(headerCellStyle);
+
+      HSSFCell fullName = headerRow.createCell(2);
       fullName.setCellValue("Full Name");
       fullName.setCellStyle(headerCellStyle);
 
-      HSSFCell nic = headerRow.createCell(2);
+      HSSFCell nic = headerRow.createCell(3);
       nic.setCellValue("NIC");
       nic.setCellStyle(headerCellStyle);
 
-      HSSFCell address = headerRow.createCell(3);
+      HSSFCell address = headerRow.createCell(4);
       address.setCellValue("Address");
       address.setCellStyle(headerCellStyle);
 
-      HSSFCell nearestPolice = headerRow.createCell(4);
+      HSSFCell nearestPolice = headerRow.createCell(5);
       nearestPolice.setCellValue("Nearest Police Station");
       nearestPolice.setCellStyle(headerCellStyle);
 
-      HSSFCell result = headerRow.createCell(5);
+      HSSFCell result = headerRow.createCell(6);
       result.setCellValue("Result");
       result.setCellStyle(headerCellStyle);
 
-      HSSFCell message = headerRow.createCell(6);
-      message.setCellValue("If applicant has not in your record, result mark as 'Completed' if not mark as 'Uncompleted' ");
+      HSSFCell message = headerRow.createCell(7);
+      message.setCellValue("If applicant has not in your record, result mark as 'Pass' if not mark as 'Failed' ");
       message.setCellStyle(headerCellStyle);
 
 
@@ -187,23 +191,28 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
         nameValue.setCellValue(count);
         nameValue.setCellStyle(bodyCellStyle);
 
-        HSSFCell fullNameValue = bodyRow.createCell(1);
+
+        HSSFCell registerNumberValue = bodyRow.createCell(1);
+        registerNumberValue.setCellValue(applicant.getCode());
+        registerNumberValue.setCellStyle(bodyCellStyle);
+
+        HSSFCell fullNameValue = bodyRow.createCell(2);
         fullNameValue.setCellValue(applicant.getNameInFullName());
         fullNameValue.setCellStyle(bodyCellStyle);
 
-        HSSFCell nicValue = bodyRow.createCell(2);
+        HSSFCell nicValue = bodyRow.createCell(3);
        nicValue.setCellValue(applicant.getNic());
         nicValue.setCellStyle(bodyCellStyle);
 
-        HSSFCell addressValue = bodyRow.createCell(3);
+        HSSFCell addressValue = bodyRow.createCell(4);
         addressValue.setCellValue(applicant.getAddress());
         addressValue.setCellStyle(bodyCellStyle);
 
-        HSSFCell nearestPoliceValue = bodyRow.createCell(4);
+        HSSFCell nearestPoliceValue = bodyRow.createCell(6);
         nearestPoliceValue.setCellValue(applicant.getGramaNiladhari().getPoliceStation().getName());
         nearestPoliceValue.setCellStyle(bodyCellStyle);
 
-        HSSFCell resultValue = bodyRow.createCell(5);
+        HSSFCell resultValue = bodyRow.createCell(7);
         resultValue.setCellStyle(bodyCellStyle);
 
         count++;

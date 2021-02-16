@@ -18,6 +18,7 @@ import lk.recruitment.management.asset.police_station.controller.PoliceStationCo
 import lk.recruitment.management.asset.police_station.Service.PoliceStationService;
 import lk.recruitment.management.asset.user_management.service.UserService;
 import lk.recruitment.management.util.service.DateTimeAgeService;
+import lk.recruitment.management.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,7 @@ public class ApplicantController {
   private final DateTimeAgeService dateTimeAgeService;
   private final CommonService commonService;
   private final UserService userService;
+  private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
   private final DistrictService districtService;
   private final AgOfficeService agOfficeService;
   private final PoliceStationService policeStationService;
@@ -53,7 +55,7 @@ public class ApplicantController {
   @Autowired
   public ApplicantController(ApplicantService applicantService, ApplicantFilesService applicantFilesService,
                              DateTimeAgeService dateTimeAgeService, CommonService commonService,
-                             UserService userService, DistrictService districtService,
+                             UserService userService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, DistrictService districtService,
                              AgOfficeService agOfficeService, PoliceStationService policeStationService,
                              GramaNiladhariService gramaNiladhariService) {
     this.applicantService = applicantService;
@@ -62,6 +64,7 @@ public class ApplicantController {
     this.dateTimeAgeService = dateTimeAgeService;
     this.commonService = commonService;
     this.userService = userService;
+    this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     this.districtService = districtService;
 
     this.agOfficeService = agOfficeService;
@@ -162,14 +165,21 @@ public class ApplicantController {
   @PostMapping( value = {"/save", "/update"} )
   public String addApplicant(@Valid @ModelAttribute Applicant applicant, BindingResult result, Model model
                             ) {
-
-    result.getAllErrors().forEach(System.out::println);
-    System.out.println(applicant.getGramaNiladhari().getName());
     if ( result.hasErrors() ) {
       model.addAttribute("addStatus", true);
       model.addAttribute("applicant", applicant);
       return commonThings(model);
     }
+    if ( applicant.getId() == null ) {
+      Applicant lastApplicant = applicantService.lastApplicant();
+      if ( lastApplicant.getCode() == null ) {
+        applicant.setCode("SLPA" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+      } else {
+        applicant.setCode("SLPA" + makeAutoGenerateNumberService.numberAutoGen(lastApplicant.getCode().substring(4)).toString());
+      }
+    }
+
+
     try {
       applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
       applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
@@ -178,7 +188,6 @@ public class ApplicantController {
 //      applicant.setEmail(authentication.getName());
       //set no relative to applicant
       if ( !applicant.getNonRelatives().isEmpty() ) {
-        System.out.println(" non relative");
         List< NonRelative > relatives = new ArrayList<>();
         applicant.getNonRelatives().forEach(x -> {
           x.setApplicant(applicant);
@@ -188,7 +197,6 @@ public class ApplicantController {
       }
       //set degree result to applicant
       if ( !applicant.getApplicantDegreeResults().isEmpty() ) {
-        System.out.println(" degree result");
         List< ApplicantDegreeResult > applicantDegreeResults = new ArrayList<>();
         applicant.getApplicantDegreeResults().forEach(x -> {
           x.setApplicant(applicant);
@@ -198,7 +206,6 @@ public class ApplicantController {
       }
       //applicant result
       if ( !applicant.getApplicantResults().isEmpty() ) {
-        System.out.println(" applicant result");
         List< ApplicantResult > applicantResults = new ArrayList<>();
         applicant.getApplicantResults().forEach(x -> {
           if ( x.getSubjectResult() != null ) {
@@ -211,7 +218,6 @@ public class ApplicantController {
 
       //after save applicant files and save applicant
       Applicant savedApplicant = applicantService.persist(applicant);
-      result.getAllErrors().forEach(System.out::print);
 
       //save applicant images file
       if ( applicant.getFile().getOriginalFilename() != null ) {

@@ -27,15 +27,17 @@ import java.util.List;
 @JsonFilter("Applicant")
 public class Applicant extends AuditEntity {
 
-    @NotNull
+    @Column(nullable = false, unique = true)
+    private String code;
+
     @Column(nullable = false)
     private String nameInFullName;
 
-    @NotNull
+
     @Column(nullable = false)
     private String nameWithInitial;
 
-    @NotNull
+
     @Column(nullable = false)
     private String nic;
 
@@ -45,11 +47,11 @@ public class Applicant extends AuditEntity {
     @Column(nullable = false)
     private String height;
 
-    @NotNull
+
     @Column(nullable = false)
     private String weight;
 
-    @NotNull
+
     @Column(nullable = false)
     private String chest;
 
