@@ -121,7 +121,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       new File(filePath).mkdirs();
     }
     try {
-      FileOutputStream outputStream = new FileOutputStream(file + "/" + "applicant" + ".xls");
+      FileOutputStream outputStream = new FileOutputStream(file + "/" + sheetName + ".xls");
       HSSFWorkbook workbook = new HSSFWorkbook();
       HSSFSheet workSheet = workbook.createSheet(sheetName);
       workSheet.setDefaultColumnWidth(30);
@@ -177,7 +177,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       result.setCellStyle(headerCellStyle);
 
       HSSFCell message = headerRow.createCell(7);
-      message.setCellValue("If applicant has not in your record, result mark as 'Pass' if not mark as 'Failed' ");
+      message.setCellValue("If applicant has not in your record,\n result mark as 'Pass' if not mark as 'Failed' ");
       message.setCellStyle(headerCellStyle);
 
 

@@ -6,6 +6,12 @@ import lk.recruitment.management.asset.applicant.service.ApplicantService;
 import lk.recruitment.management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment.management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment.management.util.service.FileHandelService;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,8 +100,8 @@ public class InterviewManageController {
     }
     boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
     if ( isFlag ) {
-      String fullPath = request.getServletContext().getRealPath("/resources/report/" + "applicants" + ".xls");
-      fileHandelService.fileDownload(fullPath, response, "applicant.xls");
+      String fullPath = request.getServletContext().getRealPath("/resources/report/" + sheetName + ".xls");
+      fileHandelService.fileDownload(fullPath, response, sheetName + ".xls");
     }
   }
 
@@ -134,7 +141,7 @@ public class InterviewManageController {
 
   //todo-> fourth interview result enter
 
-  @GetMapping("/cidcrdsis")
+  @GetMapping( "/cidcrdsis" )
   public String cidCRDSIS(Model model) {
     model.addAttribute("applicants", applicantService.findByApplicantStatus(ApplicantStatus.FTH));
 //form action
@@ -145,7 +152,7 @@ public class InterviewManageController {
     model.addAttribute("internalDivisionCID", InternalDivision.CID);
     //sis
     model.addAttribute("uriSIS", "SIS");
-    model.addAttribute("btnTextSIS","Get SIS Excel");
+    model.addAttribute("btnTextSIS", "Get SIS Excel");
     model.addAttribute("internalDivisionSIS", InternalDivision.SIS);
     //crd
     model.addAttribute("uriCRD", "CRD");
@@ -154,14 +161,35 @@ public class InterviewManageController {
     return "interviewSchedule/interviewCIDSISCRD";
   }
 
-  @PostMapping("/cidcrdsis")
-  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid){
+  @PostMapping( "/cidcrdsis" )
+  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid) throws IOException {
     //todo 1. need to find applicant using nic
 
     // 2. result get and convert to upper case and validate
     // 3. before save need to check result already entered or not
-    System.out.println(applicantSisCrdCid.getInternalDivision().toString());
-    System.out.println(applicantSisCrdCid.getMultipartFile().getOriginalFilename());
+    // 4. if applicant pass all test he or she was eligible to interview two
+    int i = 0;
+    //Creates a workbook object from the uploaded excelfile
+    HSSFWorkbook workbook = new HSSFWorkbook(applicantSisCrdCid.getMultipartFile().getInputStream());
+    //Creates a worksheet object representing the first sheet
+    HSSFSheet worksheet = workbook.getSheetAt(0);
+    //Reads the data in excel file until last row is encountered
+    while ( i < worksheet.getLastRowNum() ) {
+      //Creates an object for the Candidate  Model
+      Candidate candidate = new Candidate();
+      //Creates an object representing a single row in excel
+      HSSFRow row = worksheet.getRow(i++);
+      //Sets the Read data to the model class
+      candidate.setCandidateId((int) row.getCell(0).getNumericCellValue());
+      candidate.setName(row.getCell(1).getStringCellValue());
+      candidate.setAddress(row.getCell(2).getStringCellValue());
+      candidate.setEmailId(row.getCell(3).getStringCellValue());
+      candidate.setPinCode((int) row.getCell(4).getNumericCellValue());
+      candidate.setAboutCandidate(row.getCell(5).getStringCellValue());
+      //Sends the model object to service layer for validation,
+      //data processing and then to persist
+      iCandidateService.saveCandidate(candidate);
+    }
     return "redirect:/interviewManage/cidcrdsis";
   }
 }
