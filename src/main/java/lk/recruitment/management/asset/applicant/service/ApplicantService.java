@@ -220,7 +220,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   }
 
   public boolean createPdf(List< Applicant > employees, ServletContext context,
-                           HttpServletRequest request, HttpServletResponse response) {
+                           HttpServletRequest request, HttpServletResponse response, String title) {
     Document document = new Document(PageSize.A4, 15, 15, 45, 30);
     try {
       String filePath = context.getRealPath("/resources/report");
@@ -229,12 +229,12 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       if ( !exists ) {
         new File(filePath).mkdirs();
       }
-      PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file + "/" + "employees" + ".pdf"));
+      PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file + "/" + "applicants" + ".pdf"));
       document.open();
       com.itextpdf.text.Font mainFont = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
 
 
-      Paragraph paragraph = new Paragraph("All Applicant", mainFont);
+      Paragraph paragraph = new Paragraph("Eligible Applicant for "+title, mainFont);
       paragraph.setAlignment(Element.ALIGN_CENTER);
       paragraph.setIndentationLeft(50);
       paragraph.setIndentationRight(50);

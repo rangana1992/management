@@ -21,15 +21,12 @@ import lk.recruitment.management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -118,7 +115,7 @@ public class ApplicantController {
   //Send all applicant data
   @RequestMapping
   public String applicantPage(Model model) {
-    return commonPayment(model, applicantService.findAll()
+    return commonApplicant(model, applicantService.findAll()
         .stream()
         .filter(x -> x.getApplicantStatus().equals(ApplicantStatus.P) || x.getApplicantStatus().equals(ApplicantStatus.REJ))
         .collect(Collectors.toList()));
@@ -276,18 +273,19 @@ public class ApplicantController {
     return "redirect:/applicant";
   }
 
-  private String commonPayment(Model model, List< Applicant > applicants) {
+  private String commonApplicant(Model model, List< Applicant > applicants) {
     model.addAttribute("applicants", applicants);
     model.addAttribute("contendHeader", "Applicant Registration");
     model.addAttribute("applyingRanks", ApplyingRank.values());
     model.addAttribute("applicantStatuses", ApplicantStatus.values());
+    model.addAttribute("addStatus", true);
     return "applicant/applicant";
   }
 
   @PostMapping( "/all/search" )
   public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
-    return commonPayment(model,
-                         applicantService.findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+    return commonApplicant(model,
+                           applicantService.findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
                                                                                                     dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
                              , twoDate.getApplyingRank(), twoDate.getApplicantStatus()));
   }
