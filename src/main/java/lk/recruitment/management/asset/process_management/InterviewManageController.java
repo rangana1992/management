@@ -29,6 +29,7 @@ public class InterviewManageController {
     this.fileHandelService = fileHandelService;
     this.context = context;
   }
+
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
                              String btnTextPdf, String uriExcel, String btnTextExcel) {
     model.addAttribute("applicants", applicants);
@@ -39,6 +40,7 @@ public class InterviewManageController {
     model.addAttribute("btnTextExcel", btnTextExcel);
     return "interviewSchedule/interview";
   }
+
   /*
    @GetMapping( value = "/pdf" )
     public void allPdf(HttpServletRequest request, HttpServletResponse response) {
@@ -72,6 +74,18 @@ public class InterviewManageController {
       case "fourthInterviewExcel":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FTH);
         sheetName = "Fourth Interview Applicant List";
+        break;
+      case "SIS":
+        applicants = applicantService.findByApplicantStatus(ApplicantStatus.FSTP);
+        sheetName = "Report to SIS";
+        break;
+      case "CID":
+        applicants = applicantService.findByApplicantStatus(ApplicantStatus.FSTP);
+        sheetName = "Report to CID";
+        break;
+      case "CRD":
+        applicants = applicantService.findByApplicantStatus(ApplicantStatus.FSTP);
+        sheetName = "Report to CRD";
         break;
       default:
         applicants = null;
@@ -113,9 +127,27 @@ public class InterviewManageController {
   //todo-> third interview result enter
   @GetMapping( "/fourthInterview" )
   public String fourthInterview(Model model) {
-    return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FST), "Fourth Interview",
+    return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FTH), "Fourth Interview",
                        null, null,
                        "fourthInterviewExcel", "Fourth Interview Excel");
   }
+
   //todo-> fourth interview result enter
+
+  @GetMapping("/cidcrdsis")
+  public String cidCRDSIS(Model model) {
+    model.addAttribute("applicants", applicantService.findByApplicantStatus(ApplicantStatus.FTH));
+    //cid
+    model.addAttribute("uriCID", "CID");
+    model.addAttribute("btnTextCID", "Get CID Excel");
+    //sis
+    model.addAttribute("uriSIS", "SIS");
+    model.addAttribute("btnTextSIS","Get SIS Excel");
+    //crd
+    model.addAttribute("uriCRD", "CRD");
+    model.addAttribute("btnTextCRD", "Get CRD Excel");
+    return "interviewSchedule/interviewCIDSISCRD";
+
+
+  }
 }
