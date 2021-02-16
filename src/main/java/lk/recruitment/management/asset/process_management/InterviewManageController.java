@@ -58,25 +58,30 @@ public class InterviewManageController {
   public void allExcel(@PathVariable( "interviewType" ) String interviewType, HttpServletRequest request,
                        HttpServletResponse response) {
     List< Applicant > applicants;
-
+String sheetName;
     switch ( interviewType ) {
       case "firstInterviewExcel":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FST);
+        sheetName = "First Interview Applicant List";
         break;
       case "secondInterviewExcel":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.SND);
+        sheetName = "Second Interview Applicant List";
         break;
       case "thirdInterviewExcel":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.TND);
+        sheetName = "Third Interview Applicant List";
         break;
       case "fourthInterviewExcel":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FTH);
+        sheetName = "Fourth Interview Applicant List";
         break;
       default:
         applicants = null;
+        sheetName = "No Applicant to show";
     }
 
-    boolean isFlag = applicantService.createExcel(applicants, context, request, response);
+    boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
     if ( isFlag ) {
       String fullPath = request.getServletContext().getRealPath("/resources/report/" + "applicants" + ".xls");
       fileHandelService.fileDownload(fullPath, response, "applicant.xls");
@@ -104,7 +109,7 @@ public class InterviewManageController {
   @GetMapping( "/thirdInterview" )
   public String thirdInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.TND), "Third Interview",
-                       "", "",
+                       null, null,
                        "thirdInterviewExcel", "Third Interview Excel");
   }
 
@@ -112,7 +117,7 @@ public class InterviewManageController {
   @GetMapping( "/fourthInterview" )
   public String fourthInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FST), "Fourth Interview",
-                       "", "",
+                       null, null,
                        "fourthInterviewExcel", "Fourth Interview Excel");
   }
   //todo-> fourth interview result enter

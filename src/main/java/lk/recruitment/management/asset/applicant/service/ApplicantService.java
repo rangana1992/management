@@ -112,8 +112,8 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   }
 
   public boolean createExcel(List< Applicant > applicants, ServletContext context,
-                              HttpServletRequest request, HttpServletResponse response) {
-
+                              HttpServletRequest request, HttpServletResponse response, String sheetName) {
+    System.out.println("hey im here");
     String filePath = context.getRealPath("/resources/report");
     File file = new File(filePath);
     boolean exists = new File(filePath).exists();
@@ -123,7 +123,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     try {
       FileOutputStream outputStream = new FileOutputStream(file + "/" + "applicant" + ".xls");
       HSSFWorkbook workbook = new HSSFWorkbook();
-      HSSFSheet workSheet = workbook.createSheet("applicant");
+      HSSFSheet workSheet = workbook.createSheet(sheetName);
       workSheet.setDefaultColumnWidth(30);
 
 //header style
@@ -134,7 +134,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       headerCellStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
       headerCellStyle.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
       Font font = workbook.createFont();
-      font.setColor(HSSFColor.WHITE.index);
+      font.setColor(HSSFColor.BLUE_GREY.index);
       headerCellStyle.setFont(font);
 
       //cell style

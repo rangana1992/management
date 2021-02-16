@@ -14,12 +14,12 @@
 
 <div class="container-fluid form-row" >
   <div class="col" ><span data-th-text="${headerTitle}" ></span ></div >
-  <div class="col"  data-th-if="${uriExcel}">
+  <div class="col"  data-th-if="${uriExcel!=null}">
     <a data-th-href="${'/interviewManage/'+uriExcel}" >
       <button type="button" class="btn btn-info" data-th-text="${btnTextExcel}" >      </button >
     </a >
   </div >
-  <div class="col" data-th-if="${uriPdf}">
+  <div class="col" data-th-if="${uriPdf!=null}">
     <a data-th-href="${'/interviewManage/'+uriPdf}" >
       <button type="button" class="btn btn-info" data-th-text="${btnTextPdf}">      </button >
     </a >
@@ -43,14 +43,13 @@
       <td data-th-text="${applicant.nameWithInitial}" ></td >
       <td data-th-text="${applicant.applyingRank}" ></td >
       <td data-th-text="${applicant.gramaNiladhari.policeStation.name}" ></td >
-
       <td data-th-if="${addStatus}">
         <a data-th-href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
-              class="fa fa-folder-open" ></i >&nbsp;View</a >
+              class="fa fa-folder-open" ></i >&nbsp;Result Enter</a >
         <a data-th-href="${'/applicant/remove/' + applicant.id}"
            data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
            class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
-          Delete</a >
+          Absent</a >
       </td >
     </tr >
   </table >
