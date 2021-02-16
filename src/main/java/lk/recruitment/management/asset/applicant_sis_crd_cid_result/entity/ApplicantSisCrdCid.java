@@ -9,11 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -31,4 +29,7 @@ public class ApplicantSisCrdCid extends AuditEntity {
 
   @ManyToOne
   private Applicant applicant;
+
+  @Transient
+  private MultipartFile multipartFile;
 }

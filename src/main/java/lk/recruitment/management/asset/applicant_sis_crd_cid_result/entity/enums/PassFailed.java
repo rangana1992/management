@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum PassFailed {
-  PASS("Pass"),
-  FAILED("Failed");
+  PASS("PASS"),
+  FAILED("FAILED");
   private final String passFailed;
 }

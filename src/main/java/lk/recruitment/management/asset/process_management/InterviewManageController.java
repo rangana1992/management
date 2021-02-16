@@ -3,11 +3,13 @@ package lk.recruitment.management.asset.process_management;
 import lk.recruitment.management.asset.applicant.entity.Applicant;
 import lk.recruitment.management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment.management.asset.applicant.service.ApplicantService;
+import lk.recruitment.management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment.management.util.service.FileHandelService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -137,17 +139,25 @@ public class InterviewManageController {
   @GetMapping("/cidcrdsis")
   public String cidCRDSIS(Model model) {
     model.addAttribute("applicants", applicantService.findByApplicantStatus(ApplicantStatus.FTH));
+//form action
+    model.addAttribute("formAction", "cidcrdsis");
     //cid
     model.addAttribute("uriCID", "CID");
     model.addAttribute("btnTextCID", "Get CID Excel");
+    model.addAttribute("internalDivisionCID", InternalDivision.CID);
     //sis
     model.addAttribute("uriSIS", "SIS");
     model.addAttribute("btnTextSIS","Get SIS Excel");
+    model.addAttribute("internalDivisionSIS", InternalDivision.SIS);
     //crd
     model.addAttribute("uriCRD", "CRD");
     model.addAttribute("btnTextCRD", "Get CRD Excel");
+    model.addAttribute("internalDivisionCRD", InternalDivision.CRD);
     return "interviewSchedule/interviewCIDSISCRD";
+  }
 
-
+  @PostMapping("/cidcrdsis")
+  public String saveResult(){
+    return "interviewSchedule/addInterviewCIDSISCRD";
   }
 }
