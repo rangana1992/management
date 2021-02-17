@@ -172,19 +172,20 @@ public class InterviewManageController {
     //Reads the data in excel file until last row is encountered
     while ( i < worksheet.getLastRowNum() ) {
       //Creates an object for the Candidate  Model
-      Candidate candidate = new Candidate();
+      // Candidate candidate = new Candidate();
       //Creates an object representing a single row in excel
       HSSFRow row = worksheet.getRow(i++);
       //Sets the Read data to the model class
-      candidate.setCandidateId((int) row.getCell(0).getNumericCellValue());
+/*      candidate.setCandidateId((int) row.getCell(0).getNumericCellValue());
       candidate.setName(row.getCell(1).getStringCellValue());
       candidate.setAddress(row.getCell(2).getStringCellValue());
       candidate.setEmailId(row.getCell(3).getStringCellValue());
       candidate.setPinCode((int) row.getCell(4).getNumericCellValue());
       candidate.setAboutCandidate(row.getCell(5).getStringCellValue());
+      */
       //Sends the model object to service layer for validation,
       //data processing and then to persist
-      iCandidateService.saveCandidate(candidate);
+      //iCandidateService.saveCandidate(candidate);
     }
     return "redirect:/interviewManage/cidcrdsis";
   }
