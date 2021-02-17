@@ -1,7 +1,6 @@
-package lk.recruitment_management.asset.applicant_degree_result.entity;
+package lk.recruitment_management.asset.applicant.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

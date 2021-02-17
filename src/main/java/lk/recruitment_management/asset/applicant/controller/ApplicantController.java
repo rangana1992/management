@@ -6,7 +6,6 @@ import lk.recruitment_management.asset.ag_office.service.AgOfficeService;
 import lk.recruitment_management.asset.applicant.entity.*;
 import lk.recruitment_management.asset.applicant.entity.Enum.*;
 import lk.recruitment_management.asset.applicant.service.ApplicantFilesService;
-import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.common_asset.model.Enum.*;
 import lk.recruitment_management.asset.common_asset.model.TwoDate;
 import lk.recruitment_management.asset.common_asset.service.CommonService;
