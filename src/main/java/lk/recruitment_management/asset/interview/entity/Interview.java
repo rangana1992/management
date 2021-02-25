@@ -1,6 +1,7 @@
 package lk.recruitment_management.asset.interview.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewStatus;
 import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment_management.asset.interview_parameter.entity.InterviewParameter;
@@ -21,7 +22,8 @@ import java.util.List;
 @JsonFilter("Interview")
 public class Interview extends AuditEntity {
 
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private InterviewName interviewName;
 
     @Enumerated(EnumType.STRING)
     private InterviewStatus interviewStatus;
