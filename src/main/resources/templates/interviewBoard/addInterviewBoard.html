@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!-- Form Header  Path -->
+    <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}" ></section >
+                                <!-- Small Box Set -->
+
+    <link data-th-href="@{/css/combo-box-search.css}" media="all" rel="stylesheet" type="text/css" />
+                                <!--add form-->
+    <div class="container-fluid" >
+
+
+      <div class="content-header" >
+        <div class="container-fluid" >
+          <div class="row" >
+            <div class="col-md-12" >
+              <div class="row" >
+                <!--                              -->
+                <div class="col-md-12" >
+                  <div class="card" >
+                    <div class="card-body" >
+                      <h4 >Secondary Header </h4 >
+                      <form data-th-action="${addStatus==false?'/interviewBoard/save' :'/interviewBoard/update'}"
+                            method="post" data-th-object="${interviewBoard}"
+                            class="mt-3" >
+                        <!--                                                <div class="offset-3 col-12">-->
+                        <!--/* id this comment not visualize */-->
+                        <!--Id-->
+                        <div class="form-group row" data-th-if="${addStatus==true}" >
+                          <label for="id" class="col-sm-4 col-form-label " > Id </label >
+                          <div class="col-sm-8" >
+                            <input type="text" class="form-control" data-th-field="*{id}"
+                                   id="id" readonly >
+                          </div >
+                        </div >
+
+                        <!--Interview Board name-->
+                        <div class="form-group row" >
+                          <label data-th-for="${'name'}" class="col-sm-4 col-form-label " >
+                            Interview Board Name </label >
+                          <div class="col-sm-8" >
+                            <input type="text" class="form-control" data-th-field="*{name}"
+                                   required >
+                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"
+                               data-th-errors="*{name}" >Error Name</p >
+                          </div >
+                        </div >
+                        <!--Interview-->
+                        <div class="form-group row" >
+                          <label for="interview" class="col-sm-4 col-form-label " >
+                            Interview Name </label >
+                          <div class="col-sm-8" >
+                            <select id="interview" class="form-control" data-th-field="*{interview}" >
+                              <option value="" >Please Select</option >
+                              <option data-th-each="interview : ${interviews}"
+                                      data-th-text="${interview.name}"
+                                      data-th-value="${interview.id}" >
+
+                              </option >
+                            </select >
+                          </div >
+                        </div >
+                        <!--Active-->
+                        <div class="form-group row" >
+                          <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label " >
+                            Interview Board Status </label >
+                          <div class="col-sm-8" >
+                            <select class="form-control" data-th-field="*{interviewBoardStatus}" required >
+                              <option data-th-each="interviewBoardStatus : ${interviewBoardStatuses}"
+                                      data-th-text="${interviewBoardStatus.interviewBoardStatus}"
+                                      data-th-value="${interviewBoardStatus}" >
+
+                              </option >
+                            </select >
+                          </div >
+                        </div >
+                        <!--All employee-->
+                        <div class="form-group row" >
+                          <label for="employeeOne" class="col-sm-4 col-form-label " >
+                            Employee </label >
+                          <div class="col-sm-8" >
+                            <select id="employeeOne" class="form-control" data-th-field="*{employees}" >
+                              <option value="" >Please Select</option >
+                              <option data-th-each="employee : ${employees}"
+                                      data-th-text="${employee.name}"
+                                      data-th-value="${employee.id}" >
+
+                              </option >
+                            </select >
+                          </div >
+                        </div >
+                        <!--All Selected employee-->
+                        <div class="form-group row" >
+                          <label for="employeeOne" class="col-sm-4 col-form-label " >
+                            Employee </label >
+                          <div class="col-sm-8 " >
+                            <table class="table table-striped table-inverse table-responsive" id="selectedEmployee" >
+                              <thead class="thead-inverse" >
+                              <tr >
+                                <th >Name</th >
+                                <th >Modify</th >
+                              </tr >
+                              </thead >
+                              <tbody >
+                              <tr data-th-each="employee : ${interviewBoard.employees}" >
+                                <th >
+                                  <input id="na${employee.id}" type="text" class="form-control" value="${employee.name}"
+                                         readonly >
+                                  <input id="id${employee.id}" type="hidden" name="employees" value="${employee.id}" >
+                                </th >
+                                <th >
+                                  <button id="re${employee.id}" type="button" onclick="removeSelectedEmployee(this)"
+                                          class="btn btn-danger" >Remove
+                                  </button >
+                                </th >
+                              </tr >
+                              </tbody >
+                            </table >
+                          </div >
+                        </div >
+                        <!--button-->
+                        <div class="form-group row" >
+                          <div class="col-sm-10" ></div >
+                          <div class="col-sm-2" >
+                            <button type="submit" class="btn btn-primary" >
+                              <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}" ></i >
+                              <span
+                                    data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
+                            </button >
+                          </div >
+                        </div >
+                      </form >
+                    </div >
+                  </div >
+                </div >
+
+
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
+  </div >
+</div >
+<!-- content-wrapper end -->
+<div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
+<!-- wrapper end -->
+<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+<script data-th-src="@{/js/combo-box-search.js}" ></script >
+<script >
+    let selectedEmployeeList = [];
+    let employee = {};
+    $("#employeeOne").change(() => {
+        let selectedValue = $("#employeeOne").val();
+
+        employee.id = selectedValue;
+
+        employee.name = $(`#employeeOne option[value=${selectedValue}]`).text();
+        selectedEmployeeList.push(employee);
+
+        console.log(employee)
+        addTable();
+        optionElementRemove("#employeeOne");
+        employee = {};
+    });
+
+
+    function addTable() {
+        console.log("add table")
+        html = ``;
+        for (let i = 0; i < selectedEmployeeList.length; i++) {
+            html += addRow(selectedEmployeeList[i].id, selectedEmployeeList[i].name, i);
+        }
+        $("#selectedEmployee tbody ").html(html);
+    }
+
+    function addRow(id, name) {
+        console.log("add row")
+        return `
+       <tr>
+       <th>
+        <input id="na${id}" type="text" class="form-control" value="${name}" readonly>
+        <input id="id${id}" type="hidden" name="employees" value="${id}">
+        </th>
+       <th>
+       <button id="re${id}" type="button" onclick="removeSelectedEmployee(this)" class="btn btn-danger">Remove</button>
+        </th>
+      </tr>       `;
+    }
+
+    function removeSelectedEmployee(obj) {
+        console.log("remove employee")
+        let selectedFiledId = obj.getAttribute('id').slice(2);
+        //id,name,sellPrice,abQut,exDate
+        $("#employeeOne").append(optionTagAdd(
+            $(`#id${selectedFiledId}`).val(),
+            $(`#na${selectedFiledId}`).val()));
+        selectedEmployeeList = selectedEmployeeList.filter(function (obj) {
+            return obj.id !== $(`#id${selectedFiledId}`).val();
+        })
+        document.getElementById("selectedEmployee").deleteRow(obj.parentNode.parentNode.rowIndex);
+    }
+
+    //option tag remove
+    function optionElementRemove(id) {
+        console.log("otion remove")
+        let selectedValue = $(id).val();
+        let selectedItemId = `${id} option[value='${selectedValue}']`;
+        $(selectedItemId).remove();
+    }
+
+    //option tag add
+    function optionTagAdd(id, name) {
+        console.log("option add")
+        return `<option value="${id}">
+                      ${name}
+                    </option>`;
+    }
+</script >
+</body >
+</html >

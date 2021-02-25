@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <div class="content-wrapper"><!-- content-wrapper Start -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <!-- Form Header  Path -->
+<!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!--                                        <h4>First sud Header</h4>-->
+                                        <form role="form">
+                                            <!--                                            <span id="formHeader"-->
+                                            <!--                                                  th:text="${addStatus==false?'New PoliceStation':'Update PoliceStation'}"></span>-->
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" th:href="${'/policeStation'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp;Police Station List </a>
+                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>Add Police Station</h4>
+                                        <form th:action="${addStatus==false?'/policeStation/save' :'/policeStation/update'}"
+                                              method="post" th:object="${policeStation}">
+                                            <!--/* id this comment not visualize */-->
+                                            <!--Id-->
+                                            <div class="form-group " th:if="${addStatus==true}">
+                                                <label for="id" class="form-label "> Id </label>
+
+                                                <input type="text" class="form-control" th:field="*{id}" id="id"
+                                                       readonly>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+
+
+
+
+                                            <!--Province-->
+                                            <div class=" form-group">
+                                                <label class="form-label  col-md-3" th:for="province"> Province </label>
+
+                                                <select class="form-control" id="province"
+                                                        th:field="${policeStation.agOffice.district.province}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="province : ${provinces}"
+                                                            th:text="${province.province}"
+                                                            th:value="${province}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--District-->
+                                            <div class=" form-group">
+                                                <label class="form-label" for="district">
+                                                    District </label>
+                                                <select class="form-control" id="district"
+                                                        th:field="${policeStation.agOffice.district}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="district : ${districts}"
+                                                            th:text="${district.name}"
+                                                            th:value="${district.id}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--AgOffice-->
+                                            <div class=" form-group">
+                                                <label class="form-label" th:for="${'agOffice'}"> Ag
+                                                    Office </label>
+
+                                                <select class="form-control" id="agOffice"
+                                                        th:field="${policeStation.agOffice}">
+                                                    <option value="">Please Select</option>
+                                                    <option th:each="agOffice : ${agOffices}"
+                                                            th:text="${agOffice.name}"
+                                                            th:value="${agOffice.id}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <!--PoliceStation name-->
+                                            <div class="form-group">
+                                                <label th:for="${'name'}" class="form-label "> Name </label>
+
+                                                <input type="text" class="form-control" th:field="*{name}">
+                                                <p class="text-danger" th:if="${#fields.hasErrors('name')}"
+                                                   th:errors="*{name}">Error Name</p>
+
+                                            </div>
+                                                </div><div class="col-md-6">
+                                            <!--Land Number-->
+                                            <div class="form-group">
+
+                                                <label class="control-label" for="land">Land No :</label>
+
+                                                <input id="land" th:field="*{land}" class="form-control land"
+                                                       type="text" tabindex="15"
+                                                       maxlength="10"
+                                                       min="9"/>
+                                                <span class="error" th:errors="*{land}"
+                                                      th:if="${#fields.hasErrors('land')}" id="landError">Error Land Number</span>
+
+                                            </div>
+                                            <!--Email-->
+                                            <div class="form-group">
+
+                                                <label class="control-label" for="email">Email :</label>
+
+                                                <input id="email" th:field="*{email}" class="form-control"
+                                                       tabindex="16" type="email"
+                                                       required/>
+                                                <span class="error" th:errors="*{email}"
+                                                      th:if="${#fields.hasErrors('email')}"
+                                                      id="emailError">Error Email</span>
+
+                                            </div>
+                                            <!--Address-->
+                                            <div class="form-group">
+
+                                                <label class="control-label" for="address">Address :</label>
+
+                                                <textarea id="address" th:field="*{address}"
+                                                          class="form-control" tabindex="12"
+                                                          required></textarea>
+                                                <span class="error" th:errors="*{address}"
+                                                      th:if="${#fields.hasErrors('address')}" id="addressError">Error Address</span>
+
+                                            </div>
+                                            </div></div>
+
+                                            <div align="right">
+                                                <button class="btn btn-warning" tabindex="65" type="reset">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp;Reset List </button><span>&nbsp;&nbsp;&nbsp;</span>
+                                                     <button type="submit" class="btn btn-primary">
+                                                    <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                    <span th:text="${addStatus==false?'&nbsp;&nbsp;Save &nbsp;&nbsp;' : 'Update'}"></span>
+
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- content-wrapper end -->
+    <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+<script>
+
+    $('#province').bind("change", function () {
+        let url = "[[${districtURL}]]" + this.value;
+        optionFieldAdd(url, "district");
+       let agOffice =  $('#agOffice').val();
+        if (agOffice !== null && agOffice !== undefined) {
+            $('#agOffice').html(`<option value="">Please Select </option>`);
+        }
+    });
+
+    $('#district').bind("change", function () {
+        let url = "[[${agOfficeURL}]]" + this.value;
+        optionFieldAdd(url, "agOffice");
+
+    });
+
+    let optionFieldAdd = (url, id) => {
+        let html = "<option value=\"\">Please Select</option>";
+        $.get(url, function (data) {
+            data.forEach((item) => {
+                    html += `
+                                <option value="${item.id}">${item.name} </option>`
+                }
+            )
+            console.log(id + "  id");
+            $(`#${id}`).html(html);
+        });
+    }
+
+</script>
+</body>
+</html>

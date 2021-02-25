@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <div class="content-wrapper"><!-- content-wrapper Start -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+          <!--Form Header  Path -->
+<!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+<!--                                        <h4>First sud Header</h4>-->
+                                        <form role="form">
+                                            <span id="formHeader" th:text="${districtDetail.province.province}+${' '}+${districtDetail.name}"></span>
+
+
+
+                                        </form>
+                                        <form role="form">
+                                            <div align="right">
+                                                <a class="btn btn-success" id="newDistrict" th:href="${'/district'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; District List </a>
+                                                <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                                    <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>District View </h4>
+                                    <div class="container-fluid" th:fragment="districtDetail">
+
+                                        <!--/* id this comment not visualize */-->
+                                        <!--Id-->
+                                        <div class="form-group">
+                                            <label class="form-label "> Id </label>
+
+                                            <p class="display_detail" th:text="${districtDetail.id}"></p>
+
+                                        </div>
+                                        <!--Province-->
+                                        <div class="form-group">
+                                            <label th:for="${'province'}" class="form-label "> Province </label>
+                                            <p class="display_detail" th:text="${districtDetail.province.province}"></p>
+
+                                        </div>
+                                        <!--District name-->
+                                        <div class="form-group">
+                                            <label class="form-label "> Name </label>
+                                            <p class="display_detail" th:text="${districtDetail.name}"></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- content-wrapper end -->
+    <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+</body>
+</html>

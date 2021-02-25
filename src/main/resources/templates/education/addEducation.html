@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+    <div class="content-wrapper"><!-- content-wrapper Start -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <!-- Form Header  Path -->
+        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>First sud Header</h4>
+                                        <form role="form">
+                                            <span id="formHeader"
+                                                  th:text="${addStatus==false?'New Non Relative':'Update Non Relative'}"></span>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4>Secondary Header </h4>
+                                        <form th:action="${addStatus==false?'/nonRelative/save' :'/nonRelative/update'}"
+                                              method="post" th:object="${applicant}">
+                                            <div class="row">
+                                                <!--O L-->
+                                                <div class="col-md-6">
+                                                    <h4>GCE O/L Results</h4>
+                                                    <!--School name-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">School Name: </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <!--Index number 1-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">Index Number (1 <sup>st</sup> Attempt): </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <!--first year-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">1 <sup>st</sup> Attempt Year: </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <!--Index number 2-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">Index Number (2 <sup>nd</sup> Attempt): </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <!--second year-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">2 <sup>nd</sup> Attempt Year: </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <table class="table table-responsive">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Subject</th>
+                                                            <th>Grade</th>
+                                                            <th>Attempt</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Sinhala / Tamil</td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Religion</td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Science</td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Maths</td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>English</td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="" id="">
+                                                                    <option value="">1</option>
+                                                                    <option value="">2</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!--A L-->
+                                                <div class="col-md-6">
+                                                    <h4>GCE O/L Results</h4>
+                                                    <!--School name-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">School Name: </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <!--Index number 1-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">Index Number : </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <!--first year-->
+                                                    <div class="form-group form-row">
+                                                        <label for="">Year : </label>
+                                                        <input type="text" name="" id=""
+                                                               class="form-control"
+                                                               placeholder=""
+                                                               aria-describedby="helpId">
+                                                    </div>
+                                                    <table class="table table-responsive">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Subject</th>
+                                                            <th>Grade</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" class="form-control"></td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>English</td>
+                                                            <td><select name="" id="">
+                                                                <option>A</option>
+                                                                <option>B</option>
+                                                                <option>C</option>
+                                                                <option>S</option>
+                                                                <option>W</option>
+                                                                <option>AB</option>
+                                                            </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>General Test</td>
+                                                            <td><input type="text" class="form-control">
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Qualified for University</td>
+                                                            <td><select name="" id="">
+                                                                <option>Yes</option>
+                                                                <option>No</option>
+                                                            </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Z-Score</td>
+                                                            <td><input type="text" class="form-control">
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <table class="table table-striped table-inverse table-responsive">
+                                                    <thead class="thead-inverse">
+                                                    <tr>
+                                                        <th>Institute Or University Name</th>
+                                                        <th>Educational Qualification (Degree / Diploma)</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td scope="row"><input type="text" name="" id=""
+                                                                               class="form-control"
+                                                                               placeholder=""
+                                                                               aria-describedby="helpId"></td>
+                                                        <td><input type="text" name="" id=""
+                                                                   class="form-control"
+                                                                   placeholder=""
+                                                                   aria-describedby="helpId"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td scope="row"><input type="text" name="" id=""
+                                                                               class="form-control"
+                                                                               placeholder=""
+                                                                               aria-describedby="helpId"></td>
+                                                        <td><input type="text" name="" id=""
+                                                                   class="form-control"
+                                                                   placeholder=""
+                                                                   aria-describedby="helpId"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="form-group text-center">
+                                                <br>
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i th:class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}"></i>
+                                                    <span
+                                                            th:text="${addStatus==false?'Save' : 'Update'}"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- content-wrapper end -->
+    <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+<script>
+    $(document).ready(function () {
+
+        $('#province').bind("change", function () {
+            provinceChange($(this).val());
+        });
+        $('#district').bind("change", function () {
+            districtChange($(this).val());
+        });
+        $('#agOffice').bind("change", function () {
+            agOfficeChange($(this).val());
+        });
+
+        let optionFieldAdd = (url, id) => {
+            let html = "<option value=''>Please select</option>";
+            $.get(url, function (data) {
+                data.forEach((item) => {
+                        html += `<option value="${item.id}">${item.name} </option>`
+                    }
+                )
+                $(`#${id}`).html(html);
+            });
+        };
+
+        function provinceChange(id) {
+            let url = "[[${districtURL}]]" + id;
+            optionFieldAdd(url, "district");
+            $('#district').html(`<option value="">Please Select </option>`);
+            $('#agOffice').html(`<option value="">Please Select </option>`);
+            $('#policeStation').html(`<option value="">Please Select </option>`);
+        }
+
+        function districtChange(id) {
+            let url = "[[${agOfficeURL}]]" + id;
+            optionFieldAdd(url, "agOffice");
+            $('#agOffice').html(`<option value="">Please Select </option>`);
+            $('#policeStation').html(`<option value="">Please Select </option>`);
+        }
+
+        function agOfficeChange(id) {
+            let url = "[[${policeStationURL}]]" + id;
+            optionFieldAdd(url, "policeStation");
+            $('#policeStation').html(`<option value="">Please Select </option>`);
+        }
+
+    });
+</script>
+</body>
+</html>
