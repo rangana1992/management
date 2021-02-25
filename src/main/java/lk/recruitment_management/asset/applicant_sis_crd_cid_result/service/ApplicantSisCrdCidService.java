@@ -2,6 +2,7 @@ package lk.recruitment_management.asset.applicant_sis_crd_cid_result.service;
 
 
 
+import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.dao.ApplicantSisCrdCidDao;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.util.interfaces.AbstractService;
@@ -60,4 +61,7 @@ public class ApplicantSisCrdCidService implements AbstractService< ApplicantSisC
     }
 
 
+  public List< ApplicantSisCrdCid> findByApplicant(Applicant applicant) {
+  return  applicantSisCrdCidDao.findByApplicant(applicant);
+    }
 }

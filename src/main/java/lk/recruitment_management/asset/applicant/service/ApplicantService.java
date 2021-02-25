@@ -207,7 +207,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
         addressValue.setCellValue(applicant.getAddress());
         addressValue.setCellStyle(bodyCellStyle);
 
-        HSSFCell nearestPoliceValue = bodyRow.createCell(6);
+        HSSFCell nearestPoliceValue = bodyRow.createCell(5);
         nearestPoliceValue.setCellValue(applicant.getGramaNiladhari().getPoliceStation().getName());
         nearestPoliceValue.setCellStyle(bodyCellStyle);
 
