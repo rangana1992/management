@@ -97,6 +97,19 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
 
 </div >
 
+<div class="alert alert-warning alert-dismissible fade show" role="alert" data-th-if="${not #strings.isEmpty(message)}">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+    <span aria-hidden="true" >&times;</span >
+  </button >
+  <strong >
+    <span data-th-text="${message}"></span>
+  </strong >
+</div >
+
+<script >
+    $(".alert").alert();
+</script >
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

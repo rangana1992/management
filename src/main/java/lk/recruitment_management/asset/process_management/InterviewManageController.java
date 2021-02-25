@@ -5,6 +5,8 @@ import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
+import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
+import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
 import lk.recruitment_management.util.service.FileHandelService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -12,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
@@ -25,12 +28,14 @@ public class InterviewManageController {
   private final ApplicantService applicantService;
   private final FileHandelService fileHandelService;
   private final ServletContext context;
+  private final ApplicantSisCrdCidService applicantSisCrdCidService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
-                                   ServletContext context) {
+                                   ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
+    this.applicantSisCrdCidService = applicantSisCrdCidService;
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
@@ -158,42 +163,82 @@ public class InterviewManageController {
   }
 
   @PostMapping( "/cidcrdsis" )
-  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid) throws IOException {
-    //todo 1. need to find applicant using nic
+  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid,
+                           RedirectAttributes redirectAttributes) throws IOException {
 
-    // 2. result get and convert to upper case and validate
-    // 3. before save need to check result already entered or not
-    // 4. if applicant pass all test he or she was eligible to interview two
     int i = 0;
-    //Creates a workbook object from the uploaded excelfile
     HSSFWorkbook workbook = new HSSFWorkbook(applicantSisCrdCid.getMultipartFile().getInputStream());
     //Creates a worksheet object representing the first sheet
     HSSFSheet worksheet = workbook.getSheetAt(0);
     //Reads the data in excel file until last row is encountered
 
-    System.out.println(worksheet.getSheetName());
+    InternalDivision internalDivision;
+
+    if ( InternalDivision.SIS.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.SIS;
+    } else if ( InternalDivision.CID.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.CID;
+    } else if ( InternalDivision.CRD.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.CRD;
+    } else {
+      internalDivision = InternalDivision.NOT;
+    }
+    if ( InternalDivision.NOT.equals(internalDivision) ) {
+      redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
+      return "redirect:/interviewManage/cidcrdsis";
+    }
+
+
     while ( i < worksheet.getLastRowNum() ) {
       HSSFRow row = worksheet.getRow(i++);
 
-      if ( i==1 ) {
-        System.out.println(row.getCell(0).getRichStringCellValue()+" number 0");
-        System.out.println(row.getCell(1).getRichStringCellValue()+" number 1");
-        System.out.println(row.getCell(2).getRichStringCellValue()+" number 2");
-        System.out.println(row.getCell(3).getRichStringCellValue()+" number 3");
-        System.out.println(row.getCell(4).getRichStringCellValue()+" number 4");
-        System.out.println(row.getCell(5).getRichStringCellValue()+" number 5");
-        System.out.println(row.getCell(6).getRichStringCellValue()+" number 6");
-        System.out.println(row.getCell(7).getRichStringCellValue()+" number 7");
+      if ( i == 1 ) {
+        if ( !row.getCell(3).getRichStringCellValue().toString().equals("NIC") && !row.getCell(6).getRichStringCellValue().toString().equals("Result") ) {
+          redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
+              " sheet");
+          return "redirect:/interviewManage/cidcrdsis";
+        }
       } else {
-        System.out.println(row.getCell(0).getNumericCellValue()+" number 00");
-        System.out.println(row.getCell(1).getRichStringCellValue()+" number 01");
-        System.out.println(row.getCell(2).getRichStringCellValue()+" number 02");
-        System.out.println(row.getCell(3).getRichStringCellValue()+" number 03");
-        System.out.println(row.getCell(4).getRichStringCellValue()+" number 04");
-        System.out.println(row.getCell(5).getRichStringCellValue()+" number 05");
-        System.out.println(row.getCell(6).getRichStringCellValue()+" number 06");
-      }
+        ApplicantSisCrdCid applicantSisCrdCidToSave = new ApplicantSisCrdCid();
+        //get applicant using NIC
+        Applicant applicant = applicantService.findByNic(row.getCell(3).getRichStringCellValue().getString());
+        //get applicant result
+        PassFailed passFailed;
+        if ( PassFailed.PASS.getPassFailed().equals(row.getCell(6).getRichStringCellValue().toString()) ) {
+          passFailed = PassFailed.PASS;
+        } else {
+          passFailed = PassFailed.FAILED;
+        }
+        // get all applicant Sis Crd Cid result
+        List< ApplicantSisCrdCid > applicantSisCrdCids = applicantSisCrdCidService.findByApplicant(applicant);
+        // get all applicant Sis Crd Cid result size
+        if ( applicantSisCrdCids.size() == 2 ) {
+          if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantSisCrdCids.get(0).getPassFailed()) && PassFailed.PASS.equals(applicantSisCrdCids.get(1).getPassFailed()) ) {
+            applicantSisCrdCidToSave.setApplicant(applicant);
+            applicantSisCrdCidToSave.setPassFailed(passFailed);
+            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
+            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+            //all result would be passed applicant status needs to change and applicant is suitable to second interview
+            applicant.setApplicantStatus(ApplicantStatus.SND);
+            applicantService.persist(applicant);
 
+          } else {
+            applicantSisCrdCidToSave.setApplicant(applicant);
+            applicantSisCrdCidToSave.setPassFailed(passFailed);
+            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
+            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+            //all result would be passed applicant status needs to change and applicant is not suitable to second interview
+            applicant.setApplicantStatus(ApplicantStatus.FSTR);
+            applicantService.persist(applicant);
+          }
+          // need to validate all result status is pass
+        } else {
+          applicantSisCrdCidToSave.setApplicant(applicant);
+          applicantSisCrdCidToSave.setPassFailed(passFailed);
+          applicantSisCrdCidToSave.setInternalDivision(internalDivision);
+          applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+        }
+      }
     }
     return "redirect:/interviewManage/cidcrdsis";
   }

@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.police_station.Controller;
+package lk.recruitment_management.asset.police_station.controller;
 
 
 import com.fasterxml.jackson.databind.ser.FilterProvider;

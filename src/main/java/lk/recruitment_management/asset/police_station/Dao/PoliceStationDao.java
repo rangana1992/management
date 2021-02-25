@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.police_station.Dao;
+package lk.recruitment_management.asset.police_station.dao;
 
 
 import lk.recruitment_management.asset.ag_office.entity.AgOffice;

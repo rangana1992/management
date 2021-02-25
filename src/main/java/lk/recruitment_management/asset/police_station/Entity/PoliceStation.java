@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.police_station.Entity;
+package lk.recruitment_management.asset.police_station.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.ag_office.entity.AgOffice;
