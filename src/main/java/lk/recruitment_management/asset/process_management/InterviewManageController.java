@@ -39,7 +39,7 @@ public class InterviewManageController {
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
-                             String btnTextPdf, String uriExcel, String btnTextExcel,boolean addStatus) {
+                             String btnTextPdf, String uriExcel, String btnTextExcel,boolean addStatus,String resultEnter) {
     model.addAttribute("applicants", applicants);
     model.addAttribute("headerTitle", title);
     model.addAttribute("uriPdf", uriPdf);
@@ -47,6 +47,7 @@ public class InterviewManageController {
     model.addAttribute("uriExcel", uriExcel);
     model.addAttribute("btnTextExcel", btnTextExcel);
     model.addAttribute("addStatus", addStatus);
+    model.addAttribute("resultEnter", resultEnter);
     return "interviewSchedule/interview";
   }
 
@@ -112,25 +113,46 @@ public class InterviewManageController {
   @GetMapping( "/firstInterview" )
   public String firstInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FST), "First Interview",
-                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",true);
+                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",true,"firstResult");
   }
-
-  //todo -> first interview result enter
+  //first interview result enter
+  @GetMapping( "/firstResult/{id}" )
+  public String firstInterviewResult(@PathVariable("id")Integer id, Model model) {
+    //todo
+    return "";
+  }
+  //absent first
+  @GetMapping( "/absent/firstResult/{id}" )
+  public String firstAbsentInterviewResult(@PathVariable("id")Integer id, Model model) {
+    //todo
+    return "";
+  }
 
   @GetMapping( "/secondInterview" )
   public String secondInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.SND), "Second Interview",
                        "secondInterviewPdf", "Second Interview Pdf",
-                       "secondInterviewExcel", "Second Interview Excel",true);
+                       "secondInterviewExcel", "Second Interview Excel",true,"secondResult");
   }
 
-  //todo-> second interview result enter
+  //second interview result enter
+  @GetMapping( "/secondResult/{id}" )
+  public String secondInterviewResult(@PathVariable("id")Integer id, Model model) {
+    //todo
+    return "";
+  }
+  // absent second
+  @GetMapping( "/absent/secondResult/{id}" )
+  public String secondAbsentInterviewResult(@PathVariable("id")Integer id, Model model) {
+    //todo
+    return "";
+  }
 
   @GetMapping( "/thirdInterview" )
   public String thirdInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.TND), "Third Interview",
                        null, null,
-                       "thirdInterviewExcel", "Third Interview Excel",false);
+                       "thirdInterviewExcel", "Third Interview Excel",false,null);
   }
 
   //todo-> third interview result enter
@@ -138,7 +160,7 @@ public class InterviewManageController {
   public String fourthInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FTH), "Fourth Interview",
                        null, null,
-                       "fourthInterviewExcel", "Fourth Interview Excel",false);
+                       "fourthInterviewExcel", "Fourth Interview Excel",false,null);
   }
 
   //todo-> fourth interview result enter
