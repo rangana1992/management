@@ -19,12 +19,12 @@ process
 
 
 
-give user privillage
 read the uploaded xl sheet
 update user progress bar
 create pdf file to interview
 forword applicant to second interview if pass 1 int. and 3 reports
-forword third interview applicant if pass 2nd int.
+forword third interview applicant if pass 2nd
+ int.
 upload excel given by exam division
 upload excel given by medical division
 notification mgt
