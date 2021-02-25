@@ -1,6 +1,7 @@
 package lk.recruitment_management.asset.interview.service;
 
 import lk.recruitment_management.asset.interview.dao.InterviewDao;
+import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.util.interfaces.AbstractService;
 import org.springframework.data.domain.Example;
@@ -42,4 +43,8 @@ public class InterviewService implements AbstractService<Interview, Integer> {
         Example<Interview> interviewExample = Example.of(interview, matcher);
         return interviewDao.findAll(interviewExample);
     }
+
+  public Interview findByInterviewName(InterviewName interviewName) {
+        return interviewDao.findByInterviewName(interviewName);
+  }
 }

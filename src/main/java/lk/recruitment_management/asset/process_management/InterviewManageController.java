@@ -3,10 +3,13 @@ package lk.recruitment_management.asset.process_management;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
+import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
+import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
+import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.util.service.FileHandelService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -29,17 +32,21 @@ public class InterviewManageController {
   private final FileHandelService fileHandelService;
   private final ServletContext context;
   private final ApplicantSisCrdCidService applicantSisCrdCidService;
+  private final InterviewService interviewService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
-                                   ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService) {
+                                   ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
+                                   InterviewService interviewService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
     this.applicantSisCrdCidService = applicantSisCrdCidService;
+    this.interviewService = interviewService;
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
-                             String btnTextPdf, String uriExcel, String btnTextExcel,boolean addStatus,String resultEnter) {
+                             String btnTextPdf, String uriExcel, String btnTextExcel, boolean addStatus,
+                             String resultEnter) {
     model.addAttribute("applicants", applicants);
     model.addAttribute("headerTitle", title);
     model.addAttribute("uriPdf", uriPdf);
@@ -111,21 +118,22 @@ public class InterviewManageController {
   @GetMapping( "/firstInterview" )
   public String firstInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FST), "First Interview",
-                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",true,"firstResult");
+                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",
+                       true, "firstResult");
   }
+
   //first interview result enter
   @GetMapping( "/firstResult/{id}" )
-  public String firstInterviewResult(@PathVariable("id")Integer id, Model model) {
-    Applicant applicant = applicantService.findById(id);
-
-    //todo
-
-    System.out.println("interview first result");
-    return "";
+  public String firstInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
+    model.addAttribute("applicant", applicantService.findById(id));
+    model.addAttribute("applicantInterview", new ApplicantInterview());
+    model.addAttribute("interview", interviewService.findByInterviewName(InterviewName.FIRST));
+        return "interviewSchedule/addApplicantInterviewResult";
   }
+
   //absent first
   @GetMapping( "/absent/firstResult/{id}" )
-  public String firstAbsentInterviewResult(@PathVariable("id")Integer id) {
+  public String firstAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
     Applicant applicant = applicantService.findById(id);
     applicant.setApplicantStatus(ApplicantStatus.FSTR);
     applicantService.persist(applicant);
@@ -136,20 +144,21 @@ public class InterviewManageController {
   public String secondInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.SND), "Second Interview",
                        "secondInterviewPdf", "Second Interview Pdf",
-                       "secondInterviewExcel", "Second Interview Excel",true,"secondResult");
+                       "secondInterviewExcel", "Second Interview Excel", true, "secondResult");
   }
 
   //second interview result enter
   @GetMapping( "/secondResult/{id}" )
-  public String secondInterviewResult(@PathVariable("id")Integer id, Model model) {
+  public String secondInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
     //todo
 
     System.out.println("interview second result");
     return "";
   }
+
   // absent second
   @GetMapping( "/absent/secondResult/{id}" )
-  public String secondAbsentInterviewResult(@PathVariable("id")Integer id) {
+  public String secondAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
     Applicant applicant = applicantService.findById(id);
     applicant.setApplicantStatus(ApplicantStatus.SNDR);
     applicantService.persist(applicant);
@@ -160,7 +169,7 @@ public class InterviewManageController {
   public String thirdInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.TND), "Third Interview",
                        null, null,
-                       "thirdInterviewExcel", "Third Interview Excel",false,null);
+                       "thirdInterviewExcel", "Third Interview Excel", false, null);
   }
 
   //todo-> third interview result enter
@@ -168,7 +177,7 @@ public class InterviewManageController {
   public String fourthInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FTH), "Fourth Interview",
                        null, null,
-                       "fourthInterviewExcel", "Fourth Interview Excel",false,null);
+                       "fourthInterviewExcel", "Fourth Interview Excel", false, null);
   }
 
   //todo-> fourth interview result enter
@@ -258,7 +267,8 @@ public class InterviewManageController {
             applicantSisCrdCidToSave.setPassFailed(passFailed);
             applicantSisCrdCidToSave.setInternalDivision(internalDivision);
             applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
-            //all result would be passed applicant status needs to change and applicant is not suitable to second interview
+            //all result would be passed applicant status needs to change and applicant is not suitable to second
+            // interview
             applicant.setApplicantStatus(ApplicantStatus.FSTR);
             applicantService.persist(applicant);
           }

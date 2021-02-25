@@ -22,6 +22,7 @@ import java.util.List;
 @JsonFilter("Interview")
 public class Interview extends AuditEntity {
 
+    @Column(unique = true)
     @Enumerated(EnumType.STRING)
     private InterviewName interviewName;
 
