@@ -12,6 +12,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
@@ -158,40 +160,53 @@ public class InterviewManageController {
   }
 
   @PostMapping( "/cidcrdsis" )
-  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid) throws IOException {
-    //todo 1. need to find applicant using nic
+  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid,
+                           RedirectAttributes redirectAttributes) throws IOException {
 
-    // 2. result get and convert to upper case and validate
-    // 3. before save need to check result already entered or not
-    // 4. if applicant pass all test he or she was eligible to interview two
     int i = 0;
-    //Creates a workbook object from the uploaded excelfile
     HSSFWorkbook workbook = new HSSFWorkbook(applicantSisCrdCid.getMultipartFile().getInputStream());
     //Creates a worksheet object representing the first sheet
     HSSFSheet worksheet = workbook.getSheetAt(0);
     //Reads the data in excel file until last row is encountered
 
-    System.out.println(worksheet.getSheetName());
+    InternalDivision internalDivision;
+
+    if ( InternalDivision.SIS.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.SIS;
+    } else if ( InternalDivision.CID.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.CID;
+    } else if ( InternalDivision.CRD.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.CRD;
+    } else {
+      internalDivision = InternalDivision.NOT;
+    }
+    if ( InternalDivision.NOT.equals(internalDivision) ) {
+      redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
+      return "redirect:/interviewManage/cidcrdsis";
+    }
+    System.out.println(" internal " + internalDivision.getInternalDivision());
+
+
     while ( i < worksheet.getLastRowNum() ) {
       HSSFRow row = worksheet.getRow(i++);
 
-      if ( i==1 ) {
-        System.out.println(row.getCell(0).getRichStringCellValue()+" number 0");
-        System.out.println(row.getCell(1).getRichStringCellValue()+" number 1");
-        System.out.println(row.getCell(2).getRichStringCellValue()+" number 2");
-        System.out.println(row.getCell(3).getRichStringCellValue()+" number 3");
-        System.out.println(row.getCell(4).getRichStringCellValue()+" number 4");
-        System.out.println(row.getCell(5).getRichStringCellValue()+" number 5");
-        System.out.println(row.getCell(6).getRichStringCellValue()+" number 6");
-        System.out.println(row.getCell(7).getRichStringCellValue()+" number 7");
+      if ( i == 1 ) {
+        System.out.println(row.getCell(0).getRichStringCellValue() + " number 0");
+        System.out.println(row.getCell(1).getRichStringCellValue() + " number 1");
+        System.out.println(row.getCell(2).getRichStringCellValue() + " number 2");
+        System.out.println(row.getCell(3).getRichStringCellValue() + " number 3");
+        System.out.println(row.getCell(4).getRichStringCellValue() + " number 4");
+        System.out.println(row.getCell(5).getRichStringCellValue() + " number 5");
+        System.out.println(row.getCell(6).getRichStringCellValue() + " number 6");
+        System.out.println(row.getCell(7).getRichStringCellValue() + " number 7");
       } else {
-        System.out.println(row.getCell(0).getNumericCellValue()+" number 00");
-        System.out.println(row.getCell(1).getRichStringCellValue()+" number 01");
-        System.out.println(row.getCell(2).getRichStringCellValue()+" number 02");
-        System.out.println(row.getCell(3).getRichStringCellValue()+" number 03");
-        System.out.println(row.getCell(4).getRichStringCellValue()+" number 04");
-        System.out.println(row.getCell(5).getRichStringCellValue()+" number 05");
-        System.out.println(row.getCell(6).getRichStringCellValue()+" number 06");
+        System.out.println(row.getCell(0).getNumericCellValue() + " number 00");
+        System.out.println(row.getCell(1).getRichStringCellValue() + " number 01");
+        System.out.println(row.getCell(2).getRichStringCellValue() + " number 02");
+        System.out.println(row.getCell(3).getRichStringCellValue() + " number 03");
+        System.out.println(row.getCell(4).getRichStringCellValue() + " number 04");
+        System.out.println(row.getCell(5).getRichStringCellValue() + " number 05");
+        System.out.println(row.getCell(6).getRichStringCellValue() + " number 06");
       }
 
     }
