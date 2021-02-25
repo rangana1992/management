@@ -80,15 +80,15 @@ public class InterviewManageController {
         break;
       case "SIS":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FSTP);
-        sheetName = "Report to SIS";
+        sheetName = InternalDivision.SIS.getInternalDivision();
         break;
       case "CID":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FSTP);
-        sheetName = "Report to CID";
+        sheetName = InternalDivision.CID.getInternalDivision();
         break;
       case "CRD":
         applicants = applicantService.findByApplicantStatus(ApplicantStatus.FSTP);
-        sheetName = "Report to CRD";
+        sheetName = InternalDivision.CRD.getInternalDivision();
         break;
       default:
         applicants = null;
@@ -170,23 +170,32 @@ public class InterviewManageController {
     //Creates a worksheet object representing the first sheet
     HSSFSheet worksheet = workbook.getSheetAt(0);
     //Reads the data in excel file until last row is encountered
+
+    System.out.println(worksheet.getSheetName());
     while ( i < worksheet.getLastRowNum() ) {
-      //Creates an object for the Candidate  Model
-      // Candidate candidate = new Candidate();
-      //Creates an object representing a single row in excel
       HSSFRow row = worksheet.getRow(i++);
-      //Sets the Read data to the model class
-/*      candidate.setCandidateId((int) row.getCell(0).getNumericCellValue());
-      candidate.setName(row.getCell(1).getStringCellValue());
-      candidate.setAddress(row.getCell(2).getStringCellValue());
-      candidate.setEmailId(row.getCell(3).getStringCellValue());
-      candidate.setPinCode((int) row.getCell(4).getNumericCellValue());
-      candidate.setAboutCandidate(row.getCell(5).getStringCellValue());
-      */
-      //Sends the model object to service layer for validation,
-      //data processing and then to persist
-      //iCandidateService.saveCandidate(candidate);
+
+      if ( i==1 ) {
+        System.out.println(row.getCell(0).getRichStringCellValue()+" number 0");
+        System.out.println(row.getCell(1).getRichStringCellValue()+" number 1");
+        System.out.println(row.getCell(2).getRichStringCellValue()+" number 2");
+        System.out.println(row.getCell(3).getRichStringCellValue()+" number 3");
+        System.out.println(row.getCell(4).getRichStringCellValue()+" number 4");
+        System.out.println(row.getCell(5).getRichStringCellValue()+" number 5");
+        System.out.println(row.getCell(6).getRichStringCellValue()+" number 6");
+        System.out.println(row.getCell(7).getRichStringCellValue()+" number 7");
+      } else {
+        System.out.println(row.getCell(0).getNumericCellValue()+" number 00");
+        System.out.println(row.getCell(1).getRichStringCellValue()+" number 01");
+        System.out.println(row.getCell(2).getRichStringCellValue()+" number 02");
+        System.out.println(row.getCell(3).getRichStringCellValue()+" number 03");
+        System.out.println(row.getCell(4).getRichStringCellValue()+" number 04");
+        System.out.println(row.getCell(5).getRichStringCellValue()+" number 05");
+        System.out.println(row.getCell(6).getRichStringCellValue()+" number 06");
+      }
+
     }
     return "redirect:/interviewManage/cidcrdsis";
   }
+
 }
