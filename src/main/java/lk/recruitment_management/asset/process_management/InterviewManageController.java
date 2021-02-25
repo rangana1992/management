@@ -116,6 +116,8 @@ public class InterviewManageController {
   //first interview result enter
   @GetMapping( "/firstResult/{id}" )
   public String firstInterviewResult(@PathVariable("id")Integer id, Model model) {
+    Applicant applicant = applicantService.findById(id);
+
     //todo
 
     System.out.println("interview first result");
@@ -123,11 +125,11 @@ public class InterviewManageController {
   }
   //absent first
   @GetMapping( "/absent/firstResult/{id}" )
-  public String firstAbsentInterviewResult(@PathVariable("id")Integer id, Model model) {
-    //todo
-
-    System.out.println("interview first absent");
-    return "";
+  public String firstAbsentInterviewResult(@PathVariable("id")Integer id) {
+    Applicant applicant = applicantService.findById(id);
+    applicant.setApplicantStatus(ApplicantStatus.FSTR);
+    applicantService.persist(applicant);
+    return "redirect:/interviewManage/firstInterview";
   }
 
   @GetMapping( "/secondInterview" )
@@ -147,11 +149,11 @@ public class InterviewManageController {
   }
   // absent second
   @GetMapping( "/absent/secondResult/{id}" )
-  public String secondAbsentInterviewResult(@PathVariable("id")Integer id, Model model) {
-    //todo
-
-    System.out.println("interview second absent");
-    return "";
+  public String secondAbsentInterviewResult(@PathVariable("id")Integer id) {
+    Applicant applicant = applicantService.findById(id);
+    applicant.setApplicantStatus(ApplicantStatus.SNDR);
+    applicantService.persist(applicant);
+    return "redirect:/interviewManage/secondInterview";
   }
 
   @GetMapping( "/thirdInterview" )

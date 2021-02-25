@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment_management.asset.employee.entity.Employee;
 import lk.recruitment_management.asset.interview.entity.Interview;
-import lk.recruitment_management.asset.interview_board.entity.Enum.InterviewBoardStatus;
+import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
