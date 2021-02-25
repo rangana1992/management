@@ -108,8 +108,6 @@ public class InterviewManageController {
     }
   }
 
-//todo-> no need to manage pdf to 3rd and 4th
-
   @GetMapping( "/firstInterview" )
   public String firstInterview(Model model) {
     return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FST), "First Interview",
@@ -119,12 +117,16 @@ public class InterviewManageController {
   @GetMapping( "/firstResult/{id}" )
   public String firstInterviewResult(@PathVariable("id")Integer id, Model model) {
     //todo
+
+    System.out.println("interview first result");
     return "";
   }
   //absent first
   @GetMapping( "/absent/firstResult/{id}" )
   public String firstAbsentInterviewResult(@PathVariable("id")Integer id, Model model) {
     //todo
+
+    System.out.println("interview first absent");
     return "";
   }
 
@@ -139,12 +141,16 @@ public class InterviewManageController {
   @GetMapping( "/secondResult/{id}" )
   public String secondInterviewResult(@PathVariable("id")Integer id, Model model) {
     //todo
+
+    System.out.println("interview second result");
     return "";
   }
   // absent second
   @GetMapping( "/absent/secondResult/{id}" )
   public String secondAbsentInterviewResult(@PathVariable("id")Integer id, Model model) {
     //todo
+
+    System.out.println("interview second absent");
     return "";
   }
 
