@@ -1,6 +1,7 @@
 package lk.recruitment_management.asset.applicant_interview.service;
 
 
+import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_interview.dao.ApplicantInterviewDao;
 import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment_management.util.interfaces.AbstractService;
@@ -56,6 +57,10 @@ public class ApplicantInterviewService implements AbstractService<ApplicantInter
             .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         Example< ApplicantInterview > districtExample = Example.of(applicantInterview, matcher);
         return applicantInterviewDao.findAll(districtExample);
+    }
+
+    public List<ApplicantInterview> findByApplicant(Applicant applicant){
+        return applicantInterviewDao.findByApplicant(applicant);
     }
 
 }

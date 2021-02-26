@@ -3,7 +3,8 @@ package lk.recruitment_management.asset.process_management;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
+import lk.recruitment_management.asset.applicant_interview.entity.enums.ApplicantInterviewStatus;
+import lk.recruitment_management.asset.applicant_interview.service.ApplicantInterviewService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
@@ -22,8 +23,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.stream.events.Characters;
 import java.io.*;
+import java.text.Collator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping( "/interviewManage" )
@@ -33,15 +37,18 @@ public class InterviewManageController {
   private final ServletContext context;
   private final ApplicantSisCrdCidService applicantSisCrdCidService;
   private final InterviewService interviewService;
+  private final ApplicantInterviewService applicantInterviewService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
                                    ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
-                                   InterviewService interviewService) {
+                                   InterviewService interviewService,
+                                   ApplicantInterviewService applicantInterviewService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
     this.applicantSisCrdCidService = applicantSisCrdCidService;
     this.interviewService = interviewService;
+    this.applicantInterviewService = applicantInterviewService;
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
@@ -125,10 +132,14 @@ public class InterviewManageController {
   //first interview result enter
   @GetMapping( "/firstResult/{id}" )
   public String firstInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
-    model.addAttribute("applicant", applicantService.findById(id));
-    model.addAttribute("applicantInterview", new ApplicantInterview());
-    model.addAttribute("interview", interviewService.findByInterviewName(InterviewName.FIRST));
-        return "interviewSchedule/addApplicantInterviewResult";
+    Applicant applicant = applicantService.findById(id);
+    model.addAttribute("applicantDetail", applicant);
+    model.addAttribute("applicantInterviews", applicantInterviewService.findByApplicant(applicant)
+        .stream()
+        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
+        .collect(Collectors.toList()));
+    model.addAttribute("interviews", interviewService.findByInterviewName(InterviewName.FIRST));
+    return "interviewSchedule/addApplicantInterviewResult";
   }
 
   //absent first
