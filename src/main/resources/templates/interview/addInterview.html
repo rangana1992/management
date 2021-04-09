@@ -73,13 +73,18 @@
                                                     <!--Interview name-->
                                                     <tr>
                                                         <th>
-                                                        <label data-th-for="${'name'}" class="form-label ">
+                                                        <label data-th-for="${'interviewName'}" class="form-label ">
                                                             Interview Name </label></th>
                                                         <td>
-                                                            <input type="text" class="form-control" data-th-field="*{name}"
-                                                                   required>
-                                                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"
-                                                               data-th-errors="*{name}">Error Name</p>
+                                                          <select class="form-control" data-th-field="*{interviewName}" required>
+                                                            <option data-th-each="interviewName : ${interviewNames}"
+                                                                    data-th-text="${interviewName.interviewName}"
+                                                                    data-th-value="${interviewName}">
+
+                                                            </option>
+                                                          </select>
+                                                            <p class="text-danger" data-th-if="${#fields.hasErrors('interviewName')}"
+                                                               data-th-errors="*{interviewName}">Error Name</p>
                                                         </td>
                                                     </tr>
 
@@ -94,7 +99,8 @@
                                                                     data-th-value="${interviewStatus}">
 
                                                             </option>
-                                                        </select></td>
+                                                        </select>
+                                                    </td>
                                                     </tr>
 
 

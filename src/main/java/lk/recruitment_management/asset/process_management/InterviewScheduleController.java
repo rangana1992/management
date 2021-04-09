@@ -10,7 +10,7 @@ import lk.recruitment_management.asset.common_asset.model.InterviewSchedule;
 import lk.recruitment_management.asset.common_asset.model.InterviewScheduleList;
 import lk.recruitment_management.asset.district.entity.District;
 import lk.recruitment_management.asset.district.service.DistrictService;
-import lk.recruitment_management.asset.interview_board.entity.Enum.InterviewBoardStatus;
+import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
 import lk.recruitment_management.asset.interview_board.service.InterviewBoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

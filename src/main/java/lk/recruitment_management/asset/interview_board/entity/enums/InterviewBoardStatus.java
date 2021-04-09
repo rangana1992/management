@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.interview_board.entity.Enum;
+package lk.recruitment_management.asset.interview_board.entity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
