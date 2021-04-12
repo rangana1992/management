@@ -1,13 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--Styles, meta data, and title are included-->
-<head th:replace="~{fragments/header :: headerFragment}">
-    <meta charset="UTF-8">
-    <title>Thymeleaf Springboot </title>
-</head>
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<!--<body class="hold-transition sidebar-mini layout-fixed">-->
 <body>
-<!--Nav bar is included-->
-<nav th:replace="~{fragments/navBar :: navBarFragment}"></nav>
+<div class="wrapper"><!-- wrapper start -->
+<!--    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav>&lt;!&ndash; navbar Section &ndash;&gt;-->
+<!--    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside>&lt;!&ndash; navbar Section &ndash;&gt;-->
+    <div class="content-wrapper"><!-- content-wrapper Start -->
+        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <br/><br/><br/><br/><br/>
 <p th:text="${successMessage}"></p>
 <a href="/home"><button class="btn btn-primary">Login</button></a>
 <!--footer is included-->
@@ -17,40 +26,3 @@
 <div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--&lt;!&ndash;Styles, meta data, and title are included&ndash;&gt;-->
-<!--<head th:replace="~{fragments/header :: headerFragment}">-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Check Your Email Please</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="modal" tabindex="-1">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title">Modal title</h5>-->
-<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p th:text="${successMessage}"></p>-->
-
-<!--                <a href="/home"><button class="btn btn-primary">Login</button></a>-->
-<!--                &lt;!&ndash;footer is included&ndash;&gt;-->
-<!--            </div>&lt;!&ndash; content-wrapper end &ndash;&gt;-->
-
-
-<!--</div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                <button type="button" class="btn btn-primary">Save changes</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<footer th:replace="~{fragments/footerSection :: footerSectionFragment}"></footer>&lt;!&ndash; footer Section &ndash;&gt;-->
-<!--</div>&lt;!&ndash; wrapper end &ndash;&gt;-->
-<!--<script th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></script>&lt;!&ndash; script Fragment &ndash;&gt;-->
-<!--</body>-->
-<!--</html>-->

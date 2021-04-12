@@ -1,16 +1,23 @@
 <!doctype html>
-<html lang="en" >
-<head >
-  <title >Title</title >
-  <!-- Required meta tags -->
-  <meta charset="utf-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
-</head >
-<body >
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+  <div class="content-wrapper"><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+    <!-- Form Header  Path -->
+    <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
+
+
 
 <div class="container-fluid form-row" >
   <div class="col" ><span data-th-text="${headerTitle}" ></span ></div >
@@ -60,6 +67,11 @@
 
 </div >
 
+
+  </div><!-- content-wrapper end -->
+  <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -71,5 +83,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous" ></script >
-</body >
-</html >
+</body>
+</html>
