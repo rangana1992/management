@@ -9,6 +9,7 @@
         <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
         <!-- Form Header  Path -->
         <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
@@ -18,7 +19,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Secondary Header </h4>
+                                        <h4>Secondary Header details</h4>
                                         <div class="container-fluid" th:fragment="interviewParameterDetail">
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Id </label>
@@ -51,6 +52,7 @@
                 </div>
             </div>
         </div><!-- content-wrapper end -->
+
         <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
     </div><!-- wrapper end -->
     <div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
