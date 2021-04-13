@@ -6,47 +6,113 @@
     <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
     <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
     <div class="content-wrapper"><!-- content-wrapper Start -->
-
+        <br/><br/><br/><br/><br/><br/><br/><br/>
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-4" >
+                                            <!--                                        <div class="col-sm-4" style="box-shadow: 1px 1px 10px blue;" >-->
+                                            <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; background-image: url('./img/BG_01.png'); ">
+                                                <a href="/employee">
+
+                                                    Employee Module <br/>
+                                                    <small><ul><li>Register Employer</li>
+                                                        <li>Edit Employer</li>
+                                                        <li>Delete Employer</li>
+                                                        <li>Skill Update</li>
+                                                        <li>Dependant Update</li></ul></small></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4" >
+                                            <div class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; background-image:url('./img/BG_02.png');">
+                                                <div class="ribbon-wrapper ribbon-lg">
+                                                    <div class="ribbon bg-info">
+                                                        SMS alert add
+                                                    </div>
+                                                </div>
+                                                <a href="/instalmentType">
+                                                    Payment Module <br/>
+                                                    <small><ul><li>Set Payment</li>
+                                                        <li>Set Instrolment Type</li>
+                                                        <li>Add Paymet</li>
+                                                        <li>Bulk Payment</li>
+                                                        <li>Set Pay Year</li>
+                                                    </ul></small></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; background-image:url('./img/BG_03.png');">
+
+                                                <a href="/instalmentType">
+                                                    Contact Management <br/>
+                                                    <small><ul><li>Send Email</li>
+                                                        <li>Send SMS</li>
+                                                        <li>Emergency Notification</li>
+                                                        <li>Bulk Noties</li>
+                                                        <li>Veiw Contacts</li>
+                                                    </ul></small></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-sm-4">
+                                            <div class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; background-image:url('./img/BG_04.png');">
+
+                                                <a href="/role">
+                                                    Grievances Module <br/>
+                                                    <small><ul><li>Submit Grievances</li>
+                                                        <li>View Grievances</li>
+                                                        <li>Grievances Status</li>
 
 
+                                                    </ul></small></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; background-image:url('./img/BG_05.png');">
 
+                                                <a href="/role">
+                                                    Report Module <br/>
+                                                    <small><ul><li>Employee Reports</li>
+                                                        <li>Payment Reports</li>
+                                                        <li>Grievances Reports</li>
+                                                        <li>Email/SMS Reports</li>
+                                                        <li>Other Reports</li>
 
+                                                    </ul></small></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; background-image:url('./img/BG_06.png');">
 
-                        <div class="card-group" style="margin-top:150px">
+                                                <a href="/role">
+                                                    System Management <br/>
+                                                    <small><ul><li>Sys Role Setting</li>
+                                                        <li>User Management</li>
+                                                        <li>Password Change</li>
 
-                            <div class="card" style="border-radius:50%; background-color: #0d47a1; margin-left: 50px" >
-                                <img class="card-img-top">
-                                <div class="card-body" style="height: 300px">
+                                                    </ul></small></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!-- /.card-body -->
                             </div>
-                            <div class="card" style="border-radius:50%; background-color: #0d47a1; margin-left: 50px" >
-                                <img class="card-img-top">
-                                <div class="card-body" style="height: 300px">
-                                </div>
-                            </div>
+                            <!-- /.card -->
                         </div>
-                        <div class="card-group" style="margin-top:10px">
-
-                            <div class="card" style="border-radius:50%; background-color: #0d47a1; margin-left: 50px" >
-                                <img class="card-img-top">
-                                <div class="card-body" style="height: 300px">
-                                </div>
-                            </div>
-                            <div class="card" style="border-radius:50%; background-color: #0d47a1; margin-left: 50px" >
-                                <img class="card-img-top">
-                                <div class="card-body" style="height: 300px">
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-                    </div></div></div></div></div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
         </div>
     </div><!-- content-wrapper end -->
     <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
