@@ -11,7 +11,21 @@
         <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
 
 
-
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h4>First sud Header</h4>-->
+                    <form role="form">
+                        <div align="right">
+                            <a class="btn btn-success" id="newDistrict" th:href="${'/interviewParameter/add'}">
+                                <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Add Parameter </a>
+                            <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div class="content-header">
             <div class="container-fluid">

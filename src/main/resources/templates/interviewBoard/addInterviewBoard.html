@@ -21,7 +21,7 @@
           <div class="row" >
             <div class="col-md-12" >
               <div class="row" >
-                <!--                              -->
+
                 <div class="col-md-12" >
                   <div class="card" >
                     <div class="card-body" >
@@ -45,10 +45,10 @@
                           <label data-th-for="${'name'}" class="col-sm-4 col-form-label " >
                             Interview Board Name </label >
                           <div class="col-sm-8" >
-                            <input type="text" class="form-control" data-th-field="*{name}"
-                                   required >
-                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"
-                               data-th-errors="*{name}" >Error Name</p >
+                            <!--                            <input type="text" class="form-control" data-th-field="*{name}"-->
+                            <!--                                   required >-->
+                            <!--                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"-->
+                            <!--                               data-th-errors="*{name}" >Error Name</p >-->
                           </div >
                         </div >
                         <!--Interview-->
@@ -131,7 +131,7 @@
                             <button type="submit" class="btn btn-primary" >
                               <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}" ></i >
                               <span
-                                    data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
+                                      data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
                             </button >
                           </div >
                         </div >

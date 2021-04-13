@@ -45,26 +45,26 @@
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Name </label>
-                                                <div class="col-sm-10">
-                                                    <p class="display_detail"
-                                                       data-th-text="${interviewDetail.name}"></p>
-                                                </div>
+<!--                                                <div class="col-sm-10">-->
+<!--                                                    <p class="display_detail"-->
+<!--                                                       data-th-text="${interviewDetail.name}"></p>-->
+<!--                                                </div>-->
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Interview Status </label>
-                                                <div class="col-sm-10">
-                                                    <p class="display_detail"
-                                                       data-th-text="${interviewDetail.interviewStatus.interviewStatus}"></p>
-                                                </div>
+<!--                                                <div class="col-sm-10">-->
+<!--                                                    <p class="display_detail"-->
+<!--                                                       data-th-text="${interviewDetail.interviewStatus.interviewStatus}"></p>-->
+<!--                                                </div>-->
                                             </div>
 
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 form-label "> Interview Parameter </label>
-                                                <div class="col-sm-10" data-th-each="interviewParameter : ${interviewDetail.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></>
+<!--                                                <div class="col-sm-10" data-th-each="interviewParameter : ${interviewDetail.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></>-->
 
-                                                </div>
+<!--                                                </div>-->
                                             </div>
                                         </div>
 
@@ -80,5 +80,6 @@
         <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
     </div><!-- wrapper end -->
     <script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
+</div>
 </body>
 </html>
