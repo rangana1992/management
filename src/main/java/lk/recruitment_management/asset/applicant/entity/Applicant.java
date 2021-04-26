@@ -84,6 +84,9 @@ public class Applicant extends AuditEntity {
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
+    @ManyToOne
+    private Applicant applicant;
+
     @OneToMany(mappedBy ="applicant",  cascade = CascadeType.PERSIST )
     private List<ApplicantResult> applicantResults;
 

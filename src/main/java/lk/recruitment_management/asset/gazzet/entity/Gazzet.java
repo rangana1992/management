@@ -1,7 +1,7 @@
 package lk.recruitment_management.asset.gazzet.entity;
 
 
-import lk.recruitment_management.asset.item.entity.Item;
+import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class Gazzet {
 
 
     @ManyToMany(mappedBy = "authors")
-    private List< Item > items;
+    private List< Applicant > applicants;
 
 
 }
