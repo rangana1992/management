@@ -1,5 +1,6 @@
 package lk.recruitment_management.asset.process_management;
 
+import com.itextpdf.text.DocumentException;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
@@ -15,9 +16,14 @@ import lk.recruitment_management.util.service.FileHandelService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -128,6 +134,37 @@ public class InterviewManageController {
                        "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",
                        true, "firstResult");
   }
+
+  //first interview pdf printing
+  @GetMapping( "/firstInterviewPdf" )
+  public String firstInterviewPdf() {
+
+    return "print/pdfSilentPrint";
+  }
+
+/*  @GetMapping(value = "/file/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  public ResponseEntity< InputStreamResource > invoicePrint(@PathVariable("id")Integer id) throws DocumentException {
+    var headers = new HttpHeaders();
+    headers.add("Content-Disposition", "inline; filename=interview.pdf");
+    InputStreamResource pdfFile = new InputStreamResource(applicantService.createPDF(id));
+
+    return ResponseEntity
+        .ok()
+        .headers(headers)
+        .contentType(MediaType.APPLICATION_PDF)
+        .body(pdfFile);
+  }
+
+  @GetMapping("/fileView/{id}")
+  public String fileRequest(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
+    model.addAttribute("pdfFile", MvcUriComponentsBuilder
+        .fromMethodName(InvoiceController.class, "invoicePrint", id)
+        .toUriString());
+    model.addAttribute("redirectUrl",MvcUriComponentsBuilder
+        .fromMethodName(InvoiceController.class, "getInvoiceForm","")
+        .toUriString());
+    return "print/pdfSilentPrint";
+  }*/
 
   //first interview result enter
   @GetMapping( "/firstResult/{id}" )

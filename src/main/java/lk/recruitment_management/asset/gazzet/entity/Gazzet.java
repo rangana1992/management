@@ -23,7 +23,7 @@ public class Gazzet {
     private String name;
 
 
-    @ManyToMany(mappedBy = "authors")
+    @OneToMany(mappedBy = "gazzet")
     private List< Applicant > applicants;
 
 

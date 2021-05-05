@@ -14,15 +14,17 @@ $(document).ready(function () {
 
 
     /*//--------------- data table short using - data table plugin ------- start //*/
-    $("#myTable").DataTable({
-        "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
-        "ordering": false,
-        stateSave: true,
-    });
+    if ($("#myTable tr").val()) {
+        $("#myTable").DataTable({
+            "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+            "ordering": false,
+            stateSave: true,
+        });
+    }
     /*//--------------- data table short using - data table plugin ------- start //*/
 
     /*When edit employee if there is a nic number need to select relevant gender*/
-    if ($("#nic").val() !== null || $("#nic").val() !== undefined) {
+    if ($("#nic").val()) {
         $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked', true);
     }
 
@@ -550,13 +552,13 @@ let deleteAllTableRow = function (tableName) {
 /*jquery - ui function*/
 //$( "input" ).checkboxradio;
 
-$(function () {
-    $("#").resizable({
-        autoHide: true,
-        aspectRatio: true,
-        ghost: true,
-    });
-});
+// $(function () {
+//     $("#").resizable({
+//         autoHide: true,
+//         aspectRatio: true,
+//         ghost: true,
+//     });
+// });
 
 //$( ".login" ).draggable();
 //$( "#dateOfBirth" ).datepicker;
@@ -643,13 +645,17 @@ $(".reveal").on('click', function () {
 /* -------headerDate-------*/
 var today = new Date();
 var dd = today.getDate();
-var mm = today.getMonth()+1;
+var mm = today.getMonth() + 1;
 var yyyy = today.getFullYear();
-if(dd<10){  dd='0'+dd;}
-if(mm<10){ mm='0'+mm;}
-today = mm+'-'+dd+'-'+yyyy;
-console.log(today);
-document.getElementById("headerDate").innerText=today;
+if (dd < 10) {
+    dd = '0' + dd;
+}
+if (mm < 10) {
+    mm = '0' + mm;
+}
+today = mm + '-' + dd + '-' + yyyy;
+// console.log(today);
+// document.getElementById("headerDate").innerText=today;
 
 /*
 console.log(today);
