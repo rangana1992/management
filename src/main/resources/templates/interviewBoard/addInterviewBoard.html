@@ -68,16 +68,23 @@
                         </div >
                         <!--Active-->
                         <div class="form-group row" >
-                          <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label " >
-                            Interview Board Status </label >
-                          <div class="col-sm-8" >
-                            <select class="form-control" data-th-field="*{interviewBoardStatus}" required >
-                              <option data-th-each="interviewBoardStatus : ${interviewBoardStatuses}"
-                                      data-th-text="${interviewBoardStatus.interviewBoardStatus}"
-                                      data-th-value="${interviewBoardStatus}" >
-
-                              </option >
-                            </select >
+                          <div class="col-md-4" >
+                            <label class="control-label" for="gender" >Interview Board Status :</label >
+                          </div >
+                          <div class="col-md-8" >
+                            <div class="custom-control custom-checkbox custom-control-inline "
+                                 data-th-each="interviewBoardStatus,index : ${interviewBoardStatuses}" >
+                              <input class="custom-control-input gender" required
+                                     data-th-name="${'interviewBoardStatus'}"
+                                     data-th-value="${interviewBoardStatus}"
+                                     data-th-id="${index.index}+${interviewBoardStatus}"
+                                     type="radio"
+                                     data-th-checked="${interviewBoardStatus==interviewBoardStatus}" />
+                              <label class="custom-control-label"
+                                     data-th-for="${index.index}+${interviewBoardStatus}"
+                                     data-th-text="${interviewBoardStatus.interviewBoardStatus}" > radio
+                              </label >
+                            </div >
                           </div >
                         </div >
                         <!--All employee-->
@@ -131,7 +138,7 @@
                             <button type="submit" class="btn btn-primary" >
                               <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}" ></i >
                               <span
-                                      data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
+                                    data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
                             </button >
                           </div >
                         </div >
@@ -174,7 +181,7 @@
 
     function addTable() {
         console.log("add table")
-        html = ``;
+        let html = ``;
         for (let i = 0; i < selectedEmployeeList.length; i++) {
             html += addRow(selectedEmployeeList[i].id, selectedEmployeeList[i].name, i);
         }
