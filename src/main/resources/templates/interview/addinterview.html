@@ -1,29 +1,141 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
-    <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!-- Form Header  Path -->
+    <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}" ></section >
+                                <!-- Small Box Set -->
 
 
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
+                                <!--add form-->
+    <div class="container-fluid" >
 
 
+      <div class="content-header" >
+        <div class="container-fluid" >
+          <div class="row" >
+            <div class="col-md-12" >
+              <div class="row" >
+                <div class="col-md-3" >
+                  <div class="card" >
+                    <div class="card-body" >
+                      <h4 >First sud Header</h4 >
+                      <form role="form" >
+
+                                                <span id="formHeader"
+                                                      data-th-text="${addStatus==false?'New Interview':'Update Interview'}" ></span >
+                        <a href="/interview" class="btn btn-primary" >
+                          <i class="fa fa-list" ></i >&nbsp; View List
+                        </a >
+
+                      </form >
+                    </div >
+                  </div >
+                </div >
+                <div class="col-md-9" >
+                  <div class="card" >
+                    <div class="card-body" >
+                      <h4 >Secondary Header </h4 >
+                      <form data-th-action="${addStatus==false?'/interview/save' :'/interview/update'}"
+                            method="post" data-th-object="${interview}"
+                            class="mt-3" >
+                        <div class="offset-3 col-6" >
+                          <!--/* id this comment not visualize */-->
+                          <!--Id-->
+                          <div class="form-group row" data-th-if="${addStatus==true}" >
+                            <label for="id" class="col-sm-2 col-form-label " > Id </label >
+                            <div class="col-sm-10" >
+                              <input type="text" class="form-control" data-th-field="*{id}"
+                                     id="id" readonly >
+                            </div >
+                          </div >
+
+                          <!--Interview name-->
+                          <div class="form-group row" >
+                            <label data-th-for="${'name'}" class="col-sm-2 col-form-label " >
+                              Interview Name </label >
+                            <div class="col-sm-10" >
+                              <input type="text" class="form-control" data-th-field="*{interviewName}"
+                                     required >
+
+                            </div >
+                          </div >
+                          <div class="form-group row" >
+                            <div class="col-md-4" >
+                              <label class="control-label" for="gender" >Interview Status :</label >
+                            </div >
+                            <div class="col-md-8" >
+                              <div class="custom-control custom-checkbox custom-control-inline "
+                                   data-th-each="interviewStatus,index : ${interviewStatuss}" >
+                                <input class="custom-control-input gender" required
+                                       data-th-name="${'interviewStatus'}"
+                                       data-th-value="${interviewStatus}"
+                                       data-th-id="${index.index}+${interviewStatus}"
+                                       type="radio"
+                                       data-th-checked="${interviewStatus==interviewStatus}" />
+                                <label class="custom-control-label"
+                                       data-th-for="${index.index}+${interviewStatus}"
+                                       data-th-text="${interviewStatus.interviewStatus}" > radio
+                                </label >
+                              </div >
+                            </div >
+                          </div >
+                          <div class="form-group row" >
+                            <label data-th-for="${'interviewStatus'}" class="col-sm-4 col-form-label " >
+                              Interview Parameters </label >
+                            <select class="form-control" data-th-field="*{interviewParameters}" required multiple
+                                    row="6" >
+                              <option data-th-each="interviewParameter : ${interviewParameters}"
+                                      data-th-text="${interviewParameter.name}"
+                                      data-th-value="${interviewParameter.id}" >
+
+                              </option >
+                            </select >
+                          </div >
+
+                          <div class="form-group row" >
+                            <div class="offset-sm-2 col-sm-10" >
+
+                              <a href="/interview" >
+                                <button class="btn btn-secondary btn-outline-secondary"
+                                        tabindex="65" type="button" >Back
+                                </button >
+                              </a >
+
+                              <button class="btn btn-warning mr-5 " tabindex="65" type="reset" >
+                                Clear
+                              </button >
+                              <button type="submit" class="btn btn-primary" >
+                                <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}" ></i >
+                                <span
+                                      data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
+                              </button >
+
+                            </div >
+                          </div >
+                        </div >
 
 
+                    </form>
+                  </div >
+                </div >
 
 
-    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
-</div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
-</body>
-</html>
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
+  </div >
+</div ><!-- content-wrapper end -->
+<div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
+       <!-- wrapper end -->
+<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+</body >
+</html >
