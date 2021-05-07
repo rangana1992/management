@@ -42,7 +42,6 @@ public class ProfileController {
                 return "redirect:/applicant/"+applicant.getId();
             }
         }
-
         model.addAttribute("addStatus", true);
         model.addAttribute("employeeDetail", userService.findByUserName(principal.getName()).getEmployee());
         return "employee/employee-detail";

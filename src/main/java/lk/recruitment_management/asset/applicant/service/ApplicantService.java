@@ -246,9 +246,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   }
 
   private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD | Font.UNDERLINE);
-  private final Font mainFont = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
   private final Font secondaryFont = FontFactory.getFont("Arial", 8, BaseColor.BLACK);
-  private final Font highLiltedFont = FontFactory.getFont("Arial", 8, BaseColor.BLACK);
   private final Font tableHeader = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
   private final Font tableHeaderOnly = FontFactory.getFont("Arial", 12, BaseColor.BLACK);
 
@@ -273,7 +271,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       // Lets write a big header
       header.add(new Paragraph("Applicant Name : " + applicant.getNameInFullName(), mainHeadingFont));
       document.add(header);
-
+// todo need to mentioned gazette also here
  /*
    Paragraph gazzet = new Paragraph();
       // We add one empty line
@@ -345,11 +343,12 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
                                                      tableHeaderOnly));
       pdfCellHeaderCommonStyle(ageValue);
       applicantDetailTable.addCell(ageValue);
+//todo : need to take apply rank from applicant_interview
 
-      PdfPCell rank = new PdfPCell(new Paragraph("Apply Rank : ", tableHeaderOnly));
-      pdfCellHeaderCommonStyle(rank);
-      applicantDetailTable.addCell(rank);
-
+//      PdfPCell rank = new PdfPCell(new Paragraph("Apply Rank : ", tableHeaderOnly));
+//      pdfCellHeaderCommonStyle(rank);
+//      applicantDetailTable.addCell(rank);
+//
 //      PdfPCell rankValue = new PdfPCell(new Paragraph(applicant.getApplyingRank().getApplyingRank(), tableHeaderOnly));
 //      pdfCellHeaderCommonStyle(rankValue);
 //      applicantDetailTable.addCell(rankValue);
