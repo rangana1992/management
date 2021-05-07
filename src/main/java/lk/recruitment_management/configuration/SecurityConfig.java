@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
@@ -81,62 +82,62 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers("/").permitAll();
     // For developing easy to give permission all lin
 
-      http
-                .authorizeRequests(
-                        authorizeRequests ->
-                                authorizeRequests
-                                        //Anytime users can access without login
-                                        //to see actuator details
-                                        .antMatchers(ALL_PERMIT_URL).permitAll()
-                                        //this is used the normal admin to give access every url mapping
-                                        .antMatchers("/employee").hasRole("ADMIN")
-                                        //Need to login for access those are
-                                        .antMatchers("/employee/**").hasRole("ADMIN")
-                                        .antMatchers("/employee1/**").hasRole("MANAGER")
-                                        .antMatchers("/user/**").hasRole("ADMIN")
-                                        .antMatchers("/petition/**").hasRole("ADMIN")
-                                        .antMatchers("/minutePetition/**").hasRole("MANAGER")
-                                        .antMatchers("/invoiceProcess/add").hasRole("CASHIER")
-                                        .anyRequest()
-                                        .authenticated())
-                // Login form
-                .formLogin(
-                        formLogin ->
-                                formLogin
-                                        .loginPage("/login")
-                                        .loginProcessingUrl("/login")
-                                        //Username and password for validation
-                                        .usernameParameter("username")
-                                        .passwordParameter("password")
-                                        .successHandler(customAuthenticationSuccessHandler())
-                                        .failureHandler(authenticationFailureHandler())
-                )
-                //Logout controlling
-                .logout(
-                        logout ->
-                                logout
-                                        .logoutUrl("/logout")
-                                        .logoutSuccessHandler(customLogoutSuccessHandler())
-                                        .deleteCookies("JSESSIONID")
-                                        .invalidateHttpSession(true)
-                                        .clearAuthentication(true))
-                //remember me
-                .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400)
-                .and()
-                //session management
-                .sessionManagement(
-                        sessionManagement ->
-                                sessionManagement
-                                        .sessionFixation()
-                                        .migrateSession()
-                                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                                        .invalidSessionUrl("/login")
-                                        .maximumSessions(2)
-                                        .sessionRegistry(sessionRegistry()))
-                //Cross site disable
-                .csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling();
+  /*  http
+        .authorizeRequests(
+            authorizeRequests ->
+                authorizeRequests
+                    //Anytime users can access without login
+                    //to see actuator details
+                    .antMatchers(ALL_PERMIT_URL).permitAll()
+                    //this is used the normal admin to give access every url mapping
+                    .antMatchers("/employee").hasRole("ADMIN")
+                    //Need to login for access those are
 
+                    .anyRequest()
+                    .authenticated())
+        // Login form
+        .formLogin(
+            formLogin ->
+                formLogin
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    //Username and password for validation
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .successHandler(customAuthenticationSuccessHandler())
+                    .failureHandler(authenticationFailureHandler())
+                  )
+        //Logout controlling
+        .logout(
+            logout ->
+                logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessHandler(customLogoutSuccessHandler())
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true))
+        //remember me
+        .rememberMe()
+        .key("uniqueAndSecret")
+        .tokenValiditySeconds(86400)
+        .and()
+        //session management
+        .sessionManagement(
+            sessionManagement ->
+                sessionManagement
+                    .sessionFixation()
+                    .migrateSession()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .invalidSessionUrl("/login")
+                    .maximumSessions(2)
+                    .sessionRegistry(sessionRegistry()))
+        //Cross site disable
+        .csrf(AbstractHttpConfigurer::disable)
+        .exceptionHandling().and()
+        .headers()
+        .addHeaderWriter(new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN));
+
+        */
   }
 }
 

@@ -44,11 +44,6 @@ public class InterviewController implements AbstractController<Interview, Intege
    return "interview/interview";
 
     }
-//    @GetMapping("/test")
-//    public String findAlla(Model model) {
-//        model.addAttribute("interviews", interviewService.findAll());
-//        return "interview/interviewDateSet";
-//    }
 
 
     @GetMapping("/add")

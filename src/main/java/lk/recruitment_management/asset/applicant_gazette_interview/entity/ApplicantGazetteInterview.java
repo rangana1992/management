@@ -1,8 +1,8 @@
-package lk.recruitment_management.asset.applicant_interview.entity;
+package lk.recruitment_management.asset.applicant_gazette_interview.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.applicant_interview.entity.enums.ApplicantInterviewStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
 import lk.recruitment_management.asset.applicant_interview_result.entity.ApplicantInterviewResult;
 import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment_management.util.audit.AuditEntity;
@@ -21,11 +21,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("ApplicantInterview")
-public class ApplicantInterview extends AuditEntity {
+@JsonFilter("ApplicantGazetteInterview")
+public class ApplicantGazetteInterview extends AuditEntity {
 
   @Enumerated( EnumType.STRING)
-  private ApplicantInterviewStatus applicantInterviewStatus;
+  private ApplicantGazetteInterviewStatus applicantGazetteInterviewStatus;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate interviewDate;
@@ -34,9 +34,9 @@ public class ApplicantInterview extends AuditEntity {
   private InterviewBoard interviewBoard;
 
   @ManyToOne
-  private Applicant applicant;
+  private ApplicantGazette applicantGazette;
 
-  @OneToMany(mappedBy = "applicantInterview")
+  @OneToMany(mappedBy = "applicantGazetteInterview")
   private List< ApplicantInterviewResult > applicantInterviewResults;
 
 }

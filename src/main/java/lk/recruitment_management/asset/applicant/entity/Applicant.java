@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment_management.asset.applicant.entity.Enum.Nationality;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment_management.asset.common_asset.model.Enum.Gender;
 import lk.recruitment_management.asset.grama_niladhari.entity.GramaNiladhari;
@@ -32,10 +32,8 @@ public class Applicant extends AuditEntity {
     @Column(nullable = false)
     private String nameInFullName;
 
-
     @Column(nullable = false)
     private String nameWithInitial;
-
 
     @Column(nullable = false)
     private String nic;
@@ -46,17 +44,14 @@ public class Applicant extends AuditEntity {
     @Column(nullable = false)
     private String height;
 
-
     @Column(nullable = false)
     private String weight;
-
 
     @Column(nullable = false)
     private String chest;
 
     @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
     private String mobile;
-
 
     private String land;
 
@@ -84,17 +79,18 @@ public class Applicant extends AuditEntity {
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
-    @OneToMany(mappedBy ="applicant",  cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy ="applicant" )
+    private List< ApplicantGazette > applicantGazettes;
+
+    @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<ApplicantResult> applicantResults;
 
-    @OneToMany(mappedBy ="applicant" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy ="applicant" , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ApplicantDegreeResult> applicantDegreeResults;
 
-    @OneToMany(mappedBy ="applicant", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy ="applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NonRelative> nonRelatives;
 
-    @OneToMany(mappedBy ="applicant" )
-    private List< ApplicantInterview > applicantInterviews;
 
     @Transient
     private MultipartFile file;

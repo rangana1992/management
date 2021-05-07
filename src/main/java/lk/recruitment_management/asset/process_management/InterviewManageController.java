@@ -3,8 +3,8 @@ package lk.recruitment_management.asset.process_management;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
-import lk.recruitment_management.asset.applicant_interview.entity.enums.ApplicantInterviewStatus;
-import lk.recruitment_management.asset.applicant_interview.service.ApplicantInterviewService;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
+import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
@@ -23,9 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.stream.events.Characters;
 import java.io.*;
-import java.text.Collator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,18 +35,18 @@ public class InterviewManageController {
   private final ServletContext context;
   private final ApplicantSisCrdCidService applicantSisCrdCidService;
   private final InterviewService interviewService;
-  private final ApplicantInterviewService applicantInterviewService;
+  private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
                                    ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
                                    InterviewService interviewService,
-                                   ApplicantInterviewService applicantInterviewService) {
+                                   ApplicantGazetteInterviewService applicantGazetteInterviewService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
     this.applicantSisCrdCidService = applicantSisCrdCidService;
     this.interviewService = interviewService;
-    this.applicantInterviewService = applicantInterviewService;
+    this.applicantGazetteInterviewService = applicantGazetteInterviewService;
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
@@ -129,15 +127,47 @@ public class InterviewManageController {
                        true, "firstResult");
   }
 
+  //first interview pdf printing
+  @GetMapping( "/firstInterviewPdf" )
+  public String firstInterviewPdf() {
+
+    return "print/pdfSilentPrint";
+  }
+
+/*  @GetMapping(value = "/file/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
+  public ResponseEntity< InputStreamResource > invoicePrint(@PathVariable("id")Integer id) throws DocumentException {
+    var headers = new HttpHeaders();
+    headers.add("Content-Disposition", "inline; filename=interview.pdf");
+    InputStreamResource pdfFile = new InputStreamResource(applicantService.createPDF(id));
+
+    return ResponseEntity
+        .ok()
+        .headers(headers)
+        .contentType(MediaType.APPLICATION_PDF)
+        .body(pdfFile);
+  }
+
+  @GetMapping("/fileView/{id}")
+  public String fileRequest(@PathVariable("id") Integer id, Model model, HttpServletRequest request) {
+    model.addAttribute("pdfFile", MvcUriComponentsBuilder
+        .fromMethodName(InvoiceController.class, "invoicePrint", id)
+        .toUriString());
+    model.addAttribute("redirectUrl",MvcUriComponentsBuilder
+        .fromMethodName(InvoiceController.class, "getInvoiceForm","")
+        .toUriString());
+    return "print/pdfSilentPrint";
+  }*/
+
   //first interview result enter
   @GetMapping( "/firstResult/{id}" )
   public String firstInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
     Applicant applicant = applicantService.findById(id);
     model.addAttribute("applicantDetail", applicant);
-    model.addAttribute("applicantInterviews", applicantInterviewService.findByApplicant(applicant)
-        .stream()
-        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
-        .collect(Collectors.toList()));
+    //todo :
+//    model.addAttribute("applicantInterviews", applicantGazetteInterviewService.findByApplicant(applicant)
+//        .stream()
+//        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
+//        .collect(Collectors.toList()));
     model.addAttribute("interviews", interviewService.findByInterviewName(InterviewName.FIRST));
     return "interviewSchedule/addApplicantInterviewResult";
   }
