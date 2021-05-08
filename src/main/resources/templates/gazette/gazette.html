@@ -37,6 +37,7 @@
                 <tr>
                     <th> Index</th>
                     <th> Name</th>
+                    <th> Status </th>
                     <th> Modify</th>
                 </tr>
                 </thead>
@@ -44,6 +45,7 @@
                 <tr data-th-each="gazette, rowCount : ${authors}">
                     <th data-th-text="${rowCount.count}"></th>
                     <th data-th-text="${gazette.name}"></th>
+                    <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
                     <th>
                         <a data-th-href="${'/gazette/edit/' + gazette.id}"
                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
