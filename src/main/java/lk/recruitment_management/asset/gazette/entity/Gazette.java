@@ -1,9 +1,8 @@
-package lk.recruitment_management.asset.gazzet.entity;
+package lk.recruitment_management.asset.gazette.entity;
 
 
-import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.applicant_gazzet.entity.ApplicantGazzet;
-import lk.recruitment_management.asset.gazzet.entity.enums.GazzetStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Gazzet {
+public class Gazette {
 
   @Id
   @GeneratedValue( strategy = GenerationType.IDENTITY )
@@ -25,10 +24,10 @@ public class Gazzet {
   private String name;
 
   @Enumerated( EnumType.STRING )
-  private GazzetStatus gazzetStatus;
+  private GazetteStatus gazetteStatus;
 
   @OneToMany( mappedBy = "gazzet" )
-  private List< ApplicantGazzet > applicantGazzets;
+  private List< ApplicantGazette > applicantGazettes;
 
 
 }

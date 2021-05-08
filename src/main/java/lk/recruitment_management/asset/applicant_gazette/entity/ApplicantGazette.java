@@ -1,15 +1,14 @@
-package lk.recruitment_management.asset.applicant_gazzet.entity;
+package lk.recruitment_management.asset.applicant_gazette.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.applicant_gazzet.entity.enums.ApplicantGazzetAttempt;
-import lk.recruitment_management.asset.gazzet.entity.Gazzet;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteAttempt;
+import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,16 +21,16 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter("ApplicantGazzet")
-public class ApplicantGazzet extends AuditEntity {
+public class ApplicantGazette extends AuditEntity {
 
   @Enumerated( EnumType.STRING)
-  private ApplicantGazzetAttempt applicantGazzetAttempt;
+  private ApplicantGazetteAttempt applicantGazetteAttempt;
 
   @ManyToOne
   private Applicant applicant;
 
   @ManyToOne
-  private Gazzet gazzet;
+  private Gazette gazette;
 
 
 
