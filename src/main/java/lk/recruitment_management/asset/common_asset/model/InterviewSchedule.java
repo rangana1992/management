@@ -1,6 +1,6 @@
 package lk.recruitment_management.asset.common_asset.model;
 
-import lk.recruitment_management.asset.applicant.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,11 +1,10 @@
 package lk.recruitment_management.asset.applicant.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant.entity.enums.ApplicantStatus;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.applicant.entity.enums.Nationality;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment_management.asset.common_asset.model.Enum.Gender;
@@ -69,9 +68,6 @@ public class Applicant extends AuditEntity {
 
   @Enumerated( EnumType.STRING )
   private Nationality nationality;
-
-  @Enumerated( EnumType.STRING )
-  private ApplicantStatus applicantStatus;
 
   @DateTimeFormat( pattern = "yyyy-MM-dd" )
   private LocalDate dateOfBirth;

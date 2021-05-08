@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.applicant.entity.enums;
+package lk.recruitment_management.asset.applicant_gazette.entity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

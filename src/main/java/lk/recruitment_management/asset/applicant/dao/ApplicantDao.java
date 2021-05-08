@@ -2,8 +2,7 @@ package lk.recruitment_management.asset.applicant.dao;
 
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.applicant.entity.enums.ApplicantStatus;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +17,5 @@ public interface ApplicantDao extends JpaRepository<Applicant, Integer> {
 
     Applicant findByEmail(String email);
 
-  int countByApplicantStatus(ApplicantStatus applicantStatus);
-
-  List< Applicant> findByApplicantStatus(ApplicantStatus applicantStatus);
-
-  List< Applicant> findByCreatedAtIsBetweenAndApplicantStatus(LocalDateTime form,LocalDateTime to,  ApplicantStatus applicantStatus);
+  List< Applicant> findByCreatedAtIsBetween(LocalDateTime form,LocalDateTime to);
 }

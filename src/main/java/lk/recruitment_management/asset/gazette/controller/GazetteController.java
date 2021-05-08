@@ -31,7 +31,7 @@ public class GazetteController {
 
     @GetMapping
     public String authorPage(Model model) {
-        model.addAttribute("authors", gazetteService.findAll());
+        model.addAttribute("gazettes", gazetteService.findAll());
         return "gazette/gazette";
     }
 

@@ -23,6 +23,8 @@ public class Gazette {
   @Column( nullable = false, length = 45, unique = true )
   private String name;
 
+  private int age;
+
   @Enumerated( EnumType.STRING )
   private GazetteStatus gazetteStatus;
 

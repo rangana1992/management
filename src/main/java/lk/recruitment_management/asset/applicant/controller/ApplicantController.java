@@ -8,6 +8,7 @@ import lk.recruitment_management.asset.applicant.entity.enums.*;
 import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.applicant_result.entity.enums.Attempt;
@@ -127,10 +128,7 @@ public class ApplicantController {
   //Send all applicant data
   @RequestMapping
   public String applicantPage(Model model) {
-    return commonApplicant(model, applicantService.findAll()
-        .stream()
-        .filter(x -> x.getApplicantStatus().equals(ApplicantStatus.P) || x.getApplicantStatus().equals(ApplicantStatus.REJ))
-        .collect(Collectors.toList()));
+    return commonApplicant(model, applicantService.findAll());
   }
 
   //Send on applicant details
@@ -181,7 +179,7 @@ public class ApplicantController {
     }
     if ( applicant.getId() == null ) {
       Applicant lastApplicant = applicantService.lastApplicant();
-      if ( lastApplicant.getCode() == null ) {
+      if ( lastApplicant == null ) {
         applicant.setCode("SLPA" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
       } else {
         applicant.setCode("SLPA" + makeAutoGenerateNumberService.numberAutoGen(lastApplicant.getCode().substring(4)).toString());
@@ -245,7 +243,7 @@ public class ApplicantController {
         }
         applicantFilesService.persist(applicantFiles);
       }
-      return "redirect:/applicant/" + savedApplicant.getId();
+      return "redirect:/home";
 
     } catch ( Exception e ) {
       ObjectError error = new ObjectError("applicant",
@@ -271,22 +269,24 @@ public class ApplicantController {
     return "applicant/applicant-detail";
   }
 
-  @GetMapping( value = "/approve/{id}" )
-  public String approve(@PathVariable Integer id) {
-    Applicant applicant = applicantService.findById(id);
-    applicant.setApplicantStatus(ApplicantStatus.A);
-    applicantService.persist(applicant);
-    return "redirect:/applicant";
+  //doto those are need to applicantGazette approve not
 
-  }
-
-  @GetMapping( value = "/reject/{id}" )
-  public String reject(@PathVariable Integer id) {
-    Applicant applicant = applicantService.findById(id);
-    applicant.setApplicantStatus(ApplicantStatus.REJ);
-    applicantService.persist(applicant);
-    return "redirect:/applicant";
-  }
+//  @GetMapping( value = "/approve/{id}" )
+//  public String approve(@PathVariable Integer id) {
+//    Applicant applicant = applicantService.findById(id);
+//    applicant.setApplicantStatus(ApplicantStatus.A);
+//    applicantService.persist(applicant);
+//    return "redirect:/applicant";
+//
+//  }
+//
+//  @GetMapping( value = "/reject/{id}" )
+//  public String reject(@PathVariable Integer id) {
+//    Applicant applicant = applicantService.findById(id);
+//    applicant.setApplicantStatus(ApplicantStatus.REJ);
+//    applicantService.persist(applicant);
+//    return "redirect:/applicant";
+//  }
 
   private String commonApplicant(Model model, List< Applicant > applicants) {
     model.addAttribute("applicants", applicants);
@@ -297,11 +297,11 @@ public class ApplicantController {
     return "applicant/applicant";
   }
 
-  @PostMapping( "/all/search" )
-  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
-    return commonApplicant(model,
-                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
-                                                                                                    dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
-                             , twoDate.getApplicantStatus()));
-  }
+//  @PostMapping( "/all/search" )
+//  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
+//    return commonApplicant(model,
+//                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+//                                                                                                    dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
+//                             , twoDate.getApplicantStatus()));
+//  }
 }

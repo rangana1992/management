@@ -224,24 +224,24 @@
                             <input class="form-control" id="land"
                                    minlength="5" tabindex="5" data-th-field="*{land}"
                                    type="text" />
-                            <span class="error" id="land"
+                            <span class="error" id="landError"
                                   data-th-errors="*{land}"
                                   data-th-if="${#fields.hasErrors('land')}" >Error
                                                                        Calling                                                                                                                        Name</span >
                           </div >
                           <!--Email-->
-                          <!-- <div class="form-group" >
+                          <div class="form-group" >
 
-                             <label class="control-label" for="email" >Email :</label >
+                            <label class="control-label" for="email" >Email :</label >
 
-                             <input class="form-control" id="email" required
-                                    tabindex="16" data-th-field="*{email}"
-                                    type="email" />
-                             <span class="error" id="emailError"
-                                   data-th-errors="*{email}"
-                                   data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
+                            <input class="form-control" id="email" required
+                                   tabindex="16" data-th-field="*{email}"
+                                   type="email" data-th-value="${#authentication.name}"  readonly/>
+                            <span class="error" id="emailError"
+                                  data-th-errors="*{email}"
+                                  data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
 
-                           </div >-->
+                          </div >
                         </div >
                         <!--Gramaniladari find-->
                         <div class="form-row mb-2 col-md-12" >
