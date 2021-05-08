@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment_management.asset.applicant.entity.Enum.Nationality;
-import lk.recruitment_management.asset.applicant_gazette.ApplicantGazzet;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment_management.asset.common_asset.model.Enum.Gender;
 import lk.recruitment_management.asset.grama_niladhari.entity.GramaNiladhari;
@@ -80,8 +79,8 @@ public class Applicant extends AuditEntity {
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
-    @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-    private List< ApplicantGazzet > applicantGazzets;
+    @OneToMany(mappedBy ="applicant" )
+    private List< ApplicantGazette > applicantGazettes;
 
     @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<ApplicantResult> applicantResults;
@@ -92,8 +91,6 @@ public class Applicant extends AuditEntity {
     @OneToMany(mappedBy ="applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NonRelative> nonRelatives;
 
-    @OneToMany(mappedBy ="applicant" )
-    private List< ApplicantInterview > applicantInterviews;
 
     @Transient
     private MultipartFile file;

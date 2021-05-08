@@ -1,11 +1,10 @@
 package lk.recruitment_management.asset.process_management;
 
-import com.itextpdf.text.DocumentException;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
-import lk.recruitment_management.asset.applicant_interview.entity.enums.ApplicantInterviewStatus;
-import lk.recruitment_management.asset.applicant_interview.service.ApplicantInterviewService;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
+import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
@@ -16,22 +15,15 @@ import lk.recruitment_management.util.service.FileHandelService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.stream.events.Characters;
 import java.io.*;
-import java.text.Collator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,18 +35,18 @@ public class InterviewManageController {
   private final ServletContext context;
   private final ApplicantSisCrdCidService applicantSisCrdCidService;
   private final InterviewService interviewService;
-  private final ApplicantInterviewService applicantInterviewService;
+  private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
                                    ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
                                    InterviewService interviewService,
-                                   ApplicantInterviewService applicantInterviewService) {
+                                   ApplicantGazetteInterviewService applicantGazetteInterviewService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
     this.applicantSisCrdCidService = applicantSisCrdCidService;
     this.interviewService = interviewService;
-    this.applicantInterviewService = applicantInterviewService;
+    this.applicantGazetteInterviewService = applicantGazetteInterviewService;
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
@@ -171,9 +163,9 @@ public class InterviewManageController {
   public String firstInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
     Applicant applicant = applicantService.findById(id);
     model.addAttribute("applicantDetail", applicant);
-    model.addAttribute("applicantInterviews", applicantInterviewService.findByApplicant(applicant)
+    model.addAttribute("applicantInterviews", applicantGazetteInterviewService.findByApplicant(applicant)
         .stream()
-        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
+        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
         .collect(Collectors.toList()));
     model.addAttribute("interviews", interviewService.findByInterviewName(InterviewName.FIRST));
     return "interviewSchedule/addApplicantInterviewResult";

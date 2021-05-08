@@ -1,7 +1,7 @@
 package lk.recruitment_management.asset.interview_board.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
 import lk.recruitment_management.asset.employee.entity.Employee;
 import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
@@ -32,6 +32,7 @@ public class InterviewBoard extends AuditEntity {
     @ManyToOne
     private Interview interview;
 
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @Fetch( FetchMode.SUBSELECT)
     @JoinTable(name = "interview_board_employee",
@@ -40,5 +41,5 @@ public class InterviewBoard extends AuditEntity {
     private List<Employee> employees;
 
     @OneToMany(mappedBy = "interviewBoard")
-    private List< ApplicantInterview > applicantInterviews;
+    private List< ApplicantGazetteInterview > applicantGazetteInterviews;
 }

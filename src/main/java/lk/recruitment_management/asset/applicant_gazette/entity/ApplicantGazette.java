@@ -3,6 +3,7 @@ package lk.recruitment_management.asset.applicant_gazette.entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteAttempt;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -10,17 +11,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("ApplicantGazzet")
+@JsonFilter("ApplicantGazette")
 public class ApplicantGazette extends AuditEntity {
 
   @Enumerated( EnumType.STRING)
@@ -32,6 +31,8 @@ public class ApplicantGazette extends AuditEntity {
   @ManyToOne
   private Gazette gazette;
 
+  @OneToMany(mappedBy ="applicantGazette" )
+  private List< ApplicantGazetteInterview > applicantGazetteInterviews;
 
 
 }

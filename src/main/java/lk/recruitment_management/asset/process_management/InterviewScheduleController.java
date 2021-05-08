@@ -3,9 +3,10 @@ package lk.recruitment_management.asset.process_management;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
-import lk.recruitment_management.asset.applicant_interview.entity.enums.ApplicantInterviewStatus;
-import lk.recruitment_management.asset.applicant_interview.service.ApplicantInterviewService;
+import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
+import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.common_asset.model.InterviewSchedule;
 import lk.recruitment_management.asset.common_asset.model.InterviewScheduleList;
 import lk.recruitment_management.asset.district.entity.District;
@@ -25,22 +26,25 @@ import java.util.stream.Collectors;
 public class InterviewScheduleController {
   private final ApplicantService applicantService;
   private final InterviewBoardService interviewBoardService;
-  private final ApplicantInterviewService applicantInterviewService;
+  private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
+  private final ApplicantGazetteService applicantGazetteService;
 
   private final DistrictService districtService;
 
   public InterviewScheduleController(ApplicantService applicantService, InterviewBoardService interviewBoardService,
-                                     ApplicantInterviewService applicantInterviewService,
-                                     DistrictService districtService) {
+                                     ApplicantGazetteInterviewService applicantGazetteInterviewService,
+                                     ApplicantGazetteService applicantGazetteService, DistrictService districtService) {
     this.applicantService = applicantService;
     this.interviewBoardService = interviewBoardService;
-    this.applicantInterviewService = applicantInterviewService;
+    this.applicantGazetteInterviewService = applicantGazetteInterviewService;
+    this.applicantGazetteService = applicantGazetteService;
     this.districtService = districtService;
   }
 
+/*
   @GetMapping
   public String form(Model model) {
-    model.addAttribute("totalApplicantCount", applicantService.countByApplicantStatus(ApplicantStatus.A));
+    model.addAttribute("totalApplicantCount", applicantGazetteService.countByApplicantStatus(ApplicantStatus.A));
     model.addAttribute("interviewBoard", interviewBoardService.findAll()
                            .stream()
                            .filter(x -> x.getInterviewBoardStatus().equals(InterviewBoardStatus.ACT))
@@ -75,23 +79,23 @@ public class InterviewScheduleController {
       for ( Applicant applicant : applicants.subList(startCount, endCount) ) {
         applicant.setApplicantStatus(interviewSchedule.getInterviewNumber());
         //new applicant interview
-        ApplicantInterview applicantInterview = new ApplicantInterview();
+        ApplicantGazetteInterview applicantGazetteInterview = new ApplicantGazetteInterview();
 
-        applicantInterview.setInterviewBoard(interviewBoardService.findById(interviewScheduleList.getInterviewBoardId()));
+        applicantGazetteInterview.setInterviewBoard(interviewBoardService.findById(interviewScheduleList.getInterviewBoardId()));
         //save  applicant and set to applicant interview
-        applicantInterview.setApplicant(applicantService.persist(applicant));
-        applicantInterview.setInterviewDate(interviewScheduleList.getDate());
-        applicantInterview.setApplicantInterviewStatus(ApplicantInterviewStatus.ACT);
-        applicantInterviewService.persist(applicantInterview);
+        applicantGazetteInterview.setApplicant(applicantService.persist(applicant));
+        applicantGazetteInterview.setInterviewDate(interviewScheduleList.getDate());
+        applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.ACT);
+        applicantGazetteInterviewService.persist(applicantGazetteInterview);
       }
 
       startCount = endCount - 1;
     }
 
     model.addAttribute("applicantInterviews",
-                       applicantInterviewService.findAll()
+                       applicantGazetteInterviewService.findAll()
                            .stream()
-                           .filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
+                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
@@ -99,21 +103,22 @@ public class InterviewScheduleController {
   @GetMapping( "/deactivate/{id}" )
   public String deactivate(@PathVariable Integer id, Model model) {
 
-    ApplicantInterview applicantInterview = applicantInterviewService.findById(id);
+    ApplicantGazetteInterview applicantGazetteInterview = applicantGazetteInterviewService.findById(id);
 
-    Applicant applicant = applicantInterview.getApplicant();
+    Applicant applicant = applicantGazetteInterview.getApplicant();
     applicant.setApplicantStatus(ApplicantStatus.REJ);
     applicantService.persist(applicant);
 
-    applicantInterview.setApplicantInterviewStatus(ApplicantInterviewStatus.CL);
-    applicantInterviewService.persist(applicantInterview);
+    applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.CL);
+    applicantGazetteInterviewService.persist(applicantGazetteInterview);
 
     model.addAttribute("applicantInterviews",
-                       applicantInterviewService.findAll()
+                       applicantGazetteInterviewService.findAll()
                            .stream()
-                           .filter(x -> x.getApplicantInterviewStatus().equals(ApplicantInterviewStatus.ACT))
+                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
+*/
 
 }
