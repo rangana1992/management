@@ -1,28 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<!--<body class="hold-transition sidebar-mini layout-fixed">-->
-<body>
-<div class="wrapper"><!-- wrapper start -->
-<!--    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav>&lt;!&ndash; navbar Section &ndash;&gt;-->
-<!--    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside>&lt;!&ndash; navbar Section &ndash;&gt;-->
-    <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <br/><br/><br/><br/><br/>
-<p th:text="${successMessage}"></p>
-<a href="/home"><button class="btn btn-primary">Login</button></a>
-<!--footer is included-->
-</div><!-- content-wrapper end -->
-<div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
-</div><!-- wrapper end -->
-<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+<head th:replace="~{fragments/header :: headerFragment}">
+    <meta charset="UTF-8">
+    <title>Thymeleaf Springboot </title>
+</head>
+<!--need to set light colour image here-->
+<body style="background-image: url('./img/1.jpg')">
+<style>
+    .checkbox-round {
+        width: 1.3em;
+        height: 1.3em;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .checkbox-round:checked {
+        background-color: #2b4c80;
+    }
+</style>
+<div class="">
+    <div class="card" style="padding:100px; background-color: #0c5460; width: 800px; height: 400px; margin: auto; margin-top: 80px; border: #0B0A29; border-radius: 20px">
+        <div class="card-body">
+            <div class="card-header" style="color: white"><h2>Loging via your E-mail Please</h2></div>
+
+            <h3 style="color: white" th:text="${successMessage}"></h3>
+            <br/>
+
+<!--            <button class="btn btn-primary btn-lg" href="/home">Login</button>-->
+
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
