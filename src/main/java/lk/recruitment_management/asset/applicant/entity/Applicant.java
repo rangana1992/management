@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.entity.Enum.ApplyingRank;
 import lk.recruitment_management.asset.applicant.entity.Enum.Nationality;
+import lk.recruitment_management.asset.applicant_gazzet.ApplicantGazzet;
 import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
 import lk.recruitment_management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment_management.asset.common_asset.model.Enum.Gender;
@@ -80,16 +81,16 @@ public class Applicant extends AuditEntity {
     @ManyToOne
     private GramaNiladhari gramaNiladhari;
 
-    @ManyToOne
-    private Gazzet gazzet;
+    @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+    private List< ApplicantGazzet > applicantGazzets;
 
-    @OneToMany(mappedBy ="applicant",  cascade = CascadeType.PERSIST )
+    @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
     private List<ApplicantResult> applicantResults;
 
-    @OneToMany(mappedBy ="applicant" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy ="applicant" , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ApplicantDegreeResult> applicantDegreeResults;
 
-    @OneToMany(mappedBy ="applicant", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy ="applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<NonRelative> nonRelatives;
 
     @OneToMany(mappedBy ="applicant" )
