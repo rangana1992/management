@@ -37,10 +37,9 @@ public class DateTimeAgeService {
         return Period.between(dateOfBirth, today).getYears();
     }
 
-    public String getAgeString(LocalDate dateOfBirth) {
+    public int getAgeString(LocalDate dateOfBirth) {
         LocalDate today = LocalDate.now();
-        int year = Period.between(dateOfBirth, today).getYears();
-        return String.valueOf(year).concat(" Years");
+        return Period.between(dateOfBirth, today).getYears();
     }
 
     /* Converting the LocalDate to LocalDateTime using atStartOfDay() method. This method adds midnight time (start
@@ -56,7 +55,7 @@ public class DateTimeAgeService {
      * nanoOfSecond - the nano-of-second, value range from 0 to 999,999,999
      */
     public LocalDateTime dateTimeToLocalDateEndInDay(LocalDate localDate) {
-        return localDate.atTime(21, 59, 59, 999999999);
+        return localDate.atTime(23, 59, 59, 999999999);
     }
 
     public int getMonthDifference(LocalDate from, LocalDate to) {
