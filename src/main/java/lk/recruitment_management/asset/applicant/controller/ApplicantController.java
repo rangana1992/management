@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,10 +184,15 @@ public class ApplicantController {
   public String addApplicant(@Valid @ModelAttribute Applicant applicant, BindingResult result, Model model
                             ) {
     if ( result.hasErrors() ) {
-      model.addAttribute("addStatus", true);
-      model.addAttribute("applicant", applicant);
-      commonThings(model);
-      return "applicant/addApplicant";
+      result.getAllErrors().forEach(System.out::println);
+      if ( applicant.getId() != null ) {
+        return "redirect:/applicant/add";
+      } else {
+        model.addAttribute("addStatus", true);
+        model.addAttribute("applicant", applicant);
+        commonThings(model);
+        return "applicant/addApplicant";
+      }
     }
     if ( applicant.getId() == null ) {
       Applicant lastApplicant = applicantService.lastApplicant();
@@ -201,9 +207,10 @@ public class ApplicantController {
     try {
       applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
       applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
-//
-//      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//      applicant.setEmail(authentication.getName());
+
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      applicant.setEmail(authentication.getName());
+
       //set no relative to applicant
       if ( !applicant.getNonRelatives().isEmpty() ) {
         List< NonRelative > relatives = new ArrayList<>();
@@ -262,7 +269,7 @@ public class ApplicantController {
       result.addError(error);
       model.addAttribute("addStatus", true);
       model.addAttribute("applicant", applicant);
-commonThings(model);
+      commonThings(model);
       return "applicant/addApplicant";
     }
   }

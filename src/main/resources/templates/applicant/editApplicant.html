@@ -50,15 +50,13 @@
                           <div class="form-row text-right" id="idStatus"
                                data-th-if="${addStatus==false}" >
 
-                            <label class="control-label" for="id" >ID :</label >
-
-
+                            <label class="control-label" for="id" >Code :</label >
                             <input class="form-control" id="id" readonly data-th-field="*{id}"
+                                   type="text" hidden/>
+                            <input class="form-control" id="id" readonly data-th-field="*{code}"
                                    type="text" />
 
                           </div >
-
-
                                                <!--Full Name-->
                           <div class="form-group" >
 
@@ -431,7 +429,7 @@
                                       </select >
                                     </td >
                                     <td >
-                                      <input class="form-control"
+                                      <input class="form-control" minlength="4" maxlength="4"
                                              data-th-name="${'applicantResults[__${index.index}__].year'}"
                                              data-th-value="${studentResult.year}"
                                              type="text" >
@@ -567,20 +565,20 @@
                               <tr data-th-each="applicantDegreeResult, index : ${applicant.applicantDegreeResults}" >
                                 <td >
                                   <input type="text" class="form-control"
-                                         data-th-value="${applicantDegreeResult.degreeName}"
-                                         data-th-name="${'applicantDegreeResults[__${index.index}__].degreeName'}" >
-                                  <input type="text" class="form-control"
                                          data-th-name="${'applicantDegreeResults[__${index.index}__].id'}" hidden
                                          data-th-value="${applicantDegreeResult.id}" >
+                                  <input type="text" class="form-control"
+                                         data-th-value="${applicantDegreeResult.degreeName}"
+                                         data-th-name="${'applicantDegreeResults[__${index.index}__].degreeName'}" >
                                 </td >
                                 <td >
                                   <input type="text" class="form-control"
-                                         data-th-value="${applicantDegreeResult.degreeName}"
-                                         data-th-name="${'applicantDegreeResults[__${index.index}__]universityName'}" >
+                                         data-th-value="${applicantDegreeResult.universityName}"
+                                         data-th-name="${'applicantDegreeResults[__${index.index}__].universityName'}" >
                                 </td >
                                 <td >
-                                  <input type="text" class="form-control"
-                                         data-th-value="${applicantDegreeResult.degreeName}"
+                                  <input type="text" class="form-control" minlength="4" maxlength="4"
+                                         data-th-value="${applicantDegreeResult.year}"
                                          data-th-name="${'applicantDegreeResults[__${index.index}__].year'}" >
                                 </td >
                                 <td >
