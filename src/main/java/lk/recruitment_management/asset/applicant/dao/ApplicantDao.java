@@ -22,5 +22,5 @@ public interface ApplicantDao extends JpaRepository<Applicant, Integer> {
 
   List< Applicant> findByApplicantStatus(ApplicantStatus applicantStatus);
 
-  List< Applicant> findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(LocalDateTime form,LocalDateTime to, ApplyingRank applyingRank, ApplicantStatus applicantStatus);
+  List< Applicant> findByCreatedAtIsBetweenAndApplicantStatus(LocalDateTime form,LocalDateTime to,  ApplicantStatus applicantStatus);
 }

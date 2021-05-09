@@ -300,8 +300,8 @@ public class ApplicantController {
   @PostMapping( "/all/search" )
   public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
     return commonApplicant(model,
-                           applicantService.findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
                                                                                                     dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
-                             , twoDate.getApplyingRank(), twoDate.getApplicantStatus()));
+                             , twoDate.getApplicantStatus()));
   }
 }
