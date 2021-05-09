@@ -2,8 +2,8 @@ package lk.recruitment_management.asset.applicant.dao;
 
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
-import lk.recruitment_management.asset.applicant.entity.Enum.ApplyingRank;
+import lk.recruitment_management.asset.applicant.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

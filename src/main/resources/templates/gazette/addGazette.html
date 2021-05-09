@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head data-th-replace="~{fragments/header :: headerFragment}" >
+  <meta charset="UTF-8" >
+  <title >Thymeleaf Springboot </title >
+</head >
+<body >
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+
+<div class="container-fluid  form-Border" >
+  <div class="row text-center formManagement border-info" >
+    <div class="col" >
+      <a class="btn btn-primary" href="/home" >
+        <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp; Home
+      </a >
+    </div >
+    <div class="col" >
+      <h4 class="text-light text-center" >
+        <strong >
+                    <span
+                          data-th-text="${addStatus==true?'New School Add':'Update School Details'}" ></span >
+        </strong >
+      </h4 >
+    </div >
+    <div class="col" >
+      <a class="btn btn-primary" href="/school" >
+        <i class="fa fa-list" ></i >&nbsp; View List
+      </a >
+    </div >
+  </div >
+</div >
+<!--Form Content - start -->
+<div class="container-fluid  " >
+  <div class="col-sm-12 flex-column " >
+    <form data-th-action="${addStatus==true?'/gazette/save':'/gazette/update'}"
+          data-th-object="${gazette}"
+          method="POST" >
+      <div class="row" >
+        <!--Left Side-->
+        <div class="form-group col-md-6 col-sm-6 text-left flex-column" >
+          <input data-th-field="*{id}" data-th-if="${addStatus==false}" hidden type="text" />
+
+          <!--Name-->
+          <div class="form-row text-right" >
+            <div class="col-md-4" >
+              <label class="control-label" for="name" >Name :</label >
+            </div >
+            <div class="col-md-8" >
+              <input class="form-control" data-th-field="*{name}" id="name" required tabindex="4"
+                     type="text" />
+              <span class="error" data-th-errors="*{name}"
+                    data-th-if="${#fields.hasErrors('name')}" id="nameError" >Error Name</span >
+            </div >
+          </div >
+        </div >
+        <!--gazetteStatus-->
+        <div class="form-row text-right" >
+          <div class="col-md-4" >
+            <label class="control-label" >Gazette Status :</label >
+          </div >
+          <div class="col-md-8" >
+            <div class="custom-control custom-checkbox custom-control-inline "
+                 data-th-each="gazetteStatus,index : ${gazetteStatuses}" >
+              <input class="custom-control-input gender" required
+                     data-th-name="${'gazetteStatus'}"
+                     data-th-value="${gazetteStatus}"
+                     data-th-id="${index.index}+${gazetteStatus}"
+                     type="radio"
+                     data-th-checked="${gazetteStatus==gazetteStatus}" />
+              <label class="custom-control-label"
+                     data-th-for="${index.index}+${gazetteStatus}"
+                     data-th-text="${gazetteStatus.gazetteStatus}" > radio
+              </label >
+            </div >
+          </div >
+        </div >
+        <!--Button-->
+        <div class="form-group col-md-12 col-sm-12 text-center flex-column " >
+          <button class="btn btn-success" tabindex="21" type="submit" >
+            <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp; &nbsp;<span
+                data-th-text="${addStatus==true?'Save': 'Update'}"
+                id="submit" ></span >
+          </button >
+        </div >
+        <div class="form-row" >
+          <label data-th-if="${#fields.hasErrors('*')}" data-th-text="'Errors: '"
+                 id="errorLabel" >Errors: </label >
+          <ul >
+            <li class="error" data-th-each="err: ${#fields.errors('*')}" data-th-text="${err}"
+                id="error" ></li >
+          </ul >
+        </div >
+      </div >
+    </form >
+  </div >
+</div >
+<!--footer include-->
+<footer data-th-replace="~{fragments/footer :: footerFragment}" ></footer >
+<!--script include-->
+<script data-th-replace="~{fragments/script :: scriptFragment}" ></script >
+
+</body >
+</html >

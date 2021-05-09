@@ -35,7 +35,7 @@
 </div >
 
 <div class="container-fluid" >
-  <form action="" data-th-object="${applicantInterview}" data-th-each="applicantInterview : ${applicantInterviews}" >
+  <form action="" data-th-object="${applicantGazetteInterview}" data-th-each="applicantGazetteInterview : ${applicantInterviews}" >
     <!--applicant-->
     <input type="hidden" name="applicant" data-th-value="${applicantDetail.id}" >
     <!--interview date-->
@@ -53,14 +53,14 @@
       <div class="form-group row" >
         <label class="col-sm-2 col-form-label " > Id </label >
         <div class="col-sm-10" >
-          <p class="display_detail" data-th-text="${applicantInterview.interviewBoard.id}" ></p >
+          <p class="display_detail" data-th-text="${applicantGazetteInterview.interviewBoard.id}" ></p >
         </div >
       </div >
 
       <div class="form-group row" >
         <label class="col-sm-2 col-form-label " > Name </label >
         <div class="col-sm-10" >
-          <p class="display_detail" data-th-text="${applicantInterview.interviewBoard.name}" ></p >
+          <p class="display_detail" data-th-text="${applicantGazetteInterview.interviewBoard.name}" ></p >
         </div >
       </div >
 
@@ -68,7 +68,7 @@
         <label class="col-sm-2 col-form-label " > Interview Status </label >
         <div class="col-sm-10" >
           <p class="display_detail"
-             data-th-text="${applicantInterview.interviewBoard.interviewBoardStatus.interviewBoardStatus}" ></p >
+             data-th-text="${applicantGazetteInterview.interviewBoard.interviewBoardStatus.interviewBoardStatus}" ></p >
         </div >
       </div >
 
@@ -77,7 +77,7 @@
         <label class="col-sm-2 col-form-label " > Interview Parameter </label >
         <div class="col-sm-10" >
           <p class="display_detail"
-             data-th-each="employee : ${applicantInterview.interviewBoard.employees}"
+             data-th-each="employee : ${applicantGazetteInterview.interviewBoard.employees}"
              data-th-text="${employee.name} + ${'  '}+${employee.designation}" ></p >
         </div >
       </div >

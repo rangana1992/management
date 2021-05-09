@@ -124,22 +124,6 @@
                                   data-th-if="${#fields.hasErrors('dateOfBirth')}"
                                   class="error" >Error Birthday</span >
                           </div >
-                                               <!--Designation-->
-                          <div class="form-group" >
-
-                            <label class="control-label" for="applyingRank" >Applying Rank
-                                                                             :</label >
-
-                            <select class="form-control" id="applyingRank"
-                                    required tabindex="10"
-                                    data-th-field="*{applyingRank}" >
-                              <option value="" >Please select</option >
-                              <option data-th-each="applyingRank : ${applyingRanks}"
-                                      data-th-text="${applyingRank.applyingRank}"
-                                      data-th-value="${applyingRank}" ></option >
-                            </select >
-
-                          </div >
                                                <!--Nationality-->
                           <div class="form-group" >
 
@@ -246,18 +230,18 @@
                                                                        Calling                                                                                                                        Name</span >
                           </div >
                           <!--Email-->
-                         <!-- <div class="form-group" >
+                          <!-- <div class="form-group" >
 
-                            <label class="control-label" for="email" >Email :</label >
+                             <label class="control-label" for="email" >Email :</label >
 
-                            <input class="form-control" id="email" required
-                                   tabindex="16" data-th-field="*{email}"
-                                   type="email" />
-                            <span class="error" id="emailError"
-                                  data-th-errors="*{email}"
-                                  data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
+                             <input class="form-control" id="email" required
+                                    tabindex="16" data-th-field="*{email}"
+                                    type="email" />
+                             <span class="error" id="emailError"
+                                   data-th-errors="*{email}"
+                                   data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
 
-                          </div >-->
+                           </div >-->
                         </div >
                         <!--Gramaniladari find-->
                         <div class="form-row mb-2 col-md-12" >
