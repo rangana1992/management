@@ -6,9 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum InternalDivision {
-  SIS("State Intelligence Service"),
-  CRD("Crime Record Division"),
-  CID("Criminal Investigation Department");
+  SIS("State Intelligence S"),
+  CRD("Crime Record D"),
+  CID("Criminal Investigation D"),
+  NOT("Not Match with this which requested report");
 
   private final String internalDivision;
 }

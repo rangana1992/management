@@ -1,13 +1,15 @@
 package lk.recruitment_management.asset.applicant.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
-import lk.recruitment_management.asset.applicant.entity.Enum.ApplyingRank;
-import lk.recruitment_management.asset.applicant.entity.Enum.Nationality;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
+import lk.recruitment_management.asset.applicant.entity.enums.Nationality;
+import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment_management.asset.common_asset.model.Enum.Gender;
 import lk.recruitment_management.asset.grama_niladhari.entity.GramaNiladhari;
+import lk.recruitment_management.asset.non_relative.entity.NonRelative;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,96 +25,89 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("Applicant")
+@JsonFilter( "Applicant" )
 public class Applicant extends AuditEntity {
 
-    @Column(nullable = false, unique = true)
-    private String code;
+  @Column( nullable = false, unique = true )
+  private String code;
 
-    @Column(nullable = false)
-    private String nameInFullName;
+  @Column( nullable = false )
+  private String nameInFullName;
 
+  @Column( nullable = false )
+  private String nameWithInitial;
 
-    @Column(nullable = false)
-    private String nameWithInitial;
+  @Column( nullable = false )
+  private String nic;
 
+  @Column( nullable = false )
+  private String height;
 
-    @Column(nullable = false)
-    private String nic;
+  @Column( nullable = false )
+  private String weight;
 
-    @Enumerated(EnumType.STRING)
-    private ApplyingRank applyingRank;
+  @Column( nullable = false )
+  private String chest;
 
-    @Column(nullable = false)
-    private String height;
+  @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
+  private String mobile;
 
+  private String land;
 
-    @Column(nullable = false)
-    private String weight;
+  @Column( unique = true )
+  private String email;
 
+  @Column( columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255 )
+  private String address;
 
-    @Column(nullable = false)
-    private String chest;
+  @Enumerated( EnumType.STRING )
+  private Gender gender;
 
-    @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
-    private String mobile;
+  @Enumerated( EnumType.STRING )
+  private CivilStatus civilStatus;
 
+  @Enumerated( EnumType.STRING )
+  private Nationality nationality;
 
-    private String land;
+  @DateTimeFormat( pattern = "yyyy-MM-dd" )
+  private LocalDate dateOfBirth;
 
-    @Column(unique = true)
-    private String email;
+  @ManyToOne
+  private GramaNiladhari gramaNiladhari;
 
-    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255)
-    private String address;
+  @OneToMany( mappedBy = "applicant" )
+  private List< ApplicantGazette > applicantGazettes;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+  @OneToMany( mappedBy = "applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private List< ApplicantResult > applicantResults;
 
-    @Enumerated(EnumType.STRING)
-    private CivilStatus civilStatus;
+  @OneToMany( mappedBy = "applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private List< ApplicantDegreeResult > applicantDegreeResults;
 
-    @Enumerated(EnumType.STRING)
-    private Nationality nationality;
-
-    @Enumerated(EnumType.STRING)
-    private ApplicantStatus applicantStatus;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
-
-    @ManyToOne
-    private GramaNiladhari gramaNiladhari;
-
-    @OneToMany(mappedBy ="applicant",  cascade = CascadeType.PERSIST )
-    private List<ApplicantResult> applicantResults;
-
-    @OneToMany(mappedBy ="applicant" , cascade = CascadeType.PERSIST)
-    private List<ApplicantDegreeResult> applicantDegreeResults;
-
-    @OneToMany(mappedBy ="applicant", cascade = CascadeType.PERSIST)
-    private List<NonRelative> nonRelatives;
-
-    @OneToMany(mappedBy ="applicant" )
-    private List< ApplicantInterview > applicantInterviews;
-
-    @Transient
-    private MultipartFile file;
-
-    @Transient
-    private MultipartFile nicImage;
-
-    @Transient
-    private MultipartFile birthCertificateImage;
-
-    @Transient
-    private MultipartFile gramaNilahdariImage;
-
-    @Transient
-    private List<MultipartFile> educationalImages;
-
-    @Transient
-    private List<MultipartFile> sportImages;
+  @OneToMany( mappedBy = "applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private List< NonRelative > nonRelatives;
 
 
+  @Transient
+  private MultipartFile file;
+
+  @Transient
+  private MultipartFile nicImage;
+
+  @Transient
+  private MultipartFile birthCertificateImage;
+
+  @Transient
+  private MultipartFile gramaNilahdariImage;
+
+  @Transient
+  private List< MultipartFile > educationalImages;
+
+  @Transient
+  private List< MultipartFile > sportImages;
+
+
+  public Applicant(String email) {
+    this.email = email;
+  }
 }

@@ -42,7 +42,7 @@
       <th > Name</th >
       <th > Rank</th >
       <th > Police Station</th >
-      <th > Modify</th >
+      <th data-th-if="${addStatus}"> Modify</th >
     </tr >
     </thead >
     <tbody >
@@ -54,11 +54,10 @@
       <td data-th-text="${applicant.gramaNiladhari.policeStation.name}" ></td >
       <td data-th-if="${addStatus}">
         <!--result enter button-->
-        <a data-th-href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
+        <a data-th-href="${'/interviewManage/'+ resultEnter + '/' + applicant.id}" class="btn btn-success btn-sm" ><i
               class="fa fa-folder-open" ></i >&nbsp;Result Enter</a >
         <!--absent mark-->
-        <a data-th-href="${'/applicant/remove/' + applicant.id}"
-           data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+        <a data-th-href="${'/interviewManage/'+'absent/'+ resultEnter + '/' + applicant.id}"
            class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
           Absent</a >
       </td >

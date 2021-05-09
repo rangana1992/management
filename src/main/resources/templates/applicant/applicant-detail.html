@@ -1,242 +1,235 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
-    <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!-- Form Header  Path -->
 
 
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div align="right" data-th-fragment="applicantDetailsFragment"
-                                             class="container-fluid formBorder">
+    <div class="content-header" >
+      <div class="container-fluid" >
+        <div class="row" >
+          <div class="col-md-12" >
+            <div class="row" >
+              <div class="col-md-12" >
+                <div class="card" >
+                  <div class="card-body" >
+                    <div align="right" data-th-fragment="applicantDetailsFragment"
+                         class="container-fluid formBorder" >
 
-                                            <form role="form">
-                                                <!--                                                <p data-th-text="${applicantDetail.title.title} +${' '} +${applicantDetail.name}"></p>-->
-                                                <a href="/applicant" class="btn btn-primary">
-                                                    <i class="fa fa-list"></i>&nbsp; View List
-                                                </a>
-                                                <a href="/home">
-                                                    <button class="btn btn-success" type="button" tabindex="10">
-                                                        <i class="fa fa-backward " style="font-size: 20px"></i>&nbsp;
-                                                        Home
-                                                    </button>
-                                                </a>
+                      <form role="form" >
+                        <!--                                                <p data-th-text="${applicantDetail.title.title} +${' '} +${applicantDetail.name}"></p>-->
+                        <a href="/applicant" class="btn btn-primary" >
+                          <i class="fa fa-list" ></i >&nbsp; View List
+                        </a >
+                        <a href="/home" >
+                          <button class="btn btn-success" type="button" tabindex="10" >
+                            <i class="fa fa-backward " style="font-size: 20px" ></i >&nbsp;
+                                                                                     Home
+                          </button >
+                        </a >
 
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4>Applicant Details</h4>
-                                <div class="row">
-
-                                    <div class="col-md-6">
+                      </form >
+                    </div >
+                  </div >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
 
 
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Full Name:</label>
-                                            <div class="form-control  col-md-9" id="nameInFullName"
-                                                 data-th-text="${applicantDetail.nameInFullName}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label  col-md-3" for="nameWithInitial">Name with
-                                                Initial :</label>
-                                            <div class="form-control  col-md-9" id="nameWithInitial"
-                                                 data-th-text="${applicantDetail.nameWithInitial}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">NIC No:</label>
-                                            <div class="form-control  col-md-9" id="nic"
-                                                 data-th-text="${applicantDetail.nic}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Applying Rank:</label>
-                                            <div class="form-control  col-md-9" id="applyingRank"
-                                                 data-th-text="${applicantDetail.applyingRank}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Height:</label>
-                                            <div class="form-control  col-md-9" id="height"
-                                                 data-th-text="${applicantDetail.height}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Weight:</label>
-                                            <div class="form-control  col-md-9" id="weight"
-                                                 data-th-text="${applicantDetail.weight}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Chest:</label>
-                                            <div class="form-control  col-md-9" id="chest"
-                                                 data-th-text="${applicantDetail.chest}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Mobile:</label>
-                                            <div class="form-control  col-md-9" id="mobile"
-                                                 data-th-text="${applicantDetail.mobile}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Land:</label>
-                                            <div class="form-control  col-md-9" id="land"
-                                                 data-th-text="${applicantDetail.land}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Email:</label>
-                                            <div class="form-control  col-md-9" id="email"
-                                                 data-th-text="${applicantDetail.email}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Address:</label>
-                                            <div class="form-control  col-md-9" id="address"
-                                                 data-th-text="${applicantDetail.address}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Gender:</label>
-                                            <div class="form-control  col-md-9" id="gender"
-                                                 data-th-text="${applicantDetail.gender}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Civil Status:</label>
-                                            <div class="form-control  col-md-9" id="civilStatus"
-                                                 data-th-text="${applicantDetail.civilStatus}"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <!--image-->
-                                        <div>
-                                            <div  id="filesList"
-                                                 data-th-each="file, rowStat: ${files}">
+    <div class="content-header" data-th-fragment="applicantDetailsFragment" >
+      <div class="container-fluid" >
+        <div class="row" >
+          <div class="col-md-12" >
+            <div class="card" >
+              <div class="card-body" >
+                <h4 >Applicant Details</h4 >
+                <div class="row" >
 
-                                                    <div align="center">
-                                                        <img id="img" class="rounded"
-                                                             style="height: 200px; width: 200px; border-radius: 10px; margin: 15px"
-                                                             alt="Employee images"
-                                                             data-th-src="${file.url}"/>
-                                                    </div>
+                  <div class="col-md-6" >
 
-                                            </div>
-                                        </div>
 
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Nationality:</label>
-                                            <div class="form-control  col-md-9" id="nationality"
-                                                 data-th-text="${applicantDetail.nationality}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Applicant Status:</label>
-                                            <div class="form-control  col-md-9" id="applicantStatus"
-                                                 data-th-text="${applicantDetail.applicantStatus}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Date of Birth</label>
-                                            <div class="form-control  col-md-9" id="dateOfBirth"
-                                                 data-th-text="${applicantDetail.dateOfBirth}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Age</label>
-                                            <div class="form-control  col-md-9"
-                                                 data-th-text="${age}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Grama Niladhari:</label>
-                                            <div class="form-control  col-md-9" id="gramaNiladhari"
-                                                 data-th-text="${applicantDetail.gramaNiladhari.name}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3" for="id">Applicant Results:</label>
-                                            <div class="form-control  col-md-9" id="applicantResults"
-                                                 data-th-text="${applicantDetail.applicantResults}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label  col-md-3" for="id">Non Relatives:</label>
-                                            <div class="form-control  col-md-9" id="file"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
-                                            <label class="control-label col-md-3 " for="id">Full Name:</label>
-                                            <div class="form-control  col-md-9" id="id"
-                                                 data-th-text="${applicantDetail.nameInFullName}"></div>
-                                        </div>
-                                        <div class=" form-row p-3">
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Full Name:</label >
+                      <div class="form-control  col-md-9" id="nameInFullName"
+                           data-th-text="${applicantDetail.nameInFullName}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label  col-md-3" for="nameWithInitial" >Name with
+                                                                                    Initial :</label >
+                      <div class="form-control  col-md-9" id="nameWithInitial"
+                           data-th-text="${applicantDetail.nameWithInitial}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >NIC No:</label >
+                      <div class="form-control  col-md-9" id="nic"
+                           data-th-text="${applicantDetail.nic}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Height:</label >
+                      <div class="form-control  col-md-9" id="height"
+                           data-th-text="${applicantDetail.height}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Weight:</label >
+                      <div class="form-control  col-md-9" id="weight"
+                           data-th-text="${applicantDetail.weight}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Chest:</label >
+                      <div class="form-control  col-md-9" id="chest"
+                           data-th-text="${applicantDetail.chest}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Mobile:</label >
+                      <div class="form-control  col-md-9" id="mobile"
+                           data-th-text="${applicantDetail.mobile}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Land:</label >
+                      <div class="form-control  col-md-9" id="land"
+                           data-th-text="${applicantDetail.land}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Email:</label >
+                      <div class="form-control  col-md-9" id="email"
+                           data-th-text="${applicantDetail.email}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Address:</label >
+                      <div class="form-control  col-md-9" id="address"
+                           data-th-text="${applicantDetail.address}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Gender:</label >
+                      <div class="form-control  col-md-9" id="gender"
+                           data-th-text="${applicantDetail.gender}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Civil Status:</label >
+                      <div class="form-control  col-md-9" id="civilStatus"
+                           data-th-text="${applicantDetail.civilStatus}" ></div >
+                    </div >
+                  </div >
+                    <!--image-->
+                  <div class="col-md-6" >
+                    <div >
+                      <div id="filesList"
+                           data-th-each="file, rowStat: ${files}" >
 
-                                            <label class="control-label  col-md-3" for="updatedAt">Updated At :</label>
+                        <div align="center" >
+                          <img id="img" class="rounded"
+                               style="height: 200px; width: 200px; border-radius: 10px; margin: 15px"
+                               alt="Employee images"
+                               data-th-src="${file.url}" />
+                        </div >
 
-                                            <div class="form-control  col-md-9" id="updatedAt"
-                                                 data-th-text="${{applicantDetail.updatedAt}}"
-                                            ></div>
+                      </div >
+                    </div >
 
-                                        </div>
-                                        <!--                                        <div class="form-group">-->
-                                        <!--&lt;!&ndash;                                            <div class="col" id="photoDetails">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                <div>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                    <label class="control-label ">Photo Details : </label>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                <div class="row">&ndash;&gt;-->
-                                        <!--                                                    <div class="col" id="filesList"-->
-                                        <!--                                                         data-th-each="file, rowStat: ${files}">-->
-                                        <!--&lt;!&ndash;                                                        <div class="col">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                            <div class="alert alert-warning alert-dismissible fade show"&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                                 role="alert">&ndash;&gt;-->
-                                        <!--                                                                <div class="card text-center">-->
-                                        <!--                                                                    <div class="card">-->
-                                        <!--                                                                        <img id="img" class="rounded"-->
-                                        <!--                                                                             style="height: 150px; width: 150px; border-radius: 10px"-->
-                                        <!--                                                                             alt="Employee images"-->
-                                        <!--                                                                             data-th-src="${file.url}"/>-->
-                                        <!--                                                                    </div>-->
-                                        <!--&lt;!&ndash;                                                                    <div class="card-footer bg-secondary text-light text-center">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                                        <p id="imgName"&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                                           data-th-text="${file.filename}"></p>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                                        <span> Uploaded Date :&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                            <p id="imgCreateAt" data-th-text="${{file.createAt}}"></p>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                            </span>&ndash;&gt;-->
-                                        <!--&lt;!&ndash;                                                                    </div>&ndash;&gt;-->
-                                        <!--                                                                </div>-->
-                                        <!--                                                            </div>-->
-                                        <!--                                                        </div>-->
-                                    </div>
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Nationality:</label >
+                      <div class="form-control  col-md-9" id="nationality"
+                           data-th-text="${applicantDetail.nationality}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Applicant Status:</label >
+                      <div class="form-control  col-md-9" id="applicantStatus"
+                           data-th-text="${applicantDetail.applicantStatus}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Date of Birth</label >
+                      <div class="form-control  col-md-9" id="dateOfBirth"
+                           data-th-text="${applicantDetail.dateOfBirth}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Age</label >
+                      <div class="form-control  col-md-9"
+                           data-th-text="${age}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Grama Niladhari:</label >
+                      <div class="form-control  col-md-9" id="gramaNiladhari"
+                           data-th-text="${applicantDetail.gramaNiladhari.name}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3" for="id" >Applicant Results:</label >
+                      <div class="form-control  col-md-9" id="applicantResults"
+                           data-th-text="${applicantDetail.applicantResults}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label  col-md-3" for="id" >Non Relatives:</label >
+                      <div class="form-control  col-md-9" id="file" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
+                      <label class="control-label col-md-3 " for="id" >Full Name:</label >
+                      <div class="form-control  col-md-9" id="id"
+                           data-th-text="${applicantDetail.nameInFullName}" ></div >
+                    </div >
+                    <div class=" form-row p-3" >
 
-                                    <a th:href="${'/applicant/approve/' + applicantDetail.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Approved</a>
-                                    <a th:href="${'/applicant/reject/' + applicantDetail.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Reject</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
+                      <label class="control-label  col-md-3" for="updatedAt" >Updated At :</label >
 
-</div><!-- content-wrapper end -->
-<footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer>
-<!-- footer Section -->
-</div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script>
+                      <div class="form-control  col-md-9" id="updatedAt"
+                           data-th-text="${{applicantDetail.updatedAt}}"
+                      ></div >
+
+                    </div >
+                    <!--                                        <div class="form-group">-->
+                    <!--&lt;!&ndash;                                            <div class="col" id="photoDetails">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                    <label class="control-label ">Photo Details : </label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                <div class="row">&ndash;&gt;-->
+                    <!--                                                    <div class="col" id="filesList"-->
+                    <!--                                                         data-th-each="file, rowStat: ${files}">-->
+                    <!--&lt;!&ndash;                                                        <div class="col">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                            <div class="alert alert-warning alert-dismissible fade show"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                                 role="alert">&ndash;&gt;-->
+                    <!--                                                                <div class="card text-center">-->
+                    <!--                                                                    <div class="card">-->
+                    <!--                                                                        <img id="img" class="rounded"-->
+                    <!--                                                                             style="height: 150px; width: 150px; border-radius: 10px"-->
+                    <!--                                                                             alt="Employee images"-->
+                    <!--                                                                             data-th-src="${file.url}"/>-->
+                    <!--                                                                    </div>-->
+                    <!--&lt;!&ndash;                                                                    <div class="card-footer bg-secondary text-light text-center">&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                                        <p id="imgName"&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                                           data-th-text="${file.filename}"></p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                                        <span> Uploaded Date :&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            <p id="imgCreateAt" data-th-text="${{file.createAt}}"></p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                            </span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;                                                                    </div>&ndash;&gt;-->
+                    <!--                                                                </div>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                  </div >
+
+                  <a th:href="${'/applicant/approve/' + applicantDetail.id}" class="btn btn-primary btn-sm" ><i
+                        class="fa fa-edit" ></i >&nbsp;Approved</a >
+                  <a th:href="${'/applicant/reject/' + applicantDetail.id}" class="btn btn-primary btn-sm" ><i
+                        class="fa fa-edit" ></i >&nbsp;Reject</a >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
+  </div >
+</div >
+<!-- content-wrapper end -->
+<footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer >
+<!-- footer Section --><!-- wrapper end -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></script >
 <!-- script Fragment -->
-</body>
-</html>
+</body >
+</html >

@@ -19,7 +19,9 @@ import java.util.List;
 @NoArgsConstructor
 @JsonFilter("InterviewParameter")
 public class InterviewParameter extends AuditEntity {
+
     private String name;
+
     private String max;
 
     @ManyToMany(mappedBy = "interviewParameters")

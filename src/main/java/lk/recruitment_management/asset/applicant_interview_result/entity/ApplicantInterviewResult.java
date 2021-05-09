@@ -1,7 +1,7 @@
 package lk.recruitment_management.asset.applicant_interview_result.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant_interview.entity.ApplicantInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
 import lk.recruitment_management.asset.interview_parameter.entity.InterviewParameter;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -26,6 +26,6 @@ public class ApplicantInterviewResult extends AuditEntity {
   private InterviewParameter interviewParameter;
 
   @ManyToOne
-  private ApplicantInterview applicantInterview;
+  private ApplicantGazetteInterview applicantGazetteInterview;
 
 }

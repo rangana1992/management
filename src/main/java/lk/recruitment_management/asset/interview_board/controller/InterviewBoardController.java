@@ -2,7 +2,7 @@ package lk.recruitment_management.asset.interview_board.controller;
 
 import lk.recruitment_management.asset.employee.service.EmployeeService;
 import lk.recruitment_management.asset.interview.service.InterviewService;
-import lk.recruitment_management.asset.interview_board.entity.Enum.InterviewBoardStatus;
+import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
 import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment_management.asset.interview_board.service.InterviewBoardService;
 import lk.recruitment_management.util.interfaces.AbstractController;

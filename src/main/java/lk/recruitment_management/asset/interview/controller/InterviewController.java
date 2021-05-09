@@ -1,5 +1,6 @@
 package lk.recruitment_management.asset.interview.controller;
 
+import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewStatus;
 import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.asset.interview.service.InterviewService;
@@ -30,6 +31,7 @@ public class InterviewController implements AbstractController<Interview, Intege
     private String commonThing(Model model, Boolean booleanValue, Interview interview) {
         model.addAttribute("addStatus", booleanValue);
         model.addAttribute("interview", interview);
+        model.addAttribute("interviewNames", InterviewName.values());
         model.addAttribute("interviewParameters",interviewParameterService.findAll());
         model.addAttribute("interviewStatuss", InterviewStatus.values());
         return "interview/addInterview";
@@ -42,11 +44,6 @@ public class InterviewController implements AbstractController<Interview, Intege
    return "interview/interview";
 
     }
-//    @GetMapping("/test")
-//    public String findAlla(Model model) {
-//        model.addAttribute("interviews", interviewService.findAll());
-//        return "interview/interviewDateSet";
-//    }
 
 
     @GetMapping("/add")

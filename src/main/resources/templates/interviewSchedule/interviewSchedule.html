@@ -10,7 +10,7 @@
   <div class="content-wrapper"><!-- content-wrapper Start -->
     <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
 
-
+<div></div>
 <div class="container" >
   <p >All Active Schedule Interview </p >
 </div >
@@ -26,12 +26,12 @@
     </tr >
     </thead >
     <tbody >
-    <tr data-th-each="applicantInterview, index : ${applicantInterviews}" >
+    <tr data-th-each="applicantGazetteInterview, index : ${applicantInterviews}" >
       <td data-th-text="${index.count}" ></td >
-      <td data-th-text="${{applicantInterview.date}}" ></td >
-      <td data-th-text="${applicantInterview.interviewBoard.name}" ></td >
-      <td data-th-text="${applicantInterview.applicant.name}" ></td >
-      <td ><a data-th-href="${'/interviewSchedule/deactivate/'+applicantInterview.id}" >
+      <td data-th-text="${{applicantGazetteInterview.date}}" ></td >
+      <td data-th-text="${applicantGazetteInterview.interviewBoard.name}" ></td >
+      <td data-th-text="${applicantGazetteInterview.applicant.name}" ></td >
+      <td ><a data-th-href="${'/interviewSchedule/deactivate/'+applicantGazetteInterview.id}" >
         <button type="button" class="btn btn-danger" >Deactivate</button >
       </a ></td >
     </tr >
