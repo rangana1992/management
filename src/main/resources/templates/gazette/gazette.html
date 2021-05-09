@@ -11,7 +11,7 @@
     <div class="row text-center formManagement border-info">
         <div class="col">
             <a class="btn btn-success" href="/gazette/add"><i class="fa fa-user-plus"></i>
-                &nbsp; New Author</a>
+                &nbsp; New Gazette</a>
         </div>
         <div class="col">
             <h4 class="text-info text-center">
@@ -21,30 +21,28 @@
             </h4>
         </div>
         <div class="col">
-            <!-- <a href="/gazette/workingPlace" id="searchShow" class="btn btn-primary">
-                 <i class="fa fa-user " style="font-size: 20px"></i>&nbsp;Add&nbsp;
-                 <i class="fas fa-store-alt" style="font-size: 20px"></i>
-                 &nbsp;
-             </a>-->
+
         </div>
     </div>
 </div>
 <div class="container-fluid   text-center">
     <div class="col">
-        <div class="col" id="authorListPresent" data-th-if="${not #lists.isEmpty(authors)}">
+        <div class="col" id="authorListPresent" data-th-if="${not #lists.isEmpty(gazettes)}">
             <table class="table table-hover table-striped" id="myTable">
                 <thead>
                 <tr>
                     <th> Index</th>
                     <th> Name</th>
+                    <th> Request Age</th>
                     <th> Status </th>
                     <th> Modify</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-th-each="gazette, rowCount : ${authors}">
+                <tr data-th-each="gazette, rowCount : ${gazettes}">
                     <th data-th-text="${rowCount.count}"></th>
                     <th data-th-text="${gazette.name}"></th>
+                    <th data-th-text="${gazette.age}"></th>
                     <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
                     <th>
                         <a data-th-href="${'/gazette/edit/' + gazette.id}"
@@ -60,7 +58,7 @@
             </table>
         </div>
     </div>
-    <div class="row" data-th-if="${ #lists.isEmpty(authors)}">
+    <div class="row" data-th-if="${ #lists.isEmpty(gazettes)}">
         <div class="col-sm-12">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

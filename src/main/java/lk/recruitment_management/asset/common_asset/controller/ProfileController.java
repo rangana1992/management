@@ -22,56 +22,55 @@ import java.security.Principal;
 
 @Controller
 public class ProfileController {
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final ApplicantService applicantService;
+  private final UserService userService;
+  private final PasswordEncoder passwordEncoder;
+  private final ApplicantService applicantService;
 
-    @Autowired
-    public ProfileController(UserService userService, PasswordEncoder passwordEncoder, ApplicantService applicantService) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.applicantService = applicantService;
+  @Autowired
+  public ProfileController(UserService userService, PasswordEncoder passwordEncoder,
+                           ApplicantService applicantService) {
+    this.userService = userService;
+    this.passwordEncoder = passwordEncoder;
+    this.applicantService = applicantService;
+  }
+
+  @GetMapping( value = "/profile" )
+  public String userProfile(Model model, Principal principal) {
+    User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+    Applicant applicant = applicantService.findByEmail(authUser.getUsername());
+    if ( applicant != null ) {
+      return "redirect:/applicant/" + applicant.getId();
     }
+    model.addAttribute("addStatus", true);
+    model.addAttribute("employeeDetail", userService.findByUserName(principal.getName()).getEmployee());
+    return "employee/employee-detail";
+  }
 
-    @GetMapping( value = "/profile" )
-    public String userProfile(Model model, Principal principal) {
-        User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        for ( Role role : authUser.getRoles() ) {
-            Applicant applicant = applicantService.findByEmail(authUser.getUsername());
-            if ( role.getRoleName().equals("APPLICANT") ) {
-                return "redirect:/applicant/"+applicant.getId();
-            }
-        }
-        model.addAttribute("addStatus", true);
-        model.addAttribute("employeeDetail", userService.findByUserName(principal.getName()).getEmployee());
-        return "employee/employee-detail";
-    }
+  @GetMapping( value = "/passwordChange" )
+  public String passwordChangeForm(Model model) {
+    model.addAttribute("pswChange", new PasswordChange());
+    return "login/passwordChange";
+  }
 
-    @GetMapping( value = "/passwordChange" )
-    public String passwordChangeForm(Model model) {
-        model.addAttribute("pswChange", new PasswordChange());
-        return "login/passwordChange";
-    }
+  @PostMapping( value = "/passwordChange" )
+  public String passwordChange(@Valid @ModelAttribute PasswordChange passwordChange,
+                               BindingResult result, RedirectAttributes redirectAttributes) {
+    User user =
+        userService.findById(userService.findByUserIdByUserName(SecurityContextHolder.getContext().getAuthentication().getName()));
 
-    @PostMapping( value = "/passwordChange" )
-    public String passwordChange(@Valid @ModelAttribute PasswordChange passwordChange,
-                                 BindingResult result, RedirectAttributes redirectAttributes) {
-        User user =
-                userService.findById(userService.findByUserIdByUserName(SecurityContextHolder.getContext().getAuthentication().getName()));
+    if ( passwordEncoder.matches(passwordChange.getOldPassword(), user.getPassword()) && !result.hasErrors() && passwordChange.getNewPassword().equals(passwordChange.getNewPasswordConform()) ) {
 
-        if ( passwordEncoder.matches(passwordChange.getOldPassword(), user.getPassword()) && !result.hasErrors() && passwordChange.getNewPassword().equals(passwordChange.getNewPasswordConform()) ) {
+      user.setPassword(passwordChange.getNewPassword());
+      userService.persist(user);
 
-            user.setPassword(passwordChange.getNewPassword());
-            userService.persist(user);
-
-            redirectAttributes.addFlashAttribute("message", "Congratulations .!! Success password is changed");
-            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-            return "redirect:/home";
-
-        }
-        redirectAttributes.addFlashAttribute("message", "Failed");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
-        return "redirect:/passwordChange";
+      redirectAttributes.addFlashAttribute("message", "Congratulations .!! Success password is changed");
+      redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+      return "redirect:/home";
 
     }
+    redirectAttributes.addFlashAttribute("message", "Failed");
+    redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+    return "redirect:/passwordChange";
+
+  }
 }

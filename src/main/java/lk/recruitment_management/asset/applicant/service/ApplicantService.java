@@ -10,8 +10,7 @@ import lk.recruitment_management.asset.applicant.dao.ApplicantDao;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
-import lk.recruitment_management.asset.applicant.entity.enums.ApplicantStatus;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lk.recruitment_management.asset.applicant_result.entity.enums.StreamLevel;
 import lk.recruitment_management.asset.non_relative.entity.NonRelative;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
@@ -41,8 +40,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-// spring transactional annotation need to tell spring to this method work through the project
-@CacheConfig( cacheNames = "applicant" )
 public class ApplicantService implements AbstractService< Applicant, Integer > {
 
   private final ApplicantDao applicantDao;
@@ -57,33 +54,28 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     this.dateTimeAgeService = dateTimeAgeService;
   }
 
-  @Cacheable
+
   public List< Applicant > findAll() {
     return applicantDao.findAll();
   }
 
-  @Cacheable
+
   public Applicant findById(Integer id) {
     return applicantDao.getOne(id);
   }
 
-  @Caching( evict = {@CacheEvict( value = "applicant", allEntries = true )},
-      put = {@CachePut( value = "applicant", key = "#applicant.id" )} )
-  @Transactional
+
   public Applicant persist(Applicant applicant) {
-    if ( applicant.getId() == null ) {
-      applicant.setApplicantStatus(ApplicantStatus.P);
-    }
+
     return applicantDao.save(applicant);
   }
 
-  @CacheEvict( allEntries = true )
-  public boolean delete(Integer id) {
+ public boolean delete(Integer id) {
     applicantDao.deleteById(id);
     return false;
   }
 
-  @Cacheable
+
   public List< Applicant > search(Applicant applicant) {
     ExampleMatcher matcher = ExampleMatcher
         .matching()
@@ -102,7 +94,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     return applicantDao.findFirstByOrderByIdDesc();
   }
 
-  @Cacheable
+
   public Applicant findByNic(String nic) {
     return applicantDao.findByNic(nic);
   }
@@ -110,19 +102,19 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   public Applicant findByEmail(String email) {
     return applicantDao.findByEmail(email);
   }
+//todo -> need to applicant gazette
 
-  public int countByApplicantStatus(ApplicantStatus applicantStatus) {
-    return applicantDao.countByApplicantStatus(applicantStatus);
-  }
-
-  public List< Applicant > findByApplicantStatus(ApplicantStatus applicantStatus) {
-    return applicantDao.findByApplicantStatus(applicantStatus);
-  }
+//  public int countByApplicantStatus(ApplicantStatus applicantStatus) {
+//    return applicantDao.countByApplicantStatus(applicantStatus);
+//  }
+//
+//  public List< Applicant > findByApplicantStatus(ApplicantStatus applicantStatus) {
+//    return applicantDao.findByApplicantStatus(applicantStatus);
+//  }
 
   public List< Applicant > findByCreatedAtIsBetweenAndApplicantStatus(LocalDateTime form,
-                                                                                     LocalDateTime to,
-                                                                                     ApplicantStatus applicantStatus) {
-    return applicantDao.findByCreatedAtIsBetweenAndApplicantStatus(form, to, applicantStatus);
+                                                                                     LocalDateTime to) {
+    return applicantDao.findByCreatedAtIsBetween(form, to);
   }
 
   public boolean createExcel(List< Applicant > applicants, ServletContext context,
@@ -249,8 +241,10 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   private final Font tableHeaderOnly = FontFactory.getFont("Arial", 12, BaseColor.BLACK);
 
   public ByteArrayInputStream createPDF(Integer id) throws DocumentException {
-
-    List< Applicant > applicants = findByApplicantStatus(ApplicantStatus.FST);
+    //todo
+//need to find
+    List< Applicant > applicants =applicantDao.findAll();
+        //findByApplicantStatus(ApplicantStatus.FST);
 
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
