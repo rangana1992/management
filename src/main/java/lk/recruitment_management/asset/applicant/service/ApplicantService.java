@@ -345,14 +345,14 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
                                                      tableHeaderOnly));
       pdfCellHeaderCommonStyle(ageValue);
       applicantDetailTable.addCell(ageValue);
-
-      PdfPCell rank = new PdfPCell(new Paragraph("Apply Rank : ", tableHeaderOnly));
-      pdfCellHeaderCommonStyle(rank);
-      applicantDetailTable.addCell(rank);
-
-      PdfPCell rankValue = new PdfPCell(new Paragraph(applicant.getApplyingRank().getApplyingRank(), tableHeaderOnly));
-      pdfCellHeaderCommonStyle(rankValue);
-      applicantDetailTable.addCell(rankValue);
+//todo : need to take apply rank from applicant_interview
+//      PdfPCell rank = new PdfPCell(new Paragraph("Apply Rank : ", tableHeaderOnly));
+//      pdfCellHeaderCommonStyle(rank);
+//      applicantDetailTable.addCell(rank);
+//
+//      PdfPCell rankValue = new PdfPCell(new Paragraph(applicant.getApplyingRank().getApplyingRank(), tableHeaderOnly));
+//      pdfCellHeaderCommonStyle(rankValue);
+//      applicantDetailTable.addCell(rankValue);
 
       PdfPCell mobile = new PdfPCell(new Paragraph("Mobile No : ", tableHeaderOnly));
       pdfCellHeaderCommonStyle(mobile);
