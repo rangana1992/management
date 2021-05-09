@@ -1,13 +1,16 @@
 package lk.recruitment_management.asset.applicant.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import lk.recruitment_management.asset.applicant.entity.Enum.ApplicantStatus;
-import lk.recruitment_management.asset.applicant.entity.Enum.ApplyingRank;
-import lk.recruitment_management.asset.applicant.entity.Enum.Nationality;
+import lk.recruitment_management.asset.applicant.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
+import lk.recruitment_management.asset.applicant.entity.enums.Nationality;
+import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.common_asset.model.Enum.CivilStatus;
 import lk.recruitment_management.asset.common_asset.model.Enum.Gender;
 import lk.recruitment_management.asset.grama_niladhari.entity.GramaNiladhari;
+import lk.recruitment_management.asset.non_relative.entity.NonRelative;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,9 +40,6 @@ public class Applicant extends AuditEntity {
 
     @Column(nullable = false)
     private String nic;
-
-    @Enumerated(EnumType.STRING)
-    private ApplyingRank applyingRank;
 
     @Column(nullable = false)
     private String height;
@@ -83,13 +83,13 @@ public class Applicant extends AuditEntity {
     private List< ApplicantGazette > applicantGazettes;
 
     @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-    private List<ApplicantResult> applicantResults;
+    private List< ApplicantResult > applicantResults;
 
     @OneToMany(mappedBy ="applicant" , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<ApplicantDegreeResult> applicantDegreeResults;
+    private List< ApplicantDegreeResult > applicantDegreeResults;
 
     @OneToMany(mappedBy ="applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<NonRelative> nonRelatives;
+    private List< NonRelative > nonRelatives;
 
 
     @Transient
