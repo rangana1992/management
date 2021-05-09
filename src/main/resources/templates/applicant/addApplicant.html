@@ -99,16 +99,16 @@
                           <div class="form-row text-right" >
                             <label class="control-label" for="gender" >Gender :</label >
                             <div class="custom-control custom-checkbox custom-control-inline ml-4"
-                                 data-th-each="genders,index : ${gender}" >
+                                 data-th-each="gender,index : ${genders}" >
                               <input class="custom-control-input gender" required
                                      data-th-name="${'gender'}"
-                                     data-th-value="${genders}"
-                                     data-th-id="${index.index}+${genders}"
+                                     data-th-value="${gender}"
+                                     data-th-id="${index.index}+${gender}"
                                      type="radio"
-                                     data-th-checked="${genders==gender}" />
+                                     data-th-checked="${gender==gender}" />
                               <label class="custom-control-label"
-                                     data-th-for="${index.index}+${genders}"
-                                     data-th-text="${genders.gender}" > radio
+                                     data-th-for="${index.index}+${gender}"
+                                     data-th-text="${gender.gender}" > radio
                               </label >
                             </div >
                           </div >
@@ -129,33 +129,41 @@
 
                             <label class="control-label" for="nationality" >Nationality
                                                                             :</label >
-
-                            <select class="form-control" id="nationality"
-                                    required tabindex="10"
-                                    data-th-field="*{nationality}" >
-                              <option value="" >Please select</option >
-                              <option data-th-each="nationality : ${nationalities}"
-                                      data-th-text="${nationality.nationality}"
-                                      data-th-value="${nationality}" ></option >
-                            </select >
-
+                            <div class="row" >
+                              <div class="custom-control custom-checkbox custom-control-inline ml-4"
+                                   data-th-each="nationality,index : ${nationalities}" >
+                                <input class="custom-control-input gender" required
+                                       data-th-name="${'nationality'}"
+                                       data-th-value="${nationality}"
+                                       data-th-id="${index.index}+${nationality}"
+                                       type="radio"
+                                       data-th-checked="${nationality==applicant.nationality}" />
+                                <label class="custom-control-label"
+                                       data-th-for="${index.index}+${nationality}"
+                                       data-th-text="${nationality.nationality}" > radio
+                                </label >
+                              </div >
+                            </div >
                           </div >
                                                <!--CivilStatus-->
                           <div class="form-group" >
                             <label class="control-label" for="civilStatus" >Civil Status
                                                                             :</label >
-
-                            <select class="form-control" id="civilStatus"
-                                    required tabindex="11"
-                                    data-th-field="*{civilStatus}" >
-                              <option value="" >Please select</option >
-                              <option data-th-each="civilStatu : ${civilStatus}"
-                                      data-th-selected="${civilStatu==applicant.civilStatus?'selected':'unselected'}"
-                                      data-th-text="${civilStatu.CivilStatus}"
-                                      data-th-value="${civilStatu}" ></option >
-                            </select >
-
-
+                            <div class="row" >
+                              <div class="custom-control custom-checkbox custom-control-inline ml-4"
+                                   data-th-each="civilStatus,index : ${civilStatuses}" >
+                                <input class="custom-control-input gender" required
+                                       data-th-name="${'civilStatus'}"
+                                       data-th-value="${civilStatus}"
+                                       data-th-id="${index.index}+${civilStatus}"
+                                       type="radio"
+                                       data-th-checked="${civilStatus==applicant.civilStatus}" />
+                                <label class="custom-control-label"
+                                       data-th-for="${index.index}+${civilStatus}"
+                                       data-th-text="${civilStatus.civilStatus}" > radio
+                                </label >
+                              </div >
+                            </div >
                           </div >
 
                         </div >

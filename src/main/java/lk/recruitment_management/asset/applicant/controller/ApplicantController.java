@@ -89,12 +89,12 @@ public class ApplicantController {
 //----> Applicant details management - start <----//
 
   // Common things for an applicant add and update
-  private String commonThings(Model model) {
+  private void commonThings(Model model) {
     model.addAttribute("title", Title.values());
-    model.addAttribute("gender", Gender.values());
+    model.addAttribute("genders", Gender.values());
     model.addAttribute("applyingRanks", ApplyingRank.values());
     model.addAttribute("applicantStatus", ApplicantStatus.values());
-    model.addAttribute("civilStatus", CivilStatus.values());
+    model.addAttribute("civilStatuses", CivilStatus.values());
     model.addAttribute("nationalities", Nationality.values());
     model.addAttribute("bloodGroup", BloodGroup.values());
     model.addAttribute("provinces", Province.values());
@@ -118,7 +118,7 @@ public class ApplicantController {
     model.addAttribute("streamLevels", StreamLevel.values());
     model.addAttribute("compulsoryOLSubjects", CompulsoryOLSubject.values());
     model.addAttribute("subjectResults", SubjectResult.values());
-    return "applicant/addApplicant";
+
   }
 
   //When scr called file will send to
@@ -162,7 +162,8 @@ public class ApplicantController {
     model.addAttribute("policeStations", policeStationService.findAll());
     //gramaniladari division list url
     model.addAttribute("gramaNiladharis", gramaNiladhariService.findAll());
-    return commonThings(model);
+    commonThings(model);
+    return "applicant/editApplicant";
   }
 
   //Send an applicant add form
@@ -173,7 +174,8 @@ public class ApplicantController {
 
     model.addAttribute("addStatus", true);
     model.addAttribute("applicant", applicant);
-    return commonThings(model);
+    commonThings(model);
+    return "applicant/addApplicant";
   }
 
   //Applicant add and update
@@ -183,7 +185,8 @@ public class ApplicantController {
     if ( result.hasErrors() ) {
       model.addAttribute("addStatus", true);
       model.addAttribute("applicant", applicant);
-      return commonThings(model);
+      commonThings(model);
+      return "applicant/addApplicant";
     }
     if ( applicant.getId() == null ) {
       Applicant lastApplicant = applicantService.lastApplicant();
@@ -259,7 +262,8 @@ public class ApplicantController {
       result.addError(error);
       model.addAttribute("addStatus", true);
       model.addAttribute("applicant", applicant);
-      return commonThings(model);
+commonThings(model);
+      return "applicant/addApplicant";
     }
   }
 
