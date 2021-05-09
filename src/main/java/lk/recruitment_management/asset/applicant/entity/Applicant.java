@@ -26,89 +26,92 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("Applicant")
+@JsonFilter( "Applicant" )
 public class Applicant extends AuditEntity {
 
-    @Column(nullable = false, unique = true)
-    private String code;
+  @Column( nullable = false, unique = true )
+  private String code;
 
-    @Column(nullable = false)
-    private String nameInFullName;
+  @Column( nullable = false )
+  private String nameInFullName;
 
-    @Column(nullable = false)
-    private String nameWithInitial;
+  @Column( nullable = false )
+  private String nameWithInitial;
 
-    @Column(nullable = false)
-    private String nic;
+  @Column( nullable = false )
+  private String nic;
 
-    @Column(nullable = false)
-    private String height;
+  @Column( nullable = false )
+  private String height;
 
-    @Column(nullable = false)
-    private String weight;
+  @Column( nullable = false )
+  private String weight;
 
-    @Column(nullable = false)
-    private String chest;
+  @Column( nullable = false )
+  private String chest;
 
-    @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
-    private String mobile;
+  @Size( max = 10, message = "Mobile number length should be contained 10 and 9" )
+  private String mobile;
 
-    private String land;
+  private String land;
 
-    @Column(unique = true)
-    private String email;
+  @Column( unique = true )
+  private String email;
 
-    @Column(columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255)
-    private String address;
+  @Column( columnDefinition = "VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL", length = 255 )
+  private String address;
 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+  @Enumerated( EnumType.STRING )
+  private Gender gender;
 
-    @Enumerated(EnumType.STRING)
-    private CivilStatus civilStatus;
+  @Enumerated( EnumType.STRING )
+  private CivilStatus civilStatus;
 
-    @Enumerated(EnumType.STRING)
-    private Nationality nationality;
+  @Enumerated( EnumType.STRING )
+  private Nationality nationality;
 
-    @Enumerated(EnumType.STRING)
-    private ApplicantStatus applicantStatus;
+  @Enumerated( EnumType.STRING )
+  private ApplicantStatus applicantStatus;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfBirth;
+  @DateTimeFormat( pattern = "yyyy-MM-dd" )
+  private LocalDate dateOfBirth;
 
-    @ManyToOne
-    private GramaNiladhari gramaNiladhari;
+  @ManyToOne
+  private GramaNiladhari gramaNiladhari;
 
-    @OneToMany(mappedBy ="applicant" )
-    private List< ApplicantGazette > applicantGazettes;
+  @OneToMany( mappedBy = "applicant" )
+  private List< ApplicantGazette > applicantGazettes;
 
-    @OneToMany(mappedBy ="applicant",  cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-    private List< ApplicantResult > applicantResults;
+  @OneToMany( mappedBy = "applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private List< ApplicantResult > applicantResults;
 
-    @OneToMany(mappedBy ="applicant" , cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List< ApplicantDegreeResult > applicantDegreeResults;
+  @OneToMany( mappedBy = "applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private List< ApplicantDegreeResult > applicantDegreeResults;
 
-    @OneToMany(mappedBy ="applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List< NonRelative > nonRelatives;
-
-
-    @Transient
-    private MultipartFile file;
-
-    @Transient
-    private MultipartFile nicImage;
-
-    @Transient
-    private MultipartFile birthCertificateImage;
-
-    @Transient
-    private MultipartFile gramaNilahdariImage;
-
-    @Transient
-    private List<MultipartFile> educationalImages;
-
-    @Transient
-    private List<MultipartFile> sportImages;
+  @OneToMany( mappedBy = "applicant", cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
+  private List< NonRelative > nonRelatives;
 
 
+  @Transient
+  private MultipartFile file;
+
+  @Transient
+  private MultipartFile nicImage;
+
+  @Transient
+  private MultipartFile birthCertificateImage;
+
+  @Transient
+  private MultipartFile gramaNilahdariImage;
+
+  @Transient
+  private List< MultipartFile > educationalImages;
+
+  @Transient
+  private List< MultipartFile > sportImages;
+
+
+  public Applicant(String email) {
+    this.email = email;
+  }
 }

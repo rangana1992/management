@@ -1,27 +1,37 @@
 package lk.recruitment_management.asset.common_asset.controller;
 
+import lk.recruitment_management.asset.applicant.entity.Applicant;
+import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.user_management.entity.Role;
 import lk.recruitment_management.asset.user_management.entity.User;
+import lk.recruitment_management.asset.user_management.entity.UserSessionLog;
 import lk.recruitment_management.asset.user_management.service.UserService;
+import lk.recruitment_management.asset.user_management.service.UserSessionLogService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashSet;
+import java.util.List;
 
 @Controller
 public class UiController {
 
   private final UserService userService;
   private final DateTimeAgeService dateTimeAgeService;
+  private final UserSessionLogService userSessionLogService;
+  private final ApplicantService applicantService;
 
   @Autowired
-  public UiController(UserService userService, DateTimeAgeService dateTimeAgeService) {
+  public UiController(UserService userService, DateTimeAgeService dateTimeAgeService,
+                      UserSessionLogService userSessionLogService, ApplicantService applicantService) {
     this.userService = userService;
     this.dateTimeAgeService = dateTimeAgeService;
+    this.userSessionLogService = userSessionLogService;
+    this.applicantService = applicantService;
   }
 
   @GetMapping( value = {"/", "/index"} )
@@ -30,13 +40,19 @@ public class UiController {
   }
 
   @GetMapping( value = {"/home", "/mainWindow"} )
-  public String getHome(Model model) {
+  public String getHome(Model model, RedirectAttributes redirectAttributes) {
     //do some logic here if you want something to be done whenever
     User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+    //when user has role applicant
     for ( Role role : authUser.getRoles() ) {
-      if ( role.getRoleName().equals("APPLICANT") ){
-        return "applicant/mainWindow";
+      Applicant applicant = applicantService.findByEmail(authUser.getUsername());
+      if (applicant ==null){
+        redirectAttributes.addFlashAttribute("applicant",new Applicant(authUser.getUsername()));
+        return "redirect:/applicant/add";
       }
+        if ( role.getRoleName().equals("APPLICANT") ) {
+          return "applicant/mainWindow";
+        }
     }
 
 

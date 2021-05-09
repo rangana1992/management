@@ -61,4 +61,8 @@ public class UserSessionLogService implements AbstractService<UserSessionLog, In
     public UserSessionLog findByUserAndUserSessionLogStatus(User user, UserSessionLogStatus userSessionLogStatus) {
         return userSessionLogDao.findByUserAndUserSessionLogStatus(user, userSessionLogStatus);
     }
+
+  public List< UserSessionLog> findByUser(User user) {
+   return    userSessionLogDao.findByUser(user);
+  }
 }
