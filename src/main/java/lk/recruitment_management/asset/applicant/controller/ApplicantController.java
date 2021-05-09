@@ -1,6 +1,7 @@
 package lk.recruitment_management.asset.applicant.controller;
 
 
+import com.twilio.rest.api.v2010.account.Application;
 import lk.recruitment_management.asset.ag_office.controller.AgOfficeController;
 import lk.recruitment_management.asset.ag_office.service.AgOfficeService;
 import lk.recruitment_management.asset.applicant.entity.*;
@@ -26,12 +27,15 @@ import lk.recruitment_management.asset.grama_niladhari.service.GramaNiladhariSer
 import lk.recruitment_management.asset.non_relative.entity.NonRelative;
 import lk.recruitment_management.asset.police_station.controller.PoliceStationController;
 import lk.recruitment_management.asset.police_station.Service.PoliceStationService;
+import lk.recruitment_management.asset.user_management.entity.User;
 import lk.recruitment_management.asset.user_management.service.UserService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -65,7 +69,8 @@ public class ApplicantController {
   @Autowired
   public ApplicantController(ApplicantService applicantService, ApplicantFilesService applicantFilesService,
                              DateTimeAgeService dateTimeAgeService, CommonService commonService,
-                             UserService userService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, DistrictService districtService,
+                             UserService userService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,
+                             DistrictService districtService,
                              AgOfficeService agOfficeService, PoliceStationService policeStationService,
                              GramaNiladhariService gramaNiladhariService) {
     this.applicantService = applicantService;
@@ -163,8 +168,11 @@ public class ApplicantController {
   //Send an applicant add form
   @GetMapping( value = {"/add"} )
   public String applicantAddForm(Model model) {
+    Applicant applicant = new Applicant();
+    applicant.setEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
     model.addAttribute("addStatus", true);
-    model.addAttribute("applicant", new Applicant());
+    model.addAttribute("applicant", applicant);
     return commonThings(model);
   }
 
@@ -300,7 +308,8 @@ public class ApplicantController {
 //  @PostMapping( "/all/search" )
 //  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
 //    return commonApplicant(model,
-//                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+//                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService
+//                           .dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
 //                                                                                                    dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
 //                             , twoDate.getApplicantStatus()));
 //  }

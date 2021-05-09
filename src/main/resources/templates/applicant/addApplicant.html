@@ -231,12 +231,11 @@
                           </div >
                           <!--Email-->
                           <div class="form-group" >
-
                             <label class="control-label" for="email" >Email :</label >
 
                             <input class="form-control" id="email" required
                                    tabindex="16" data-th-field="*{email}"
-                                   type="email" data-th-value="${#authentication.name}"  readonly/>
+                                   type="text"   readonly/>
                             <span class="error" id="emailError"
                                   data-th-errors="*{email}"
                                   data-th-if="${#fields.hasErrors('email')}" >Error Email</span >

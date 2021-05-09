@@ -2,6 +2,7 @@ package lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
 import lk.recruitment_management.util.audit.AuditEntity;
@@ -28,7 +29,7 @@ public class ApplicantSisCrdCid extends AuditEntity {
   private InternalDivision internalDivision;
 
   @ManyToOne
-  private Applicant applicant;
+  private ApplicantGazette applicantGazette;
 
   @Transient
   private MultipartFile multipartFile;

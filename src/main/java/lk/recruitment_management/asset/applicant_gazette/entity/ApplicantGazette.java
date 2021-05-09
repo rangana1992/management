@@ -6,6 +6,7 @@ import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantS
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteAttempt;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
+import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -21,10 +22,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("ApplicantGazette")
+@JsonFilter( "ApplicantGazette" )
 public class ApplicantGazette extends AuditEntity {
 
-  @Enumerated( EnumType.STRING)
+  @Enumerated( EnumType.STRING )
   private ApplicantGazetteAttempt applicantGazetteAttempt;
 
   @ManyToOne
@@ -33,14 +34,17 @@ public class ApplicantGazette extends AuditEntity {
   @ManyToOne
   private Gazette gazette;
 
-  @Enumerated(EnumType.STRING)
+  @Enumerated( EnumType.STRING )
   private ApplyingRank applyingRank;
 
   @Enumerated( EnumType.STRING )
   private ApplicantStatus applicantStatus;
 
-  @OneToMany(mappedBy ="applicantGazette" )
+  @OneToMany( mappedBy = "applicantGazette" )
   private List< ApplicantGazetteInterview > applicantGazetteInterviews;
+
+  @OneToMany( mappedBy = "applicantGazette" )
+  private List< ApplicantSisCrdCid > applicantSisCrdCids;
 
 
 }
