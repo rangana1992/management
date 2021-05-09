@@ -41,16 +41,15 @@ public class UiController {
   public String getHome(Model model, RedirectAttributes redirectAttributes) {
     //do some logic here if you want something to be done whenever
     User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+    Applicant applicant = applicantService.findByEmail(authUser.getUsername());
+    if ( applicant == null ) {
+      redirectAttributes.addFlashAttribute("applicant", new Applicant(authUser.getUsername()));
+      return "redirect:/applicant/add";
+    }
     //when user has role applicant
-    for ( Role role : authUser.getRoles() ) {
-      Applicant applicant = applicantService.findByEmail(authUser.getUsername());
-      if ( applicant == null ) {
-        redirectAttributes.addFlashAttribute("applicant", new Applicant(authUser.getUsername()));
-        return "redirect:/applicant/add";
-      }
-      if ( role.getRoleName().equals("APPLICANT") ) {
-        return "applicant/mainWindow";
-      }
+
+    if ( authUser.getEmployee() == null ) {
+      return "applicant/mainWindow";
     }
 
 

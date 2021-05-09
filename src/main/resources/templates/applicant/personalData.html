@@ -1,222 +1,228 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"><!-- wrapper start -->
-    <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
-    <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
-        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!-- Form Header  Path -->
+    <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}" ></section ><!-- Small Box Set -->
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <!-- Form Name -->
-                    <legend>Form Name</legend>
+    <div class="container-fluid" >
+      <div class="row" >
+        <div class="col-md-6" >
+          <!-- Form Name -->
+          <legend >Form Name</legend >
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="nameinfull">Name in Full</label>
-                        <div class="col-md-4">
-                            <input id="nameinfull" name="nameinfull" type="text" placeholder="" class="form-control input-md" required="">
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="nameinfull" >Name in Full</label >
+            <div class="col-md-4" >
+              <input id="nameinfull" name="nameinfull" type="text" placeholder="" class="form-control input-md"
+                     required="" >
 
-                        </div>
-                    </div>
+            </div >
+          </div >
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="namewithinitials">Name with Initials</label>
-                        <div class="col-md-4">
-                            <input id="namewithinitials" name="namewithinitials" type="text" placeholder="" class="form-control input-md" required="">
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="namewithinitials" >Name with Initials</label >
+            <div class="col-md-4" >
+              <input id="namewithinitials" name="namewithinitials" type="text" placeholder=""
+                     class="form-control input-md" required="" >
 
-                        </div>
-                    </div>
+            </div >
+          </div >
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="nic">NIC</label>
-                        <div class="col-md-4">
-                            <input id="nic" name="nic" type="text" placeholder="" class="form-control input-md" required="">
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="nic" >NIC</label >
+            <div class="col-md-4" >
+              <input id="nic" name="nic" type="text" placeholder="" class="form-control input-md" required="" >
 
-                        </div>
-                    </div>
+            </div >
+          </div >
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="age">Age </label>
-                        <div class="col-md-4">
-                            <input id="age" name="age" type="text" placeholder="" class="form-control input-md" required="">
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="age" >Age </label >
+            <div class="col-md-4" >
+              <input id="age" name="age" type="text" placeholder="" class="form-control input-md" required="" >
 
-                        </div>
-                    </div>
+            </div >
+          </div >
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="dateofbirth">Date of Birth</label>
-                        <div class="col-md-4">
-                            <input id="dateofbirth" name="dateofbirth" type="text" placeholder="" class="form-control input-md" required="">
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="dateofbirth" >Date of Birth</label >
+            <div class="col-md-4" >
+              <input id="dateofbirth" name="dateofbirth" type="text" placeholder="" class="form-control input-md"
+                     required="" >
 
-                        </div>
-                    </div>
+            </div >
+          </div >
 
-                    <!-- Multiple Radios -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="gender">Gender</label>
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label for="gender-0">
-                                    <input type="radio" name="gender" id="gender-0" value="1" checked="checked">
-                                    Male
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label for="gender-1">
-                                    <input type="radio" name="gender" id="gender-1" value="2">
-                                    Female
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div class="col-md-6">
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="applyingrank">Applying Rank</label>
-                        <div class="col-md-4">
-                            <select id="applyingrank" name="applyingrank" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="nationality">Nationality</label>
-                        <div class="col-md-4">
-                            <select id="nationality" name="nationality" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Multiple Radios -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="civilstatus">Civil Status</label>
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label for="civilstatus-0">
-                                    <input type="radio" name="civilstatus" id="civilstatus-0" value="1" checked="checked">
-                                    Married
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label for="civilstatus-1">
-                                    <input type="radio" name="civilstatus" id="civilstatus-1" value="2">
-                                    Single
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="height">Height</label>
-                        <div class="col-md-4">
-                            <input id="height" name="height" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="weight">Weight</label>
-                        <div class="col-md-4">
-                            <input id="weight" name="weight" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="chest">Chest</label>
-                        <div class="col-md-4">
-                            <input id="chest" name="chest" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Textarea -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="address">Address</label>
-                        <div class="col-md-4">
-                            <textarea class="form-control" id="address" name="address"></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="gramaniladharidivision">Grama Niladhari Division</label>
-                        <div class="col-md-4">
-                            <input id="gramaniladharidivision" name="gramaniladharidivision" type="text" placeholder="" class="form-control input-md" required="">
-
-                        </div>
-                    </div>
-
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="policestation">Police Station</label>
-                        <div class="col-md-4">
-                            <select id="policestation" name="policestation" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="agoffice">AG Office</label>
-                        <div class="col-md-4">
-                            <select id="agoffice" name="agoffice" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="district">District</label>
-                        <div class="col-md-4">
-                            <select id="district" name="district" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="province">Province</label>
-                        <div class="col-md-4">
-                            <select id="province" name="province" class="form-control">
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="mobileno">Mobile No</label>
-                        <div class="col-md-4">
-                            <input id="mobileno" name="mobileno" type="text" placeholder="" class="form-control input-md" required="">
+          <!-- Multiple Radios -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="gender" >Gender</label >
+            <div class="col-md-4" >
+              <div class="radio" >
+                <label for="gender-0" >
+                  <input type="radio" name="gender" id="gender-0" value="1" checked="checked" >
+                  Male
+                </label >
+              </div >
+              <div class="radio" >
+                <label for="gender-1" >
+                  <input type="radio" name="gender" id="gender-1" value="2" >
+                  Female
+                </label >
+              </div >
+            </div >
+          </div >
 
 
-                        </div>
-                    </div>
-                </div>
+        </div >
+        <div class="col-md-6" >
+          <!-- Select Basic -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="applyingrank" >Applying Rank</label >
+            <div class="col-md-4" >
+              <select id="applyingrank" name="applyingrank" class="form-control" >
+              </select >
+            </div >
+          </div >
+
+          <!-- Select Basic -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="nationality" >Nationality</label >
+            <div class="col-md-4" >
+              <select id="nationality" name="nationality" class="form-control" >
+              </select >
+            </div >
+          </div >
+
+          <!-- Multiple Radios -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="civilstatus" >Civil Status</label >
+            <div class="col-md-4" >
+              <div class="radio" >
+                <label for="civilstatus-0" >
+                  <input type="radio" name="civilstatus" id="civilstatus-0" value="1" checked="checked" >
+                  Married
+                </label >
+              </div >
+              <div class="radio" >
+                <label for="civilstatus-1" >
+                  <input type="radio" name="civilstatus" id="civilstatus-1" value="2" >
+                  Single
+                </label >
+              </div >
+            </div >
+          </div >
+
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="height" >Height</label >
+            <div class="col-md-4" >
+              <input id="height" name="height" type="text" placeholder="" class="form-control input-md" required="" >
+
+            </div >
+          </div >
+
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="weight" >Weight</label >
+            <div class="col-md-4" >
+              <input id="weight" name="weight" type="text" placeholder="" class="form-control input-md" required="" >
+
+            </div >
+          </div >
+
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="chest" >Chest</label >
+            <div class="col-md-4" >
+              <input id="chest" name="chest" type="text" placeholder="" class="form-control input-md" required="" >
+
+            </div >
+          </div >
+
+          <!-- Textarea -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="address" >Address</label >
+            <div class="col-md-4" >
+              <textarea class="form-control" id="address" name="address" ></textarea >
+            </div >
+          </div >
+
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="gramaniladharidivision" >Grama Niladhari Division</label >
+            <div class="col-md-4" >
+              <input id="gramaniladharidivision" name="gramaniladharidivision" type="text" placeholder=""
+                     class="form-control input-md" required="" >
+
+            </div >
+          </div >
+
+          <!-- Select Basic -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="policestation" >Police Station</label >
+            <div class="col-md-4" >
+              <select id="policestation" name="policestation" class="form-control" >
+              </select >
+            </div >
+          </div >
+
+          <!-- Select Basic -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="agoffice" >AG Office</label >
+            <div class="col-md-4" >
+              <select id="agoffice" name="agoffice" class="form-control" >
+              </select >
+            </div >
+          </div >
+
+          <!-- Select Basic -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="district" >District</label >
+            <div class="col-md-4" >
+              <select id="district" name="district" class="form-control" >
+              </select >
+            </div >
+          </div >
+
+          <!-- Select Basic -->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="province" >Province</label >
+            <div class="col-md-4" >
+              <select id="province" name="province" class="form-control" >
+              </select >
+            </div >
+          </div >
+
+          <!-- Text input-->
+          <div class="form-group" >
+            <label class="col-md-4 control-label" for="mobileno" >Mobile No</label >
+            <div class="col-md-4" >
+              <input id="mobileno" name="mobileno" type="text" placeholder="" class="form-control input-md"
+                     required="" >
 
 
+            </div >
+          </div >
+        </div >
 
-    </div><!-- content-wrapper end -->
-    <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
-</div><!-- wrapper end -->
-<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
-</body>
-</html>
+
+      </div ><!-- content-wrapper end -->
+      <div th:replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
+    </div ><!-- wrapper end -->
+    <div th:replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+  </div >
+</div>
+</body >
+</html >
+
