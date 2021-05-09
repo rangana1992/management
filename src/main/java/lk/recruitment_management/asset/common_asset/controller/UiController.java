@@ -2,20 +2,15 @@ package lk.recruitment_management.asset.common_asset.controller;
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
-import lk.recruitment_management.asset.user_management.entity.Role;
 import lk.recruitment_management.asset.user_management.entity.User;
-import lk.recruitment_management.asset.user_management.entity.UserSessionLog;
 import lk.recruitment_management.asset.user_management.service.UserService;
 import lk.recruitment_management.asset.user_management.service.UserSessionLogService;
-import lk.recruitment_management.util.service.DateTimeAgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 public class UiController {
@@ -49,7 +44,7 @@ public class UiController {
     //when user has role applicant
 
     if ( authUser.getEmployee() == null ) {
-      return "applicant/mainWindow";
+      return "applicant/applicantMainWindow";
     }
 
 
@@ -61,17 +56,5 @@ public class UiController {
     return "login/login";
   }
 
-  @GetMapping( value = {"/login/error10"} )
-  public String getLogin10(Model model) {
-    model.addAttribute("err", "You already entered wrong credential more than 10 times. \n Please meet the system" +
-        " admin");
-    return "login/login";
-  }
-
-  @GetMapping( value = {"/login/noUser"} )
-  public String getLoginNoUser(Model model) {
-    model.addAttribute("err", "There is no user according to the user name. \n Please try again !!");
-    return "login/login";
-  }
 
 }
