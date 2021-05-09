@@ -40,7 +40,7 @@ public class InterviewScheduleController {
     this.applicantGazetteService = applicantGazetteService;
     this.districtService = districtService;
   }
-
+//todo
 /*
   @GetMapping
   public String form(Model model) {

@@ -2,6 +2,7 @@ package lk.recruitment_management.asset.applicant_gazette_interview.service;
 
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette_interview.dao.ApplicantGazetteInterviewDao;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
 import lk.recruitment_management.util.interfaces.AbstractService;
@@ -59,8 +60,8 @@ public class ApplicantGazetteInterviewService implements AbstractService< Applic
         return applicantGazetteInterviewDao.findAll(districtExample);
     }
 
-    public List< ApplicantGazetteInterview > findByApplicant(Applicant applicant){
-        return applicantGazetteInterviewDao.findByApplicant(applicant);
+    public List< ApplicantGazetteInterview > findByApplicantGazette(ApplicantGazette applicantGazette){
+        return applicantGazetteInterviewDao.findByApplicantGazette(applicantGazette);
     }
 
 }

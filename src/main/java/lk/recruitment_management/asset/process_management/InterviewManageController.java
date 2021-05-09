@@ -163,10 +163,11 @@ public class InterviewManageController {
   public String firstInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
     Applicant applicant = applicantService.findById(id);
     model.addAttribute("applicantDetail", applicant);
-    model.addAttribute("applicantInterviews", applicantGazetteInterviewService.findByApplicant(applicant)
-        .stream()
-        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
-        .collect(Collectors.toList()));
+    //todo :
+//    model.addAttribute("applicantInterviews", applicantGazetteInterviewService.findByApplicant(applicant)
+//        .stream()
+//        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
+//        .collect(Collectors.toList()));
     model.addAttribute("interviews", interviewService.findByInterviewName(InterviewName.FIRST));
     return "interviewSchedule/addApplicantInterviewResult";
   }

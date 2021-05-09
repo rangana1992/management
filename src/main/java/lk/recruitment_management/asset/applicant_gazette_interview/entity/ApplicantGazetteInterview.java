@@ -36,7 +36,7 @@ public class ApplicantGazetteInterview extends AuditEntity {
   @ManyToOne
   private ApplicantGazette applicantGazette;
 
-  @OneToMany(mappedBy = "applicantInterview")
+  @OneToMany(mappedBy = "applicantGazetteInterview")
   private List< ApplicantInterviewResult > applicantInterviewResults;
 
 }

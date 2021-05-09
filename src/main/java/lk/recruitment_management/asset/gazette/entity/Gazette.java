@@ -26,7 +26,7 @@ public class Gazette {
   @Enumerated( EnumType.STRING )
   private GazetteStatus gazetteStatus;
 
-  @OneToMany( mappedBy = "gazzet" )
+  @OneToMany( mappedBy = "gazette" )
   private List< ApplicantGazette > applicantGazettes;
 
 
