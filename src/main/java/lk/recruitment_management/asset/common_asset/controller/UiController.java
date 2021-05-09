@@ -21,15 +21,13 @@ import java.util.List;
 public class UiController {
 
   private final UserService userService;
-  private final DateTimeAgeService dateTimeAgeService;
   private final UserSessionLogService userSessionLogService;
   private final ApplicantService applicantService;
 
   @Autowired
-  public UiController(UserService userService, DateTimeAgeService dateTimeAgeService,
-                      UserSessionLogService userSessionLogService, ApplicantService applicantService) {
+  public UiController(UserService userService, UserSessionLogService userSessionLogService,
+                      ApplicantService applicantService) {
     this.userService = userService;
-    this.dateTimeAgeService = dateTimeAgeService;
     this.userSessionLogService = userSessionLogService;
     this.applicantService = applicantService;
   }
@@ -46,13 +44,13 @@ public class UiController {
     //when user has role applicant
     for ( Role role : authUser.getRoles() ) {
       Applicant applicant = applicantService.findByEmail(authUser.getUsername());
-      if (applicant ==null){
-        redirectAttributes.addFlashAttribute("applicant",new Applicant(authUser.getUsername()));
+      if ( applicant == null ) {
+        redirectAttributes.addFlashAttribute("applicant", new Applicant(authUser.getUsername()));
         return "redirect:/applicant/add";
       }
-        if ( role.getRoleName().equals("APPLICANT") ) {
-          return "applicant/mainWindow";
-        }
+      if ( role.getRoleName().equals("APPLICANT") ) {
+        return "applicant/mainWindow";
+      }
     }
 
 
@@ -77,18 +75,4 @@ public class UiController {
     return "login/login";
   }
 
-  @GetMapping( value = {"/unicodeTamil"} )
-  public String getUnicodeTamil() {
-    return "fragments/unicodeTamil";
-  }
-
-  @GetMapping( value = {"/unicodeSinhala"} )
-  public String getUnicodeSinhala() {
-    return "fragments/unicodeSinhala";
-  }
-
-  @GetMapping( "/education" )
-  public String form() {
-    return "education/addEducation";
-  }
 }

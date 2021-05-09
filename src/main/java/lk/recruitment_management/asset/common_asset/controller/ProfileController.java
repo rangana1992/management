@@ -1,6 +1,9 @@
 package lk.recruitment_management.asset.common_asset.controller;
 
+import lk.recruitment_management.asset.applicant.entity.Applicant;
+import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.user_management.entity.PasswordChange;
+import lk.recruitment_management.asset.user_management.entity.Role;
 import lk.recruitment_management.asset.user_management.entity.User;
 import lk.recruitment_management.asset.user_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +24,25 @@ import java.security.Principal;
 public class ProfileController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final ApplicantService applicantService;
 
     @Autowired
-    public ProfileController(UserService userService, PasswordEncoder passwordEncoder) {
+    public ProfileController(UserService userService, PasswordEncoder passwordEncoder, ApplicantService applicantService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.applicantService = applicantService;
     }
 
     @GetMapping( value = "/profile" )
     public String userProfile(Model model, Principal principal) {
+        User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        for ( Role role : authUser.getRoles() ) {
+            Applicant applicant = applicantService.findByEmail(authUser.getUsername());
+            if ( role.getRoleName().equals("APPLICANT") ) {
+                return "redirect:/applicant/"+applicant.getId();
+            }
+        }
+
         model.addAttribute("addStatus", true);
         model.addAttribute("employeeDetail", userService.findByUserName(principal.getName()).getEmployee());
         return "employee/employee-detail";
