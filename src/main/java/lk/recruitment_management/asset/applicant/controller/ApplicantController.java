@@ -155,9 +155,9 @@ public class ApplicantController {
     model.addAttribute("districts", districtService.findAll());
     //ag office list
     model.addAttribute("agOffices", agOfficeService.findAll());
-    //police station list
+    //police station list url
     model.addAttribute("policeStations", policeStationService.findAll());
-    //gramaniladari division list
+    //gramaniladari division list url
     model.addAttribute("gramaNiladharis", gramaNiladhariService.findAll());
     return commonThings(model);
   }
