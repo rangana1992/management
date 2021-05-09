@@ -145,7 +145,10 @@
                               </div >
                             </div >
                           </div >
-                                               <!--CivilStatus-->
+                        </div >
+                        <!--Right Side-->
+                        <div class="col-md-6" >
+                          <!--CivilStatus-->
                           <div class="form-group" >
                             <label class="control-label" for="civilStatus" >Civil Status
                                                                             :</label >
@@ -164,43 +167,6 @@
                                 </label >
                               </div >
                             </div >
-                          </div >
-
-                        </div >
-                        <!--Right Side-->
-                        <div class="col-md-6" >
-                          <!--Height-->
-                          <div class="form-group" >
-
-                            <label class="control-label" for="height" >Height(cm) :</label >
-
-                            <input class="form-control" id="height" maxlength="12"
-                                   minlength="10" required
-                                   tabindex="6"
-                                   data-th-field="*{height}" type="number" min="0" />
-                            <span ><i ><small >(Height must be 162cm)</small ></i ></span >
-
-                          </div >
-                          <!--Weight-->
-                          <div class="form-group" >
-
-                            <label class="control-label" for="weight" >Weight(Kg) :</label >
-
-                            <input class="form-control" id="weight" maxlength="12"
-                                   minlength="10" required
-                                   tabindex="6"
-                                   data-th-field="*{weight}" type="number" min="0" step="0.5" />
-                            <span ><i ><small >(Weight must be 60Kg)</small ></i ></span >
-
-                          </div >
-                          <!--chest-->
-                          <div class="form-group" >
-                            <label class="control-label" for="chest" >Chest(cm) :</label >
-                            <input class="form-control" id="chest" maxlength="12"
-                                   minlength="10" required
-                                   tabindex="6"
-                                   data-th-field="*{chest}" type="number" min="0" />
-                            <span ><i ><small >(Chest must be 34cm(Male) & 36cm(Female))</small ></i ></span >
                           </div >
                           <!--Address-->
                           <div class="form-group" >
@@ -243,11 +209,47 @@
 
                             <input class="form-control" id="email" required
                                    tabindex="16" data-th-field="*{email}"
-                                   type="text"   readonly/>
+                                   type="text" readonly />
                             <span class="error" id="emailError"
                                   data-th-errors="*{email}"
                                   data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
 
+                          </div >
+                        </div >
+                        <!--personal details-->
+                        <div class="form-row mb-2 col-md-12" >
+                          <!--Height-->
+                          <div class="col-4" >
+
+                            <label class="control-label" for="height" >Height(cm) :</label >
+
+                            <input class="form-control" id="height" maxlength="12"
+                                   minlength="10" required
+                                   tabindex="6"
+                                   data-th-field="*{height}" type="number" min="0" />
+                            <span ><i ><small >(Height must be 162cm)</small ></i ></span >
+
+                          </div >
+                          <!--Weight-->
+                          <div class="col-4" >
+
+                            <label class="control-label" for="weight" >Weight(Kg) :</label >
+
+                            <input class="form-control" id="weight" maxlength="12"
+                                   minlength="10" required
+                                   tabindex="6"
+                                   data-th-field="*{weight}" type="number" min="0" step="0.5" />
+                            <span ><i ><small >(Weight must be 60Kg)</small ></i ></span >
+
+                          </div >
+                          <!--chest-->
+                          <div class="col-4" >
+                            <label class="control-label" for="chest" >Chest(cm) :</label >
+                            <input class="form-control" id="chest" maxlength="12"
+                                   minlength="10" required
+                                   tabindex="6"
+                                   data-th-field="*{chest}" type="number" min="0" />
+                            <span ><i ><small >(Chest must be 34cm(Male) & 36cm(Female))</small ></i ></span >
                           </div >
                         </div >
                         <!--Gramaniladari find-->
@@ -1096,17 +1098,6 @@
                                            tabindex="48"
                                            type="text" />
                                   </div >
-                                  <!--/*Index number two A/L*/-->
-                                  <!--<div class="form-row">
-                                      &lt;!&ndash;/*index Two*/&ndash;&gt;
-                                      <label class="darkmode&#45;&#45;activated col-sm-3" for="indexTwoAL">Index No
-                                          :</label>
-                                      <input class="col-sm-4 form-control" id="indexTwoAL" tabindex="49" type="text"/>
-                                      &lt;!&ndash;/*Year Two*/&ndash;&gt;
-                                      <label class="darkmode&#45;&#45;activated col-sm-2 pl-3" for="yearTwoAL">Year
-                                          :</label>
-                                      <input class="col-sm-2 form-control" id="yearTwoAL" tabindex="50" type="text"/>
-                                  </div>-->
                                 </div >
                                 <!--/*When edit result display*/-->
                                 <div class="container-fluid table-responsive" >
@@ -1466,7 +1457,7 @@
                                                name="applicantResults[14].mark"
                                                placeholder="Marks"
                                                tabindex="62"
-                                               type="text" >
+                                               type="text" id="marks">
                                       </td >
                                       <!--/*Attempt*/-->
                                       <td >
@@ -1511,7 +1502,7 @@
                                 <td ><input type="text" class="form-control"
                                             name="applicantDegreeResults[0].universityName" >
                                 </td >
-                                <td ><input type="text" class="form-control"
+                                <td ><input type="text" class="form-control" minlength="4" maxlength="4"
                                             name="applicantDegreeResults[0].year" >
                                 </td >
                                 <td >
@@ -2037,7 +2028,7 @@
     });
     //AL result
     //subject one
-    $("#subALOneAttempt").bind("change", function () {
+    $("#subALOneSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         //let alTwoIndexNumber = $("#indexTwoAL").val();
@@ -2050,22 +2041,12 @@
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
             }
-            $("#subALOneIndex").val(alOneIndexNumber);
-            $("#subALOneSubYear").val(alOneYear);
-        } /*else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALOneIndex").val(alTwoIndexNumber);
-            $("#subALOneSubYear").val(alTwoYear);
-        }*/
+        }
+        $("#subALOneIndex").val(alOneIndexNumber);
+        $("#subALOneSubYear").val(alOneYear);
     });
     //subject two
-    $("#subALTwoAttempt").bind("change", function () {
+    $("#subALTwoSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         //let alTwoIndexNumber = $("#indexTwoAL").val();
@@ -2078,22 +2059,11 @@
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
             }
-            $("#subALTwoIndex").val(alOneIndexNumber);
-            $("#subALTwoSubYear").val(alOneYear);
-        }/* else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALTwoIndex").val(alTwoIndexNumber);
-            $("#subALTwoSubYear").val(alTwoYear);
-        }*/
-    });
-    //subject three
-    $("#subALThreeAttempt").bind("change", function () {
+        }
+        $("#subALTwoIndex").val(alOneIndexNumber);
+        $("#subALTwoSubYear").val(alOneYear);
+    });    //subject three
+    $("#subALThreeSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         /* let alTwoIndexNumber = $("#indexTwoAL").val();
@@ -2106,22 +2076,12 @@
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
             }
-            $("#subALThreeIndex").val(alOneIndexNumber);
-            $("#subALThreeSubYear").val(alOneYear);
-        } /*else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALThreeIndex").val(alTwoIndexNumber);
-            $("#subALThreeSubYear").val(alTwoYear);
-        }*/
+        }
+        $("#subALThreeIndex").val(alOneIndexNumber);
+        $("#subALThreeSubYear").val(alOneYear);
     });
     //subject four
-    $("#subALFourAttempt").bind("change", function () {
+    $("#subALFourSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         //let alTwoIndexNumber = $("#indexTwoAL").val();
@@ -2134,22 +2094,12 @@
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
             }
-            $("#subALFourIndex").val(alOneIndexNumber);
-            $("#subALFourSubYear").val(alOneYear);
-        } /*else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALFourIndex").val(alTwoIndexNumber);
-            $("#subALFourSubYear").val(alTwoYear);
-        }*/
+        }
+        $("#subALFourIndex").val(alOneIndexNumber);
+        $("#subALFourSubYear").val(alOneYear);
     });
     //subject five
-    $("#subALFiveAttempt").bind("change", function () {
+    $("#marks").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
         // let alTwoIndexNumber = $("#indexTwoAL").val();
@@ -2162,27 +2112,18 @@
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
             }
-            $("#subALFiveIndex").val(alOneIndexNumber);
-            $("#subALFiveSubYear").val(alOneYear);
-        }/* else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALFiveIndex").val(alTwoIndexNumber);
-            $("#subALFiveSubYear").val(alTwoYear);
-        }*/
+        }
+        $("#subALFiveIndex").val(alOneIndexNumber);
+        $("#subALFiveSubYear").val(alOneYear);
     });
+
     //DEGREE result table
     $("#newDegree").bind("click", function () {
         let rowLength = $('#degreeTable tbody > tr').length;
         let html = `<tr>
            <td scope="row"><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].degreeName"></td>
            <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].universityName"></td>
-           <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year"></td>
+           <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year" minlength="4" maxlength="4"></td>
            <td> <button type="button" onclick="removeDegreeTableRow(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
         $('#degreeTable> tbody:last-child').append(html);
