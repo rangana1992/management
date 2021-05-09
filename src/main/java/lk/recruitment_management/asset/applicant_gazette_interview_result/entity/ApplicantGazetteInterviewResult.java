@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.applicant_interview_result.entity;
+package lk.recruitment_management.asset.applicant_gazette_interview_result.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter( "ApplicantInterviewResult" )
-public class ApplicantInterviewResult extends AuditEntity {
+@JsonFilter( "ApplicantGazetteInterviewResult" )
+public class ApplicantGazetteInterviewResult extends AuditEntity {
 
   private String result;
 
