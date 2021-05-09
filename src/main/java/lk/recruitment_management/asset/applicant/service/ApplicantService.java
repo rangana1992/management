@@ -119,12 +119,10 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     return applicantDao.findByApplicantStatus(applicantStatus);
   }
 
-  public List< Applicant > findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(LocalDateTime form,
+  public List< Applicant > findByCreatedAtIsBetweenAndApplicantStatus(LocalDateTime form,
                                                                                      LocalDateTime to,
-                                                                                     ApplyingRank applyingRank,
                                                                                      ApplicantStatus applicantStatus) {
-    return applicantDao.findByCreatedAtIsBetweenAndApplyingRankAndApplicantStatus(form, to, applyingRank,
-                                                                                  applicantStatus);
+    return applicantDao.findByCreatedAtIsBetweenAndApplicantStatus(form, to, applicantStatus);
   }
 
   public boolean createExcel(List< Applicant > applicants, ServletContext context,
@@ -349,7 +347,8 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 //      pdfCellHeaderCommonStyle(rank);
 //      applicantDetailTable.addCell(rank);
 //
-//      PdfPCell rankValue = new PdfPCell(new Paragraph(applicant.getApplyingRank().getApplyingRank(), tableHeaderOnly));
+//      PdfPCell rankValue = new PdfPCell(new Paragraph(applicant.getApplyingRank().getApplyingRank(),
+//      tableHeaderOnly));
 //      pdfCellHeaderCommonStyle(rankValue);
 //      applicantDetailTable.addCell(rankValue);
 
