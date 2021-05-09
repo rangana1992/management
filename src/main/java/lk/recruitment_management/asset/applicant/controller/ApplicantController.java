@@ -1,7 +1,6 @@
 package lk.recruitment_management.asset.applicant.controller;
 
 
-import com.twilio.rest.api.v2010.account.Application;
 import lk.recruitment_management.asset.ag_office.controller.AgOfficeController;
 import lk.recruitment_management.asset.ag_office.service.AgOfficeService;
 import lk.recruitment_management.asset.applicant.entity.*;
@@ -11,28 +10,25 @@ import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantD
 import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
+import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.applicant_result.entity.enums.Attempt;
 import lk.recruitment_management.asset.applicant_result.entity.enums.CompulsoryOLSubject;
 import lk.recruitment_management.asset.applicant_result.entity.enums.StreamLevel;
 import lk.recruitment_management.asset.applicant_result.entity.enums.SubjectResult;
 import lk.recruitment_management.asset.common_asset.model.Enum.*;
-import lk.recruitment_management.asset.common_asset.model.TwoDate;
 import lk.recruitment_management.asset.common_asset.service.CommonService;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.district.controller.DistrictController;
 import lk.recruitment_management.asset.district.service.DistrictService;
 import lk.recruitment_management.asset.grama_niladhari.controller.GramaNiladhariController;
 import lk.recruitment_management.asset.grama_niladhari.service.GramaNiladhariService;
-import lk.recruitment_management.asset.non_relative.entity.NonRelative;
 import lk.recruitment_management.asset.police_station.controller.PoliceStationController;
 import lk.recruitment_management.asset.police_station.Service.PoliceStationService;
-import lk.recruitment_management.asset.user_management.entity.User;
 import lk.recruitment_management.asset.user_management.service.UserService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -49,7 +45,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -212,13 +207,13 @@ public class ApplicantController {
       applicant.setEmail(authentication.getName());
 
       //set no relative to applicant
-      if ( !applicant.getNonRelatives().isEmpty() ) {
-        List< NonRelative > relatives = new ArrayList<>();
-        applicant.getNonRelatives().forEach(x -> {
+      if ( !applicant.getApplicantNonRelatives().isEmpty() ) {
+        List< ApplicantNonRelative > relatives = new ArrayList<>();
+        applicant.getApplicantNonRelatives().forEach(x -> {
           x.setApplicant(applicant);
           relatives.add(x);
         });
-        applicant.setNonRelatives(relatives);
+        applicant.setApplicantNonRelatives(relatives);
       }
       //set degree result to applicant
       if ( !applicant.getApplicantDegreeResults().isEmpty() ) {

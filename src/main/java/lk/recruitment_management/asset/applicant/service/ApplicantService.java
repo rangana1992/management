@@ -10,9 +10,8 @@ import lk.recruitment_management.asset.applicant.dao.ApplicantDao;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lk.recruitment_management.asset.applicant_result.entity.enums.StreamLevel;
-import lk.recruitment_management.asset.non_relative.entity.NonRelative;
+import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.asset.interview_parameter.entity.InterviewParameter;
@@ -21,7 +20,6 @@ import lk.recruitment_management.util.service.DateTimeAgeService;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.*;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
@@ -29,7 +27,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -520,7 +517,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
         document.add(applicantDegreeResults);
       }
 
-      if ( !applicant.getNonRelatives().isEmpty() ) {
+      if ( !applicant.getApplicantNonRelatives().isEmpty() ) {
         PdfPTable nonRelatives = new PdfPTable(4);//column amount
         nonRelatives.setWidthPercentage(100);
         nonRelatives.setSpacingBefore(10f);
@@ -545,7 +542,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
         nonRelatives.addCell(nonRelativeAddress);
 
 
-        for ( NonRelative value : applicant.getNonRelatives() ) {
+        for ( ApplicantNonRelative value : applicant.getApplicantNonRelatives() ) {
           PdfPCell nonRelativeNameValue = new PdfPCell(new Paragraph(value.getName(), tableHeader));
           pdfCellBodyCommonStyle(nonRelativeNameValue);
           nonRelatives.addCell(nonRelativeNameValue);

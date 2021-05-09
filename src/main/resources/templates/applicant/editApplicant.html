@@ -604,23 +604,23 @@
                         <div class="container-fluid" >
                           <h3 >No Relatives</h3 >
                         </div ><!--non relative one-->
-                        <div class="form-group col-md-6 col-sm-6 text-left flex-column" data-th-each="nonRelative, index : ${applicant.nonRelatives}" >
+                        <div class="form-group col-md-6 col-sm-6 text-left flex-column" data-th-each="applicantNonRelative, index : ${applicant.applicantNonRelatives}" >
                           <!-- Name-->
                           <div class="form-group" >
                             <label class="control-label" >Name :</label >
                             <input class="form-control"
-                                   data-th-value="${nonRelative.id}"
-                                   data-th-name="${'nonRelatives[__${index.index}__].id'}" type="text" required hidden/>
+                                   data-th-value="${applicantNonRelative.id}"
+                                   data-th-name="${'applicantNonRelatives[__${index.index}__].id'}" type="text" required hidden/>
                             <input class="form-control"
-                                   data-th-value="${nonRelative.name}"
-                                   data-th-name="${'nonRelatives[__${index.index}__].name'}" type="text" required/>
+                                   data-th-value="${applicantNonRelative.name}"
+                                   data-th-name="${'applicantNonRelatives[__${index.index}__].name'}" type="text" required/>
                           </div >
                           <!--Address-->
                           <div class="form-group" >
                             <label class="control-label" for="address" >Address :</label >
                             <textarea class="form-control text-black"
-                                      data-th-utext="${nonRelative.address}"
-                                      data-th-name="${'nonRelatives[__${index.index}__].address'}" rows="4" required>
+                                      data-th-utext="${applicantNonRelative.address}"
+                                      data-th-name="${'applicantNonRelatives[__${index.index}__].address'}" rows="4" required>
                             </textarea >
                           </div >
                           <!--Mobile Number-->
@@ -630,8 +630,8 @@
                             <input class="form-control mobile"
                                    maxlength="10" min="9"
                                    required
-                                   tabindex="13" data-th-value="${nonRelative.mobile}"
-                                   data-th-name="${'nonRelatives[__${index.index}__].mobile'}"
+                                   tabindex="13" data-th-value="${applicantNonRelative.mobile}"
+                                   data-th-name="${'applicantNonRelatives[__${index.index}__].mobile'}"
                                    type="text" />
                           </div >
                           <!--Land No-->
@@ -639,8 +639,8 @@
                             <label class="control-label" for="land" >Land No
                                                                      :</label >
                             <input class="form-control land"
-                                   maxlength="10" min="9" tabindex="5" data-th-value="${nonRelative.land}"
-                                   data-th-name="${'nonRelatives[__${index.index}__].land'}"
+                                   maxlength="10" min="9" tabindex="5" data-th-value="${applicantNonRelative.land}"
+                                   data-th-name="${'applicantNonRelatives[__${index.index}__].land'}"
                                    type="text" />
                           </div >
                         </div >

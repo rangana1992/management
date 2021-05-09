@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.non_relative.entity;
+package lk.recruitment_management.asset.applicant_non_relative.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonFilter("NonRelative")
-public class NonRelative extends AuditEntity {
+public class ApplicantNonRelative extends AuditEntity {
 
     @NotEmpty
     @Column(nullable = false)
