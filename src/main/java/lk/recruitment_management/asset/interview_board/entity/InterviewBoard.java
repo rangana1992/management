@@ -26,6 +26,8 @@ public class InterviewBoard extends AuditEntity {
 
     private String name;
 
+    private String message;
+
     @Enumerated(EnumType.STRING)
     private InterviewBoardStatus interviewBoardStatus;
 
