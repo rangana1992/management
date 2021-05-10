@@ -1,4 +1,4 @@
-  <!doctype html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head th:replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
 <body class="hold-transition sidebar-mini layout-fixed" >
@@ -33,35 +33,32 @@
                   <div class="card-body" >
 
                     <h4 >Gazette Details</h4 >
-                          <table class="table table-hover table-striped" id="myTable">
-                <thead>
-                <tr>
-                    <th> Index</th>
-                    <th> Name </th>
-                    <th> Request Maximum Age</th>
-                    <th> Status </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-th-each="gazette, rowCount : ${gazettes}">
-                    <th data-th-text="${rowCount.count}"></th>
-                    <th data-th-text="${gazette.name}"></th>
-                    <th data-th-text="${gazette.age}"></th>
-                    <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
-                </tr>
-                </tbody>
-            </table>
+                    <table class="table table-hover table-striped" id="myTable" >
+                      <thead >
+                      <tr >
+                        <th > Name</th >
+                        <th > Request Maximum Age</th >
+                        <th > Status</th >
+                      </tr >
+                      </thead >
+                      <tbody >
+                      <tr >
+                        <th data-th-text="${gazette.name}" ></th >
+                        <th data-th-text="${gazette.age}" ></th >
+                        <th data-th-text="${gazette.gazetteStatus.gazetteStatus}" ></th >
+                      </tr >
+                      </tbody >
+                    </table >
                     <form th:action="${'/applicantGazette/save'}"
                           method="post" th:object="${applicantGazette}" >
-                          <input type="text" data-th-filed="*{gazette}" hidden required>
-                          <input type="text" data-th-filed="*{applicant}" hidden required>                          
-                    
-                        <button type="submit" class="btn btn-primary" >
-                          <i th:class="${'fa fa-save mr-1'}" ></i >
-                          <span
-                                th:text="${'Apply'}" ></span >
-                        </button >
-                      </div >
+                      <input type="text" data-th-filed="*{gazette}" hidden required >
+                      <input type="text" data-th-filed="*{applicant}" hidden required >
+
+                      <button type="submit" class="btn btn-primary" >
+                        <i th:class="${'fa fa-save mr-1'}" ></i >
+                        <span
+                              th:text="${'Apply'}" ></span >
+                      </button >
                     </form >
                   </div >
                 </div >
