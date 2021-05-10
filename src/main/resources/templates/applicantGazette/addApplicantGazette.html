@@ -49,10 +49,28 @@
                       </tr >
                       </tbody >
                     </table >
+                    <div class="row">
+                      <p>Summary of this gazette</p>
+                      <p data-th-utext="${gazette.summary}"></p>
+
+                    </div>
                     <form data-th-action="${'/applicantGazette/save'}"
                           method="post" th:object="${applicantGazette}" >
                       <input type="text" data-th-field="*{gazette.id}" hidden required >
                       <input type="text" data-th-field="*{applicant.id}" hidden required >
+
+                      <div class="form-group" >
+                        <label class="control-label" for="applyingRank" >Applying Rank
+                                                                         :</label >
+                        <select class="form-control" id="applyingRank"
+                                required
+                                data-th-name="${'applyingRank'}" >
+                          <option value="" >Please select</option >
+                          <option data-th-each="applyingRank : ${applyingRanks}"
+                                  data-th-text="${applyingRank.applyingRank}"
+                                  data-th-value="${applyingRank}" ></option >
+                        </select >
+                      </div >
 
                       <button type="submit" class="btn btn-primary" >
                         <i data-th-class="${'fa fa-save mr-1'}" ></i >

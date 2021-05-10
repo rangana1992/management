@@ -8,7 +8,7 @@ import lk.recruitment_management.asset.applicant.entity.enums.*;
 import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
@@ -89,7 +89,7 @@ public class ApplicantController {
     model.addAttribute("title", Title.values());
     model.addAttribute("genders", Gender.values());
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatus", ApplicantStatus.values());
+    model.addAttribute("applicantStatus", ApplicantGazetteStatus.values());
     model.addAttribute("civilStatuses", CivilStatus.values());
     model.addAttribute("nationalities", Nationality.values());
     model.addAttribute("bloodGroup", BloodGroup.values());
@@ -306,7 +306,7 @@ public class ApplicantController {
     model.addAttribute("applicants", applicants);
     model.addAttribute("contendHeader", "Applicant Registration");
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatuses", ApplicantStatus.values());
+    model.addAttribute("applicantStatuses", ApplicantGazetteStatus.values());
     model.addAttribute("addStatus", true);
     return "applicant/applicant";
   }

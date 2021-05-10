@@ -1,28 +1,19 @@
 package lk.recruitment_management.asset.process_management.interview_manage;
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.util.service.FileHandelService;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.List;
 
 @Controller

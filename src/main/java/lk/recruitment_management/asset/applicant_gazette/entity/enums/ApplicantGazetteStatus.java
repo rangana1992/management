@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ApplicantStatus {
+public enum ApplicantGazetteStatus {
     P("Pending"),
     A("Approved"),
     REJ("Reject"),

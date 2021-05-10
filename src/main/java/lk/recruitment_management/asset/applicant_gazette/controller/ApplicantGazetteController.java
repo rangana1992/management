@@ -3,12 +3,11 @@ package lk.recruitment_management.asset.applicant_gazette.controller;
 
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.gazette.service.GazetteService;
-import lk.recruitment_management.asset.user_management.entity.User;
 import lk.recruitment_management.asset.user_management.service.UserService;
-import org.apache.catalina.security.SecurityConfig;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,6 +43,7 @@ public class ApplicantGazetteController {
 
   @PostMapping( "/save" )
   public String persist(@ModelAttribute ApplicantGazette applicantGazette) {
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.NTA);
     applicantGazetteService.persist(applicantGazette);
     return "redirect:/home";
   }

@@ -1,6 +1,6 @@
 package lk.recruitment_management.asset.common_asset.model;
 
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 public class InterviewSchedule {
 
   @Enumerated( EnumType.STRING )
-  private ApplicantStatus interviewNumber;
+  private ApplicantGazetteStatus interviewNumber;
 
   private List< InterviewScheduleList > interviewScheduleLists;
 }
