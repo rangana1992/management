@@ -10,7 +10,7 @@ public enum Nationality {
     SIN("Sinhala"),
     TML("Tamil"),
     MLM("Muslim"),
-    BGR("Burghers");
+    BGR("Burgher");
 
 
     private final String nationality;
