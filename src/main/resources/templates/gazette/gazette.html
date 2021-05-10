@@ -35,6 +35,7 @@
                     <th> Name </th>
                     <th> Request Maximum Age</th>
                     <th> Status </th>
+                    <th> Summary </th>
                     <th> Modify</th>
                 </tr>
                 </thead>
@@ -44,6 +45,7 @@
                     <th data-th-text="${gazette.name}"></th>
                     <th data-th-text="${gazette.age}"></th>
                     <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
+                    <th data-th-utext="${gazette.summary}"></th>
                     <th>
                         <a data-th-href="${'/gazette/edit/' + gazette.id}"
                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>
