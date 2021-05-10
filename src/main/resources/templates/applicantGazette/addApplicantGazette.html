@@ -49,10 +49,9 @@
                       </tr >
                       </tbody >
                     </table >
-                    <div class="row">
-                      <p>Summary of this gazette</p>
+                    <div class="row p-3">
+                      <label class="control-label" for="applyingRank" >Summary of this gazette </label>
                       <p data-th-utext="${gazette.summary}"></p>
-
                     </div>
                     <form data-th-action="${'/applicantGazette/save'}"
                           method="post" th:object="${applicantGazette}" >
@@ -64,7 +63,7 @@
                                                                          :</label >
                         <select class="form-control" id="applyingRank"
                                 required
-                                data-th-name="${'applyingRank'}" >
+                                data-th-field="*{'applyingRank'}" >
                           <option value="" >Please select</option >
                           <option data-th-each="applyingRank : ${applyingRanks}"
                                   data-th-text="${applyingRank.applyingRank}"

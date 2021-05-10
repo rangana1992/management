@@ -4,6 +4,7 @@ package lk.recruitment_management.asset.applicant_gazette.controller;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.gazette.service.GazetteService;
@@ -38,6 +39,7 @@ public class ApplicantGazetteController {
     applicantGazette.setGazette(gazette);
     model.addAttribute("gazette", gazette);
     model.addAttribute("applicantGazette", applicantGazette);
+    model.addAttribute("applyingRanks", ApplyingRank.values());
     return "applicantGazette/addApplicantGazette";
   }
 
@@ -47,7 +49,6 @@ public class ApplicantGazetteController {
     applicantGazetteService.persist(applicantGazette);
     return "redirect:/home";
   }
-
 
 
 }
