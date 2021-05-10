@@ -77,7 +77,7 @@
                                   </select >
                                 </div >
                                 <div class="form-group" >
-                                  <label class="control-label" for="applicantStatus" >Applying Rank
+                                  <label class="control-label" for="applicantStatus" >Applicant Status
                                                                                       :</label >
                                   <select class="form-control" id="applicantStatus" required
                                           data-th-name="${'applicantStatus'}" >
@@ -107,7 +107,6 @@
                         <tr >
                           <th > Index</th >
                           <th > Name</th >
-                          <th > Rank</th >
                           <th > Police Station</th >
                           <th th:if="${addStatus}"> Modify</th >
                         </tr >
@@ -116,16 +115,11 @@
                         <tr th:each="applicant, rowCount : ${applicants}" >
                           <td th:text="${rowCount.count}" ></td >
                           <td th:text="${applicant.nameWithInitial}" ></td >
-                          <td th:text="${applicant.applyingRank}" ></td >
                           <td th:text="${applicant.gramaNiladhari.policeStation.name}" ></td >
 
                           <td th:if="${addStatus}">
                             <a th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
-                                  class="fa fa-folder-open" ></i >&nbsp;View</a >
-                            <a th:href="${'/applicant/remove/' + applicant.id}"
-                               th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
-                               class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
-                              Delete</a >
+                                  class="fa fa-folder-open" ></i >&nbsp;View / Approve</a >
                           </td >
                         </tr >
                         </tfoot>

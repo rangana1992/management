@@ -11,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface ApplicantGazetteDao extends JpaRepository< ApplicantGazette, Integer> {
-  List< Gazette> findByApplicant(Applicant applicant);
+  List< ApplicantGazette> findByApplicant(Applicant applicant);
 }

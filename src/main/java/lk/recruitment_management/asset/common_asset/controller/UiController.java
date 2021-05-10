@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,19 +53,21 @@ public class UiController {
     //do some logic here if you want something to be done whenever
     User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
     Applicant applicant = applicantService.findByEmail(authUser.getUsername());
-    if ( applicant == null ) {
+    if ( applicant == null && authUser.getEmployee() == null) {
       redirectAttributes.addFlashAttribute("applicant", new Applicant(authUser.getUsername()));
       return "redirect:/applicant/add";
     }
     //when user has role applicant
     if ( authUser.getEmployee() == null ) {
+      assert applicant != null;
       int applicantAge = dateTimeAgeService.getAge(applicant.getDateOfBirth());
       //need to send applied gazette and unapply gazette
       List< Gazette > gazettes =
           gazetteService.findAll().stream().filter(x -> x.getGazetteStatus().equals(GazetteStatus.AC) && x.getAge() >= applicantAge).collect(Collectors.toList());
 
       // applied gazette
-      List< Gazette > gazetteDb = applicantGazetteService.findByApplicant(applicant);
+      List< Gazette > gazetteDb = new ArrayList<>();
+      applicantGazetteService.findByApplicant(applicant).forEach(x -> gazetteDb.add(x.getGazette()));
       gazettes.removeAll(gazetteDb);
 
       model.addAttribute("appliedGazettes", gazetteDb);

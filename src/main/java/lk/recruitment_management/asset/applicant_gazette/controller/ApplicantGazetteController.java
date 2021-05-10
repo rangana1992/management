@@ -50,6 +50,8 @@ public class ApplicantGazetteController {
     return "redirect:/home";
   }
 
+  //todo need to view applicant apply gazettes on ne page and show if he or has notification
+
 
 
 }

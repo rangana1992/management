@@ -55,7 +55,7 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
         return applicantGazetteDao.findAll(sampleCollectingTubeExample);
     }
 
-  public List< Gazette> findByApplicant(Applicant applicant) {
+  public List< ApplicantGazette> findByApplicant(Applicant applicant) {
   return applicantGazetteDao.findByApplicant(applicant);
     }
 }
