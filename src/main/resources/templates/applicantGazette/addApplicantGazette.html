@@ -1,0 +1,81 @@
+  <!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
+                                <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
+
+    <div class="content-header" >
+      <div class="container-fluid" >
+        <div class="row" >
+          <div class="col-md-12" >
+            <div class="row" >
+              <div class="col-md-12" >
+                <div class="card" >
+                  <div class="card-body" >
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form" >
+                      <div align="right" >
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}" >
+                          <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
+                      </div >
+                    </form >
+                  </div >
+                </div >
+              </div >
+              <div class="col-md-12" >
+                <div class="card" >
+                  <div class="card-body" >
+
+                    <h4 >Gazette Details</h4 >
+                          <table class="table table-hover table-striped" id="myTable">
+                <thead>
+                <tr>
+                    <th> Index</th>
+                    <th> Name </th>
+                    <th> Request Maximum Age</th>
+                    <th> Status </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="gazette, rowCount : ${gazettes}">
+                    <th data-th-text="${rowCount.count}"></th>
+                    <th data-th-text="${gazette.name}"></th>
+                    <th data-th-text="${gazette.age}"></th>
+                    <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
+                </tr>
+                </tbody>
+            </table>
+                    <form th:action="${'/applicantGazette/save'}"
+                          method="post" th:object="${applicantGazette}" >
+                          <input type="text" data-th-filed="*{gazette}" hidden required>
+                          <input type="text" data-th-filed="*{applicant}" hidden required>                          
+                    
+                        <button type="submit" class="btn btn-primary" >
+                          <i th:class="${'fa fa-save mr-1'}" ></i >
+                          <span
+                                th:text="${'Apply'}" ></span >
+                        </button >
+                      </div >
+                    </form >
+                  </div >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
+  </div ><!-- content-wrapper end -->
+  <div th:replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
+</div ><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+
+
+</body >
+</html >
