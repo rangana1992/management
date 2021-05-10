@@ -228,7 +228,7 @@ public class ApplicantController {
       if ( !applicant.getApplicantResults().isEmpty() ) {
         List< ApplicantResult > applicantResults = new ArrayList<>();
         applicant.getApplicantResults().forEach(x -> {
-          if ( x.getSubjectResult() != null ) {
+          if ( x.getYear() != null && x.getIndexNumber() != null && x.getSubjectName() != null) {
             x.setApplicant(applicant);
             applicantResults.add(x);
           }

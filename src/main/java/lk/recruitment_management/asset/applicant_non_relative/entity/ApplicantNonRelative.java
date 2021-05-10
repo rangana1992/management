@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("NonRelative")
+@JsonFilter("ApplicantNonRelative")
 public class ApplicantNonRelative extends AuditEntity {
 
     @NotEmpty
@@ -29,6 +29,7 @@ public class ApplicantNonRelative extends AuditEntity {
     private String address;
 
     @Size(max = 10, message = "Mobile number length should be contained 10 and 9")
+    @Column(unique = true)
     private String mobile;
 
     private String land;

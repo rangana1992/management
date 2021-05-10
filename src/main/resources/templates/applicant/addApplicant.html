@@ -1394,7 +1394,7 @@
                                         <!--/*Subject result*/-->
                                         <select class="form-control"
                                                 name="applicantResults[13].subjectResult"
-                                                tabindex="60" >
+                                                tabindex="60" id="alResultEn" >
                                           <option disabled selected value="" >
                                             Choose
                                           </option >
@@ -1457,24 +1457,9 @@
                                                name="applicantResults[14].mark"
                                                placeholder="Marks"
                                                tabindex="62"
-                                               type="text" id="marks">
+                                               type="text" id="marks" >
                                       </td >
                                       <!--/*Attempt*/-->
-                                      <td >
-                                        <!--/*Attempt*/-->
-                                        <select hidden class="form-control"
-                                                id="subALFiveAttempt"
-                                                name="applicantResults[14].attempt"
-                                                tabindex="63"
-                                                data-th-value="${'FIRST'}" >
-                                          <option disabled selected value="" >
-                                            Choose
-                                          </option >
-                                          <option data-th-each="attempt : ${attempts}"
-                                                  data-th-text="${attempt.attempt}"
-                                                  data-th-value="${attempt}" ></option >
-                                        </select >
-                                      </td >
                                     </tr >
                                     </tbody >
                                   </table >
@@ -2031,8 +2016,6 @@
     $("#subALOneSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        //let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
@@ -2049,52 +2032,19 @@
     $("#subALTwoSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        //let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-        }
         $("#subALTwoIndex").val(alOneIndexNumber);
         $("#subALTwoSubYear").val(alOneYear);
     });    //subject three
     $("#subALThreeSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        /* let alTwoIndexNumber = $("#indexTwoAL").val();
-         let alTwoYear = $("#yearTwoAL").val();*/
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-        }
         $("#subALThreeIndex").val(alOneIndexNumber);
         $("#subALThreeSubYear").val(alOneYear);
     });
     //subject four
-    $("#subALFourSubName").bind("keyup", function () {
+    $("#alResultEn").bind("change", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        //let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-        }
         $("#subALFourIndex").val(alOneIndexNumber);
         $("#subALFourSubYear").val(alOneYear);
     });
@@ -2102,17 +2052,6 @@
     $("#marks").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        // let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-        }
         $("#subALFiveIndex").val(alOneIndexNumber);
         $("#subALFiveSubYear").val(alOneYear);
     });
@@ -2133,6 +2072,29 @@
         document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
 
     }
+//todo -> need to validate mobile number add applivant and edit applicant
+    let mobileNumber = [];
+    $(".mobile").keyup(() => {
+        $(".mobile").each(function () {
+            if (mobileNumber.length > 0) {
+                for (let mobileNumberElement of mobileNumber) {
+                    let mobile = $(this).val();
+                    console.log(" moile "+ mobileNumber.includes(mobile))
+                    if (mobileNumber.includes(mobile)) {
+                        $(".mobile").addClass('bg-danger');
+                        break;
+                    }else {
+                        mobileNumber.push(mobile);
+                    }
+                }
+            } else {
+                mobileNumber.push($(this).val())
+            }
+        });
+    });
+
+
+
 </script >
 </body >
 </html >

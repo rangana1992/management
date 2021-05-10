@@ -478,7 +478,6 @@
                                     <th >Result</th >
                                     <th >Year</th >
                                     <th >Index Number</th >
-                                    <th >Attempt</th >
                                   </tr >
                                   </thead >
                                   <!--/*when A/L result update state*/-->
@@ -532,19 +531,6 @@
                                              data-th-name="${'applicantResults[__${index.index}__].indexNumber'}"
                                              data-th-value="${studentResult.indexNumber}"
                                              type="text" >
-                                    </td >
-                                    <td >
-                                      <select class="form-control"
-                                              data-th-name="${'applicantResults[__${index.index}__].attempt'}" >
-                                        <option disabled selected value="" >
-                                          Choose
-                                        </option >
-                                        <option data-th-each="attempt : ${attempts}"
-                                                data-th-selected="${attempt==studentResult.attempt}"
-                                                data-th-text="${attempt.attempt}"
-                                                data-th-value="${attempt}"
-                                        ></option >
-                                      </select >
                                     </td >
                                   </tr >
                                   </tbody >
