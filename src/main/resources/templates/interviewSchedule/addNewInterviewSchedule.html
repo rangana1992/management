@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
+
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+    <div ><br /><br /></div >
+    <div class="col-md-12" >
+      <div class="card" >
+        <div class="card-body" >
+          <!--                                        <h4>First sud Header</h4>-->
+          <form role="form" >
+            <div align="right" >
+              <a class="btn btn-success" id="newDistrict" th:href="${'/employee/add'}" >
+                <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Add Applicant </a >
+              <a class="btn btn-info" id="newDistrict" th:href="${'/home'}" >
+                <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
+            </div >
+          </form >
+        </div >
+      </div >
+    </div >
+
+    <div class="container-fluid" ><h3 >
+      Interview Schedule</h3 >
+    </div >
+    <div class="container-fluid" >
+
+<div class="container-fluid   text-center">
+    <div class="col">
+        <div class="col" id="authorListPresent" data-th-if="${not #lists.isEmpty(gazettes)}">
+            <table class="table table-hover table-striped" id="myTable">
+                <thead>
+                <tr>
+                    <th> Index</th>
+                    <th> Name </th>
+                    <th> Request Maximum Age</th>
+                    <th> Status </th>
+                    <th> Summary </th>
+                    <th> Modify</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-th-each="gazette, rowCount : ${gazettes}">
+                    <th data-th-text="${rowCount.count}"></th>
+                    <th data-th-text="${gazette.name}"></th>
+                    <th data-th-text="${gazette.age}"></th>
+                    <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
+                    <th data-th-utext="${gazette.summary}"></th>
+                    <th>
+                        <a data-th-href="${'/interviewSchedule/add/' + gazette.id}"
+                           class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Make Schedule </a>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" data-th-if="${ #lists.isEmpty(gazettes)}">
+        <div class="col-sm-12">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="text-center text-danger">
+                    <strong>There is no gazette upto now please add gazette to the system
+                            using add user button.
+                    </strong>
+                </h3>
+            </div>
+        </div>
+        <script>
+            /*active boostrap alert - start*/
+            $(".alert").alert();
+            /*active boostrap alert - end*/
+        </script>
+    </div>
+</div>
+    </div >
+  </div >
+</div >
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer >
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></script >
+
+
+</body >
+</html >

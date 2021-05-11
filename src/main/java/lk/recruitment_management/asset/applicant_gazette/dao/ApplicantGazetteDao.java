@@ -17,4 +17,8 @@ public interface ApplicantGazetteDao extends JpaRepository< ApplicantGazette, In
   List< ApplicantGazette> findByApplicant(Applicant applicant);
 
   List< ApplicantGazette> findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(LocalDateTime dateTimeToLocalDateEndInDay, LocalDateTime dateTimeToLocalDateEndInDay1, ApplicantGazetteStatus applicantGazetteStatus, ApplyingRank applyingRank);
+
+  int countByApplicantGazetteStatus(ApplicantGazetteStatus applicantGazetteStatus);
+
+  int countByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette);
 }
