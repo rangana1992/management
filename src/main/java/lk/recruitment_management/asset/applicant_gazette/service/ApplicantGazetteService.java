@@ -5,6 +5,8 @@ package lk.recruitment_management.asset.applicant_gazette.service;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_gazette.dao.ApplicantGazetteDao;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,5 +60,9 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
 
   public List< ApplicantGazette> findByApplicant(Applicant applicant) {
   return applicantGazetteDao.findByApplicant(applicant);
+    }
+
+    public List< ApplicantGazette> findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(LocalDateTime dateTimeToLocalDateStartInDay, LocalDateTime dateTimeToLocalDateEndInDay, ApplicantGazetteStatus applicantGazetteStatus, ApplyingRank applyingRank) {
+    return applicantGazetteDao.findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(dateTimeToLocalDateEndInDay, dateTimeToLocalDateEndInDay,applicantGazetteStatus,applyingRank);
     }
 }

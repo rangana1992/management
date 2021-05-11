@@ -35,13 +35,6 @@
                 <div class="card" >
                   <!--all report-->
                   <div class="card-body" >
-                    <div class="btn-group" role="group" aria-label="Basic example" >
-                      <a href="/applicant" >
-                        <button type="button" class="btn btn-secondary" >Left</button >
-                      </a >
-                    </div >
-                  </div >
-                  <div class="card-body" >
                     <div class="row" >
                       <!--Custom Invoice search-->
                       <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
@@ -80,11 +73,11 @@
                                   <label class="control-label" for="applicantStatus" >Applicant Status
                                                                                       :</label >
                                   <select class="form-control" id="applicantStatus" required
-                                          data-th-name="${'applicantStatus'}" >
+                                          data-th-name="${'applicantGazetteStatus'}" >
                                     <option value="" >Please select</option >
-                                    <option data-th-each="applicantStatus : ${applicantStatuses}"
-                                            data-th-text="${applicantStatus.applicantStatus}"
-                                            data-th-value="${applicantStatus}" ></option >
+                                    <option data-th-each="applicantGazetteStatus : ${applicantGazetteStatuses}"
+                                            data-th-text="${applicantGazetteStatus.applicantGazetteStatus}"
+                                            data-th-value="${applicantGazetteStatus}" ></option >
                                   </select >
                                 </div >
                                 <div class="form-group" >

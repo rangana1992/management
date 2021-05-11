@@ -10,6 +10,7 @@ import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantD
 import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
+import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
 import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.applicant_result.entity.enums.Attempt;
@@ -17,6 +18,7 @@ import lk.recruitment_management.asset.applicant_result.entity.enums.CompulsoryO
 import lk.recruitment_management.asset.applicant_result.entity.enums.StreamLevel;
 import lk.recruitment_management.asset.applicant_result.entity.enums.SubjectResult;
 import lk.recruitment_management.asset.common_asset.model.Enum.*;
+import lk.recruitment_management.asset.common_asset.model.TwoDate;
 import lk.recruitment_management.asset.common_asset.service.CommonService;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.district.controller.DistrictController;
@@ -55,6 +57,7 @@ public class ApplicantController {
   private final DateTimeAgeService dateTimeAgeService;
   private final CommonService commonService;
   private final UserService userService;
+  private final ApplicantGazetteService applicantGazetteService;
   private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
   private final DistrictService districtService;
   private final AgOfficeService agOfficeService;
@@ -65,7 +68,7 @@ public class ApplicantController {
   @Autowired
   public ApplicantController(ApplicantService applicantService, ApplicantFilesService applicantFilesService,
                              DateTimeAgeService dateTimeAgeService, CommonService commonService,
-                             UserService userService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,
+                             UserService userService, ApplicantGazetteService applicantGazetteService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,
                              DistrictService districtService,
                              AgOfficeService agOfficeService, PoliceStationService policeStationService,
                              GramaNiladhariService gramaNiladhariService) {
@@ -75,6 +78,7 @@ public class ApplicantController {
     this.dateTimeAgeService = dateTimeAgeService;
     this.commonService = commonService;
     this.userService = userService;
+    this.applicantGazetteService = applicantGazetteService;
     this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     this.districtService = districtService;
 
@@ -89,7 +93,7 @@ public class ApplicantController {
     model.addAttribute("title", Title.values());
     model.addAttribute("genders", Gender.values());
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatus", ApplicantGazetteStatus.values());
+    model.addAttribute("applicantGazetteStatuses", ApplicantGazetteStatus.values());
     model.addAttribute("civilStatuses", CivilStatus.values());
     model.addAttribute("nationalities", Nationality.values());
     model.addAttribute("bloodGroup", BloodGroup.values());
@@ -294,12 +298,14 @@ public class ApplicantController {
     return "applicant/applicant";
   }
 
-//  @PostMapping( "/all/search" )
-//  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
-//    return commonApplicant(model,
-//                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService
-//                           .dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
-//                                                                                                    dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
-//                             , twoDate.getApplicantStatus()));
-//  }
+  @PostMapping( "/all/search" )
+  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
+    List<Applicant> applicants = new ArrayList<>();
+
+    applicantGazetteService.findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(dateTimeAgeService
+                                                                    .dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+                                                                dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
+        , twoDate.getApplicantGazetteStatus(), twoDate.getApplyingRank()).forEach(x->applicants.add(x.getApplicant()));
+    return commonApplicant(model,applicants);
+  }
 }
