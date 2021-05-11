@@ -64,8 +64,7 @@ public class InterviewScheduleController {
     model.addAttribute("interviewBoard", interviewBoardService.findAll()
                            .stream()
                            .filter(x -> x.getInterviewBoardStatus().equals(InterviewBoardStatus.ACT))
-                           .collect(Collectors.toList())
-                      );
+                           .collect(Collectors.toList())                      );
     List< ApplicantGazetteStatus > applicantGazetteStatuses = new ArrayList<>();
     applicantGazetteStatuses.add(ApplicantGazetteStatus.FST);
     applicantGazetteStatuses.add(ApplicantGazetteStatus.SND);

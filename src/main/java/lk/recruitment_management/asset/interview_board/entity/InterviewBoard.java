@@ -22,23 +22,23 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("InterviewBoard")
+@JsonFilter( "InterviewBoard" )
 public class InterviewBoard extends AuditEntity {
 
-    private String name;
+  private String name;
 
-    private String message;
+  private String message;
 
-    @Enumerated(EnumType.STRING)
-    private InterviewBoardStatus interviewBoardStatus;
+  @Enumerated( EnumType.STRING )
+  private InterviewBoardStatus interviewBoardStatus;
 
-    @ManyToOne
-    private Interview interview;
+  @ManyToOne
+  private Interview interview;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @Fetch( FetchMode.SUBSELECT)
-    @JoinTable(name = "interview_board_employee",
-            joinColumns = @JoinColumn(name = "interview_board_id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id"))
-    private List<Employee> employees;
+  @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.PERSIST}, fetch = FetchType.EAGER )
+  @Fetch( FetchMode.SUBSELECT )
+  @JoinTable( name = "interview_board_employee",
+      joinColumns = @JoinColumn( name = "interview_board_id" ),
+      inverseJoinColumns = @JoinColumn( name = "employee_id" ) )
+  private List< Employee > employees;
 }
