@@ -9,7 +9,6 @@ public enum ApplicantGazetteStatus {
     P("Pending"),
     A("Approved"),
     REJ("Reject"),
-    NTA("Not Approved"),
     FST("First Interview"),
     FSTP("First Interview Pass"),
     FSTR("First Interview Reject"),
@@ -23,5 +22,5 @@ public enum ApplicantGazetteStatus {
     FTHP("Forth Interview Pass"),
     FTHR("Forth Interview Reject");
 
-  private final String applicantStatus;
+  private final String applicantGazetteStatus;
 }

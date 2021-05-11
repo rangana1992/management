@@ -283,24 +283,7 @@ public class ApplicantController {
     return "applicant/applicant-detail";
   }
 
-  //doto those are need to applicantGazette approve not
 
-//  @GetMapping( value = "/approve/{id}" )
-//  public String approve(@PathVariable Integer id) {
-//    Applicant applicant = applicantService.findById(id);
-//    applicant.setApplicantStatus(ApplicantStatus.A);
-//    applicantService.persist(applicant);
-//    return "redirect:/applicant";
-//
-//  }
-//
-//  @GetMapping( value = "/reject/{id}" )
-//  public String reject(@PathVariable Integer id) {
-//    Applicant applicant = applicantService.findById(id);
-//    applicant.setApplicantStatus(ApplicantStatus.REJ);
-//    applicantService.persist(applicant);
-//    return "redirect:/applicant";
-//  }
 
   private String commonApplicant(Model model, List< Applicant > applicants) {
     model.addAttribute("applicants", applicants);

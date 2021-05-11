@@ -1,6 +1,7 @@
 package lk.recruitment_management.asset.applicant_gazette.controller;
 
 
+import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
@@ -45,13 +46,27 @@ public class ApplicantGazetteController {
 
   @PostMapping( "/save" )
   public String persist(@ModelAttribute ApplicantGazette applicantGazette) {
-    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.NTA);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.P);
     applicantGazetteService.persist(applicantGazette);
     return "redirect:/home";
   }
 
-  //todo need to view applicant apply gazettes on ne page and show if he or has notification
+  @GetMapping( value = "/approve/{id}" )
+  public String approve(@PathVariable Integer id) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.A);
+    applicantGazetteService.persist(applicantGazette);
+    return "redirect:/applicant";
 
+  }
+
+  @GetMapping( value = "/reject/{id}" )
+  public String reject(@PathVariable Integer id) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.REJ);
+    applicantGazetteService.persist(applicantGazette);
+    return "redirect:/applicant";
+  }
 
 
 }
