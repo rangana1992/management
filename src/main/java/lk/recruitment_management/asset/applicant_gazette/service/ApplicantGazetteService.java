@@ -26,27 +26,22 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
     this.applicantGazetteDao = applicantGazetteDao;
   }
 
-
   public List< ApplicantGazette > findAll() {
     return applicantGazetteDao.findAll();
   }
-
 
   public ApplicantGazette findById(Integer id) {
     return applicantGazetteDao.getOne(id);
   }
 
-
   public ApplicantGazette persist(ApplicantGazette applicantGazette) {
     return applicantGazetteDao.save(applicantGazette);
   }
-
 
   public boolean delete(Integer id) {
     applicantGazetteDao.deleteById(id);
     return false;
   }
-
 
   public List< ApplicantGazette > search(ApplicantGazette applicantGazette) {
     ExampleMatcher matcher = ExampleMatcher

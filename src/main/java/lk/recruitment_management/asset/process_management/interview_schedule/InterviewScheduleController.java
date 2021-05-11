@@ -33,7 +33,8 @@ public class InterviewScheduleController {
   private final DistrictService districtService;
 
   public InterviewScheduleController(ApplicantService applicantService, InterviewBoardService interviewBoardService,
-                                     GazetteService gazetteService, ApplicantGazetteInterviewService applicantGazetteInterviewService,
+                                     GazetteService gazetteService,
+                                     ApplicantGazetteInterviewService applicantGazetteInterviewService,
                                      ApplicantGazetteService applicantGazetteService, DistrictService districtService) {
     this.applicantService = applicantService;
     this.interviewBoardService = interviewBoardService;
@@ -44,17 +45,22 @@ public class InterviewScheduleController {
   }
 
 
-  @GetMapping("/add")
-  public String add(Model model){
-    model.addAttribute("gazettes",gazetteService.findAll().stream().filter(x->x.getGazetteStatus().equals(GazetteStatus.AC)).collect(Collectors.toList()));
+  @GetMapping( "/add" )
+  public String add(Model model) {
+    List< Gazette > gazettes =
+        gazetteService.findAll().stream().filter(x -> x.getGazetteStatus().equals(GazetteStatus.AC)).collect(Collectors.toList());
+
+    model.addAttribute("gazettes", gazettes);
     return "interviewSchedule/addNewInterviewSchedule";
   }
 
-  @GetMapping("/add/{id}")
-  public String form(@PathVariable("id") Integer id,Model model) {
+  @GetMapping( "/add/{id}" )
+  public String form(@PathVariable( "id" ) Integer id, Model model) {
     Gazette gazette = gazetteService.findById(id);
 
-    model.addAttribute("totalApplicantCount", applicantGazetteService.countByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A, gazette));
+    model.addAttribute("totalApplicantCount",
+                       applicantGazetteService.countByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A,
+                                                                                       gazette));
     model.addAttribute("interviewBoard", interviewBoardService.findAll()
                            .stream()
                            .filter(x -> x.getInterviewBoardStatus().equals(InterviewBoardStatus.ACT))
@@ -91,7 +97,8 @@ public class InterviewScheduleController {
         //new applicant interview
         ApplicantGazetteInterview applicantGazetteInterview = new ApplicantGazetteInterview();
 
-        applicantGazetteInterview.setInterviewBoard(interviewBoardService.findById(interviewScheduleList.getInterviewBoardId()));
+        applicantGazetteInterview.setInterviewBoard(interviewBoardService.findById(interviewScheduleList
+        .getInterviewBoardId()));
         //save  applicant and set to applicant interview
         applicantGazetteInterview.setApplicant(applicantService.persist(applicant));
         applicantGazetteInterview.setInterviewDate(interviewScheduleList.getDate());
@@ -105,7 +112,8 @@ public class InterviewScheduleController {
     model.addAttribute("applicantInterviews",
                        applicantGazetteInterviewService.findAll()
                            .stream()
-                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
+                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
+                           .ACT))
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
@@ -125,7 +133,8 @@ public class InterviewScheduleController {
     model.addAttribute("applicantInterviews",
                        applicantGazetteInterviewService.findAll()
                            .stream()
-                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus.ACT))
+                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
+                           .ACT))
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
