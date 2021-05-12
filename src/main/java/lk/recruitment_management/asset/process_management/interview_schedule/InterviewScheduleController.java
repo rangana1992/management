@@ -79,7 +79,7 @@ public class InterviewScheduleController {
     model.addAttribute("interviewSchedule", new InterviewSchedule());
     return "interviewSchedule/addInterviewSchedule";
   }
-//todo-> tomorrow 11/05/2021
+
   @PostMapping
   public String dateCount(@ModelAttribute InterviewSchedule interviewSchedule, Model model) {
     Gazette gazette = gazetteService.findById(interviewSchedule.getId());
@@ -122,18 +122,18 @@ public class InterviewScheduleController {
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
-/*
   @GetMapping( "/deactivate/{id}" )
   public String deactivate(@PathVariable Integer id, Model model) {
 
     ApplicantGazetteInterview applicantGazetteInterview = applicantGazetteInterviewService.findById(id);
+//todo : according to current applicant
 
-    Applicant applicant = applicantGazetteInterview.getApplicant();
-    applicant.setApplicantStatus(ApplicantStatus.REJ);
-    applicantService.persist(applicant);
-
-    applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.CL);
-    applicantGazetteInterviewService.persist(applicantGazetteInterview);
+//    ApplicantGazette applicantGazette = applicantGazetteInterview.getApplicantGazette();
+//    applicant.setAppli(ApplicantStatus.REJ);
+//    applicantService.persist(applicant);
+//
+//    applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.CL);
+//    applicantGazetteInterviewService.persist(applicantGazetteInterview);
 
     model.addAttribute("applicantInterviews",
                        applicantGazetteInterviewService.findAll()
@@ -143,6 +143,5 @@ public class InterviewScheduleController {
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
-*/
 
 }

@@ -99,15 +99,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   public Applicant findByEmail(String email) {
     return applicantDao.findByEmail(email);
   }
-//todo -> need to applicant gazette
 
-//  public int countByApplicantStatus(ApplicantStatus applicantStatus) {
-//    return applicantDao.countByApplicantStatus(applicantStatus);
-//  }
-//
-//  public List< Applicant > findByApplicantStatus(ApplicantStatus applicantStatus) {
-//    return applicantDao.findByApplicantStatus(applicantStatus);
-//  }
 
   public List< Applicant > findByCreatedAtIsBetweenAndApplicantStatus(LocalDateTime form,
                                                                                      LocalDateTime to) {
