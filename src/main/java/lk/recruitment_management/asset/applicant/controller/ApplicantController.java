@@ -8,8 +8,10 @@ import lk.recruitment_management.asset.applicant.entity.enums.*;
 import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
 import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
+import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
+import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.applicant_result.entity.enums.Attempt;
 import lk.recruitment_management.asset.applicant_result.entity.enums.CompulsoryOLSubject;
@@ -23,7 +25,6 @@ import lk.recruitment_management.asset.district.controller.DistrictController;
 import lk.recruitment_management.asset.district.service.DistrictService;
 import lk.recruitment_management.asset.grama_niladhari.controller.GramaNiladhariController;
 import lk.recruitment_management.asset.grama_niladhari.service.GramaNiladhariService;
-import lk.recruitment_management.asset.non_relative.entity.NonRelative;
 import lk.recruitment_management.asset.police_station.controller.PoliceStationController;
 import lk.recruitment_management.asset.police_station.Service.PoliceStationService;
 import lk.recruitment_management.asset.user_management.service.UserService;
@@ -32,6 +33,8 @@ import lk.recruitment_management.util.service.MakeAutoGenerateNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +47,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -55,6 +57,7 @@ public class ApplicantController {
   private final DateTimeAgeService dateTimeAgeService;
   private final CommonService commonService;
   private final UserService userService;
+  private final ApplicantGazetteService applicantGazetteService;
   private final MakeAutoGenerateNumberService makeAutoGenerateNumberService;
   private final DistrictService districtService;
   private final AgOfficeService agOfficeService;
@@ -65,7 +68,8 @@ public class ApplicantController {
   @Autowired
   public ApplicantController(ApplicantService applicantService, ApplicantFilesService applicantFilesService,
                              DateTimeAgeService dateTimeAgeService, CommonService commonService,
-                             UserService userService, MakeAutoGenerateNumberService makeAutoGenerateNumberService, DistrictService districtService,
+                             UserService userService, ApplicantGazetteService applicantGazetteService, MakeAutoGenerateNumberService makeAutoGenerateNumberService,
+                             DistrictService districtService,
                              AgOfficeService agOfficeService, PoliceStationService policeStationService,
                              GramaNiladhariService gramaNiladhariService) {
     this.applicantService = applicantService;
@@ -74,6 +78,7 @@ public class ApplicantController {
     this.dateTimeAgeService = dateTimeAgeService;
     this.commonService = commonService;
     this.userService = userService;
+    this.applicantGazetteService = applicantGazetteService;
     this.makeAutoGenerateNumberService = makeAutoGenerateNumberService;
     this.districtService = districtService;
 
@@ -84,12 +89,12 @@ public class ApplicantController {
 //----> Applicant details management - start <----//
 
   // Common things for an applicant add and update
-  private String commonThings(Model model) {
+  private void commonThings(Model model) {
     model.addAttribute("title", Title.values());
-    model.addAttribute("gender", Gender.values());
+    model.addAttribute("genders", Gender.values());
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatus", ApplicantStatus.values());
-    model.addAttribute("civilStatus", CivilStatus.values());
+    model.addAttribute("applicantGazetteStatuses", ApplicantGazetteStatus.values());
+    model.addAttribute("civilStatuses", CivilStatus.values());
     model.addAttribute("nationalities", Nationality.values());
     model.addAttribute("bloodGroup", BloodGroup.values());
     model.addAttribute("provinces", Province.values());
@@ -113,7 +118,7 @@ public class ApplicantController {
     model.addAttribute("streamLevels", StreamLevel.values());
     model.addAttribute("compulsoryOLSubjects", CompulsoryOLSubject.values());
     model.addAttribute("subjectResults", SubjectResult.values());
-    return "applicant/addApplicant";
+
   }
 
   //When scr called file will send to
@@ -157,15 +162,20 @@ public class ApplicantController {
     model.addAttribute("policeStations", policeStationService.findAll());
     //gramaniladari division list url
     model.addAttribute("gramaNiladharis", gramaNiladhariService.findAll());
-    return commonThings(model);
+    commonThings(model);
+    return "applicant/editApplicant";
   }
 
   //Send an applicant add form
   @GetMapping( value = {"/add"} )
   public String applicantAddForm(Model model) {
+    Applicant applicant = new Applicant();
+    applicant.setEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
     model.addAttribute("addStatus", true);
-    model.addAttribute("applicant", new Applicant());
-    return commonThings(model);
+    model.addAttribute("applicant", applicant);
+    commonThings(model);
+    return "applicant/addApplicant";
   }
 
   //Applicant add and update
@@ -173,9 +183,15 @@ public class ApplicantController {
   public String addApplicant(@Valid @ModelAttribute Applicant applicant, BindingResult result, Model model
                             ) {
     if ( result.hasErrors() ) {
-      model.addAttribute("addStatus", true);
-      model.addAttribute("applicant", applicant);
-      return commonThings(model);
+      result.getAllErrors().forEach(System.out::println);
+      if ( applicant.getId() != null ) {
+        return "redirect:/applicant/add";
+      } else {
+        model.addAttribute("addStatus", true);
+        model.addAttribute("applicant", applicant);
+        commonThings(model);
+        return "applicant/addApplicant";
+      }
     }
     if ( applicant.getId() == null ) {
       Applicant lastApplicant = applicantService.lastApplicant();
@@ -190,17 +206,18 @@ public class ApplicantController {
     try {
       applicant.setMobile(commonService.commonMobileNumberLengthValidator(applicant.getMobile()));
       applicant.setLand(commonService.commonMobileNumberLengthValidator(applicant.getLand()));
-//
-//      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//      applicant.setEmail(authentication.getName());
+
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      applicant.setEmail(authentication.getName());
+
       //set no relative to applicant
-      if ( !applicant.getNonRelatives().isEmpty() ) {
-        List< NonRelative > relatives = new ArrayList<>();
-        applicant.getNonRelatives().forEach(x -> {
+      if ( !applicant.getApplicantNonRelatives().isEmpty() ) {
+        List< ApplicantNonRelative > relatives = new ArrayList<>();
+        applicant.getApplicantNonRelatives().forEach(x -> {
           x.setApplicant(applicant);
           relatives.add(x);
         });
-        applicant.setNonRelatives(relatives);
+        applicant.setApplicantNonRelatives(relatives);
       }
       //set degree result to applicant
       if ( !applicant.getApplicantDegreeResults().isEmpty() ) {
@@ -215,7 +232,7 @@ public class ApplicantController {
       if ( !applicant.getApplicantResults().isEmpty() ) {
         List< ApplicantResult > applicantResults = new ArrayList<>();
         applicant.getApplicantResults().forEach(x -> {
-          if ( x.getSubjectResult() != null ) {
+          if ( x.getYear() != null && x.getIndexNumber() != null && x.getSubjectName() != null) {
             x.setApplicant(applicant);
             applicantResults.add(x);
           }
@@ -251,7 +268,8 @@ public class ApplicantController {
       result.addError(error);
       model.addAttribute("addStatus", true);
       model.addAttribute("applicant", applicant);
-      return commonThings(model);
+      commonThings(model);
+      return "applicant/addApplicant";
     }
   }
 
@@ -269,39 +287,25 @@ public class ApplicantController {
     return "applicant/applicant-detail";
   }
 
-  //doto those are need to applicantGazette approve not
 
-//  @GetMapping( value = "/approve/{id}" )
-//  public String approve(@PathVariable Integer id) {
-//    Applicant applicant = applicantService.findById(id);
-//    applicant.setApplicantStatus(ApplicantStatus.A);
-//    applicantService.persist(applicant);
-//    return "redirect:/applicant";
-//
-//  }
-//
-//  @GetMapping( value = "/reject/{id}" )
-//  public String reject(@PathVariable Integer id) {
-//    Applicant applicant = applicantService.findById(id);
-//    applicant.setApplicantStatus(ApplicantStatus.REJ);
-//    applicantService.persist(applicant);
-//    return "redirect:/applicant";
-//  }
 
   private String commonApplicant(Model model, List< Applicant > applicants) {
     model.addAttribute("applicants", applicants);
     model.addAttribute("contendHeader", "Applicant Registration");
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatuses", ApplicantStatus.values());
+    model.addAttribute("applicantStatuses", ApplicantGazetteStatus.values());
     model.addAttribute("addStatus", true);
     return "applicant/applicant";
   }
 
-//  @PostMapping( "/all/search" )
-//  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
-//    return commonApplicant(model,
-//                           applicantService.findByCreatedAtIsBetweenAndApplicantStatus(dateTimeAgeService.dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
-//                                                                                                    dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
-//                             , twoDate.getApplicantStatus()));
-//  }
+  @PostMapping( "/all/search" )
+  public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
+    List<Applicant> applicants = new ArrayList<>();
+
+    applicantGazetteService.findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(dateTimeAgeService
+                                                                    .dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
+                                                                dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
+        , twoDate.getApplicantGazetteStatus(), twoDate.getApplyingRank()).forEach(x->applicants.add(x.getApplicant()));
+    return commonApplicant(model,applicants);
+  }
 }

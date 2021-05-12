@@ -1,10 +1,10 @@
-package lk.recruitment_management.asset.non_relative.controller;
+package lk.recruitment_management.asset.applicant_non_relative.controller;
 
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
-import lk.recruitment_management.asset.non_relative.entity.NonRelative;
+import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
-import lk.recruitment_management.asset.non_relative.service.NonRelativeService;
+import lk.recruitment_management.asset.applicant_non_relative.service.ApplicantNonRelativeService;
 import lk.recruitment_management.asset.user_management.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/nonRelative")
-public class NonRelativeController {
-    private final NonRelativeService nonRelativeService;
+public class ApplicantNonRelativeController {
+    private final ApplicantNonRelativeService applicantNonRelativeService;
     private final UserService userService;
     private final ApplicantService applicantService;
 
-    public NonRelativeController(NonRelativeService nonRelativeService, UserService userService, ApplicantService applicantService) {
-        this.nonRelativeService = nonRelativeService;
+    public ApplicantNonRelativeController(ApplicantNonRelativeService applicantNonRelativeService, UserService userService, ApplicantService applicantService) {
+        this.applicantNonRelativeService = applicantNonRelativeService;
         this.userService = userService;
         this.applicantService = applicantService;
     }
@@ -34,7 +34,7 @@ public class NonRelativeController {
     @GetMapping
     public String findAll(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("nonRelatives", nonRelativeService.findAll().stream()
+        model.addAttribute("nonRelatives", applicantNonRelativeService.findAll().stream()
                 .filter(nonRelative -> nonRelative.getApplicant().equals(applicantService.findByEmail(authentication.getName())))
                 .collect(Collectors.toList()));
         return "nonRelative/nonRelative";
@@ -55,9 +55,9 @@ public class NonRelativeController {
             return "nonRelative/addNonRelative";
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        for (NonRelative nonRelative : applicant.getNonRelatives()) {
-            nonRelative.setApplicant(applicantService.findByEmail(authentication.getName()));
-            nonRelativeService.persist(nonRelative);
+        for ( ApplicantNonRelative applicantNonRelative : applicant.getApplicantNonRelatives()) {
+            applicantNonRelative.setApplicant(applicantService.findByEmail(authentication.getName()));
+            applicantNonRelativeService.persist(applicantNonRelative);
         }
 
         return "redirect:/applicant";

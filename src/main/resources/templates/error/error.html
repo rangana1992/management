@@ -13,6 +13,9 @@
         <h1 class="invalid-feedback" th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|" >404</h1 >
         <h1 class="invalid-feedback" th:if="${accessDenied!=null}" th:text="${accessDenied}" >404</h1 >
       </div >
+      <div class="container-fluid mt-4 text-center" >
+        <p class="invalid-feedback" th:text="${errorMessage}" >Error java.lang.NullPointerException</p >
+      </div >
       <div class="col-12 col-sm-12 col-md-12 mt-4 mb-4 p-4" >
         <marquee behavior="scroll" direction="left" >
           <div class="container" id="iconAround" >
@@ -21,9 +24,6 @@
             </div >
           </div >
         </marquee >
-      </div >
-      <div class="container-fluid mt-4 text-center" >
-        <p class="invalid-feedback" th:text="${errorMessage}" >Error java.lang.NullPointerException</p >
       </div >
       <div class="container-fluid text-center" >
         <a href="/home" >
