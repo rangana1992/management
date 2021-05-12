@@ -5,8 +5,12 @@ import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.common_asset.model.InterviewSchedule;
+import lk.recruitment_management.asset.common_asset.model.InterviewScheduleList;
+import lk.recruitment_management.asset.district.entity.District;
 import lk.recruitment_management.asset.district.service.DistrictService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
@@ -70,20 +74,22 @@ public class InterviewScheduleController {
     applicantGazetteStatuses.add(ApplicantGazetteStatus.SND);
     applicantGazetteStatuses.add(ApplicantGazetteStatus.TND);
     applicantGazetteStatuses.add(ApplicantGazetteStatus.FTH);
+    model.addAttribute("gazette", gazette);
     model.addAttribute("interviewBoardNumbers", applicantGazetteStatuses);
     model.addAttribute("interviewSchedule", new InterviewSchedule());
     return "interviewSchedule/addInterviewSchedule";
   }
-/*
+//todo-> tomorrow 11/05/2021
   @PostMapping
   public String dateCount(@ModelAttribute InterviewSchedule interviewSchedule, Model model) {
-
-    List< Applicant > applicants = new ArrayList<>();
+    Gazette gazette = gazetteService.findById(interviewSchedule.getId());
+    List< ApplicantGazette > applicantGazettes = new ArrayList<>();
 
     for ( District district : districtService.findAll() ) {
-      for ( Applicant applicant : applicantService.findByApplicantStatus(ApplicantStatus.A) ) {
-        if ( applicant.getGramaNiladhari().getPoliceStation().getAgOffice().getDistrict().equals(district) ) {
-          applicants.add(applicant);
+      for ( ApplicantGazette applicantGazette : applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A,
+                                                                                                  gazette)) {
+        if ( applicantGazette.getApplicant().getGramaNiladhari().getPoliceStation().getAgOffice().getDistrict().equals(district) ) {
+          applicantGazettes.add(applicantGazette);
         }
       }
     }
@@ -91,15 +97,15 @@ public class InterviewScheduleController {
     for ( InterviewScheduleList interviewScheduleList : interviewSchedule.getInterviewScheduleLists() ) {
       int endCount = interviewScheduleList.getCount() + 1;
 
-      for ( Applicant applicant : applicants.subList(startCount, endCount) ) {
-        applicant.setApplicantStatus(interviewSchedule.getInterviewNumber());
+      for ( ApplicantGazette applicantGazette : applicantGazettes.subList(startCount, endCount) ) {
+        applicantGazette.setApplicantGazetteStatus(interviewSchedule.getInterviewNumber());
         //new applicant interview
         ApplicantGazetteInterview applicantGazetteInterview = new ApplicantGazetteInterview();
 
         applicantGazetteInterview.setInterviewBoard(interviewBoardService.findById(interviewScheduleList
         .getInterviewBoardId()));
         //save  applicant and set to applicant interview
-        applicantGazetteInterview.setApplicant(applicantService.persist(applicant));
+        applicantGazetteInterview.setApplicantGazette(applicantGazetteService.persist(applicantGazette));
         applicantGazetteInterview.setInterviewDate(interviewScheduleList.getDate());
         applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.ACT);
         applicantGazetteInterviewService.persist(applicantGazetteInterview);
@@ -116,7 +122,7 @@ public class InterviewScheduleController {
                            .collect(Collectors.toList()));
     return "interviewSchedule/interviewSchedule";
   }
-
+/*
   @GetMapping( "/deactivate/{id}" )
   public String deactivate(@PathVariable Integer id, Model model) {
 

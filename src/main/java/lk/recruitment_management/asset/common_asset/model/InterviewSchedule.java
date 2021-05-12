@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class InterviewSchedule {
+  private int id;
 
   @Enumerated( EnumType.STRING )
   private ApplicantGazetteStatus interviewNumber;

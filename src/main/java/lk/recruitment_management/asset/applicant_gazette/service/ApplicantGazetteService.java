@@ -67,4 +67,8 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
   public int countByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette) {
     return applicantGazetteDao.countByApplicantGazetteStatusAndGazette(applicantGazetteStatus, gazette);
   }
+
+  public List<ApplicantGazette> findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette) {
+  return applicantGazetteDao.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus,gazette);
+  }
 }
