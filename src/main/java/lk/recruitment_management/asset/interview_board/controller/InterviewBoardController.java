@@ -1,6 +1,8 @@
 package lk.recruitment_management.asset.interview_board.controller;
 
+import lk.recruitment_management.asset.employee.entity.Employee;
 import lk.recruitment_management.asset.employee.service.EmployeeService;
+import lk.recruitment_management.asset.interview.entity.Enum.InterviewStatus;
 import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
 import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping( "/interviewBoard" )
@@ -35,9 +40,18 @@ public class InterviewBoardController implements AbstractController< InterviewBo
   private String commonThing(Model model, Boolean booleanValue, InterviewBoard interviewBoard) {
     model.addAttribute("addStatus", booleanValue);
     model.addAttribute("interviewBoard", interviewBoard);
-    model.addAttribute("employees", employeeService.findAll());
+    List< Employee > employees = employeeService.findAll();
+    if ( interviewBoard.getId() != null ) {
+      employees.removeAll(interviewBoard.getEmployees());
+    }
+
+    model.addAttribute("employees", employees);
     model.addAttribute("interviewBoardStatuses", InterviewBoardStatus.values());
-    model.addAttribute("interviews", interviewService.findAll());
+    model.addAttribute("interviews",
+                       interviewService.findAll()
+                           .stream()
+                           .filter(x -> x.getInterviewStatus().equals(InterviewStatus.ACT))
+                           .collect(Collectors.toList()));
     return "interviewBoard/addInterviewBoard";
   }
 

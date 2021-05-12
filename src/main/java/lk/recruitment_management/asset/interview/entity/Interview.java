@@ -1,6 +1,7 @@
 package lk.recruitment_management.asset.interview.entity;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewStatus;
 import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;

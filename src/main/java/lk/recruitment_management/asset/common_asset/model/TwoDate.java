@@ -1,6 +1,6 @@
 package lk.recruitment_management.asset.common_asset.model;
 
-import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantStatus;
+import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class TwoDate {
     private ApplyingRank applyingRank;
 
     @Enumerated(EnumType.STRING)
-    private ApplicantStatus applicantStatus;
+    private ApplicantGazetteStatus applicantGazetteStatus;
 
 
 }

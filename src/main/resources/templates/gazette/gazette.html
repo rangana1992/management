@@ -7,8 +7,8 @@
 <body>
 <nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
 
-<div class="container-fluid bg-secondary form-Border">
-    <div class="row text-center formManagement border-info">
+<div class="container-fluid ">
+    <div class="row text-center ">
         <div class="col">
             <a class="btn btn-success" href="/gazette/add"><i class="fa fa-user-plus"></i>
                 &nbsp; New Gazette</a>
@@ -16,7 +16,7 @@
         <div class="col">
             <h4 class="text-info text-center">
                 <strong>
-                    Author Management
+                    Gazette Management
                 </strong>
             </h4>
         </div>
@@ -32,9 +32,10 @@
                 <thead>
                 <tr>
                     <th> Index</th>
-                    <th> Name</th>
-                    <th> Request Age</th>
+                    <th> Name </th>
+                    <th> Request Maximum Age</th>
                     <th> Status </th>
+                    <th> Summary </th>
                     <th> Modify</th>
                 </tr>
                 </thead>
@@ -44,6 +45,7 @@
                     <th data-th-text="${gazette.name}"></th>
                     <th data-th-text="${gazette.age}"></th>
                     <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
+                    <th data-th-utext="${gazette.summary}"></th>
                     <th>
                         <a data-th-href="${'/gazette/edit/' + gazette.id}"
                            class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Edit</a>

@@ -35,13 +35,6 @@
                 <div class="card" >
                   <!--all report-->
                   <div class="card-body" >
-                    <div class="btn-group" role="group" aria-label="Basic example" >
-                      <a href="/applicant" >
-                        <button type="button" class="btn btn-secondary" >Left</button >
-                      </a >
-                    </div >
-                  </div >
-                  <div class="card-body" >
                     <div class="row" >
                       <!--Custom Invoice search-->
                       <button type="button" class="btn btn-info mb-5 btn-block text-capitalize" data-toggle="collapse"
@@ -77,14 +70,14 @@
                                   </select >
                                 </div >
                                 <div class="form-group" >
-                                  <label class="control-label" for="applicantStatus" >Applying Rank
+                                  <label class="control-label" for="applicantStatus" >Applicant Status
                                                                                       :</label >
                                   <select class="form-control" id="applicantStatus" required
-                                          data-th-name="${'applicantStatus'}" >
+                                          data-th-name="${'applicantGazetteStatus'}" >
                                     <option value="" >Please select</option >
-                                    <option data-th-each="applicantStatus : ${applicantStatuses}"
-                                            data-th-text="${applicantStatus.applicantStatus}"
-                                            data-th-value="${applicantStatus}" ></option >
+                                    <option data-th-each="applicantGazetteStatus : ${applicantGazetteStatuses}"
+                                            data-th-text="${applicantGazetteStatus.applicantGazetteStatus}"
+                                            data-th-value="${applicantGazetteStatus}" ></option >
                                   </select >
                                 </div >
                                 <div class="form-group" >
@@ -107,7 +100,6 @@
                         <tr >
                           <th > Index</th >
                           <th > Name</th >
-                          <th > Rank</th >
                           <th > Police Station</th >
                           <th th:if="${addStatus}"> Modify</th >
                         </tr >
@@ -116,16 +108,11 @@
                         <tr th:each="applicant, rowCount : ${applicants}" >
                           <td th:text="${rowCount.count}" ></td >
                           <td th:text="${applicant.nameWithInitial}" ></td >
-                          <td th:text="${applicant.applyingRank}" ></td >
                           <td th:text="${applicant.gramaNiladhari.policeStation.name}" ></td >
 
                           <td th:if="${addStatus}">
                             <a th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
-                                  class="fa fa-folder-open" ></i >&nbsp;View</a >
-                            <a th:href="${'/applicant/remove/' + applicant.id}"
-                               th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
-                               class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
-                              Delete</a >
+                                  class="fa fa-folder-open" ></i >&nbsp;View / Approve</a >
                           </td >
                         </tr >
                         </tfoot>

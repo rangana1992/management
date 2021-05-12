@@ -5,11 +5,10 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ApplicantStatus {
+public enum ApplicantGazetteStatus {
     P("Pending"),
     A("Approved"),
     REJ("Reject"),
-    NTA("Not Approved"),
     FST("First Interview"),
     FSTP("First Interview Pass"),
     FSTR("First Interview Reject"),
@@ -23,5 +22,5 @@ public enum ApplicantStatus {
     FTHP("Forth Interview Pass"),
     FTHR("Forth Interview Reject");
 
-  private final String applicantStatus;
+  private final String applicantGazetteStatus;
 }

@@ -1,123 +1,103 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper"><!-- wrapper start -->
-    <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
-    <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
-    <div class="content-wrapper"><!-- content-wrapper Start -->
-        <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-        <!-- Form Header  Path -->
-        <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section><!-- Small Box Set -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head data-th-replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
+<body class="hold-transition sidebar-mini layout-fixed" >
+<div class="wrapper" ><!-- wrapper start -->
+  <nav data-th-replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
+  <aside data-th-replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
+  <div class="content-wrapper" ><!-- content-wrapper Start -->
+    <section data-th-replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
+                                <!-- Form Header  Path -->
+    <section data-th-replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}" ></section >
+                                <!-- Small Box Set -->
 
 
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-<!--                       <div class="card">
-                                    <div class="card-body">
-                                        <!--                                        <h4>First sud Header</h4>-->
-                            <form role="form">
-                                <div align="right">
-                                    <a class="btn btn-success" id="newDistrict" th:href="${'/employee/add'}">
-                                        <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Interview board list </a>
-                                    <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
-                                        <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4>Secondary Header </h4>
-                                        <!--if not empty list-->
-                                        <div class="container-fluid" id="interviewListTable"
-                                             data-th-if="${not #lists.isEmpty(interviewBoards)}">
-                                            <table class="table table-hover table-striped" id="myTable">
-                                                <thead class="thead-inverse">
-                                                <tr>
-                                                    <th>S No</th>
-                                                    <th> Name</th>
-                                                    <th>Interview Status</th>
-                                                    <th>Interview Parameter</th>
+    <div class="content-header" >
+      <div class="container-fluid" >
+        <div class="row" >
+          <div class="col-md-12" >
+            <div class="row" >
+              <!--                       <div class="card">
+                                                  <div class="card-body">
+                                                                                     <h4>First sud Header</h4>-->
+              <form role="form" >
+                <div align="right" >
+                  <a class="btn btn-success" id="newDistrict" th:href="${'/employee/add'}" >
+                    <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Interview board list </a >
+                  <a class="btn btn-info" id="newDistrict" th:href="${'/home'}" >
+                    <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
+                </div >
+              </form >
+            </div >
+          </div >
+          <div class="col-md-12" >
+            <div class="card" >
+              <div class="card-body" >
+                <h4 >Secondary Header </h4 >
+                <!--if not empty list-->
+                <div class="container-fluid" id="interviewListTable"
+                     data-th-if="${not #lists.isEmpty(interviewBoards)}" >
+                  <table class="table table-hover table-striped" id="myTable" >
+                    <thead class="thead-inverse" >
+                    <tr >
+                      <th >S No</th >
+                      <th > Name</th >
+                      <th >Interview Status</th >
+                      <th >Interview Parameter</th >
 
-                                                    <th>Modify</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr data-th-each="interviewBoard, rowCount : ${interviewBoards}" scope="row">
-                                                    <th data-th-text="${rowCount.count}"></th>
-                                                    <th data-th-text="${interviewBoard.name}"></th>
-                                                    <th data-th-text="${interviewBoard.interviewBoardStatus.interviewBoardStatus}"></th>
-                                                    <th>
-                                                        <ol>
-                                                            <li data-th-each="employee : ${interviewBoard.employees}" data-th-text="${employee.name} + ${'  '}+ ${employee.designation}"></li>
-                                                        </ol>
-                                                    </th>
-
-
-                                                    <th><a class="btn btn-success btn-sm"
-                                                           data-th-href="${'/interviewBoard/' + interviewBoard.id}" id="interviewView"><i
-                                                            class="fa fa-folder-open"></i>&nbsp;View</a>
-                                                        <a class="btn btn-primary btn-sm" id="interviewEdit"
-                                                           data-th-href="${'/interviewBoard/edit/' + interviewBoard.id}"><i
-                                                                class="fa fa-edit"></i>&nbsp;Edit</a>
-                                                    </th>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!--if empty list-->
-                                        <div class="row" id="interviewNotList" data-th-if="${ #lists.isEmpty(interviewBoards)}">
-                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <h3 class="text-center text-danger">
-                                                    <strong>There is no interview upto know please add interview to the
-                                                        system
-                                                        using add interview button.
-                                                    </strong>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                        <!--Show saved interview-->
-                                        <div class="row" data-th-if="${interviewBoardDetail!=null}">
-                                            <div class="col-sm-12">
-                                                <div class="alert alert-success alert-dismissible fade show"
-                                                     role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    <div class="container">
-                                                        <div data-th-replace="~{interviewBoard/interview-detail :: interviewDetail}"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <script>
-                                                /*active boostrap alert - start*/
-                                                $(".alert").alert();
-                                                /*active boostrap alert - end*/
-                                            </script>
-                                        </div>
+                      <th >Modify</th >
+                    </tr >
+                    </thead >
+                    <tbody >
+                    <tr data-th-each="interviewBoard, rowCount : ${interviewBoards}" scope="row" >
+                      <th data-th-text="${rowCount.count}" ></th >
+                      <th data-th-text="${interviewBoard.name}" ></th >
+                      <th data-th-text="${interviewBoard.interviewBoardStatus.interviewBoardStatus}" ></th >
+                      <th >
+                        <ol >
+                          <li data-th-each="employee : ${interviewBoard.employees}"
+                              data-th-text="${employee.name} + ${'  '}+ ${employee.designation}" ></li >
+                        </ol >
+                      </th >
 
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- content-wrapper end -->
-    <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
-</div><!-- wrapper end -->
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}"></script><!-- script Fragment -->
-</body>
-</html>
+                      <th ><a class="btn btn-success btn-sm"
+                              data-th-href="${'/interviewBoard/' + interviewBoard.id}" id="interviewView" ><i
+                            class="fa fa-folder-open" ></i >&nbsp;View</a >
+                        <a class="btn btn-primary btn-sm" id="interviewEdit"
+                           data-th-href="${'/interviewBoard/edit/' + interviewBoard.id}" ><i
+                              class="fa fa-edit" ></i >&nbsp;Edit</a >
+                      </th >
+                    </tr >
+                    </tbody >
+                  </table >
+                </div >
+                <!--if empty list-->
+                <div class="row" id="interviewNotList" data-th-if="${ #lists.isEmpty(interviewBoards)}" >
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+                    <button type="button" class="close" data-dismiss="alert"
+                            aria-label="Close" >
+                      <span aria-hidden="true" >&times;</span >
+                    </button >
+                    <h3 class="text-center text-danger" >
+                      <strong >There is no interview upto know please add interview to the
+                               system
+                               using add interview button.
+                      </strong >
+                    </h3 >
+                  </div >
+                </div >
+              </div >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
+  </div >
+</div >
+<!-- content-wrapper end -->
+<footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer ><!-- footer Section -->
+<!-- wrapper end -->
+<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></script ><!-- script Fragment -->
+</body >
+</html >

@@ -45,10 +45,10 @@
                           <label data-th-for="${'name'}" class="col-sm-4 col-form-label " >
                             Interview Board Name </label >
                           <div class="col-sm-8" >
-                            <!--                            <input type="text" class="form-control" data-th-field="*{name}"-->
-                            <!--                                   required >-->
-                            <!--                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"-->
-                            <!--                               data-th-errors="*{name}" >Error Name</p >-->
+                            <input type="text" class="form-control" data-th-field="*{name}"
+                                   required >
+                            <p class="text-danger" data-th-if="${#fields.hasErrors('name')}"
+                               data-th-errors="*{name}" >Error Name</p >
                           </div >
                         </div >
                         <!--Interview-->
@@ -59,7 +59,7 @@
                             <select id="interview" class="form-control" data-th-field="*{interview}" >
                               <option value="" >Please Select</option >
                               <option data-th-each="interview : ${interviews}"
-                                      data-th-text="${interview.name}"
+                                      data-th-text="${interview.interviewName.interviewName}"
                                       data-th-value="${interview.id}" >
 
                               </option >
@@ -74,12 +74,12 @@
                           <div class="col-md-8" >
                             <div class="custom-control custom-checkbox custom-control-inline "
                                  data-th-each="interviewBoardStatus,index : ${interviewBoardStatuses}" >
-                              <input class="custom-control-input gender" required
+                              <input class="custom-control-input " required
                                      data-th-name="${'interviewBoardStatus'}"
                                      data-th-value="${interviewBoardStatus}"
                                      data-th-id="${index.index}+${interviewBoardStatus}"
                                      type="radio"
-                                     data-th-checked="${interviewBoardStatus==interviewBoardStatus}" />
+                                     data-th-checked="${interviewBoardStatus==interviewBoard.interviewBoardStatus}" />
                               <label class="custom-control-label"
                                      data-th-for="${index.index}+${interviewBoardStatus}"
                                      data-th-text="${interviewBoardStatus.interviewBoardStatus}" > radio
@@ -90,7 +90,7 @@
                         <!--All employee-->
                         <div class="form-group row" >
                           <label for="employeeOne" class="col-sm-4 col-form-label " >
-                            Employee </label >
+                            Employees </label >
                           <div class="col-sm-8" >
                             <select id="employeeOne" class="form-control" data-th-field="*{employees}" >
                               <option value="" >Please Select</option >
@@ -105,7 +105,7 @@
                         <!--All Selected employee-->
                         <div class="form-group row" >
                           <label for="employeeOne" class="col-sm-4 col-form-label " >
-                            Employee </label >
+                            Employee for this interview board </label >
                           <div class="col-sm-8 " >
                             <table class="table table-striped table-inverse table-responsive" id="selectedEmployee" >
                               <thead class="thead-inverse" >
@@ -117,12 +117,14 @@
                               <tbody >
                               <tr data-th-each="employee : ${interviewBoard.employees}" >
                                 <th >
-                                  <input id="na${employee.id}" type="text" class="form-control" value="${employee.name}"
+                                  <input data-th-id="${'na' + employee.id}" type="text" class="form-control"
+                                         data-th-value="${employee.name}"
                                          readonly >
-                                  <input id="id${employee.id}" type="hidden" name="employees" value="${employee.id}" >
+                                  <input data-th-id="${'id' + employee.id}" type="hidden" name="employees"
+                                         data-th-value="${employee.id}" >
                                 </th >
                                 <th >
-                                  <button id="re${employee.id}" type="button" onclick="removeSelectedEmployee(this)"
+                                  <button data-th-id="${'re'+employee.id}" type="button" onclick="removeSelectedEmployee(this)"
                                           class="btn btn-danger" >Remove
                                   </button >
                                 </th >
@@ -203,12 +205,11 @@
     }
 
     function removeSelectedEmployee(obj) {
-        console.log("remove employee")
         let selectedFiledId = obj.getAttribute('id').slice(2);
+        console.log(" id " + selectedFiledId);
         //id,name,sellPrice,abQut,exDate
-        $("#employeeOne").append(optionTagAdd(
-            $(`#id${selectedFiledId}`).val(),
-            $(`#na${selectedFiledId}`).val()));
+        let optionTag = optionTagAdd($(`#id${selectedFiledId}`).val(), $(`#na${selectedFiledId}`).val());
+        $("#employeeOne").append(optionTag);
         selectedEmployeeList = selectedEmployeeList.filter(function (obj) {
             return obj.id !== $(`#id${selectedFiledId}`).val();
         })
@@ -226,9 +227,7 @@
     //option tag add
     function optionTagAdd(id, name) {
         console.log("option add")
-        return `<option value="${id}">
-                      ${name}
-                    </option>`;
+        return `<option value="${id}">                      ${name}                    </option>`;
     }
 </script >
 </body >

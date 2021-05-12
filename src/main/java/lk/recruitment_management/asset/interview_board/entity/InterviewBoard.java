@@ -3,6 +3,7 @@ package lk.recruitment_management.asset.interview_board.entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
 import lk.recruitment_management.asset.employee.entity.Employee;
+import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
 import lk.recruitment_management.util.audit.AuditEntity;
@@ -21,25 +22,23 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonFilter("InterviewBoard")
+@JsonFilter( "InterviewBoard" )
 public class InterviewBoard extends AuditEntity {
 
-    private String name;
+  private String name;
 
-    @Enumerated(EnumType.STRING)
-    private InterviewBoardStatus interviewBoardStatus;
+  private String message;
 
-    @ManyToOne
-    private Interview interview;
+  @Enumerated( EnumType.STRING )
+  private InterviewBoardStatus interviewBoardStatus;
 
+  @ManyToOne
+  private Interview interview;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @Fetch( FetchMode.SUBSELECT)
-    @JoinTable(name = "interview_board_employee",
-            joinColumns = @JoinColumn(name = "interview_board_id"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id"))
-    private List<Employee> employees;
-
-    @OneToMany(mappedBy = "interviewBoard")
-    private List< ApplicantGazetteInterview > applicantGazetteInterviews;
+  @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.PERSIST}, fetch = FetchType.EAGER )
+  @Fetch( FetchMode.SUBSELECT )
+  @JoinTable( name = "interview_board_employee",
+      joinColumns = @JoinColumn( name = "interview_board_id" ),
+      inverseJoinColumns = @JoinColumn( name = "employee_id" ) )
+  private List< Employee > employees;
 }
