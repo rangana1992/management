@@ -154,7 +154,19 @@
                                       data-th-text="${civilStatu.CivilStatus}"
                                       data-th-value="${civilStatu}" ></option >
                             </select >
+                            <!--Email-->
+                            <div class="form-group" >
 
+                              <label class="control-label" for="email" >Email :</label >
+
+                              <input class="form-control" id="email" required
+                                     tabindex="16" data-th-field="*{email}"
+                                     type="email" data-th-value="${#authentication.name}"  readonly/>
+                              <span class="error" id="emailError"
+                                    data-th-errors="*{email}"
+                                    data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
+
+                            </div >
 
                           </div >
 
@@ -170,7 +182,7 @@
                                    minlength="10" required
                                    tabindex="6"
                                    data-th-field="*{height}" type="number" min="0" />
-                            <span ><i ><small >(Height must be 162cm)</small ></i ></span >
+                            <span ><i ><small >(Height must be greater than 162cm)</small ></i ></span >
 
                           </div >
                           <!--Weight-->
@@ -182,7 +194,7 @@
                                    minlength="10" required
                                    tabindex="6"
                                    data-th-field="*{weight}" type="number" min="0" step="0.5" />
-                            <span ><i ><small >(Weight must be 60Kg)</small ></i ></span >
+                            <span ><i ><small >(Weight must be greater than 50Kg)</small ></i ></span >
 
                           </div >
                           <!--chest-->
@@ -192,7 +204,7 @@
                                    minlength="10" required
                                    tabindex="6"
                                    data-th-field="*{chest}" type="number" min="0" />
-                            <span ><i ><small >(Chest must be 34cm(Male) & 36cm(Female))</small ></i ></span >
+                            <span ><i ><small >(Chest must be greater than 34cm(Male) & 36cm(Female))</small ></i ></span >
                           </div >
                           <!--Address-->
                           <div class="form-group" >
@@ -229,19 +241,7 @@
                                   data-th-if="${#fields.hasErrors('land')}" >Error
                                                                        Calling                                                                                                                        Name</span >
                           </div >
-                          <!--Email-->
-                          <div class="form-group" >
 
-                            <label class="control-label" for="email" >Email :</label >
-
-                            <input class="form-control" id="email" required
-                                   tabindex="16" data-th-field="*{email}"
-                                   type="email" data-th-value="${#authentication.name}"  readonly/>
-                            <span class="error" id="emailError"
-                                  data-th-errors="*{email}"
-                                  data-th-if="${#fields.hasErrors('email')}" >Error Email</span >
-
-                          </div >
                         </div >
                         <!--Gramaniladari find-->
                         <div class="form-row mb-2 col-md-12" >
@@ -1526,11 +1526,11 @@
                       <!--non relative-->
                       <div class="form-row container-fluid" >
                         <div class="container-fluid" >
-                          <h3 >No Relatives</h3 >
+                          <h3 >Non Relatives</h3 >
                         </div ><!--non relative one-->
                         <div class="form-group col-md-6 col-sm-6 text-left flex-column" >
                           <div class="container-fluid" >
-                            <h5 >No Relatives One Details</h5 >
+                            <h5 >Non Relatives One Details</h5 >
                           </div >
                           <!-- Name-->
                           <div class="form-group" >
@@ -1568,7 +1568,7 @@
                                <!--non relative two-->
                         <div class="form-group col-md-6 col-sm-6 text-left flex-column" >
                           <div class="container-fluid" >
-                            <h5 >No Relatives Two Details</h5 >
+                            <h5 >Non Relatives Two Details</h5 >
                           </div >
                           <!-- Name-->
                           <div class="form-group" >
