@@ -140,14 +140,14 @@ public class InterviewScheduleController {
   public String deactivate(@PathVariable Integer id, Model model) {
 
     ApplicantGazetteInterview applicantGazetteInterview = applicantGazetteInterviewService.findById(id);
-//todo : according to current applicant
 
-//    ApplicantGazette applicantGazette = applicantGazetteInterview.getApplicantGazette();
-//    applicant.setAppli(ApplicantStatus.REJ);
-//    applicantService.persist(applicant);
-//
-//    applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.CL);
-//    applicantGazetteInterviewService.persist(applicantGazetteInterview);
+
+    ApplicantGazette applicantGazette = applicantGazetteInterview.getApplicantGazette();
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.A);
+    applicantGazetteService.persist(applicantGazette);
+
+    applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.CL);
+    applicantGazetteInterviewService.persist(applicantGazetteInterview);
 
     model.addAttribute("applicantInterviews",
                        applicantGazetteInterviewService.findAll()
