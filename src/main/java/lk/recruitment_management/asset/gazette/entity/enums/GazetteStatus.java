@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum GazetteStatus {
   AC("Active"),
+  IN("Candidate in interviewing process"),
   CL("Closed");
   private final String gazetteStatus;
 }

@@ -120,6 +120,8 @@ public class InterviewScheduleController {
                            .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
                            .ACT))
                            .collect(Collectors.toList()));
+    gazette.setGazetteStatus(GazetteStatus.IN);
+    gazetteService.persist(gazette);
     return "interviewSchedule/interviewSchedule";
   }
   @GetMapping( "/deactivate/{id}" )
