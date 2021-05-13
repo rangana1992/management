@@ -264,7 +264,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       preface.add(new Paragraph("Sri Lanka Police Department - Recruitment Division", mainHeadingFont));
       document.add(preface);
 //      image
-      Image image = Image.getInstance(applicantFilesService.findByApplicant(applicantGirst azette.getApplicant()).getPic());
+      Image image = Image.getInstance(applicantFilesService.findByApplicant(applicantGazette.getApplicant()).getPic());
       //image.scalePercent(25f);
       //image.scaleAbsoluteWidth(520f);
       // image.setAbsolutePosition(40f, 725f);
