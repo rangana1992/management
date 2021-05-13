@@ -100,10 +100,10 @@ public class InterviewScheduleController {
     }
     int startCount = 0;
     for ( InterviewScheduleList interviewScheduleList : interviewSchedule.getInterviewScheduleLists() ) {
-      int endCount = interviewScheduleList.getCount() + 1;
+      int endCount = interviewScheduleList.getCount() ;
       InterviewBoard interviewBoard = interviewBoardService.findById(interviewScheduleList.getInterviewBoardId());
       interviewBoard.setMessage(interviewSchedule.getMassage());
-      interviewBoard = interviewBoardService.persist(interviewBoard);
+
       HashSet< String > emails = new HashSet<>();
       for ( ApplicantGazette applicantGazette : applicantGazettes.subList(startCount, endCount) ) {
         applicantGazette.setApplicantGazetteStatus(interviewSchedule.getInterviewNumber());
@@ -119,21 +119,17 @@ public class InterviewScheduleController {
         applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.ACT);
         applicantGazetteInterviewService.persist(applicantGazetteInterview);
       }
+      interviewBoard = interviewBoardService.persist(interviewBoard);
       for ( String email : emails ) {
         emailService.sendEmail(email, "Regarding " + interviewBoard.getName(), interviewSchedule.getMassage());
       }
       startCount = endCount - 1;
     }
 
-    model.addAttribute("applicantInterviews",
-                       applicantGazetteInterviewService.findAll()
-                           .stream()
-                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
-                                                                                          .ACT))
-                           .collect(Collectors.toList()));
     gazette.setGazetteStatus(GazetteStatus.IN);
     gazetteService.persist(gazette);
-    return "interviewSchedule/interviewSchedule";
+
+    return "redirect:/interviewSchedule/add";
   }
 
   @GetMapping( "/deactivate/{id}" )
@@ -155,7 +151,7 @@ public class InterviewScheduleController {
                            .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
                                                                                           .ACT))
                            .collect(Collectors.toList()));
-    return "interviewSchedule/interviewSchedule";
+    return "redirect:/interviewSchedule/add";
   }
 
 }
