@@ -3,6 +3,7 @@ package lk.recruitment_management.asset.gazette.service;
 
 import lk.recruitment_management.asset.gazette.dao.GazetteDao;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
+import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
 import lk.recruitment_management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -50,5 +51,9 @@ public class GazetteService implements AbstractService< Gazette, Integer> {
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         Example< Gazette > sampleCollectingTubeExample = Example.of(gazette, matcher);
         return gazetteDao.findAll(sampleCollectingTubeExample);
+    }
+
+  public List< Gazette > findByGazetteStatus(GazetteStatus gazetteStatus) {
+  return gazetteDao.findByGazetteStatus(gazetteStatus);
     }
 }

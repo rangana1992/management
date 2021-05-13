@@ -4,6 +4,8 @@ import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
+import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
+import lk.recruitment_management.asset.gazette.service.GazetteService;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
 import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.util.service.FileHandelService;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,17 +28,20 @@ public class InterviewManageController {
   private final ApplicantSisCrdCidService applicantSisCrdCidService;
   private final InterviewService interviewService;
   private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
+  private final GazetteService gazetteService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
                                    ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
                                    InterviewService interviewService,
-                                   ApplicantGazetteInterviewService applicantGazetteInterviewService) {
+                                   ApplicantGazetteInterviewService applicantGazetteInterviewService,
+                                   GazetteService gazetteService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
     this.applicantSisCrdCidService = applicantSisCrdCidService;
     this.interviewService = interviewService;
     this.applicantGazetteInterviewService = applicantGazetteInterviewService;
+    this.gazetteService = gazetteService;
   }
 
   private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
@@ -52,6 +58,11 @@ public class InterviewManageController {
     return "interviewSchedule/interview";
   }
 
+  @GetMapping("/manage")
+  private String gazette(Model model){
+    model.addAttribute("gazettes", gazetteService.findByGazetteStatus(GazetteStatus.IN));
+    return "interviewSchedule/gazetteView";
+  }
   /*
    @GetMapping( value = "/pdf" )
     public void allPdf(HttpServletRequest request, HttpServletResponse response) {
@@ -64,11 +75,12 @@ public class InterviewManageController {
       }
     }
   */
-  @GetMapping( value = "/{interviewType}" )
-  public void allExcel(@PathVariable( "interviewType" ) String interviewType, HttpServletRequest request,
+  @GetMapping( value = "/{interviewType}/{id}" )
+  public void allExcel(@PathVariable( "interviewType" ) String interviewType,@PathVariable("id")Integer id, HttpServletRequest request,
                        HttpServletResponse response) {
-    //todo need to consider
-    List< Applicant > applicants = applicantService.findAll();
+        List< Applicant > applicants = new ArrayList<>();
+
+
     String sheetName =" sample";
 //    switch ( interviewType ) {
 //      case "firstInterviewExcel":
@@ -103,6 +115,7 @@ public class InterviewManageController {
 //        applicants = null;
 //        sheetName = "No Applicant to show";
 //    }
+
     boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
     if ( isFlag ) {
       String fullPath = request.getServletContext().getRealPath("/resources/report/" + sheetName + ".xls");
