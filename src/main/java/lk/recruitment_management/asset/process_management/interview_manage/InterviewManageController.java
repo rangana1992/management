@@ -2,6 +2,7 @@ package lk.recruitment_management.asset.process_management.interview_manage;
 
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
+import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
 import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
@@ -44,7 +45,7 @@ public class InterviewManageController {
     this.gazetteService = gazetteService;
   }
 
-  private String commonThing(Model model, List< Applicant > applicants, String title, String uriPdf,
+  private String commonThing(Model model, int id, List< Applicant > applicants, String title, String uriPdf,
                              String btnTextPdf, String uriExcel, String btnTextExcel, boolean addStatus,
                              String resultEnter) {
     model.addAttribute("applicants", applicants);
@@ -55,6 +56,7 @@ public class InterviewManageController {
     model.addAttribute("btnTextExcel", btnTextExcel);
     model.addAttribute("addStatus", addStatus);
     model.addAttribute("resultEnter", resultEnter);
+    model.addAttribute("applicantGazetteId", id);
     return "interviewSchedule/interview";
   }
 
@@ -63,6 +65,14 @@ public class InterviewManageController {
     model.addAttribute("gazettes", gazetteService.findByGazetteStatus(GazetteStatus.IN));
     return "interviewSchedule/gazetteView";
   }
+
+  @GetMapping("/manage/{id}")
+  private String gazette(@PathVariable("id")Integer id, Model model){
+    model.addAttribute("gazettes", gazetteService.findByGazetteStatus(GazetteStatus.IN));
+    return "interviewSchedule/interview";
+  }
+
+
   /*
    @GetMapping( value = "/pdf" )
     public void allPdf(HttpServletRequest request, HttpServletResponse response) {
@@ -122,14 +132,16 @@ public class InterviewManageController {
       fileHandelService.fileDownload(fullPath, response, sheetName + ".xls");
     }
   }
-//first intrerview gazzet
+//first interview gazette
 
-//  @GetMapping( "/firstInterview" )
-//  public String firstInterview(Model model) {
-//    return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FST), "First Interview",
-//                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",
-//                       true, "firstResult");
-//  }
+  @GetMapping( "/firstInterview/{id}" )
+  public String firstInterview(@PathVariable("id")Integer id, Model model) {
+    List<Applicant> applicants = new ArrayList<>();
+
+    return commonThing(model,id,applicants , "First Interview",
+                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",
+                       true, "firstResult");
+  }
 
   //first interview pdf printing
   @GetMapping( "/firstInterviewPdf" )
