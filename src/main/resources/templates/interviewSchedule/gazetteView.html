@@ -47,6 +47,15 @@
           <th >
             <a data-th-href="${'/interviewManage/firstInterview/' + gazette.id}"
                class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;First Interview</a >
+
+            <a data-th-href="${'/interviewManage/secondInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Second Interview</a >
+
+            <a data-th-href="${'/interviewManage/thirdInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Third Interview</a >
+
+            <a data-th-href="${'/interviewManage/fourthInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Fourth Interview</a >
           </th >
         </tr >
         </tbody >
@@ -60,17 +69,11 @@
           <span aria-hidden="true" >&times;</span >
         </button >
         <h3 class="text-center text-danger" >
-          <strong >There is no gazette upto now please add gazette to the system
-                   using add user button.
+          <strong >There is no gazette qualified to go mange interview .
           </strong >
         </h3 >
       </div >
     </div >
-    <script >
-        /*active boostrap alert - start*/
-        $(".alert").alert();
-        /*active boostrap alert - end*/
-    </script >
   </div >
 </div >
 <!--footer include-->
@@ -78,5 +81,10 @@
 <!--script include-->
 <div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
 
+<script >
+    /*active boostrap alert - start*/
+    $(".alert").alert();
+    /*active boostrap alert - end*/
+</script >
 </body >
 </html >

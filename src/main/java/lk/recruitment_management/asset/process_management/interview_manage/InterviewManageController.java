@@ -29,6 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping( "/interviewManage" )
@@ -78,19 +79,6 @@ public class InterviewManageController {
     return "interviewSchedule/gazetteView";
   }
 
-
-  /*
-   @GetMapping( value = "/pdf" )
-    public void allPdf(HttpServletRequest request, HttpServletResponse response) {
-      List< Applicant > employees = applicantService.getAllEmployeePdfAndExcel();
-      boolean isFlag = applicantService.createPdf(employees, context, request, response);
-
-      if ( isFlag ) {
-        String fullPath = request.getServletContext().getRealPath("/resources/report/" + "employees" + ".pdf");
-        fileHandelService.filedownload(fullPath, response, "employees.pdf");
-      }
-    }
-  */
   @GetMapping( value = "/{interviewType}/{id}" )
   public void allExcel(@PathVariable( "interviewType" ) String interviewType, @PathVariable( "id" ) Integer id,
                        HttpServletRequest request,
@@ -142,7 +130,7 @@ public class InterviewManageController {
     }
 
     List< Applicant > applicants = new ArrayList<>();
-    applicantGazettes.forEach(x -> applicants.add(x.getApplicant()));
+    Objects.requireNonNull(applicantGazettes).forEach(x -> applicants.add(x.getApplicant()));
 
     boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
     if ( isFlag ) {
@@ -158,23 +146,26 @@ public class InterviewManageController {
     return commonThing(model,
                        applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FST,
                                                                                       gazette), "First Interview",
-                       "firstInterviewPdf", "First Interview Pdf", "firstInterviewExcel", "First Interview Excel",
+                       "firstInterviewPdf/" + gazette.getId(), "First Interview Pdf",
+                       "firstInterviewExcel/" + gazette.getId(), "First Interview Excel",
                        true, "firstResult");
   }
 
   //first interview pdf printing
-  @GetMapping( "/firstInterviewPdf" )
-  public String firstInterviewPdf() {
-
+  @GetMapping( "/firstInterviewPdf/{id}" )
+  public String firstInterviewPdf(@PathVariable( "id" ) Integer id, Model model) {
+    model.addAttribute("pdfFile", MvcUriComponentsBuilder
+        .fromMethodName(InterviewManageController.class, "pdfPrint", id, ApplicantGazetteStatus.FST)
+        .toUriString());
     return "print/pdfSilentPrint";
   }
 
-  @GetMapping( value = "/file/{id}", produces = MediaType.APPLICATION_PDF_VALUE )
-  public ResponseEntity< InputStreamResource > invoicePrint(@PathVariable( "id" ) Integer id) throws DocumentException {
+  @GetMapping( value = "/file/{id}/{applicantGazetteStatus}", produces = MediaType.APPLICATION_PDF_VALUE )
+  public ResponseEntity< InputStreamResource > pdfPrint(@PathVariable( "id" ) Integer id, @PathVariable("applicantGazetteStatus")ApplicantGazetteStatus applicantGazetteStatus) throws Exception {
     var headers = new HttpHeaders();
-    headers.add("Content-Disposition", "inline; filename=interview.pdf");
-    InputStreamResource pdfFile = new InputStreamResource(applicantService.createPDF(id));
 
+    headers.add("Content-Disposition", "inline; filename=interview.pdf");
+    InputStreamResource pdfFile = new InputStreamResource(applicantService.createPDF(id, applicantGazetteStatus));
     return ResponseEntity
         .ok()
         .headers(headers)
@@ -182,16 +173,6 @@ public class InterviewManageController {
         .body(pdfFile);
   }
 
-  @GetMapping( "/fileView/{id}" )
-  public String fileRequest(@PathVariable( "id" ) Integer id, Model model, HttpServletRequest request) {
-    model.addAttribute("pdfFile", MvcUriComponentsBuilder
-        .fromMethodName(InterviewManageController.class, "invoicePrint", id)
-        .toUriString());
-    model.addAttribute("redirectUrl", MvcUriComponentsBuilder
-        .fromMethodName(InterviewService.class, "getInvoiceForm", "")
-        .toUriString());
-    return "print/pdfSilentPrint";
-  }
 
   //first interview result enter
   @GetMapping( "/firstResult/{id}" )

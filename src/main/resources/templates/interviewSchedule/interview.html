@@ -46,18 +46,18 @@
     </tr >
     </thead >
     <tbody >
-    <tr data-th-each="applicant, rowCount : ${applicants}" >
+    <tr data-th-each="applicantGazette, rowCount : ${applicantGazettes}" >
       <td data-th-text="${rowCount.count}" ></td >
-      <td data-th-text="${applicant.code}" ></td >
-      <td data-th-text="${applicant.nameWithInitial}" ></td >
-      <td data-th-text="${applicant.applyingRank}" ></td >
-      <td data-th-text="${applicant.gramaNiladhari.policeStation.name}" ></td >
+      <td data-th-text="${applicantGazette.applicant.code}" ></td >
+      <td data-th-text="${applicantGazette.applicant.nameWithInitial}" ></td >
+      <td data-th-text="${applicantGazette.applyingRank.applyingRank}" ></td >
+      <td data-th-text="${applicantGazette.applicant.gramaNiladhari.policeStation.name}" ></td >
       <td data-th-if="${addStatus}">
         <!--result enter button-->
-        <a data-th-href="${'/interviewManage/'+ resultEnter + '/' + applicant.id}" class="btn btn-success btn-sm" ><i
+        <a data-th-href="${'/interviewManage/'+ resultEnter + '/' + applicantGazette.id}" class="btn btn-success btn-sm" ><i
               class="fa fa-folder-open" ></i >&nbsp;Result Enter</a >
         <!--absent mark-->
-        <a data-th-href="${'/interviewManage/'+'absent/'+ resultEnter + '/' + applicant.id}"
+        <a data-th-href="${'/interviewManage/'+'absent/'+ resultEnter + '/' + applicantGazette.id}"
            class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
           Absent</a >
       </td >
