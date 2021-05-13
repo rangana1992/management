@@ -2,10 +2,7 @@ package lk.recruitment_management.util.service;
 
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.Period;
+import java.time.*;
 
 @Service
 public class DateTimeAgeService {
@@ -14,6 +11,11 @@ public class DateTimeAgeService {
         Period difference = Period.between(from, to);
         return difference.getYears() + " Years, " + difference.getMonths() + " Months, " + difference.getDays() + " " +
                 "Days";
+    }
+
+    public long getDateTimeDurationInHours(LocalDateTime from, LocalDateTime to){
+        Duration duration = Duration.between(from, to);
+        return duration.toHours();
     }
 
     public LocalDate getPastDateByMonth(int month) {

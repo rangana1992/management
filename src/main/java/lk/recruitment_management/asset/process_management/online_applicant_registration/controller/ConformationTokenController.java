@@ -8,6 +8,7 @@ import lk.recruitment_management.asset.user_management.entity.User;
 import lk.recruitment_management.asset.process_management.online_applicant_registration.service.ConformationTokenService;
 import lk.recruitment_management.asset.user_management.service.RoleService;
 import lk.recruitment_management.asset.user_management.service.UserService;
+import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,14 +27,15 @@ public class ConformationTokenController {
     private final UserService userService;
     private final RoleService roleService;
     private final CommonService commonService;
-
+private final DateTimeAgeService dateTimeAgeService;
     @Autowired
-    public ConformationTokenController(ConformationTokenService conformationTokenService, EmailService emailService, UserService userService, RoleService roleService, CommonService commonService) {
+    public ConformationTokenController(ConformationTokenService conformationTokenService, EmailService emailService, UserService userService, RoleService roleService, CommonService commonService, DateTimeAgeService dateTimeAgeService) {
         this.conformationTokenService = conformationTokenService;
         this.emailService = emailService;
         this.userService = userService;
         this.roleService = roleService;
         this.commonService = commonService;
+        this.dateTimeAgeService = dateTimeAgeService;
     }
 
     @GetMapping(value = {"/register", "/forgottenPassword"})
@@ -68,7 +70,8 @@ public class ConformationTokenController {
         }
         //check if there is a valid token
         ConformationToken conformationToken = conformationTokenService.findByEmail(email);
-        if (conformationToken != null && LocalDateTime.now().isBefore(conformationToken.getEndDate())) {
+
+        if (conformationToken != null && dateTimeAgeService.getDateTimeDurationInHours(LocalDateTime.now(),conformationToken.getEndDate()) < 25 ) {
             System.out.println(" i here ");
             model.addAttribute("message", "There is valid token fot this email " + email + " on the system. \n Please check your email.");
             return "user/register";
