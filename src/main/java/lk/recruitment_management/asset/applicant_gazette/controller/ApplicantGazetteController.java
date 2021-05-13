@@ -68,5 +68,16 @@ public class ApplicantGazetteController {
     return "redirect:/applicant";
   }
 
+  // toview details
+  @GetMapping("/view/{id}")
+  public String applicantHistory(@PathVariable("id")Integer id , Model model){
+    Applicant applicant = applicantService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    Gazette gazette = gazetteService.findById(id);
+    ApplicantGazette applicantGazette = applicantGazetteService.findByGazetteAndApplicant(gazette,applicant);
+    model.addAttribute("applicantGazette",applicantGazette);
+    return "applicantInterview/applicantInterviewDetail";
+  }
+
+
 
 }

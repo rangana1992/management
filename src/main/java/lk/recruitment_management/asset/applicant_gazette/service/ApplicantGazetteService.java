@@ -71,4 +71,8 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
   public List<ApplicantGazette> findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette) {
   return applicantGazetteDao.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus,gazette);
   }
+
+  public ApplicantGazette findByGazetteAndApplicant(Gazette gazette, Applicant applicant) {
+  return applicantGazetteDao.findByGazetteAndApplicant(gazette,applicant);
+  }
 }

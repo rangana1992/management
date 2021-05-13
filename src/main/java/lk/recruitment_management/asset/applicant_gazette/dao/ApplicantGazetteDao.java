@@ -23,4 +23,6 @@ public interface ApplicantGazetteDao extends JpaRepository< ApplicantGazette, In
   int countByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette);
 
   List< ApplicantGazette> findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette);
+
+  ApplicantGazette findByGazetteAndApplicant(Gazette gazette, Applicant applicant);
 }
