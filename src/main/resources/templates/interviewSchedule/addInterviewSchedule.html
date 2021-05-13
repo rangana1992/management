@@ -49,7 +49,7 @@
             </div >
             </div>
             <div class="col-6" >Message
-                <textarea name="message" id="message" class="form-control" cols="30" rows="10"></textarea>
+                <textarea name="massage" id="message" class="form-control" cols="30" rows="10"></textarea>
               </div >
             </div >
         </div>
@@ -69,9 +69,9 @@
               <td >
                 <select class="form-control" name="interviewScheduleLists[0].interviewBoardId" >
                   <option value="" >Please select</option >
-                  <option data-th-each="interviewBordOne : ${interviewBoard}"
-                          data-th-value="${interviewBordOne.id}"
-                          data-th-text="${interviewBordOne.name}" ></option >
+                  <option data-th-each="interviewBoardOne : ${interviewBoard}"
+                          data-th-value="${interviewBoardOne.id}"
+                          data-th-text="${interviewBoardOne.name}" ></option >
                 </select >
               </td >
               <td ><input type="number" id="co0" onkeyup="countFind(this)" class="form-control count"
@@ -101,15 +101,14 @@
 </div >
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer >
-<script data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></script >
+<div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div >
+<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div >
 
 <script >
 $(document).ready(function(){
     $('[type="date"]').prop('min', function () {
         return new Date().toJSON().split('T')[0];
     });
-
 })
 
     $("#newSchedule").bind("click", function () {
