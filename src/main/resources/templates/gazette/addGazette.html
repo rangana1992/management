@@ -1,110 +1,132 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head data-th-replace="~{fragments/header :: headerFragment}" >
-  <meta charset="UTF-8" >
-  <title >Thymeleaf Springboot </title >
-</head >
-<body >
-<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+  <div class="content-wrapper"><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+    <!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
+    <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
-<div class="container-fluid  mt-4" >
-  <div class="row text-center" >
-    <div class="col" >
-      <a class="btn btn-primary" href="/home" >
-        <i class="fa fa-home" style="font-size: 20px" ></i > &nbsp; Home
-      </a >
-    </div >
-    <div class="col" >
-      <h4 class="text-center" >
-        <strong >
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                                    <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+                        <a class="btn btn-success" id="newDistrict" th:href="${'/gazette'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp;Gazette List </a>
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+<div class="card-header">
                     <span
                           data-th-text="${addStatus==true?'New Gazette Add':'Update Gazette Details'}" ></span >
-        </strong >
-      </h4 >
-    </div >
-    <div class="col" >
-      <a class="btn btn-primary" href="/gazette" >
-        <i class="fa fa-list" ></i >&nbsp; View List
-      </a >
-    </div >
-  </div >
-</div >
-<!--Form Content - start -->
-<div class="container-fluid  " >
-  <div class="col-sm-12 flex-column " >
+</div>
+
     <form data-th-action="${addStatus==true?'/gazette/save':'/gazette/update'}"
           data-th-object="${gazette}"
           method="POST" >
-      <div class="container" >
         <!--Left Side-->
-        <div class="form-group col-md-6 col-sm-6 offset-2 text-left flex-column" >
-          <input data-th-field="*{id}" data-th-if="${addStatus==false}" hidden type="text" />
+        <table class="table">
+          <tr>
+            <th></th>
+            <td><input data-th-field="*{id}" data-th-if="${addStatus==false}" hidden type="text" /></td>
+          </tr>
 
-          <!--Name-->
-          <div class="form-row text-right" >
-            <div class="col-md-4" >
-              <label class="control-label" for="name" >Name :</label >
-            </div >
-            <div class="col-md-8" >
+
+
+          <tr>
+            <th><label class="control-label" for="name" >Name :</label ></th>
+
+            <td>
               <input class="form-control" data-th-field="*{name}" id="name" required tabindex="4"
                      type="text" />
               <span class="error" data-th-errors="*{name}"
                     data-th-if="${#fields.hasErrors('name')}" id="nameError" >Error Name</span >
-            </div >
-          </div >
-          <!--reguested age-->
-          <div class="form-row text-right" >
-            <div class="col-md-4" >
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <th>
               <label class="control-label" for="age" >Request Age Maximum :</label >
-            </div >
-            <div class="col-md-8" >
+            </th>
+
+
+            <td>
               <input class="form-control" data-th-field="*{age}" id="age" required tabindex="4"
                      type="number" min="0" step="1" />
               <span class="error" data-th-errors="*{name}"
                     data-th-if="${#fields.hasErrors('name')}" id="ageE" >Error Name</span >
-            </div >
-          </div >
-          <!--gazetteStatus-->
-          <div class="form-row text-right" >
-            <div class="col-md-4" >
-              <label class="control-label" >Gazette Status :</label >
-            </div >
-            <div class="col-md-8" >
-              <div class="custom-control custom-checkbox custom-control-inline "
-                   data-th-each="gazetteStatus,index : ${gazetteStatuses}" >
-                <input class="custom-control-input gender" required
-                       data-th-name="${'gazetteStatus'}"
-                       data-th-value="${gazetteStatus}"
-                       data-th-id="${index.index}+${gazetteStatus}"
-                       type="radio"
-                       data-th-checked="${gazetteStatus==gazetteStatus}" />
-                <label class="custom-control-label"
-                       data-th-for="${index.index}+${gazetteStatus}"
-                       data-th-text="${gazetteStatus.gazetteStatus}" > radio
-                </label >
-              </div >
-            </div >
-          </div >
+            </td>
+          </tr>
 
-          <!--summary of gazette-->
-          <div class="form-row text-right" >
-            <div class="col-md-4" >
-              <label class="control-label" for="summary">Summary Gazette :</label >
-            </div >
-            <div class="col-md-8" >
+
+
+          <tr>
+            <th><label class="control-label" >Gazette Status :</label ></th>
+                        <td class="custom-control custom-checkbox custom-control-inline "
+                data-th-each="gazetteStatus,index : ${gazetteStatuses}">
+              <input class="custom-control-input gender" required
+                     data-th-name="${'gazetteStatus'}"
+                     data-th-value="${gazetteStatus}"
+                     data-th-id="${index.index}+${gazetteStatus}"
+                     type="radio"
+                     data-th-checked="${gazetteStatus==gazetteStatus}" />
+              <label class="custom-control-label"
+                     data-th-for="${index.index}+${gazetteStatus}"
+                     data-th-text="${gazetteStatus.gazetteStatus}" > radio
+              </label >
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <th><label class="control-label" for="summary">Summary Gazette :</label ></th>
+
+
+
+            <td>
               <textarea data-th-field="*{summary}" id="summary" cols="30" rows="10" class="form-control" ></textarea >
-            </div >
-          </div >
-        </div >
-        <!--Button-->
-        <div class="form-group col-md-12 col-sm-12 text-center flex-column " >
-          <button class="btn btn-success" tabindex="21" type="submit" >
-            <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp; &nbsp;<span
-                data-th-text="${addStatus==true?'Save': 'Update'}"
-                id="submit" ></span >
-          </button >
-        </div >
-        <div class="form-row" >
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <th></th>
+            <td><button class="btn btn-success" tabindex="21" type="submit" >
+              <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp; &nbsp;<span
+                    data-th-text="${addStatus==true?'Save': 'Update'}"
+                    id="submit" ></span >
+            </button >
+              <button class="btn btn-danger" tabindex="21" type="clear" >
+                <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp; &nbsp;<span
+                      data-th-text="${addStatus==true?'Clear': 'Reset'}"
+                      id="submit" ></span >
+              </button ></td>
+          </tr>
+
+        </table>
+        <div class="form-group" >
+                  <div class="form-row" >
           <label data-th-if="${#fields.hasErrors('*')}" data-th-text="'Errors: '"
                  id="errorLabel" >Errors: </label >
           <ul >
@@ -116,10 +138,15 @@
     </form >
   </div >
 </div >
-<!--footer include-->
-<footer data-th-replace="~{fragments/footer :: footerFragment}" ></footer >
-<!--script include-->
-<script data-th-replace="~{fragments/script :: scriptFragment}" ></script >
-
-</body >
-</html >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+              </div><!-- content-wrapper end -->
+              <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+            </div><!-- wrapper end -->
+            <div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+</body>
+</html>

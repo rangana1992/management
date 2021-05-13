@@ -77,13 +77,14 @@ public class ConformationTokenController {
     ConformationToken conformationToken = conformationTokenService.findByEmail(email);
 
     if ( conformationToken != null && dateTimeAgeService.getDateTimeDurationInHours(LocalDateTime.now(),
-                                                                                    conformationToken.getEndDate()) < 25 ) {
+                                                                                    conformationToken.getEndDate()) < 25L ) {
       System.out.println(" i here ");
       model.addAttribute("message", "There is valid token fot this email " + email + " on the system. \n Please check" +
           " your email.");
       return "user/register";
-    } else if ( dateTimeAgeService.getDateTimeDurationInHours(LocalDateTime.now(), conformationToken.getEndDate()) > 24 ) {
-      assert conformationToken != null;
+    }
+    if ( conformationToken != null && dateTimeAgeService.getDateTimeDurationInHours(LocalDateTime.now(), conformationToken.getEndDate()) > 24L ) {
+      System.out.println(" im in more than 24  hours");
       conformationToken.setCreateDate(LocalDateTime.now());
       conformationToken.setEndDate(LocalDateTime.now().plusDays(1));
       String url = request.getRequestURL().toString();
