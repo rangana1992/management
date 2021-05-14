@@ -7,10 +7,12 @@ import lk.recruitment_management.asset.applicant_gazette_interview.entity.Applic
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface ApplicantGazetteInterviewDao extends JpaRepository< ApplicantGazetteInterview, Integer > {
   List< ApplicantGazetteInterview > findByApplicantGazette(ApplicantGazette applicantGazette);
 
+  ApplicantGazetteInterview findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(ApplicantGazette applicantGazette, ApplicantGazette applicantGazette1, LocalDate interviewDate);
 }

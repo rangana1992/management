@@ -24,6 +24,9 @@ import java.util.List;
 @JsonFilter( "ApplicantGazette" )
 public class ApplicantGazette extends AuditEntity {
 
+  @Column( nullable = false, unique = true )
+  private String code;
+
   @Enumerated( EnumType.STRING )
   private ApplyingRank applyingRank;
 

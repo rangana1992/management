@@ -30,6 +30,8 @@ public class ApplicantGazetteInterview extends AuditEntity {
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate interviewDate;
 
+  private String message;
+
   @ManyToOne
   private InterviewBoard interviewBoard;
 
