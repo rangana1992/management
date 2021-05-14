@@ -35,21 +35,26 @@
 </div >
 
 <div class="container-fluid" >
-  <form action="" data-th-object="${applicantGazetteInterview}" data-th-each="applicantGazetteInterview : ${applicantGazetteInterviews}" >
+  <form action="/interviewManage/firstSecondResult/save" data-th-object="${applicantGazetteInterview}" method="POST" >
     <!--applicant-->
-    <input type="hidden" name="applicant" data-th-value="${applicantDetail.id}" >
-    <!--interview date-->
-    <div class="form-row text-right" >
-      <label class="control-label" for="dateOfBirth" >Interview date
-                                                      :</label >
-      <input data-th-field="*{interviewDate}"
-             class="form-control" tabindex="8"
-             placeholder="Ex: 1990 - 01 - 20"
-             required type="date" readonly/>
-    </div >
+    <input type="hidden" data-th-field="*{id}" >
+    
     <!--interview Board-->
     <input type="hidden" data-th-field="*{interviewBoard}" >
     <div class="container-fluid" >
+<!--interview date-->
+    <div class="form-group row" >
+        <label class="col-sm-2 col-form-label " > Interview date
+                                                      :</label >
+                                                      <div class="col-sm-10" >
+                                                        <p class="display_detail" data-th-text="${applicantGazetteInterview.interviewDate}" ></p >
+                                                              <input data-th-field="*{interviewDate}"
+                                                              
+             class="form-control" tabindex="8"
+             placeholder="Ex: 1990 - 01 - 20"
+             required type="date" readonly hidden/>
+             </div>
+    </div >
       <div class="form-group row" >
         <label class="col-sm-2 col-form-label " > Id </label >
         <div class="col-sm-10" >
@@ -92,6 +97,7 @@
         <th >Parameter name</th >
         <th >Result</th >
         <th >Max</th >
+          <th>Min</th>
       </tr >
       </thead >
       <tbody >
@@ -102,16 +108,26 @@
           <!--parameter name-->
         <span data-th-text="${interviewParameter.name}"></span>
           <input type="hidden" >
+           <input type="text" class="form-control" data-th-value="${interviewParameter.id}" data-th-name="${'applicantGazetteInterviewResults[__${index.index}__].interviewParameter.id'}" hidden required>
+            <input type="text" class="form-control" data-th-value="${applicantGazetteInterview.id}" data-th-name="${'applicantGazetteInterviewResults[__${index.index}__].applicantGazetteInterview.id'}" hidden required>
         </td >
         <td >
           <!--result-->
-          <input type="text" name="">
+          <input type="text" data-th-id="${'rs'+index.index}" 
+                   onkeyup="testResultValidation(this)" class="form-control" data-th-name="${'applicantGazetteInterviewResults[__${index.index}__].result'}" required>
         </td >
         <td >
+          <input class="form-control" type="text" data-th-id="${'max'+index.index}"
+                   data-th-value="${interviewParameter.max}" readonly hidden/>
           <!--max-->
            <span data-th-text="${interviewParameter.max}"></span>
-          <input type="hidden" name="" >
-        </td >
+             </td >
+             <td>
+                 <!--min-->
+           <span data-th-text="${interviewParameter.min}"></span>
+ <input class="form-control" type="text" data-th-id="${'min'+index.index}"
+                   data-th-value="${interviewParameter.min}" readonly hidden/>
+             </td>
       </tr >
       </tbody >
     </table >
@@ -130,16 +146,33 @@
 </div >
 
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous" ></script >
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous" ></script >
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous" ></script >
+  <!-- content-wrapper end -->
+  <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+<!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+
+        <script >
+
+    //test result validation : check whether the entered value is within the given range
+    function testResultValidation(obj) {
+        let selectedFiledId = obj.getAttribute('id').slice(2);
+        let resultEnterFiled = $(`#rs${selectedFiledId}`);
+        let min = parseInt($(`#min${selectedFiledId}`).val());
+        let max = parseInt($(`#max${selectedFiledId}`).val());
+        let testResult = parseInt(resultEnterFiled.val());
+
+        if (testResult >= min && testResult <= max) {
+            resultEnterFiled.attr("class","bg-success form-control");
+            $(`#sts${selectedFiledId}`).val("PASS")
+        } else {
+            resultEnterFiled.attr("class","bg-danger form-control");
+          $(`#sts${selectedFiledId}`).val("FAIL")
+        }
+        if (testResult ===0 || testResult===""){
+            resultEnterFiled.attr("class","bg-warning form-control");
+        }
+    }
+
+</script >
 </body >
 </html >

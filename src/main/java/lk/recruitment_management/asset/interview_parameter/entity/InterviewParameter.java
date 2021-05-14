@@ -24,6 +24,8 @@ public class InterviewParameter extends AuditEntity {
 
     private String max;
 
+    private String min;
+
     @ManyToMany(mappedBy = "interviewParameters")
     private List<Interview> interviews;
 }

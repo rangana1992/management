@@ -642,7 +642,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   private void interviewParameter(Document document, InterviewName interviewName) throws DocumentException {
     //take interview parameter from db and create table
     // index parameterName result max remark
-    PdfPTable firstInterviewTable = new PdfPTable(5);
+    PdfPTable firstInterviewTable = new PdfPTable(6);
     firstInterviewTable.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin());
 
     List< InterviewParameter > interviewParameters =
@@ -665,6 +665,10 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     pdfCellHeaderCommonStyle(maxCell);
     firstInterviewTable.addCell(maxCell);
 
+    PdfPCell minCell = new PdfPCell(new Phrase("Min ", secondaryFont));
+    pdfCellHeaderCommonStyle(minCell);
+    firstInterviewTable.addCell(minCell);
+
     PdfPCell remarkCell = new PdfPCell(new Phrase("Remark ", secondaryFont));
     pdfCellHeaderCommonStyle(remarkCell);
     firstInterviewTable.addCell(remarkCell);
@@ -686,6 +690,10 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       PdfPCell max = new PdfPCell(new Paragraph(interviewParameters.get(i).getMax(), tableHeader));
       pdfCellBodyCommonStyle(max);
       firstInterviewTable.addCell(max);
+
+      PdfPCell min = new PdfPCell(new Paragraph(interviewParameters.get(i).getMin(), tableHeader));
+      pdfCellBodyCommonStyle(min);
+      firstInterviewTable.addCell(min);
 
       PdfPCell remark = new PdfPCell(new Paragraph(" ", tableHeader));
       pdfCellBodyCommonStyle(remark);
