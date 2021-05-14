@@ -18,5 +18,6 @@ public class InterviewScheduleList {
   private LocalDate date;
   private int interviewBoardId;
   private int count;
+  private String message;
 
 }

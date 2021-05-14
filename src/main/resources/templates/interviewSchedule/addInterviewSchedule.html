@@ -77,6 +77,8 @@
               <td ><input type="number" id="co0" onkeyup="countFind(this)" class="form-control count"
                           name="interviewScheduleLists[0].count" ></td >
               <td ><input type="text" class="form-control" id="rm0" value="" readonly ></td >
+              <td ><textarea id="me0"  class="form-control"
+                          name="interviewScheduleLists[0].message" ></textarea></td >
               <td >
                 <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger" >Remove
                 </button >
@@ -123,6 +125,7 @@ $(document).ready(function(){
            </td>
            <td><input type="text" id="co${rowLength}" onkeyup="countFind(this)" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
            <td><input type="number" class="form-control count" value="" id="rm${rowLength}" readonly></td>
+           <td><textarea class="form-control "  id="me${rowLength}" name="interviewScheduleLists[${rowLength}].message"></textarea></td>
            <td> <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
         $('#interviewSchedule > tbody:last-child').append(html);
