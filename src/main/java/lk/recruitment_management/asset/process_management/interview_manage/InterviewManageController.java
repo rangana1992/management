@@ -189,14 +189,14 @@ public class InterviewManageController {
     return "interviewSchedule/addApplicantInterviewResult";
   }
 
-  //absent first todo
-//  @GetMapping( "/absent/firstResult/{id}" )
-//  public String firstAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
-//    Applicant applicant = applicantService.findById(id);
-//    applicant.setApplicantStatus(ApplicantStatus.FSTR);
-//    applicantService.persist(applicant);
-//    return "redirect:/interviewManage/firstInterview";
-//  }
+
+  @GetMapping( "/absent/firstResult/{id}" )
+  public String firstAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FSTR);
+    applicantGazetteService.persist(applicantGazette);
+    return "redirect:/interviewManage/firstInterview/"+applicantGazette.getGazette().getId();
+  }
 
   //todo
 
