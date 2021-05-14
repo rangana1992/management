@@ -152,8 +152,8 @@ public class InterviewManageController {
       fileHandelService.fileDownload(fullPath, response, sheetName + ".xls");
     }
   }
-//first interview gazette
 
+  //first interview gazette
   @GetMapping( "/firstInterview/{id}" )
   public String firstInterview(@PathVariable( "id" ) Integer id, Model model) {
     Gazette gazette = gazetteService.findById(id);
@@ -177,19 +177,6 @@ public class InterviewManageController {
     return "print/pdfSilentPrint";
   }
 
-  @GetMapping( value = "/file/{id}/{applicantGazetteStatus}", produces = MediaType.APPLICATION_PDF_VALUE )
-  public ResponseEntity< InputStreamResource > pdfPrint(@PathVariable( "id" ) Integer id, @PathVariable(
-      "applicantGazetteStatus" ) ApplicantGazetteStatus applicantGazetteStatus) throws Exception {
-    var headers = new HttpHeaders();
-
-    headers.add("Content-Disposition", "inline; filename=interview.pdf");
-    InputStreamResource pdfFile = new InputStreamResource(applicantService.createPDF(id, applicantGazetteStatus));
-    return ResponseEntity
-        .ok()
-        .headers(headers)
-        .contentType(MediaType.APPLICATION_PDF)
-        .body(pdfFile);
-  }
 
   //first interview result enter
   @GetMapping( "/firstResult/{id}/{date}" )
@@ -216,6 +203,16 @@ public class InterviewManageController {
     return "interviewSchedule/addApplicantInterviewResult";
   }
 
+
+  @GetMapping( "/absent/firstResult/{id}" )
+  public String firstAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FSTR);
+    applicantGazetteService.persist(applicantGazette);
+    return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
+  }
+
+  //first and second interview  result save
   @PostMapping( "/firstSecondResult/save" )
   public String firstInterviewResultSave(@ModelAttribute ApplicantGazetteInterview applicantGazetteInterview,
                                          BindingResult bindingResult, Model model) {
@@ -266,40 +263,83 @@ public class InterviewManageController {
 
   }
 
-  @GetMapping( "/absent/firstResult/{id}" )
-  public String firstAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
+  //first and second interview common pdf
+  @GetMapping( value = "/file/{id}/{applicantGazetteStatus}", produces = MediaType.APPLICATION_PDF_VALUE )
+  public ResponseEntity< InputStreamResource > pdfPrint(@PathVariable( "id" ) Integer id, @PathVariable(
+      "applicantGazetteStatus" ) ApplicantGazetteStatus applicantGazetteStatus) throws Exception {
+    var headers = new HttpHeaders();
+
+    headers.add("Content-Disposition", "inline; filename=interview.pdf");
+    InputStreamResource pdfFile = new InputStreamResource(applicantService.createPDF(id, applicantGazetteStatus));
+    return ResponseEntity
+        .ok()
+        .headers(headers)
+        .contentType(MediaType.APPLICATION_PDF)
+        .body(pdfFile);
+  }
+
+
+  //second interview gazette
+  @GetMapping( "/secondInterview/{id}" )
+  public String secondInterview(@PathVariable( "id" ) Integer id, Model model) {
+    Gazette gazette = gazetteService.findById(id);
+
+    return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.SND,
+                                                                                             gazette), "Second " +
+                           "Interview",
+                       "secondInterviewPdf", "Second Interview Pdf",
+                       "secondInterviewExcel", "Second Interview Excel", true, "secondResult",
+                       ApplicantGazetteStatus.SND);
+
+  }
+
+  //second interview pdf printing
+  @GetMapping( "/secondInterviewPdf/{id}" )
+  public String secondInterviewPdf(@PathVariable( "id" ) Integer id, Model model) {
+    model.addAttribute("pdfFile", MvcUriComponentsBuilder
+        .fromMethodName(InterviewManageController.class, "pdfPrint", id, ApplicantGazetteStatus.SND)
+        .toUriString());
+    model.addAttribute("redirectUrl", MvcUriComponentsBuilder
+        .fromMethodName(InterviewManageController.class, "secondInterview", id)
+        .toUriString());
+    return "print/pdfSilentPrint";
+  }
+
+
+  //second interview result enter
+  @GetMapping( "/secondResult/{id}/{date}" )
+  public String secondInterviewResult(@PathVariable( "id" ) Integer id,
+                                      @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
+      , Model model, RedirectAttributes redirectAttributes) {
     ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
-    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FSTR);
+    Interview interview = interviewService.findByInterviewName(InterviewName.SECOND);
+    ApplicantGazetteInterview applicantGazetteInterview =
+        applicantGazetteInterviewService.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, ApplicantGazetteInterviewStatus.ACT, date);
+    if ( applicantGazetteInterview == null ) {
+      redirectAttributes.addFlashAttribute("message", "There is no interview on you provided date " + date.toString());
+      return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
+    }
+
+
+    model.addAttribute("applicantDetail", applicantGazette.getApplicant());
+    model.addAttribute("addStatus", true);
+    model.addAttribute("age", dateTimeAgeService.getAge(applicantGazette.getApplicant().getDateOfBirth()));
+    model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicantGazette.getApplicant()));
+    model.addAttribute("interviews", interview);
+    model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
+    model.addAttribute("passFaileds", PassFailed.values());
+    return "interviewSchedule/addApplicantInterviewResult";
+  }
+
+
+  @GetMapping( "/absent/secondResult/{id}" )
+  public String secondAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.SNDR);
     applicantGazetteService.persist(applicantGazette);
     return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
   }
 
-  //todo
-
-//  @GetMapping( "/secondInterview" )
-//  public String secondInterview(Model model) {
-//    return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.SND), "Second Interview",
-//                       "secondInterviewPdf", "Second Interview Pdf",
-//                       "secondInterviewExcel", "Second Interview Excel", true, "secondResult");
-//  }
-
-  //second interview result enter
-  @GetMapping( "/secondResult/{id}" )
-  public String secondInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
-    //todo
-
-    System.out.println("interview second result");
-    return "";
-  }
-
-  // absent second todo
-//  @GetMapping( "/absent/secondResult/{id}" )
-//  public String secondAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
-//    Applicant applicant = applicantService.findById(id);
-//    applicant.setApplicantStatus(ApplicantStatus.SNDR);
-//    applicantService.persist(applicant);
-//    return "redirect:/interviewManage/secondInterview";
-//  }
 
   //todo
 //
