@@ -29,4 +29,6 @@ public interface ApplicantGazetteDao extends JpaRepository< ApplicantGazette, In
   List< ApplicantGazette > findByGazette(Gazette gazette);
 
   ApplicantGazette findFirstByOrderByIdDesc();
+
+  ApplicantGazette findByCode(String code);
 }

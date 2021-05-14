@@ -8,9 +8,9 @@ import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantG
 import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
-import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.PassFailed;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_gazette_interview_result.service.ApplicantGazetteInterviewResultService;
+import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
@@ -21,6 +21,10 @@ import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.FileHandelService;
+import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -36,7 +40,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -199,7 +205,10 @@ public class InterviewManageController {
     model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicantGazette.getApplicant()));
     model.addAttribute("interviews", interview);
     model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
-    model.addAttribute("passFaileds", PassFailed.values());
+    List<PassFailed> passFaileds = new ArrayList<>();
+    passFaileds.add(PassFailed.PASS);
+    passFaileds.add(PassFailed.FAILED);
+    model.addAttribute("passFaileds", passFaileds);
     return "interviewSchedule/addApplicantInterviewResult";
   }
 
@@ -229,7 +238,10 @@ public class InterviewManageController {
       model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicant));
       model.addAttribute("interviews", interview);
       model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
-      model.addAttribute("passFaileds", PassFailed.values());
+      List<PassFailed> passFaileds = new ArrayList<>();
+      passFaileds.add(PassFailed.PASS);
+      passFaileds.add(PassFailed.FAILED);
+      model.addAttribute("passFaileds", passFaileds);
       return "interviewSchedule/addApplicantInterviewResult";
     }
 
@@ -240,7 +252,7 @@ public class InterviewManageController {
     //if interview result failed of pass check
     ApplicantGazetteStatus applicantGazetteStatus;
     if ( interview.getInterviewName().equals(InterviewName.FIRST) ) {
-      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FL) ) {
+      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
         applicantGazetteStatus = ApplicantGazetteStatus.FSTR;
       } else {
         applicantGazetteStatus = ApplicantGazetteStatus.FSTP;
@@ -250,7 +262,7 @@ public class InterviewManageController {
 
       return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
     } else {
-      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FL) ) {
+      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
         applicantGazetteStatus = ApplicantGazetteStatus.SNDR;
       } else {
         applicantGazetteStatus = ApplicantGazetteStatus.SNDP;
@@ -283,7 +295,6 @@ public class InterviewManageController {
   @GetMapping( "/secondInterview/{id}" )
   public String secondInterview(@PathVariable( "id" ) Integer id, Model model) {
     Gazette gazette = gazetteService.findById(id);
-
     return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.SND,
                                                                                              gazette), "Second " +
                            "Interview",
@@ -304,7 +315,6 @@ public class InterviewManageController {
         .toUriString());
     return "print/pdfSilentPrint";
   }
-
 
   //second interview result enter
   @GetMapping( "/secondResult/{id}/{date}" )
@@ -331,7 +341,6 @@ public class InterviewManageController {
     return "interviewSchedule/addApplicantInterviewResult";
   }
 
-
   @GetMapping( "/absent/secondResult/{id}" )
   public String secondAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
     ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
@@ -340,132 +349,136 @@ public class InterviewManageController {
     return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
   }
 
-
-  //todo
-//
-//  @GetMapping( "/thirdInterview" )
-//  public String thirdInterview(Model model) {
-//    return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.TND), "Third Interview",
-//                       null, null,
-//                       "thirdInterviewExcel", "Third Interview Excel", false, null);
-//  }
+  @GetMapping( "/thirdInterview/{id}" )
+  public String thirdInterview(@PathVariable( "id" ) Integer id, Model model) {
+    Gazette gazette = gazetteService.findById(id);
+    return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.TND,
+                                                                                             gazette), "Third " +
+                           "Interview",
+                       null, null,
+                       "thirdInterviewExcel", "Third Interview Excel", false, null, ApplicantGazetteStatus.TND);
+  }
 
   //todo-> third interview result enter
-//  @GetMapping( "/fourthInterview" )
-//  public String fourthInterview(Model model) {
-//    return commonThing(model, applicantService.findByApplicantStatus(ApplicantStatus.FTH), "Fourth Interview",
-//                       null, null,
-//                       "fourthInterviewExcel", "Fourth Interview Excel", false, null);
-//  }
+
+  @GetMapping( "/fourthInterview/{id}" )
+  public String fourthInterview(@PathVariable( "id" ) Integer id, Model model) {
+    Gazette gazette = gazetteService.findById(id);
+    return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FTH,
+                                                                                             gazette), "Fourth " +
+                           "Interview",
+                       null, null,
+                       "fourthInterviewExcel", "Fourth Interview Excel", false, null, ApplicantGazetteStatus.FTH);
+  }
 
   //todo-> fourth interview result enter
-//
-//  @GetMapping( "/cidcrdsis" )
-//  public String cidCRDSIS(Model model) {
-//    model.addAttribute("applicants", applicantService.findByApplicantStatus(ApplicantStatus.FTH));
-////form action
-//    model.addAttribute("formAction", "cidcrdsis");
-//    //cid
-//    model.addAttribute("uriCID", "CID");
-//    model.addAttribute("btnTextCID", "Get CID Excel");
-//    model.addAttribute("internalDivisionCID", InternalDivision.CID);
-//    //sis
-//    model.addAttribute("uriSIS", "SIS");
-//    model.addAttribute("btnTextSIS", "Get SIS Excel");
-//    model.addAttribute("internalDivisionSIS", InternalDivision.SIS);
-//    //crd
-//    model.addAttribute("uriCRD", "CRD");
-//    model.addAttribute("btnTextCRD", "Get CRD Excel");
-//    model.addAttribute("internalDivisionCRD", InternalDivision.CRD);
-//    return "interviewSchedule/interviewCIDSISCRD";
-//  }
 
-  //todo
+  @GetMapping( "/cidcrdsis/{id}" )
+  public String cidCRDSIS(@PathVariable( "id" ) Integer id, Model model) {
+    List< Applicant > applicants = new ArrayList<>();
+    applicantGazetteService.findByGazette(gazetteService.findById(id)).forEach(x -> applicants.add(x.getApplicant()));
+    model.addAttribute("applicants", applicants);
+//form action
+    model.addAttribute("formAction", "cidcrdsis");
+    //cid
+    model.addAttribute("uriCID", "CID/" + id);
+    model.addAttribute("btnTextCID", "Get CID Excel");
+    model.addAttribute("internalDivisionCID", InternalDivision.CID);
+    //sis
+    model.addAttribute("uriSIS", "SIS/" + id);
+    model.addAttribute("btnTextSIS", "Get SIS Excel");
+    model.addAttribute("internalDivisionSIS", InternalDivision.SIS);
+    //crd
+    model.addAttribute("uriCRD", "CRD/" + id);
+    model.addAttribute("btnTextCRD", "Get CRD Excel");
+    model.addAttribute("internalDivisionCRD", InternalDivision.CRD);
+    return "interviewSchedule/interviewCIDSISCRD";
+  }
 
-//  @PostMapping( "/cidcrdsis" )
-//  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid,
-//                           RedirectAttributes redirectAttributes) throws IOException {
-//
-//    int i = 0;
-//    HSSFWorkbook workbook = new HSSFWorkbook(applicantSisCrdCid.getMultipartFile().getInputStream());
-//    //Creates a worksheet object representing the first sheet
-//    HSSFSheet worksheet = workbook.getSheetAt(0);
-//    //Reads the data in excel file until last row is encountered
-//
-//    InternalDivision internalDivision;
-//
-//    if ( InternalDivision.SIS.getInternalDivision().equals(worksheet.getSheetName()) ) {
-//      internalDivision = InternalDivision.SIS;
-//    } else if ( InternalDivision.CID.getInternalDivision().equals(worksheet.getSheetName()) ) {
-//      internalDivision = InternalDivision.CID;
-//    } else if ( InternalDivision.CRD.getInternalDivision().equals(worksheet.getSheetName()) ) {
-//      internalDivision = InternalDivision.CRD;
-//    } else {
-//      internalDivision = InternalDivision.NOT;
-//    }
-//    if ( InternalDivision.NOT.equals(internalDivision) ) {
-//      redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
-//      return "redirect:/interviewManage/cidcrdsis";
-//    }
-//
-//
-//    while ( i < worksheet.getLastRowNum() ) {
-//      HSSFRow row = worksheet.getRow(i++);
-//
-//      if ( i == 1 ) {
-//        if ( !row.getCell(3).getRichStringCellValue().toString().equals("NIC") && !row.getCell(6)
-//        .getRichStringCellValue().toString().equals("Result") ) {
-//          redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid
-//          excel" +
-//              " sheet");
-//          return "redirect:/interviewManage/cidcrdsis";
-//        }
-//      } else {
-//        ApplicantSisCrdCid applicantSisCrdCidToSave = new ApplicantSisCrdCid();
-//        //get applicant using NIC
-//        Applicant applicant = applicantService.findByNic(row.getCell(3).getRichStringCellValue().getString());
-//        //get applicant result
-//        PassFailed passFailed;
-//        if ( PassFailed.PASS.getPassFailed().equals(row.getCell(6).getRichStringCellValue().toString()) ) {
-//          passFailed = PassFailed.PASS;
-//        } else {
-//          passFailed = PassFailed.FAILED;
-//        }
-//        // get all applicant Sis Crd Cid result
-//        List< ApplicantSisCrdCid > applicantSisCrdCids = applicantSisCrdCidService.findByApplicant(applicant);
-//        // get all applicant Sis Crd Cid result size
-//        if ( applicantSisCrdCids.size() == 2 ) {
-//          if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantSisCrdCids.get(0)
-//          .getPassFailed()) && PassFailed.PASS.equals(applicantSisCrdCids.get(1).getPassFailed()) ) {
-//            applicantSisCrdCidToSave.setApplicant(applicant);
-//            applicantSisCrdCidToSave.setPassFailed(passFailed);
-//            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
-//            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
-//            //all result would be passed applicant status needs to change and applicant is suitable to second
-//            interview
-//            applicant.setApplicantStatus(ApplicantStatus.SND);
-//            applicantService.persist(applicant);
-//
-//          } else {
-//            applicantSisCrdCidToSave.setApplicant(applicant);
-//            applicantSisCrdCidToSave.setPassFailed(passFailed);
-//            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
-//            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
-//            //all result would be passed applicant status needs to change and applicant is not suitable to second
-//            // interview
-//            applicant.setApplicantStatus(ApplicantStatus.FSTR);
-//            applicantService.persist(applicant);
-//          }
-//          // need to validate all result status is pass
-//        } else {
-//          applicantSisCrdCidToSave.setApplicant(applicant);
-//          applicantSisCrdCidToSave.setPassFailed(passFailed);
-//          applicantSisCrdCidToSave.setInternalDivision(internalDivision);
-//          applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
-//        }
-//      }
-//    }
-//    return "redirect:/interviewManage/cidcrdsis";
-//  }
+  @PostMapping( "/cidcrdsis" )
+  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid,
+                           RedirectAttributes redirectAttributes) throws IOException {
+
+    int i = 0;
+    HSSFWorkbook workbook = new HSSFWorkbook(applicantSisCrdCid.getMultipartFile().getInputStream());
+    //Creates a worksheet object representing the first sheet
+    HSSFSheet worksheet = workbook.getSheetAt(0);
+    //Reads the data in excel file until last row is encountered
+
+    InternalDivision internalDivision;
+
+    if ( InternalDivision.SIS.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.SIS;
+    } else if ( InternalDivision.CID.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.CID;
+    } else if ( InternalDivision.CRD.getInternalDivision().equals(worksheet.getSheetName()) ) {
+      internalDivision = InternalDivision.CRD;
+    } else {
+      internalDivision = InternalDivision.NOT;
+    }
+    if ( InternalDivision.NOT.equals(internalDivision) ) {
+      redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
+      return "redirect:/interviewManage/cidcrdsis";
+    }
+
+
+    while ( i < worksheet.getLastRowNum() ) {
+      HSSFRow row = worksheet.getRow(i++);
+
+      if ( i == 1 ) {
+        if ( !row.getCell(3).getRichStringCellValue().toString().equals("NIC") && !row.getCell(6)
+            .getRichStringCellValue().toString().equals("Result") ) {
+          redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
+              " sheet");
+          return "redirect:/interviewManage/cidcrdsis";
+        }
+      } else {
+        ApplicantSisCrdCid applicantSisCrdCidToSave = new ApplicantSisCrdCid();
+        //get applicant using NIC
+        ApplicantGazette applicantGazette =
+            applicantGazetteService.findByCode(row.getCell(1).getRichStringCellValue().getString());
+        //get applicant result
+        PassFailed passFailed;
+        if ( PassFailed.PASS.getPassFailed().equals(row.getCell(6).getRichStringCellValue().toString()) ) {
+          passFailed = PassFailed.PASS;
+        } else {
+          passFailed = PassFailed.FAILED;
+        }
+        // get all applicant Sis Crd Cid result
+        List< ApplicantSisCrdCid > applicantSisCrdCids = applicantSisCrdCidService.findByApplicantGazette(applicantGazette);
+        // get all applicant Sis Crd Cid result size
+        if ( applicantSisCrdCids.size() == 2 ) {
+          if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantSisCrdCids.get(0)
+                                                                                .getPassFailed()) && PassFailed.PASS.equals(applicantSisCrdCids.get(1).getPassFailed()) ) {
+            applicantSisCrdCidToSave.setApplicantGazette(applicantGazette);
+            applicantSisCrdCidToSave.setPassFailed(passFailed);
+            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
+            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+            //all result would be passed applicant status needs to change and applicant is suitable to second
+            // interview
+            applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.SND);
+            applicantGazetteService.persist(applicantGazette);
+
+          } else {
+            applicantSisCrdCidToSave.setApplicantGazette(applicantGazette);
+            applicantSisCrdCidToSave.setPassFailed(passFailed);
+            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
+            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+            //all result would be passed applicant status needs to change and applicant is not suitable to second
+            // interview
+            applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FSTR);
+            applicantGazetteService.persist(applicantGazette);
+          }
+          // need to validate all result status is pass
+        } else {
+          applicantSisCrdCidToSave.setApplicantGazette(applicantGazette);
+          applicantSisCrdCidToSave.setPassFailed(passFailed);
+          applicantSisCrdCidToSave.setInternalDivision(internalDivision);
+          applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+        }
+      }
+    }
+    return "redirect:/interviewManage/cidcrdsis";
+  }
 
 }
