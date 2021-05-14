@@ -12,28 +12,30 @@
                                 <!-- Small Box Set -->
 
 
-    <div class="content-header" >
-      <div class="container-fluid" >
-        <div class="row" >
-          <div class="col-md-12" >
-            <div class="row" >
-              <!--                       <div class="card">
-                                                  <div class="card-body">
-                                                                                     <h4>First sud Header</h4>-->
-              <form role="form" >
-                <div align="right" >
-                  <a class="btn btn-success" id="newDistrict" th:href="${'/employee/add'}" >
-                    <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Interview board list </a >
-                  <a class="btn btn-info" id="newDistrict" th:href="${'/home'}" >
-                    <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
-                </div >
-              </form >
-            </div >
-          </div >
-          <div class="col-md-12" >
-            <div class="card" >
-              <div class="card-body" >
-                <h4 >Secondary Header </h4 >
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+                        <a class="btn btn-success" id="newDistrict" th:href="${'/interviewBoard/add'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp;New Interview Board </a>
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h4>Interview Board Management</h4>
                 <!--if not empty list-->
                 <div class="container-fluid" id="interviewListTable"
                      data-th-if="${not #lists.isEmpty(interviewBoards)}" >
@@ -94,6 +96,8 @@
       </div >
     </div >
   </div >
+    </div>
+  </div>
 </div >
 <!-- content-wrapper end -->
 <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></footer ><!-- footer Section -->
