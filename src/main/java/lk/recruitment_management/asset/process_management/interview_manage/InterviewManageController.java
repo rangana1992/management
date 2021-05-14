@@ -1,35 +1,43 @@
 package lk.recruitment_management.asset.process_management.interview_manage;
 
-import com.itextpdf.text.DocumentException;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
+import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.PassFailed;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
+import lk.recruitment_management.asset.applicant_gazette_interview_result.service.ApplicantGazetteInterviewResultService;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
 import lk.recruitment_management.asset.gazette.service.GazetteService;
 import lk.recruitment_management.asset.interview.entity.Enum.InterviewName;
+import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.asset.interview.service.InterviewService;
+import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.FileHandelService;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequestMapping( "/interviewManage" )
@@ -42,12 +50,17 @@ public class InterviewManageController {
   private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
   private final GazetteService gazetteService;
   private final ApplicantGazetteService applicantGazetteService;
+  private final ApplicantFilesService applicantFilesService;
+  private final DateTimeAgeService dateTimeAgeService;
+  private final ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
                                    ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
                                    InterviewService interviewService,
                                    ApplicantGazetteInterviewService applicantGazetteInterviewService,
-                                   GazetteService gazetteService, ApplicantGazetteService applicantGazetteService) {
+                                   GazetteService gazetteService, ApplicantGazetteService applicantGazetteService,
+                                   ApplicantFilesService applicantFilesService, DateTimeAgeService dateTimeAgeService
+      , ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
@@ -56,12 +69,15 @@ public class InterviewManageController {
     this.applicantGazetteInterviewService = applicantGazetteInterviewService;
     this.gazetteService = gazetteService;
     this.applicantGazetteService = applicantGazetteService;
+    this.applicantFilesService = applicantFilesService;
+    this.dateTimeAgeService = dateTimeAgeService;
+    this.applicantGazetteInterviewResultService = applicantGazetteInterviewResultService;
   }
 
   private String commonThing(Model model, List< ApplicantGazette > applicantGazettes,
                              String title, String uriPdf,
                              String btnTextPdf, String uriExcel, String btnTextExcel, boolean addStatus,
-                             String resultEnter) {
+                             String resultEnter, ApplicantGazetteStatus applicantGazetteStatus) {
     model.addAttribute("headerTitle", title);
     model.addAttribute("uriPdf", uriPdf);
     model.addAttribute("btnTextPdf", btnTextPdf);
@@ -70,6 +86,7 @@ public class InterviewManageController {
     model.addAttribute("addStatus", addStatus);
     model.addAttribute("resultEnter", resultEnter);
     model.addAttribute("applicantGazettes", applicantGazettes);
+    model.addAttribute("applicantGazetteStatus", applicantGazetteStatus);
     return "interviewSchedule/interview";
   }
 
@@ -83,11 +100,11 @@ public class InterviewManageController {
   public void allExcel(@PathVariable( "interviewType" ) String interviewType, @PathVariable( "id" ) Integer id,
                        HttpServletRequest request,
                        HttpServletResponse response) {
-    List< ApplicantGazette > applicantGazettes = new ArrayList<>();
+    List< ApplicantGazette > applicantGazettes;
 
     Gazette gazette = gazetteService.findById(id);
 
-    String sheetName = " sample";
+    String sheetName;
     switch ( interviewType ) {
       case "firstInterviewExcel":
         applicantGazettes = applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FST
@@ -125,14 +142,11 @@ public class InterviewManageController {
         sheetName = InternalDivision.CRD.getInternalDivision();
         break;
       default:
-        applicantGazettes = null;
+        applicantGazettes = applicantGazetteService.findAll();
         sheetName = "No Applicant to show";
     }
 
-    List< Applicant > applicants = new ArrayList<>();
-    Objects.requireNonNull(applicantGazettes).forEach(x -> applicants.add(x.getApplicant()));
-
-    boolean isFlag = applicantService.createExcel(applicants, context, request, response, sheetName);
+    boolean isFlag = applicantService.createExcel(applicantGazettes, context, request, response, sheetName);
     if ( isFlag ) {
       String fullPath = request.getServletContext().getRealPath("/resources/report/" + sheetName + ".xls");
       fileHandelService.fileDownload(fullPath, response, sheetName + ".xls");
@@ -148,7 +162,7 @@ public class InterviewManageController {
                                                                                       gazette), "First Interview",
                        "firstInterviewPdf/" + gazette.getId(), "First Interview Pdf",
                        "firstInterviewExcel/" + gazette.getId(), "First Interview Excel",
-                       true, "firstResult");
+                       true, "firstResult", ApplicantGazetteStatus.FST);
   }
 
   //first interview pdf printing
@@ -157,14 +171,15 @@ public class InterviewManageController {
     model.addAttribute("pdfFile", MvcUriComponentsBuilder
         .fromMethodName(InterviewManageController.class, "pdfPrint", id, ApplicantGazetteStatus.FST)
         .toUriString());
-    model.addAttribute("redirectUrl",MvcUriComponentsBuilder
+    model.addAttribute("redirectUrl", MvcUriComponentsBuilder
         .fromMethodName(InterviewManageController.class, "firstInterview", id)
         .toUriString());
     return "print/pdfSilentPrint";
   }
 
   @GetMapping( value = "/file/{id}/{applicantGazetteStatus}", produces = MediaType.APPLICATION_PDF_VALUE )
-  public ResponseEntity< InputStreamResource > pdfPrint(@PathVariable( "id" ) Integer id, @PathVariable("applicantGazetteStatus")ApplicantGazetteStatus applicantGazetteStatus) throws Exception {
+  public ResponseEntity< InputStreamResource > pdfPrint(@PathVariable( "id" ) Integer id, @PathVariable(
+      "applicantGazetteStatus" ) ApplicantGazetteStatus applicantGazetteStatus) throws Exception {
     var headers = new HttpHeaders();
 
     headers.add("Content-Disposition", "inline; filename=interview.pdf");
@@ -176,29 +191,87 @@ public class InterviewManageController {
         .body(pdfFile);
   }
 
-
   //first interview result enter
-  @GetMapping( "/firstResult/{id}" )
-  public String firstInterviewResult(@PathVariable( "id" ) Integer id, Model model) {
-    Applicant applicant = applicantService.findById(id);
-    model.addAttribute("applicantDetail", applicant);
-    //todo :
-//    model.addAttribute("applicantInterviews", applicantGazetteInterviewService.findByApplicant(applicant)
-//        .stream()
-//        .filter(x -> x.getApplicant().equals(applicant) && x.getApplicantGazetteInterviewStatus().equals
-//        (ApplicantGazetteInterviewStatus.ACT))
-//        .collect(Collectors.toList()));
-    model.addAttribute("interviews", interviewService.findByInterviewName(InterviewName.FIRST));
+  @GetMapping( "/firstResult/{id}/{date}" )
+  public String firstInterviewResult(@PathVariable( "id" ) Integer id,
+                                     @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
+      , Model model, RedirectAttributes redirectAttributes) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    Interview interview = interviewService.findByInterviewName(InterviewName.FIRST);
+    ApplicantGazetteInterview applicantGazetteInterview =
+        applicantGazetteInterviewService.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, ApplicantGazetteInterviewStatus.ACT, date);
+    if ( applicantGazetteInterview == null ) {
+      redirectAttributes.addFlashAttribute("message", "There is no interview on you provided date " + date.toString());
+      return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
+    }
+
+
+    model.addAttribute("applicantDetail", applicantGazette.getApplicant());
+    model.addAttribute("addStatus", true);
+    model.addAttribute("age", dateTimeAgeService.getAge(applicantGazette.getApplicant().getDateOfBirth()));
+    model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicantGazette.getApplicant()));
+    model.addAttribute("interviews", interview);
+    model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
+    model.addAttribute("passFaileds", PassFailed.values());
     return "interviewSchedule/addApplicantInterviewResult";
   }
 
+  @PostMapping( "/firstSecondResult/save" )
+  public String firstInterviewResultSave(@ModelAttribute ApplicantGazetteInterview applicantGazetteInterview,
+                                         BindingResult bindingResult, Model model) {
+    ApplicantGazetteInterview applicantGazetteInterviewDb =
+        applicantGazetteInterviewService.findById(applicantGazetteInterview.getId());
+    Applicant applicant =
+        applicantService.findById(applicantGazetteInterviewDb.getApplicantGazette().getApplicant().getId());
+    Interview interview =
+        interviewService.findById(applicantGazetteInterviewDb.getInterviewBoard().getInterview().getId());
+    if ( bindingResult.hasErrors() ) {
+      model.addAttribute("applicantDetail", applicant);
+      model.addAttribute("addStatus", true);
+      model.addAttribute("age", dateTimeAgeService.getAge(applicant.getDateOfBirth()));
+      model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicant));
+      model.addAttribute("interviews", interview);
+      model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
+      model.addAttribute("passFaileds", PassFailed.values());
+      return "interviewSchedule/addApplicantInterviewResult";
+    }
+
+    applicantGazetteInterview.getApplicantGazetteInterviewResults().forEach(applicantGazetteInterviewResultService::persist);
+    applicantGazetteInterviewDb = applicantGazetteInterviewService.persist(applicantGazetteInterview);
+    ApplicantGazette applicantGazette =
+        applicantGazetteService.findById(applicantGazetteInterviewDb.getApplicantGazette().getId());
+    //if interview result failed of pass check
+    ApplicantGazetteStatus applicantGazetteStatus;
+    if ( interview.getInterviewName().equals(InterviewName.FIRST) ) {
+      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FL) ) {
+        applicantGazetteStatus = ApplicantGazetteStatus.FSTR;
+      } else {
+        applicantGazetteStatus = ApplicantGazetteStatus.FSTP;
+      }
+      applicantGazette.setApplicantGazetteStatus(applicantGazetteStatus);
+      applicantGazetteService.persist(applicantGazette);
+
+      return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
+    } else {
+      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FL) ) {
+        applicantGazetteStatus = ApplicantGazetteStatus.SNDR;
+      } else {
+        applicantGazetteStatus = ApplicantGazetteStatus.SNDP;
+      }
+      applicantGazette.setApplicantGazetteStatus(applicantGazetteStatus);
+      applicantGazetteService.persist(applicantGazette);
+
+      return "redirect:/interviewManage/secondInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
+    }
+
+  }
 
   @GetMapping( "/absent/firstResult/{id}" )
   public String firstAbsentInterviewResult(@PathVariable( "id" ) Integer id) {
     ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
     applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FSTR);
     applicantGazetteService.persist(applicantGazette);
-    return "redirect:/interviewManage/firstInterview/"+applicantGazette.getGazette().getId();
+    return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
   }
 
   //todo
