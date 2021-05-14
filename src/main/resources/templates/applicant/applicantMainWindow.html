@@ -54,7 +54,6 @@
           <tr >
             <th >Index</th >
             <th >Gazette Name</th >
-            <th >My Current Status</th >
             <th >Modify</th >
           </tr >
           </thead >
@@ -62,7 +61,6 @@
           <tr data-th-each="gazette, index : ${appliedGazettes}" >
             <td data-th-text="${index.count}" ></td >
               <td data-th-text="${gazette.name}"></td >
-              <td data-th-text="${gazette.age}"></td >
             <td >
               <a data-th-href="${'/applicantGazette/view/'+gazette.id}" class="btn btn-info" >View</a >
             </td >

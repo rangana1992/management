@@ -45,16 +45,7 @@
                 let printOrNot = printFrame(id);
                 if (printOrNot) {
                     $('.printPage', window.parent.document).hide();
-                    swal("Congratulation printing process is completed")
-                        .then((value) => {
-                            swal({
-                                title: "Thank for your confirmation !",
-                                icon: "success",
-                            });
-                            if (value) {
-                                location.replace("[[${redirectUrl}]]");
-                            }
-                        });
+                    swal("Congratulation printing process is completed");
                 }
                 // The loading is complete, call the function we want executed once the iframe is loaded
             };

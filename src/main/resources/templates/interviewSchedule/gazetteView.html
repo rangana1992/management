@@ -1,82 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-<head data-th-replace="~{fragments/header :: headerFragment}">
-    <meta charset="UTF-8">
-    <title>Thymeleaf Springboot </title>
-</head>
-<body>
-<nav data-th-replace="~{fragments/navBar :: navBarFragment}"></nav>
+<html lang="en" >
+<head data-th-replace="~{fragments/header :: headerFragment}" >
+  <meta charset="UTF-8" >
+  <title >Thymeleaf Springboot </title >
+</head >
+<body >
+<nav data-th-replace="~{fragments/navBar :: navBarFragment}" ></nav >
 
-<div class="container-fluid ">
-    <div class="row text-center ">
-        <div class="col">
-            <a class="btn btn-success" href="/gazette/add"><i class="fa fa-user-plus"></i>
-                &nbsp; New Gazette</a>
-        </div>
-        <div class="col">
-            <h4 class="text-info text-center">
-                <strong>
-                    Gazette Management
-                </strong>
-            </h4>
-        </div>
-        <div class="col">
+<div class="container-fluid " >
+  <div class="row text-center " >
+    <div class="col" >
+      <a class="btn btn-success" href="/gazette/add" ><i class="fa fa-user-plus" ></i >
+        &nbsp; New Gazette</a >
+    </div >
+    <div class="col" >
+      <h4 class="text-info text-center" >
+        <strong >
+          Gazette Management
+        </strong >
+      </h4 >
+    </div >
+    <div class="col" >
 
-        </div>
-    </div>
-</div>
-<div class="container-fluid   text-center">
-    <div class="col">
-        <div class="col" id="authorListPresent" data-th-if="${not #lists.isEmpty(gazettes)}">
-            <table class="table table-hover table-striped" id="myTable">
-                <thead>
-                <tr>
-                    <th> Index</th>
-                    <th> Name </th>
-                    <th> Request Maximum Age</th>
-                    <th> Status </th>
-                    <th> Modify</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-th-each="gazette, rowCount : ${gazettes}">
-                    <th data-th-text="${rowCount.count}"></th>
-                    <th data-th-text="${gazette.name}"></th>
-                    <th data-th-text="${gazette.age}"></th>
-                    <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
-                    <th>
-                        <a data-th-href="${'/interviewManage/edit/' + gazette.id}"
-                           class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;Go to Interview Manage</a>
-                    </th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row" data-th-if="${ #lists.isEmpty(gazettes)}">
-        <div class="col-sm-12">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="text-center text-danger">
-                    <strong>There is no gazette upto now please add gazette to the system
-                            using add user button.
-                    </strong>
-                </h3>
-            </div>
-        </div>
-        <script>
-            /*active boostrap alert - start*/
-            $(".alert").alert();
-            /*active boostrap alert - end*/
-        </script>
-    </div>
-</div>
+    </div >
+  </div >
+</div >
+<div class="container-fluid   text-center" >
+  <div class="col" >
+    <div class="col" id="authorListPresent" data-th-if="${not #lists.isEmpty(gazettes)}" >
+      <table class="table table-hover table-striped" id="myTable" >
+        <thead >
+        <tr >
+          <th > Index</th >
+          <th > Name</th >
+          <th > Request Maximum Age</th >
+          <th > Status</th >
+          <th > Modify</th >
+        </tr >
+        </thead >
+        <tbody >
+        <tr data-th-each="gazette, rowCount : ${gazettes}" >
+          <th data-th-text="${rowCount.count}" ></th >
+          <th data-th-text="${gazette.name}" ></th >
+          <th data-th-text="${gazette.age}" ></th >
+          <th data-th-text="${gazette.gazetteStatus.gazetteStatus}" ></th >
+          <th >
+            <a data-th-href="${'/interviewManage/firstInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;First Interview</a >
+
+            <a data-th-href="${'/interviewManage/secondInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Second Interview</a >
+
+            <a data-th-href="${'/interviewManage/thirdInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Third Interview</a >
+
+            <a data-th-href="${'/interviewManage/fourthInterview/' + gazette.id}"
+               class="btn btn-primary btn-sm" ><i class="fa fa-edit" ></i >&nbsp;Fourth Interview</a >
+          </th >
+        </tr >
+        </tbody >
+      </table >
+    </div >
+  </div >
+  <div class="row" data-th-if="${ #lists.isEmpty(gazettes)}" >
+    <div class="col-sm-12" >
+      <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+          <span aria-hidden="true" >&times;</span >
+        </button >
+        <h3 class="text-center text-danger" >
+          <strong >There is no gazette qualified to go mange interview .
+          </strong >
+        </h3 >
+      </div >
+    </div >
+  </div >
+</div >
 <!--footer include-->
-<footer data-th-replace="~{fragments/footer :: footerFragment}"></footer>
+<div data-th-replace="~{fragments/footer :: footerFragment}" ></div >
 <!--script include-->
-<script data-th-replace="~{fragments/script :: scriptFragment}"></script>
+<div data-th-replace="~{fragments/script :: scriptFragment}" ></div >
 
-</body>
-</html>
+<script >
+    /*active boostrap alert - start*/
+    $(".alert").alert();
+    /*active boostrap alert - end*/
+</script >
+</body >
+</html >

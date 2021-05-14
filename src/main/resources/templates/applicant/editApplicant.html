@@ -399,7 +399,7 @@
                                   <!--/* when O/L result update state */-->
                                   <tbody >
                                   <tr data-th-each="studentResult, index : ${applicant.applicantResults}"
-                                      data-th-if="${#strings.equals(studentResult.streamLevel,'OL')}" >
+                                      data-th-if="${#strings.equals(studentResult.streamLevel,'OL')} and ${studentResult.subjectName != null}" >
                                     <td >
                                       <input class="form-control"
                                              data-th-name="${'applicantResults[__${index.index}__].id'}"
@@ -483,7 +483,7 @@
                                   <!--/*when A/L result update state*/-->
                                   <tbody >
                                   <tr data-th-each="studentResult, index : ${applicant.applicantResults}"
-                                      data-th-if="${#strings.equals(studentResult.streamLevel,'AL')}" >
+                                      data-th-if="${#strings.equals(studentResult.streamLevel,'AL')} and ${studentResult.subjectName != null}" >
                                     <td >
                                       <input class="form-control"
                                              data-th-name="${'applicantResults[__${index.index}__].id'}"
