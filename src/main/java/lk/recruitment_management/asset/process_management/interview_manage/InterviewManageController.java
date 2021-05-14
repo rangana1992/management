@@ -252,15 +252,7 @@ public class InterviewManageController {
     //if interview result failed of pass check
     ApplicantGazetteStatus applicantGazetteStatus;
     if ( interview.getInterviewName().equals(InterviewName.FIRST) ) {
-      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
-        applicantGazetteStatus = ApplicantGazetteStatus.FSTR;
-      } else {
-        applicantGazetteStatus = ApplicantGazetteStatus.FSTP;
-      }
-      applicantGazette.setApplicantGazetteStatus(applicantGazetteStatus);
-      applicantGazetteService.persist(applicantGazette);
-
-      return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
+           return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
     } else {
       if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
         applicantGazetteStatus = ApplicantGazetteStatus.SNDR;
