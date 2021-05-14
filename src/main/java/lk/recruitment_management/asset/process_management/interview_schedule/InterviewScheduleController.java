@@ -1,5 +1,6 @@
 package lk.recruitment_management.asset.process_management.interview_schedule;
 
+import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
@@ -42,7 +43,8 @@ public class InterviewScheduleController {
   public InterviewScheduleController(ApplicantService applicantService, InterviewBoardService interviewBoardService,
                                      GazetteService gazetteService,
                                      ApplicantGazetteInterviewService applicantGazetteInterviewService,
-                                     ApplicantGazetteService applicantGazetteService, EmailService emailService, DistrictService districtService) {
+                                     ApplicantGazetteService applicantGazetteService, EmailService emailService,
+                                     DistrictService districtService) {
     this.applicantService = applicantService;
     this.interviewBoardService = interviewBoardService;
     this.gazetteService = gazetteService;
@@ -87,8 +89,8 @@ public class InterviewScheduleController {
   @PostMapping
   public String dateCount(@ModelAttribute InterviewSchedule interviewSchedule, Model model) {
     Gazette gazette = gazetteService.findById(interviewSchedule.getId());
+    HashSet< ApplicantGazetteInterview > applicantGazetteInterviews = new HashSet<>();
     List< ApplicantGazette > applicantGazettes = new ArrayList<>();
-
     for ( District district : districtService.findAll() ) {
       for ( ApplicantGazette applicantGazette :
           applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A,
@@ -100,11 +102,11 @@ public class InterviewScheduleController {
     }
     int startCount = 0;
     for ( InterviewScheduleList interviewScheduleList : interviewSchedule.getInterviewScheduleLists() ) {
-      int endCount = interviewScheduleList.getCount() ;
+      int endCount = interviewScheduleList.getCount();
       InterviewBoard interviewBoard = interviewBoardService.findById(interviewScheduleList.getInterviewBoardId());
       interviewBoard.setMessage(interviewSchedule.getMassage());
 
-      HashSet< String > emails = new HashSet<>();
+
       for ( ApplicantGazette applicantGazette : applicantGazettes.subList(startCount, endCount) ) {
         applicantGazette.setApplicantGazetteStatus(interviewSchedule.getInterviewNumber());
         //new applicant interview
@@ -112,23 +114,29 @@ public class InterviewScheduleController {
 
         applicantGazetteInterview.setInterviewBoard(interviewBoard);
         ApplicantGazette applicantGazetteDB = applicantGazetteService.persist(applicantGazette);
-        emails.add(applicantGazetteDB.getApplicant().getEmail());
         //save  applicant and set to applicant interview
         applicantGazetteInterview.setApplicantGazette(applicantGazetteDB);
+        applicantGazetteInterview.setMessage(interviewScheduleList.getMessage());
         applicantGazetteInterview.setInterviewDate(interviewScheduleList.getDate());
         applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.ACT);
-        applicantGazetteInterviewService.persist(applicantGazetteInterview);
+        applicantGazetteInterviews.add(applicantGazetteInterviewService.persist(applicantGazetteInterview));
       }
       interviewBoard = interviewBoardService.persist(interviewBoard);
-      for ( String email : emails ) {
-        emailService.sendEmail(email, "Regarding " + interviewBoard.getName(), interviewSchedule.getMassage());
-      }
+
       startCount = endCount - 1;
     }
-
     gazette.setGazetteStatus(GazetteStatus.IN);
     gazetteService.persist(gazette);
 
+    for ( ApplicantGazetteInterview applicantGazetteInterview : applicantGazetteInterviews ) {
+      Applicant applicantDB =
+          applicantService.findById(applicantGazetteInterview.getApplicantGazette().getApplicant().getId());
+      InterviewBoard interviewBoard = applicantGazetteInterview.getInterviewBoard();
+      String message = " Dear " + applicantDB.getNameInFullName() + "\n Like to inform that your interview would be " +
+          "held on " + applicantGazetteInterview.getInterviewDate().toString() + "\n" + applicantGazetteInterview.getMessage() + "\n Thanks \n Sri Lanka Police \n Administrative Branch \n Police Head Quarters \n Colombo";
+      emailService.sendEmail(applicantDB.getEmail(), "Regarding " + interviewBoard.getName(),
+                             message);
+    }
     return "redirect:/interviewSchedule/add";
   }
 

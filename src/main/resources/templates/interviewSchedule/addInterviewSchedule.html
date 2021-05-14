@@ -30,38 +30,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-            <div class="card">
-              <div class="card-header">
-                <h3 >Interview Schedule</h3 > </div>
-              <div class="card-body">
-              <div class="col-12">
-                <table class="table" >
-                  <form action="/interviewSchedule" method="post" >
-                    <input type="text" hidden name="id" data-th-value="${gazette.id}" >
-
-                    <tr>
-                    <th>Interview Number </th>
-                    <td>
-                      <select class="form-control" name="interviewNumber" >
-                        <option value="" >Please select</option >
-                        <option data-th-each="interviewBoardNumber : ${interviewBoardNumbers}"
-                                data-th-value="${interviewBoardNumber}"
-                                data-th-text="${interviewBoardNumber.applicantGazetteStatus}" ></option >
-                      </select >
-                    </td>
-                  </tr>
-                  <th>Message</th>
-                  <td>
-                    <textarea name="massage" id="message" class="form-control" cols="30" rows="10"></textarea>
-                  </td>
-                  </tr>
-                  </form>
-                </table>
-
-          <table class="table " id="interviewSchedule" >
+            <div class="col-6" >
+              </div >
+            </div >
+        </div>
+          <table class="table table-striped table-inverse table-responsive" id="interviewSchedule" >
             <thead class="thead-inverse" >
             <tr >
               <th >Date</th >
@@ -85,6 +58,8 @@
               <td ><input type="number" id="co0" onkeyup="countFind(this)" class="form-control count"
                           name="interviewScheduleLists[0].count" ></td >
               <td ><input type="text" class="form-control" id="rm0" value="" readonly ></td >
+              <td ><textarea id="me0"  class="form-control"
+                          name="interviewScheduleLists[0].message" cols="10" rows="5"></textarea></td >
               <td >
                 <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger" >Remove
                 </button >
@@ -131,6 +106,7 @@ $(document).ready(function(){
            </td>
            <td><input type="text" id="co${rowLength}" onkeyup="countFind(this)" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
            <td><input type="number" class="form-control count" value="" id="rm${rowLength}" readonly></td>
+           <td><textarea class="form-control "  cols="10" rows="5"  id="me${rowLength}" name="interviewScheduleLists[${rowLength}].message"></textarea></td>
            <td> <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
         $('#interviewSchedule > tbody:last-child').append(html);

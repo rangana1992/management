@@ -82,4 +82,16 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
     gazettes.forEach(x -> applicantGazettes.addAll(applicantGazetteDao.findByGazette(x)));
     return applicantGazettes;
   }
+
+  public ApplicantGazette lastApplicantGazette() {
+    return applicantGazetteDao.findFirstByOrderByIdDesc();
+  }
+
+  public List< ApplicantGazette> findByGazette(Gazette gazette) {
+  return applicantGazetteDao.findByGazette(gazette);
+  }
+
+  public ApplicantGazette findByCode(String code) {
+    return applicantGazetteDao.findByCode(code);
+  }
 }
