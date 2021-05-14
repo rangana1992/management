@@ -65,6 +65,6 @@ public class ApplicantGazetteInterviewService implements AbstractService< Applic
   }
 
   public ApplicantGazetteInterview findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(ApplicantGazette applicantGazette, ApplicantGazetteInterviewStatus applicantGazetteInterviewStatus, LocalDate interviewDate) {
-    return applicantGazetteInterviewDao.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, applicantGazette, interviewDate);
+    return applicantGazetteInterviewDao.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, applicantGazetteInterviewStatus, interviewDate);
   }
 }

@@ -4,6 +4,7 @@ package lk.recruitment_management.asset.applicant_gazette_interview.dao;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,5 @@ import java.util.List;
 public interface ApplicantGazetteInterviewDao extends JpaRepository< ApplicantGazetteInterview, Integer > {
   List< ApplicantGazetteInterview > findByApplicantGazette(ApplicantGazette applicantGazette);
 
-  ApplicantGazetteInterview findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(ApplicantGazette applicantGazette, ApplicantGazette applicantGazette1, LocalDate interviewDate);
+  ApplicantGazetteInterview findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(ApplicantGazette applicantGazette, ApplicantGazetteInterviewStatus applicantGazetteInterviewStatus, LocalDate interviewDate);
 }

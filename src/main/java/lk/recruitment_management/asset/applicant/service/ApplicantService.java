@@ -120,7 +120,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     return applicantDao.findByCreatedAtIsBetween(form, to);
   }
 
-  public boolean createExcel(List< Applicant > applicants, ServletContext context,
+  public boolean createExcel(List< ApplicantGazette > applicantGazettes, ServletContext context,
                              HttpServletRequest request, HttpServletResponse response, String sheetName) {
     System.out.println("hey im here");
     String filePath = context.getRealPath("/resources/report");
@@ -193,33 +193,31 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 
       int count = 1;
 
-      for ( Applicant applicant : applicants ) {
+      for ( ApplicantGazette applicantGazette : applicantGazettes ) {
         HSSFRow bodyRow = workSheet.createRow(count);
-
 
         HSSFCell nameValue = bodyRow.createCell(0);
         nameValue.setCellValue(count);
         nameValue.setCellStyle(bodyCellStyle);
 
-
         HSSFCell registerNumberValue = bodyRow.createCell(1);
-        registerNumberValue.setCellValue(applicant.getCode());
+        registerNumberValue.setCellValue(applicantGazette.getCode());
         registerNumberValue.setCellStyle(bodyCellStyle);
 
         HSSFCell fullNameValue = bodyRow.createCell(2);
-        fullNameValue.setCellValue(applicant.getNameInFullName());
+        fullNameValue.setCellValue(applicantGazette.getApplicant().getNameInFullName());
         fullNameValue.setCellStyle(bodyCellStyle);
 
         HSSFCell nicValue = bodyRow.createCell(3);
-        nicValue.setCellValue(applicant.getNic());
+        nicValue.setCellValue(applicantGazette.getApplicant().getNic());
         nicValue.setCellStyle(bodyCellStyle);
 
         HSSFCell addressValue = bodyRow.createCell(4);
-        addressValue.setCellValue(applicant.getAddress());
+        addressValue.setCellValue(applicantGazette.getApplicant().getAddress());
         addressValue.setCellStyle(bodyCellStyle);
 
         HSSFCell nearestPoliceValue = bodyRow.createCell(5);
-        nearestPoliceValue.setCellValue(applicant.getGramaNiladhari().getPoliceStation().getName());
+        nearestPoliceValue.setCellValue(applicantGazette.getApplicant().getGramaNiladhari().getPoliceStation().getName());
         nearestPoliceValue.setCellStyle(bodyCellStyle);
 
         HSSFCell resultValue = bodyRow.createCell(7);
