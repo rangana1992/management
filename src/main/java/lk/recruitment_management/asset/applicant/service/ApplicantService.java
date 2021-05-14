@@ -13,6 +13,8 @@ import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesServ
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.service.ApplicantGazetteService;
+import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
+import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_result.entity.ApplicantResult;
 import lk.recruitment_management.asset.applicant_result.entity.enums.StreamLevel;
 import lk.recruitment_management.asset.applicant_non_relative.entity.ApplicantNonRelative;
@@ -22,7 +24,6 @@ import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.asset.interview_parameter.entity.InterviewParameter;
 import lk.recruitment_management.util.interfaces.AbstractService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
-import org.apache.commons.codec.binary.Base32;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,17 +49,20 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   private final ApplicantGazetteService applicantGazetteService;
   private final GazetteService gazetteService;
   private final ApplicantFilesService applicantFilesService;
+  private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
 
   @Autowired
   public ApplicantService(ApplicantDao applicantDao, InterviewService interviewService,
                           DateTimeAgeService dateTimeAgeService, ApplicantGazetteService applicantGazetteService,
-                          GazetteService gazetteService, ApplicantFilesService applicantFilesService) {
+                          GazetteService gazetteService, ApplicantFilesService applicantFilesService,
+                          ApplicantGazetteInterviewService applicantGazetteInterviewService) {
     this.applicantDao = applicantDao;
     this.interviewService = interviewService;
     this.dateTimeAgeService = dateTimeAgeService;
     this.applicantGazetteService = applicantGazetteService;
     this.gazetteService = gazetteService;
     this.applicantFilesService = applicantFilesService;
+    this.applicantGazetteInterviewService = applicantGazetteInterviewService;
   }
 
 
@@ -248,6 +250,13 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     for ( ApplicantGazette applicantGazette :
         applicantGazetteService.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus,
                                                                        gazetteService.findById(id)) ) {
+
+      InterviewName interviewName;
+      if ( applicantGazetteStatus.equals(ApplicantGazetteStatus.FST) ) {
+        interviewName = InterviewName.FIRST;
+      } else {
+        interviewName = InterviewName.SECOND;
+      }
       Document document = new Document(PageSize.A4, 20, 20, 20, 20);
       PdfWriter.getInstance(document, out);
       document.open();
@@ -624,21 +633,22 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       addEmptyLine(firstInterview, 2);
       firstInterview.add(new Paragraph("Interview Parameters ", mainHeadingFont));
 
-      firstInterviewParameter(document);
+      interviewParameter(document, interviewName);
+     // interviewBoardName(document, applicantGazette);
       document.close();
     }
 
     return new ByteArrayInputStream(out.toByteArray());
   }
 
-  private void firstInterviewParameter(Document document) throws DocumentException {
+  private void interviewParameter(Document document, InterviewName interviewName) throws DocumentException {
     //take interview parameter from db and create table
     // index parameterName result max remark
     PdfPTable firstInterviewTable = new PdfPTable(5);
     firstInterviewTable.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin());
 
     List< InterviewParameter > interviewParameters =
-        interviewService.findByInterviewName(InterviewName.FIRST).getInterviewParameters();
+        interviewService.findByInterviewName(interviewName).getInterviewParameters();
 
 
     PdfPCell indexCell = new PdfPCell(new Phrase("Index ", secondaryFont));
@@ -687,6 +697,63 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 
     document.add(firstInterviewTable);
   }
+/*
+  private void interviewBoardName(Document document, ApplicantGazette applicantGazette) throws DocumentException {
+    //take interview parameter from db and create table
+    // index parameterName result max remark
+    PdfPTable interviewBoardDetail = new PdfPTable(5);
+    interviewBoardDetail.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin());
+
+    ApplicantGazetteInterview applicantGazetteInterview =        applicantGazetteInterviewService.findByApplicantGazette(applicantGazette);
+
+
+    PdfPCell indexCell = new PdfPCell(new Phrase("Index ", secondaryFont));
+    pdfCellHeaderCommonStyle(indexCell);
+    interviewBoardDetail.addCell(indexCell);
+
+    PdfPCell parameterNameCell = new PdfPCell(new Phrase("Parameter Name ", secondaryFont));
+    pdfCellHeaderCommonStyle(parameterNameCell);
+    interviewBoardDetail.addCell(parameterNameCell);
+
+    PdfPCell resultCell = new PdfPCell(new Phrase("Result ", secondaryFont));
+    pdfCellHeaderCommonStyle(resultCell);
+    interviewBoardDetail.addCell(resultCell);
+
+    PdfPCell maxCell = new PdfPCell(new Phrase("Max ", secondaryFont));
+    pdfCellHeaderCommonStyle(maxCell);
+    interviewBoardDetail.addCell(maxCell);
+
+    PdfPCell remarkCell = new PdfPCell(new Phrase("Remark ", secondaryFont));
+    pdfCellHeaderCommonStyle(remarkCell);
+    interviewBoardDetail.addCell(remarkCell);
+
+    //adds parameters to here
+    for ( int i = 0; i < interviewParameters.size(); i++ ) {
+      PdfPCell index = new PdfPCell(new Paragraph(Integer.toString(i + 1), tableHeader));
+      pdfCellBodyCommonStyle(index);
+      interviewBoardDetail.addCell(index);
+
+      PdfPCell parameterName = new PdfPCell(new Paragraph(interviewParameters.get(i).getName(), tableHeader));
+      pdfCellBodyCommonStyle(parameterName);
+      interviewBoardDetail.addCell(parameterName);
+
+      PdfPCell result = new PdfPCell(new Paragraph(" ", tableHeader));
+      pdfCellBodyCommonStyle(result);
+      interviewBoardDetail.addCell(result);
+
+      PdfPCell max = new PdfPCell(new Paragraph(interviewParameters.get(i).getMax(), tableHeader));
+      pdfCellBodyCommonStyle(max);
+      interviewBoardDetail.addCell(max);
+
+      PdfPCell remark = new PdfPCell(new Paragraph(" ", tableHeader));
+      pdfCellBodyCommonStyle(remark);
+      interviewBoardDetail.addCell(remark);
+
+    }
+
+    document.add(interviewBoardDetail);
+  }
+  */
 
   private void pdfCellHeaderCommonStyle(PdfPCell pdfPCell) {
     pdfPCell.setBorderColor(BaseColor.BLACK);
