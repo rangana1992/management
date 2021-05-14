@@ -13,19 +13,31 @@
 
     <link data-th-href="@{/css/combo-box-search.css}" media="all" rel="stylesheet" type="text/css" />
                                 <!--add form-->
-    <div class="container-fluid" >
 
-
-      <div class="content-header" >
-        <div class="container-fluid" >
-          <div class="row" >
-            <div class="col-md-12" >
-              <div class="row" >
-
-                <div class="col-md-12" >
-                  <div class="card" >
-                    <div class="card-body" >
-                      <h4 >Secondary Header </h4 >
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+                        <a class="btn btn-success" id="newDistrict" th:href="${'/interviewBoard'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Interview Board View </a>
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h4>Interview Board Management</h4>
                       <form data-th-action="${addStatus==false?'/interviewBoard/save' :'/interviewBoard/update'}"
                             method="post" data-th-object="${interviewBoard}"
                             class="mt-3" >
@@ -141,6 +153,11 @@
                               <i data-th-class="${addStatus==false?'fa fa-save mr-1':'fa fa-thumbs-up mr-1'}" ></i >
                               <span
                                     data-th-text="${addStatus==false?'Save' : 'Update'}" ></span >
+                            </button >
+                            <button type="clear" class="btn btn-danger" >
+                              <i data-th-class="${addStatus==false?'fa fa-thumbs-down mr-1':'fa fa-thumbs-down mr-1'}" ></i >
+                              <span
+                                      data-th-text="${addStatus==false?'Clear' : 'Reset'}" ></span >
                             </button >
                           </div >
                         </div >

@@ -8,52 +8,60 @@
   <div class="content-wrapper" ><!-- content-wrapper Start -->
     <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
     <div ><br /><br /></div >
-    <div class="col-md-12" >
-      <div class="card" >
-        <div class="card-body" >
-          <!--                                        <h4>First sud Header</h4>-->
-          <form role="form" >
-            <div align="right" >
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+
               <a class="btn btn-success" id="newDistrict" th:href="${'/employee/add'}" >
                 <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Add Applicant </a >
               <a class="btn btn-info" id="newDistrict" th:href="${'/home'}" >
                 <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
             </div >
-          </form >
-        </div >
-      </div >
-    </div >
 
-    <div class="container-fluid" ><h3 >
-      Interview Schedule</h3 >
-    </div >
-    <div class="container-fluid" >
-
-      <div class="container" >
-        <form action="/interviewSchedule" method="post" >
-          <input type="text" hidden name="id" data-th-value="${gazette.id}" >
-          <div class="container" >
-            <div class="form-row">
-              <div class="col-6">
-            <div class="col-12" >
-              Total Applicant Count = <span data-th-text="${totalApplicantCount}" id="totalApplicantCount" ></span >
-            </div >
-            <div class="col-12 mt-2" >
-              Interview Number 
-                <select class="form-control" name="interviewNumber" >
-                  <option value="" >Please select</option >
-                  <option data-th-each="interviewBoardNumber : ${interviewBoardNumbers}"
-                          data-th-value="${interviewBoardNumber}"
-                          data-th-text="${interviewBoardNumber.applicantGazetteStatus}" ></option >
-                </select >
-            </div >
+                  </form>
+                </div>
+              </div>
             </div>
-            <div class="col-6" >Message
-                <textarea name="massage" id="message" class="form-control" cols="30" rows="10"></textarea>
-              </div >
-            </div >
-        </div>
-          <table class="table table-striped table-inverse table-responsive" id="interviewSchedule" >
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+            <div class="card">
+              <div class="card-header">
+                <h3 >Interview Schedule</h3 > </div>
+              <div class="card-body">
+              <div class="col-12">
+                <table class="table" >
+                  <form action="/interviewSchedule" method="post" >
+                    <input type="text" hidden name="id" data-th-value="${gazette.id}" >
+
+                    <tr>
+                    <th>Interview Number </th>
+                    <td>
+                      <select class="form-control" name="interviewNumber" >
+                        <option value="" >Please select</option >
+                        <option data-th-each="interviewBoardNumber : ${interviewBoardNumbers}"
+                                data-th-value="${interviewBoardNumber}"
+                                data-th-text="${interviewBoardNumber.applicantGazetteStatus}" ></option >
+                      </select >
+                    </td>
+                  </tr>
+                  <th>Message</th>
+                  <td>
+                    <textarea name="massage" id="message" class="form-control" cols="30" rows="10"></textarea>
+                  </td>
+                  </tr>
+                  </form>
+                </table>
+
+          <table class="table " id="interviewSchedule" >
             <thead class="thead-inverse" >
             <tr >
               <th >Date</th >
@@ -94,7 +102,7 @@
               <span data-th-text="${'Save'}" ></span >
             </button >
           </div >
-        </form >
+
       </div >
     </div >
   </div >
