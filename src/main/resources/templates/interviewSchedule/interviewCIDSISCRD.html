@@ -19,12 +19,14 @@
     </a >
     <form data-th-action="${'/interviewManage/'+formAction}" method="post" enctype="multipart/form-data" >
       <input type="hidden" name="internalDivision" data-th-value="${internalDivisionCID}" required/>
+         <input type="hidden" name="id" data-th-value="${id}" required/>
       <label > Please Select Result Enter File :
         <input type="file" name="multipartFile" accept=".csv, .xls, .xlsx, text/csv, application/csv,
 text/comma-separated-values, application/csv, application/excel,
 application/vnd.msexcel, text/anytext, application/vnd. ms-excel,
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
       </label >
+
       <button type="submit" class="btn btn-primary" >Save Result</button >
       <button type="reset" class="btn btn-warning" >Clear</button >
     </form >
@@ -35,6 +37,7 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
     </a >
     <form data-th-action="${'/interviewManage/'+formAction}" method="post" enctype="multipart/form-data" >
       <input type="hidden" name="internalDivision" data-th-value="${internalDivisionSIS}" required/>
+         <input type="hidden" name="id" data-th-value="${id}" required/>
       <label > Please Select Result Enter File :
         <input type="file" name="multipartFile" accept=".csv, .xls, .xlsx, text/csv, application/csv,
 text/comma-separated-values, application/csv, application/excel,
@@ -51,6 +54,7 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
     </a >
     <form data-th-action="${'/interviewManage/'+formAction}" method="post" enctype="multipart/form-data" >
       <input type="hidden" name="internalDivision" data-th-value="${internalDivisionCRD}" required/>
+         <input type="hidden" name="id" data-th-value="${id}" required/>
       <label > Please Select Result Enter File :
         <input type="file" name="multipartFile" accept=".csv, .xls, .xlsx, text/csv, application/csv,
 text/comma-separated-values, application/csv, application/excel,

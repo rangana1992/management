@@ -33,4 +33,7 @@ public class ApplicantSisCrdCid extends AuditEntity {
 
   @Transient
   private MultipartFile multipartFile;
+
+  @Transient
+  private int id;
 }

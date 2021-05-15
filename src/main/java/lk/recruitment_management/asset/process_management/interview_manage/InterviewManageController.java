@@ -205,7 +205,7 @@ public class InterviewManageController {
     model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicantGazette.getApplicant()));
     model.addAttribute("interviews", interview);
     model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
-    List<PassFailed> passFaileds = new ArrayList<>();
+    List< PassFailed > passFaileds = new ArrayList<>();
     passFaileds.add(PassFailed.PASS);
     passFaileds.add(PassFailed.FAILED);
     model.addAttribute("passFaileds", passFaileds);
@@ -238,7 +238,7 @@ public class InterviewManageController {
       model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicant));
       model.addAttribute("interviews", interview);
       model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
-      List<PassFailed> passFaileds = new ArrayList<>();
+      List< PassFailed > passFaileds = new ArrayList<>();
       passFaileds.add(PassFailed.PASS);
       passFaileds.add(PassFailed.FAILED);
       model.addAttribute("passFaileds", passFaileds);
@@ -252,7 +252,7 @@ public class InterviewManageController {
     //if interview result failed of pass check
     ApplicantGazetteStatus applicantGazetteStatus;
     if ( interview.getInterviewName().equals(InterviewName.FIRST) ) {
-           return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
+      return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
     } else {
       if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
         applicantGazetteStatus = ApplicantGazetteStatus.SNDR;
@@ -369,7 +369,8 @@ public class InterviewManageController {
   public String cidCRDSIS(@PathVariable( "id" ) Integer id, Model model) {
     model.addAttribute("applicantGazettes", applicantGazetteService.findByGazette(gazetteService.findById(id)));
 //form action
-    model.addAttribute("formAction", "cidcrdsis");
+    model.addAttribute("formAction", "cidcrdsisResult");
+    model.addAttribute("id", id);
     //cid
     model.addAttribute("uriCID", "CID/" + id);
     model.addAttribute("btnTextCID", "Get CID Excel");
@@ -385,7 +386,7 @@ public class InterviewManageController {
     return "interviewSchedule/interviewCIDSISCRD";
   }
 
-  @PostMapping( "/cidcrdsis" )
+  @PostMapping( "/cidcrdsisResult" )
   public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid,
                            RedirectAttributes redirectAttributes) throws IOException {
 
@@ -408,7 +409,7 @@ public class InterviewManageController {
     }
     if ( InternalDivision.NOT.equals(internalDivision) ) {
       redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
-      return "redirect:/interviewManage/cidcrdsis";
+      return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getId();
     }
 
 
@@ -420,7 +421,7 @@ public class InterviewManageController {
             .getRichStringCellValue().toString().equals("Result") ) {
           redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
               " sheet");
-          return "redirect:/interviewManage/cidcrdsis";
+          return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getId();
         }
       } else {
         ApplicantSisCrdCid applicantSisCrdCidToSave = new ApplicantSisCrdCid();
@@ -435,7 +436,8 @@ public class InterviewManageController {
           passFailed = PassFailed.FAILED;
         }
         // get all applicant Sis Crd Cid result
-        List< ApplicantSisCrdCid > applicantSisCrdCids = applicantSisCrdCidService.findByApplicantGazette(applicantGazette);
+        List< ApplicantSisCrdCid > applicantSisCrdCids =
+            applicantSisCrdCidService.findByApplicantGazette(applicantGazette);
         // get all applicant Sis Crd Cid result size
         if ( applicantSisCrdCids.size() == 2 ) {
           if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantSisCrdCids.get(0)
@@ -468,7 +470,7 @@ public class InterviewManageController {
         }
       }
     }
-    return "redirect:/interviewManage/cidcrdsis";
+    return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getId();
   }
 
 }
