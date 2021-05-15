@@ -89,6 +89,7 @@ public class ApplicantGazetteController {
     Gazette gazette = gazetteService.findById(id);
     ApplicantGazette applicantGazette = applicantGazetteService.findByGazetteAndApplicant(gazette,applicant);
     model.addAttribute("applicantGazette",applicantGazette);
+    model.addAttribute("gazette",gazette);
     return "applicantInterview/applicantInterviewDetail";
   }
 

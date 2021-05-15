@@ -1,5 +1,6 @@
 package lk.recruitment_management.asset.process_management.interview_manage;
 
+import io.micrometer.core.instrument.Gauge;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
@@ -243,13 +244,33 @@ public class InterviewManageController {
     if ( interview.getInterviewName().equals(InterviewName.FIRST) ) {
       return "redirect:/interviewManage/firstInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
     } else {
-      if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
-        applicantGazetteStatus = ApplicantGazetteStatus.SNDR;
-      } else {
-        applicantGazetteStatus = ApplicantGazetteStatus.SNDP;
+
+      if ( interview.getInterviewName().equals(InterviewName.SECOND) ) {
+        if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
+          applicantGazetteStatus = ApplicantGazetteStatus.SNDR;
+        } else {
+          applicantGazetteStatus = ApplicantGazetteStatus.SNDP;
+        }
       }
-      applicantGazette.setApplicantGazetteStatus(applicantGazetteStatus);
-      applicantGazetteService.persist(applicantGazette);
+      if ( interview.getInterviewName().equals(InterviewName.THIRD) ) {
+        if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
+          applicantGazetteStatus = ApplicantGazetteStatus.TNDR;
+        } else {
+          applicantGazetteStatus = ApplicantGazetteStatus.FSTP;
+        }
+      }
+      if ( interview.getInterviewName().equals(InterviewName.FOURTH) ) {
+        if ( applicantGazetteInterviewDb.getPassFailed().equals(PassFailed.FAILED) ) {
+          applicantGazetteStatus = ApplicantGazetteStatus.FTHR;
+        } else {
+          applicantGazetteStatus = ApplicantGazetteStatus.FTHP;
+          Gazette gazette = gazetteService.findById(applicantGazette.getGazette().getId());
+          gazette.setGazetteStatus(GazetteStatus.CL);
+          gazetteService.persist(gazette);
+        }
+        applicantGazette.setApplicantGazetteStatus(applicantGazetteStatus);
+        applicantGazetteService.persist(applicantGazette);
+      }
 
       return "redirect:/interviewManage/secondInterview/" + applicantGazetteInterviewDb.getApplicantGazette().getGazette().getId();
     }
@@ -276,8 +297,9 @@ public class InterviewManageController {
   @GetMapping( "/secondInterview/{id}" )
   public String secondInterview(@PathVariable( "id" ) Integer id, Model model) {
     Gazette gazette = gazetteService.findById(id);
-    return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.SND,
-                                                                                             gazette), "Second " +
+    return commonThing(model,
+                       applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.SND,
+                                                                                      gazette), "Second " +
                            "Interview",
                        "secondInterviewPdf", "Second Interview Pdf",
                        "secondInterviewExcel", "Second Interview Excel", true, "secondResult",
@@ -318,16 +340,18 @@ public class InterviewManageController {
   @GetMapping( "/thirdInterview/{id}" )
   public String thirdInterview(@PathVariable( "id" ) Integer id, Model model) {
     Gazette gazette = gazetteService.findById(id);
-    return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.TND,
-                                                                                             gazette), "Third " +
+    return commonThing(model,
+                       applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.TND,
+                                                                                      gazette), "Third " +
                            "Interview",
                        null, null,
-                       "thirdInterviewExcel", "Third Interview Excel", false, "thirdResult", ApplicantGazetteStatus.TND);
+                       "thirdInterviewExcel", "Third Interview Excel", false, "thirdResult",
+                       ApplicantGazetteStatus.TND);
   }
 
   @GetMapping( "/thirdResult/{id}/{date}" )
   public String thirdInterviewResult(@PathVariable( "id" ) Integer id,
-                                      @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
+                                     @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
       , Model model, RedirectAttributes redirectAttributes) {
     ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
     Interview interview = interviewService.findByInterviewName(InterviewName.THIRD);
@@ -337,33 +361,41 @@ public class InterviewManageController {
   @GetMapping( "/fourthInterview/{id}" )
   public String fourthInterview(@PathVariable( "id" ) Integer id, Model model) {
     Gazette gazette = gazetteService.findById(id);
-    return commonThing(model, applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FTH,
-                                                                                             gazette), "Fourth " +
+    return commonThing(model,
+                       applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FTH,
+                                                                                      gazette), "Fourth " +
                            "Interview",
                        null, null,
-                       "fourthInterviewExcel", "Fourth Interview Excel", false, "fourthResult", ApplicantGazetteStatus.FTH);
+                       "fourthInterviewExcel", "Fourth Interview Excel", false, "fourthResult",
+                       ApplicantGazetteStatus.FTH);
   }
+
   @GetMapping( "/fourthResult/{id}/{date}" )
   public String fourthInterviewResult(@PathVariable( "id" ) Integer id,
-                                     @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
+                                      @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
       , Model model, RedirectAttributes redirectAttributes) {
     ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
     Interview interview = interviewService.findByInterviewName(InterviewName.FOURTH);
     return commonResultEnterPart(date, model, redirectAttributes, applicantGazette, interview);
   }
 
-  private String commonResultEnterPart(@DateTimeFormat( pattern = "yyyy-MM-dd" ) @PathVariable( "date" ) LocalDate date, Model model, RedirectAttributes redirectAttributes, ApplicantGazette applicantGazette, Interview interview) {
+  private String commonResultEnterPart(@DateTimeFormat( pattern = "yyyy-MM-dd" ) @PathVariable( "date" ) LocalDate
+                                           date, Model model, RedirectAttributes redirectAttributes,
+                                       ApplicantGazette applicantGazette, Interview interview) {
     if ( commonApplicantGazetteMethod(date, model, redirectAttributes, applicantGazette, interview) )
       return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
     model.addAttribute("passFaileds", PassFailed.values());
     return "interviewSchedule/addApplicantInterviewResult";
   }
 
-  private boolean commonApplicantGazetteMethod(@PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date, Model model, RedirectAttributes redirectAttributes, ApplicantGazette applicantGazette, Interview interview) {
+  private boolean commonApplicantGazetteMethod
+      (@PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date, Model model, RedirectAttributes
+          redirectAttributes, ApplicantGazette applicantGazette, Interview interview) {
     ApplicantGazetteInterview applicantGazetteInterview =
         applicantGazetteInterviewService.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, ApplicantGazetteInterviewStatus.ACT, date);
     if ( applicantGazetteInterview == null ) {
-      redirectAttributes.addFlashAttribute("message", "There is no interview on you provided date " + date.toString());
+      redirectAttributes.addFlashAttribute("message",
+                                           "There is no interview on you provided date " + date.toString());
       return true;
     }
 
@@ -397,7 +429,8 @@ public class InterviewManageController {
     model.addAttribute("internalDivisionCRD", InternalDivision.CRD);
     return "interviewSchedule/interviewCIDSISCRD";
   }
-//todo :
+
+  //todo :
   @PostMapping( "/cidcrdsisResult" )
   public String saveResult(@ModelAttribute ApplicantGazetteSisCrdCid applicantGazetteSisCrdCid,
                            RedirectAttributes redirectAttributes) throws IOException {
@@ -428,7 +461,8 @@ public class InterviewManageController {
       if ( i == 0 ) {
         if ( !row.getCell(3).getRichStringCellValue().toString().equals("NIC") || !row.getCell(6)
             .getRichStringCellValue().toString().equals("Result") ) {
-          redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
+          redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid " +
+              "excel" +
               " sheet");
           return "redirect:/interviewManage/cidcrdsis/" + applicantGazetteSisCrdCid.getGazetteId();
         }
@@ -455,7 +489,8 @@ public class InterviewManageController {
             applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
             applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
             applicantGazetteSisCrdCidService.persist(applicantGazetteSisCrdCidToSave);
-            //all result would be passed applicant status needs to change and applicant is suitable to second interview
+            //all result would be passed applicant status needs to change and applicant is suitable to second
+            // interview
             applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.SND);
             applicantGazetteService.persist(applicantGazette);
 
@@ -471,13 +506,13 @@ public class InterviewManageController {
           }
           // need to validate all result status is pass
         } else {
-          System.out.println("applicant gazette "+ applicantGazette.getCode());
+          System.out.println("applicant gazette " + applicantGazette.getCode());
           if ( !applicantGazetteSisCrdCids.isEmpty() ) {
             System.out.println(" there are applicant ");
             applicantGazetteSisCrdCidToSave =
                 applicantGazetteSisCrdCidService.findByApplicantGazetteAndInternalDivision(applicantGazette,
                                                                                            internalDivision);
-            if ( applicantGazetteSisCrdCidToSave == null ){
+            if ( applicantGazetteSisCrdCidToSave == null ) {
               applicantGazetteSisCrdCidToSave = new ApplicantGazetteSisCrdCid();
             }
           }

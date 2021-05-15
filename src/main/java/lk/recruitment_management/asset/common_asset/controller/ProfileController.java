@@ -51,6 +51,7 @@ public class ProfileController {
   public String userProfileEdit(Model model, Principal principal) {
     User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
     Applicant applicant = applicantService.findByEmail(authUser.getUsername());
+    System.out.println("profile came here");
     return applicantController.applicantEdit(model,applicant);
   }
 
