@@ -776,7 +776,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -805,7 +805,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -834,7 +834,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -863,7 +863,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -892,7 +892,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -921,7 +921,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -950,7 +950,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -979,7 +979,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -1008,7 +1008,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -1036,7 +1036,7 @@
         if ($(this).val() === 'FIRST') {
             if (olOneIndexNumber.length === 0 || olOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
@@ -1057,152 +1057,56 @@
     });
     //AL result
     //subject one
-    $("#subALOneAttempt").bind("change", function () {
+    $("#subALOneSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        //let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
         if ($(this).val() === 'FIRST') {
             if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
                 swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
+                    title: "Could You Please Check Ordinary Level First Attempt Index Number and Year",
                     icon: "warning",
                     text: "Please Enter Second Attempt Index Number and Year !",
                 });
             }
-            $("#subALOneIndex").val(alOneIndexNumber);
-            $("#subALOneSubYear").val(alOneYear);
-        } /*else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALOneIndex").val(alTwoIndexNumber);
-            $("#subALOneSubYear").val(alTwoYear);
-        }*/
+        }
+        $("#subALOneIndex").val(alOneIndexNumber);
+        $("#subALOneSubYear").val(alOneYear);
     });
     //subject two
-    $("#subALTwoAttempt").bind("change", function () {
+    $("#subALTwoSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        //let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALTwoIndex").val(alOneIndexNumber);
-            $("#subALTwoSubYear").val(alOneYear);
-        }/* else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALTwoIndex").val(alTwoIndexNumber);
-            $("#subALTwoSubYear").val(alTwoYear);
-        }*/
-    });
-    //subject three
-    $("#subALThreeAttempt").bind("change", function () {
+        $("#subALTwoIndex").val(alOneIndexNumber);
+        $("#subALTwoSubYear").val(alOneYear);
+    });    //subject three
+    $("#subALThreeSubName").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        /* let alTwoIndexNumber = $("#indexTwoAL").val();
-         let alTwoYear = $("#yearTwoAL").val();*/
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALThreeIndex").val(alOneIndexNumber);
-            $("#subALThreeSubYear").val(alOneYear);
-        } /*else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALThreeIndex").val(alTwoIndexNumber);
-            $("#subALThreeSubYear").val(alTwoYear);
-        }*/
+        $("#subALThreeIndex").val(alOneIndexNumber);
+        $("#subALThreeSubYear").val(alOneYear);
     });
     //subject four
-    $("#subALFourAttempt").bind("change", function () {
+    $("#alResultEn").bind("change", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        //let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALFourIndex").val(alOneIndexNumber);
-            $("#subALFourSubYear").val(alOneYear);
-        } /*else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALFourIndex").val(alTwoIndexNumber);
-            $("#subALFourSubYear").val(alTwoYear);
-        }*/
+        $("#subALFourIndex").val(alOneIndexNumber);
+        $("#subALFourSubYear").val(alOneYear);
     });
     //subject five
-    $("#subALFiveAttempt").bind("change", function () {
+    $("#marks").bind("keyup", function () {
         let alOneIndexNumber = $("#indexOneAL").val();
         let alOneYear = $("#yearOneAL").val();
-        // let alTwoIndexNumber = $("#indexTwoAL").val();
-        // let alTwoYear = $("#yearTwoAL").val();
-        if ($(this).val() === 'FIRST') {
-            if (alOneIndexNumber.length === 0 || alOneYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Ordinary Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALFiveIndex").val(alOneIndexNumber);
-            $("#subALFiveSubYear").val(alOneYear);
-        }/* else {
-            if (alTwoIndexNumber.length === 0 || alTwoYear.length === 0) {
-                swal({
-                    title: "Could You Please Check Advance Level Second Attempt Index Number and Year",
-                    icon: "warning",
-                    text: "Please Enter Second Attempt Index Number and Year !",
-                });
-            }
-            $("#subALFiveIndex").val(alTwoIndexNumber);
-            $("#subALFiveSubYear").val(alTwoYear);
-        }*/
+        $("#subALFiveIndex").val(alOneIndexNumber);
+        $("#subALFiveSubYear").val(alOneYear);
     });
+
     //DEGREE result table
     $("#newDegree").bind("click", function () {
         let rowLength = $('#degreeTable tbody > tr').length;
         let html = `<tr>
            <td scope="row"><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].degreeName"></td>
            <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].universityName"></td>
-           <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year"></td>
+           <td><input type="text" class="form-control" name="applicantDegreeResults[${rowLength}].year" minlength="4" maxlength="4"></td>
            <td> <button type="button" onclick="removeDegreeTableRow(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
         $('#degreeTable> tbody:last-child').append(html);
@@ -1212,6 +1116,29 @@
         document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
 
     }
+    //todo -> need to validate mobile number add applivant and edit applicant
+    let mobileNumber = [];
+    $(".mobile").keyup(() => {
+        $(".mobile").each(function () {
+            if (mobileNumber.length > 0) {
+                for (let mobileNumberElement of mobileNumber) {
+                    let mobile = $(this).val();
+                    console.log(" moile "+ mobileNumber.includes(mobile))
+                    if (mobileNumber.includes(mobile)) {
+                        $(".mobile").addClass('bg-danger');
+                        break;
+                    }else {
+                        mobileNumber.push(mobile);
+                    }
+                }
+            } else {
+                mobileNumber.push($(this).val())
+            }
+        });
+    });
+
+
+
 </script >
 </body >
 </html >
