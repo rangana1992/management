@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
@@ -55,13 +56,13 @@ public class ConformationTokenController {
   }
 
   @PostMapping( value = {"/register"} )
-  private String sendTokenToEmail(@RequestParam( "email" ) String email, @RequestParam( "newOrOld" ) String newOrOld,
+  private String sendTokenToEmail(@RequestParam( "email" ) String email, @RequestParam( "newOrOld" ) String newOrOld, RedirectAttributes redirectAttributes,
                                   Model model, HttpServletRequest request) {
     //if not email
-
     // !  false = true
     //! true = false
     if ( !commonService.isValidEmail(email) ) {
+      model.addAttribute("newOrOld", newOrOld);
       model.addAttribute("message", "Please enter valid email.");
       return "user/register";
     }
@@ -70,6 +71,7 @@ public class ConformationTokenController {
     //before create the token need to check there is user on current email
     // if not create token else send forgotten password form to fill
     if ( user != null && newOrOld == null ) {
+      model.addAttribute("newOrOld", newOrOld);
       model.addAttribute("message", "There is an user on system please forgotten password reset option.");
       return "user/register";
     }
@@ -79,6 +81,7 @@ public class ConformationTokenController {
     if ( conformationToken != null && dateTimeAgeService.getDateTimeDurationInHours(LocalDateTime.now(),
                                                                                     conformationToken.getEndDate()) < 25L ) {
       System.out.println(" i here ");
+      model.addAttribute("newOrOld", newOrOld);
       model.addAttribute("message", "There is valid token fot this email " + email + " on the system. \n Please check" +
           " your email.");
       return "user/register";
@@ -91,6 +94,7 @@ public class ConformationTokenController {
       emailService.sendEmail(email, "Email Verification (Police Recruitment Division) - Not reply",
                              "Please click below link to active your account \n\t".concat(url + "/" + newOrOld +
                                                                                               "/token/" + conformationTokenService.createToken(conformationToken).getToken()).concat("\n  this link is valid only one day. "));
+      model.addAttribute("newOrOld", newOrOld);
       model.addAttribute("successMessage", "Please check your email \n Your entered email is \t ".concat(email));
       return "user/successMessage";
     }
@@ -101,6 +105,7 @@ public class ConformationTokenController {
                            "Please click below link to active your account \n\t".concat(url + "/" + newOrOld +
                                                                                             "/token/" + conformationTokenService.createToken(newConformationToken).getToken()).concat("\n  this link is valid only one day. "));
     model.addAttribute("successMessage", "Please check your email \n Your entered email is \t ".concat(email));
+    model.addAttribute("newOrOld", newOrOld);
     return "user/successMessage";
   }
 
