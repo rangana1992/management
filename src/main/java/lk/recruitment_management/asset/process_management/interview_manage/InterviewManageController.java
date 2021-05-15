@@ -61,7 +61,8 @@ public class InterviewManageController {
   private final ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
-                                   ServletContext context, ApplicantGazetteSisCrdCidService applicantGazetteSisCrdCidService,
+                                   ServletContext context,
+                                   ApplicantGazetteSisCrdCidService applicantGazetteSisCrdCidService,
                                    InterviewService interviewService,
                                    ApplicantGazetteInterviewService applicantGazetteInterviewService,
                                    GazetteService gazetteService, ApplicantGazetteService applicantGazetteService,
@@ -389,9 +390,8 @@ public class InterviewManageController {
   @PostMapping( "/cidcrdsisResult" )
   public String saveResult(@ModelAttribute ApplicantGazetteSisCrdCid applicantGazetteSisCrdCid,
                            RedirectAttributes redirectAttributes) throws IOException {
-    System.out.println("come here");
 
-    int i = 0;
+
     HSSFWorkbook workbook = new HSSFWorkbook(applicantGazetteSisCrdCid.getMultipartFile().getInputStream());
     //Creates a worksheet object representing the first sheet
     HSSFSheet worksheet = workbook.getSheetAt(0);
@@ -409,22 +409,17 @@ public class InterviewManageController {
       internalDivision = InternalDivision.NOT;
     }
     if ( InternalDivision.NOT.equals(internalDivision) ) {
-      System.out.println("mala keliyai ");
       redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
-      return "redirect:/interviewManage/cidcrdsis/"+ applicantGazetteSisCrdCid.getGazetteId();
+      return "redirect:/interviewManage/cidcrdsis/" + applicantGazetteSisCrdCid.getGazetteId();
     }
-
-
-    while ( i < worksheet.getLastRowNum() ) {
-      HSSFRow row = worksheet.getRow(i++);
-
-      if ( i == 1 ) {
-        if ( !row.getCell(3).getRichStringCellValue().toString().equals("NIC") && !row.getCell(6)
+    for ( int i = 0; i <= worksheet.getLastRowNum(); i++ ) {
+      HSSFRow row = worksheet.getRow(i);
+      if ( i == 0 ) {
+        if ( !row.getCell(3).getRichStringCellValue().toString().equals("NIC") || !row.getCell(6)
             .getRichStringCellValue().toString().equals("Result") ) {
           redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
               " sheet");
-          System.out.println("excel ekata kela wela ");
-          return "redirect:/interviewManage/cidcrdsis/"+ applicantGazetteSisCrdCid.getGazetteId();
+          return "redirect:/interviewManage/cidcrdsis/" + applicantGazetteSisCrdCid.getGazetteId();
         }
       } else {
         ApplicantGazetteSisCrdCid applicantGazetteSisCrdCidToSave = new ApplicantGazetteSisCrdCid();
@@ -432,25 +427,23 @@ public class InterviewManageController {
         ApplicantGazette applicantGazette =
             applicantGazetteService.findByCode(row.getCell(1).getRichStringCellValue().getString());
         //get applicant result
-        PassFailed passFailed;
-        if ( PassFailed.PASS.getPassFailed().equals(row.getCell(6).getRichStringCellValue().toString()) ) {
-          passFailed = PassFailed.PASS;
-        } else {
-          passFailed = PassFailed.FAILED;
-        }
+        PassFailed passFailed = PassFailed.valueOf(row.getCell(6).getRichStringCellValue().toString());
+
+
         // get all applicant Sis Crd Cid result
         List< ApplicantGazetteSisCrdCid > applicantGazetteSisCrdCids =
             applicantGazetteSisCrdCidService.findByApplicantGazette(applicantGazette);
+
         // get all applicant Sis Crd Cid result size
         if ( applicantGazetteSisCrdCids.size() == 2 ) {
-          if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(0)
-                                                                                .getPassFailed()) && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(1).getPassFailed()) ) {
+          if ( PassFailed.PASS.equals(passFailed)
+              && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(0).getPassFailed())
+              && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(1).getPassFailed()) ) {
             applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
             applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
             applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
             applicantGazetteSisCrdCidService.persist(applicantGazetteSisCrdCidToSave);
-            //all result would be passed applicant status needs to change and applicant is suitable to second
-            // interview
+            //all result would be passed applicant status needs to change and applicant is suitable to second interview
             applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.SND);
             applicantGazetteService.persist(applicantGazette);
 
@@ -466,6 +459,11 @@ public class InterviewManageController {
           }
           // need to validate all result status is pass
         } else {
+          if ( !applicantGazetteSisCrdCids.isEmpty() ) {
+            applicantGazetteSisCrdCidToSave =
+                applicantGazetteSisCrdCidService.findByApplicantGazetteAndInternalDivision(applicantGazette,
+                                                                                           internalDivision);
+          }
           applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
           applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
           applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
@@ -473,8 +471,7 @@ public class InterviewManageController {
         }
       }
     }
-    System.out.println(" wedenam goda");
-    return "redirect:/interviewManage/cidcrdsis/"+ applicantGazetteSisCrdCid.getGazetteId();
+    return "redirect:/interviewManage/cidcrdsis/" + applicantGazetteSisCrdCid.getGazetteId();
   }
 
 }

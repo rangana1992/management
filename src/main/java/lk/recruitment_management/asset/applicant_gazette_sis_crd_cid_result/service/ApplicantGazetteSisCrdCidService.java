@@ -4,6 +4,7 @@ package lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.ser
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.dao.ApplicantGazetteSisCrdCidDao;
 import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.ApplicantGazetteSisCrdCid;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.enums.InternalDivision;
 import lk.recruitment_management.util.interfaces.AbstractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
@@ -57,5 +58,9 @@ public class ApplicantGazetteSisCrdCidService implements AbstractService< Applic
 
   public List< ApplicantGazetteSisCrdCid > findByApplicantGazette(ApplicantGazette applicantGazette) {
     return applicantGazetteSisCrdCidDao.findByApplicantGazette(applicantGazette);
+  }
+
+  public ApplicantGazetteSisCrdCid findByApplicantGazetteAndInternalDivision(ApplicantGazette applicantGazette, InternalDivision internalDivision) {
+  return applicantGazetteSisCrdCidDao.findByApplicantGazetteAndInternalDivision(applicantGazette,internalDivision);
   }
 }
