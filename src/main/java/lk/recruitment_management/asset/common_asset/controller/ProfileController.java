@@ -1,9 +1,9 @@
 package lk.recruitment_management.asset.common_asset.controller;
 
+import lk.recruitment_management.asset.applicant.controller.ApplicantController;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant.service.ApplicantService;
 import lk.recruitment_management.asset.user_management.entity.PasswordChange;
-import lk.recruitment_management.asset.user_management.entity.Role;
 import lk.recruitment_management.asset.user_management.entity.User;
 import lk.recruitment_management.asset.user_management.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,15 @@ public class ProfileController {
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
   private final ApplicantService applicantService;
+  private final ApplicantController applicantController;
 
   @Autowired
   public ProfileController(UserService userService, PasswordEncoder passwordEncoder,
-                           ApplicantService applicantService) {
+                           ApplicantService applicantService, ApplicantController applicantController) {
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
     this.applicantService = applicantService;
+    this.applicantController = applicantController;
   }
 
   @GetMapping( value = "/profile" )
@@ -45,6 +47,13 @@ public class ProfileController {
     model.addAttribute("employeeDetail", userService.findByUserName(principal.getName()).getEmployee());
     return "employee/employee-detail";
   }
+  @GetMapping( value = "/profile/edit" )
+  public String userProfileEdit(Model model, Principal principal) {
+    User authUser = userService.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+    Applicant applicant = applicantService.findByEmail(authUser.getUsername());
+    return applicantController.applicantEdit(model,applicant);
+  }
+
 
   @GetMapping( value = "/passwordChange" )
   public String passwordChangeForm(Model model) {
