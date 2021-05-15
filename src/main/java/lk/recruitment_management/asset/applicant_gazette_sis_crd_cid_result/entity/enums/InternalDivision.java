@@ -1,4 +1,4 @@
-package lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums;
+package lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

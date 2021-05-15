@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
 import lk.recruitment_management.asset.applicant_gazette_interview_result.entity.ApplicantGazetteInterviewResult;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.enums.PassFailed;
 import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;

@@ -10,9 +10,9 @@ import lk.recruitment_management.asset.applicant_gazette_interview.entity.Applic
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.enums.ApplicantGazetteInterviewStatus;
 import lk.recruitment_management.asset.applicant_gazette_interview.service.ApplicantGazetteInterviewService;
 import lk.recruitment_management.asset.applicant_gazette_interview_result.service.ApplicantGazetteInterviewResultService;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.InternalDivision;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.service.ApplicantSisCrdCidService;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.ApplicantGazetteSisCrdCid;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.enums.InternalDivision;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.service.ApplicantGazetteSisCrdCidService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
 import lk.recruitment_management.asset.gazette.service.GazetteService;
@@ -21,7 +21,7 @@ import lk.recruitment_management.asset.interview.entity.Interview;
 import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.FileHandelService;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.enums.PassFailed;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.enums.PassFailed;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -51,7 +51,7 @@ public class InterviewManageController {
   private final ApplicantService applicantService;
   private final FileHandelService fileHandelService;
   private final ServletContext context;
-  private final ApplicantSisCrdCidService applicantSisCrdCidService;
+  private final ApplicantGazetteSisCrdCidService applicantGazetteSisCrdCidService;
   private final InterviewService interviewService;
   private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
   private final GazetteService gazetteService;
@@ -61,7 +61,7 @@ public class InterviewManageController {
   private final ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService;
 
   public InterviewManageController(ApplicantService applicantService, FileHandelService fileHandelService,
-                                   ServletContext context, ApplicantSisCrdCidService applicantSisCrdCidService,
+                                   ServletContext context, ApplicantGazetteSisCrdCidService applicantGazetteSisCrdCidService,
                                    InterviewService interviewService,
                                    ApplicantGazetteInterviewService applicantGazetteInterviewService,
                                    GazetteService gazetteService, ApplicantGazetteService applicantGazetteService,
@@ -70,7 +70,7 @@ public class InterviewManageController {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
-    this.applicantSisCrdCidService = applicantSisCrdCidService;
+    this.applicantGazetteSisCrdCidService = applicantGazetteSisCrdCidService;
     this.interviewService = interviewService;
     this.applicantGazetteInterviewService = applicantGazetteInterviewService;
     this.gazetteService = gazetteService;
@@ -387,11 +387,12 @@ public class InterviewManageController {
   }
 
   @PostMapping( "/cidcrdsisResult" )
-  public String saveResult(@ModelAttribute ApplicantSisCrdCid applicantSisCrdCid,
+  public String saveResult(@ModelAttribute ApplicantGazetteSisCrdCid applicantGazetteSisCrdCid,
                            RedirectAttributes redirectAttributes) throws IOException {
+    System.out.println("come here");
 
     int i = 0;
-    HSSFWorkbook workbook = new HSSFWorkbook(applicantSisCrdCid.getMultipartFile().getInputStream());
+    HSSFWorkbook workbook = new HSSFWorkbook(applicantGazetteSisCrdCid.getMultipartFile().getInputStream());
     //Creates a worksheet object representing the first sheet
     HSSFSheet worksheet = workbook.getSheetAt(0);
     //Reads the data in excel file until last row is encountered
@@ -408,8 +409,9 @@ public class InterviewManageController {
       internalDivision = InternalDivision.NOT;
     }
     if ( InternalDivision.NOT.equals(internalDivision) ) {
+      System.out.println("mala keliyai ");
       redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
-      return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getGazetteId();
+      return "redirect:/interviewManage/cidcrdsis/"+ applicantGazetteSisCrdCid.getGazetteId();
     }
 
 
@@ -421,10 +423,11 @@ public class InterviewManageController {
             .getRichStringCellValue().toString().equals("Result") ) {
           redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
               " sheet");
-          return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getGazetteId();
+          System.out.println("excel ekata kela wela ");
+          return "redirect:/interviewManage/cidcrdsis/"+ applicantGazetteSisCrdCid.getGazetteId();
         }
       } else {
-        ApplicantSisCrdCid applicantSisCrdCidToSave = new ApplicantSisCrdCid();
+        ApplicantGazetteSisCrdCid applicantGazetteSisCrdCidToSave = new ApplicantGazetteSisCrdCid();
         //get applicant using NIC
         ApplicantGazette applicantGazette =
             applicantGazetteService.findByCode(row.getCell(1).getRichStringCellValue().getString());
@@ -436,26 +439,26 @@ public class InterviewManageController {
           passFailed = PassFailed.FAILED;
         }
         // get all applicant Sis Crd Cid result
-        List< ApplicantSisCrdCid > applicantSisCrdCids =
-            applicantSisCrdCidService.findByApplicantGazette(applicantGazette);
+        List< ApplicantGazetteSisCrdCid > applicantGazetteSisCrdCids =
+            applicantGazetteSisCrdCidService.findByApplicantGazette(applicantGazette);
         // get all applicant Sis Crd Cid result size
-        if ( applicantSisCrdCids.size() == 2 ) {
-          if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantSisCrdCids.get(0)
-                                                                                .getPassFailed()) && PassFailed.PASS.equals(applicantSisCrdCids.get(1).getPassFailed()) ) {
-            applicantSisCrdCidToSave.setApplicantGazette(applicantGazette);
-            applicantSisCrdCidToSave.setPassFailed(passFailed);
-            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
-            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+        if ( applicantGazetteSisCrdCids.size() == 2 ) {
+          if ( PassFailed.PASS.equals(passFailed) && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(0)
+                                                                                .getPassFailed()) && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(1).getPassFailed()) ) {
+            applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
+            applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
+            applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
+            applicantGazetteSisCrdCidService.persist(applicantGazetteSisCrdCidToSave);
             //all result would be passed applicant status needs to change and applicant is suitable to second
             // interview
             applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.SND);
             applicantGazetteService.persist(applicantGazette);
 
           } else {
-            applicantSisCrdCidToSave.setApplicantGazette(applicantGazette);
-            applicantSisCrdCidToSave.setPassFailed(passFailed);
-            applicantSisCrdCidToSave.setInternalDivision(internalDivision);
-            applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+            applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
+            applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
+            applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
+            applicantGazetteSisCrdCidService.persist(applicantGazetteSisCrdCidToSave);
             //all result would be passed applicant status needs to change and applicant is not suitable to second
             // interview
             applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FSTR);
@@ -463,14 +466,15 @@ public class InterviewManageController {
           }
           // need to validate all result status is pass
         } else {
-          applicantSisCrdCidToSave.setApplicantGazette(applicantGazette);
-          applicantSisCrdCidToSave.setPassFailed(passFailed);
-          applicantSisCrdCidToSave.setInternalDivision(internalDivision);
-          applicantSisCrdCidService.persist(applicantSisCrdCidToSave);
+          applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
+          applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
+          applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
+          applicantGazetteSisCrdCidService.persist(applicantGazetteSisCrdCidToSave);
         }
       }
     }
-    return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getGazetteId();
+    System.out.println(" wedenam goda");
+    return "redirect:/interviewManage/cidcrdsis/"+ applicantGazetteSisCrdCid.getGazetteId();
   }
 
 }
