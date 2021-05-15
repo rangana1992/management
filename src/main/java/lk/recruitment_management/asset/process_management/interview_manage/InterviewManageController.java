@@ -367,9 +367,7 @@ public class InterviewManageController {
 
   @GetMapping( "/cidcrdsis/{id}" )
   public String cidCRDSIS(@PathVariable( "id" ) Integer id, Model model) {
-    List< Applicant > applicants = new ArrayList<>();
-    applicantGazetteService.findByGazette(gazetteService.findById(id)).forEach(x -> applicants.add(x.getApplicant()));
-    model.addAttribute("applicants", applicants);
+    model.addAttribute("applicantGazettes", applicantGazetteService.findByGazette(gazetteService.findById(id)));
 //form action
     model.addAttribute("formAction", "cidcrdsis");
     //cid
