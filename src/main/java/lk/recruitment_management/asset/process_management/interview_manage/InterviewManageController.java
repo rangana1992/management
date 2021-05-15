@@ -349,10 +349,32 @@ public class InterviewManageController {
                                                                                              gazette), "Third " +
                            "Interview",
                        null, null,
-                       "thirdInterviewExcel", "Third Interview Excel", false, null, ApplicantGazetteStatus.TND);
+                       "thirdInterviewExcel", "Third Interview Excel", false, "thirdResult", ApplicantGazetteStatus.TND);
   }
 
-  //todo-> third interview result enter
+  @GetMapping( "/thirdResult/{id}/{date}" )
+  public String thirdInterviewResult(@PathVariable( "id" ) Integer id,
+                                      @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
+      , Model model, RedirectAttributes redirectAttributes) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    Interview interview = interviewService.findByInterviewName(InterviewName.THIRD);
+    ApplicantGazetteInterview applicantGazetteInterview =
+        applicantGazetteInterviewService.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, ApplicantGazetteInterviewStatus.ACT, date);
+    if ( applicantGazetteInterview == null ) {
+      redirectAttributes.addFlashAttribute("message", "There is no interview on you provided date " + date.toString());
+      return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
+    }
+
+
+    model.addAttribute("applicantDetail", applicantGazette.getApplicant());
+    model.addAttribute("addStatus", true);
+    model.addAttribute("age", dateTimeAgeService.getAge(applicantGazette.getApplicant().getDateOfBirth()));
+    model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicantGazette.getApplicant()));
+    model.addAttribute("interviews", interview);
+    model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
+    model.addAttribute("passFaileds", PassFailed.values());
+    return "interviewSchedule/addApplicantInterviewResult";
+  }
 
   @GetMapping( "/fourthInterview/{id}" )
   public String fourthInterview(@PathVariable( "id" ) Integer id, Model model) {
@@ -361,10 +383,31 @@ public class InterviewManageController {
                                                                                              gazette), "Fourth " +
                            "Interview",
                        null, null,
-                       "fourthInterviewExcel", "Fourth Interview Excel", false, null, ApplicantGazetteStatus.FTH);
+                       "fourthInterviewExcel", "Fourth Interview Excel", false, "fourthResult", ApplicantGazetteStatus.FTH);
   }
+  @GetMapping( "/fourthResult/{id}/{date}" )
+  public String fourthInterviewResult(@PathVariable( "id" ) Integer id,
+                                     @PathVariable( "date" ) @DateTimeFormat( pattern = "yyyy-MM-dd" ) LocalDate date
+      , Model model, RedirectAttributes redirectAttributes) {
+    ApplicantGazette applicantGazette = applicantGazetteService.findById(id);
+    Interview interview = interviewService.findByInterviewName(InterviewName.FOURTH);
+    ApplicantGazetteInterview applicantGazetteInterview =
+        applicantGazetteInterviewService.findByApplicantGazetteAndApplicantGazetteInterviewStatusAndInterviewDate(applicantGazette, ApplicantGazetteInterviewStatus.ACT, date);
+    if ( applicantGazetteInterview == null ) {
+      redirectAttributes.addFlashAttribute("message", "There is no interview on you provided date " + date.toString());
+      return "redirect:/interviewManage/firstInterview/" + applicantGazette.getGazette().getId();
+    }
 
-  //todo-> fourth interview result enter
+
+    model.addAttribute("applicantDetail", applicantGazette.getApplicant());
+    model.addAttribute("addStatus", true);
+    model.addAttribute("age", dateTimeAgeService.getAge(applicantGazette.getApplicant().getDateOfBirth()));
+    model.addAttribute("files", applicantFilesService.applicantFileDownloadLinks(applicantGazette.getApplicant()));
+    model.addAttribute("interviews", interview);
+    model.addAttribute("applicantGazetteInterview", applicantGazetteInterview);
+    model.addAttribute("passFaileds", PassFailed.values());
+    return "interviewSchedule/addApplicantInterviewResult";
+  }
 
   @GetMapping( "/cidcrdsis/{id}" )
   public String cidCRDSIS(@PathVariable( "id" ) Integer id, Model model) {
@@ -386,7 +429,7 @@ public class InterviewManageController {
     model.addAttribute("internalDivisionCRD", InternalDivision.CRD);
     return "interviewSchedule/interviewCIDSISCRD";
   }
-
+//todo :
   @PostMapping( "/cidcrdsisResult" )
   public String saveResult(@ModelAttribute ApplicantGazetteSisCrdCid applicantGazetteSisCrdCid,
                            RedirectAttributes redirectAttributes) throws IOException {
@@ -439,6 +482,7 @@ public class InterviewManageController {
           if ( PassFailed.PASS.equals(passFailed)
               && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(0).getPassFailed())
               && PassFailed.PASS.equals(applicantGazetteSisCrdCids.get(1).getPassFailed()) ) {
+            System.out.println("three values was passed");
             applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
             applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
             applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
