@@ -54,9 +54,9 @@ public class ApplicantGazetteController {
     if ( applicantGazette.getId() == null ) {
       ApplicantGazette lastApplicantGazette = applicantGazetteService.lastApplicantGazette();
       if ( lastApplicantGazette == null ) {
-        lastApplicantGazette.setCode("SLPAG" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
+        applicantGazette.setCode("SLPAG" + makeAutoGenerateNumberService.numberAutoGen(null).toString());
       } else {
-        lastApplicantGazette.setCode("SLPAG" + makeAutoGenerateNumberService.numberAutoGen(lastApplicantGazette.getCode().substring(5)).toString());
+        applicantGazette.setCode("SLPAG" + makeAutoGenerateNumberService.numberAutoGen(lastApplicantGazette.getCode().substring(5)).toString());
       }
     }
     applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.P);
