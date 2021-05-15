@@ -135,17 +135,17 @@ public class InterviewManageController {
         break;
       case "SIS":
         applicantGazettes =
-            applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FSTP, gazette);
+            applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A, gazette);
         sheetName = InternalDivision.SIS.getInternalDivision();
         break;
       case "CID":
         applicantGazettes =
-            applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FSTP, gazette);
+            applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A, gazette);
         sheetName = InternalDivision.CID.getInternalDivision();
         break;
       case "CRD":
         applicantGazettes =
-            applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.FSTP, gazette);
+            applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A, gazette);
         sheetName = InternalDivision.CRD.getInternalDivision();
         break;
       default:
@@ -459,11 +459,17 @@ public class InterviewManageController {
           }
           // need to validate all result status is pass
         } else {
+          System.out.println("applicant gazette "+ applicantGazette.getCode());
           if ( !applicantGazetteSisCrdCids.isEmpty() ) {
+            System.out.println(" there are applicant ");
             applicantGazetteSisCrdCidToSave =
                 applicantGazetteSisCrdCidService.findByApplicantGazetteAndInternalDivision(applicantGazette,
                                                                                            internalDivision);
+            if ( applicantGazetteSisCrdCidToSave == null ){
+              applicantGazetteSisCrdCidToSave = new ApplicantGazetteSisCrdCid();
+            }
           }
+
           applicantGazetteSisCrdCidToSave.setApplicantGazette(applicantGazette);
           applicantGazetteSisCrdCidToSave.setPassFailed(passFailed);
           applicantGazetteSisCrdCidToSave.setInternalDivision(internalDivision);
