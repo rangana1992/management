@@ -370,7 +370,7 @@ public class InterviewManageController {
     model.addAttribute("applicantGazettes", applicantGazetteService.findByGazette(gazetteService.findById(id)));
 //form action
     model.addAttribute("formAction", "cidcrdsisResult");
-    model.addAttribute("id", id);
+    model.addAttribute("gazetteId", id);
     //cid
     model.addAttribute("uriCID", "CID/" + id);
     model.addAttribute("btnTextCID", "Get CID Excel");
@@ -409,7 +409,7 @@ public class InterviewManageController {
     }
     if ( InternalDivision.NOT.equals(internalDivision) ) {
       redirectAttributes.addFlashAttribute("message", internalDivision.getInternalDivision());
-      return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getId();
+      return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getGazetteId();
     }
 
 
@@ -421,7 +421,7 @@ public class InterviewManageController {
             .getRichStringCellValue().toString().equals("Result") ) {
           redirectAttributes.addFlashAttribute("message", "Some one change the excel sheet please provide valid excel" +
               " sheet");
-          return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getId();
+          return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getGazetteId();
         }
       } else {
         ApplicantSisCrdCid applicantSisCrdCidToSave = new ApplicantSisCrdCid();
@@ -470,7 +470,7 @@ public class InterviewManageController {
         }
       }
     }
-    return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getId();
+    return "redirect:/interviewManage/cidcrdsis/"+applicantSisCrdCid.getGazetteId();
   }
 
 }
