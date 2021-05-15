@@ -112,6 +112,7 @@ public class ConformationTokenController {
     ConformationToken conformationToken = conformationTokenService.findByToken(token);
     if ( conformationToken != null && LocalDateTime.now().isBefore(conformationToken.getEndDate()) ) {
       model.addAttribute("token", conformationToken.getToken());
+      conformationTokenService.deleteByConformationToken(conformationToken);
       return "user/password";
     }
     conformationTokenService.deleteByConformationToken(conformationToken);

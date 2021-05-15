@@ -42,6 +42,7 @@ public class ApplicantGazetteController {
     ApplicantGazette applicantGazette = new ApplicantGazette();
     applicantGazette.setApplicant(applicantService.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     applicantGazette.setGazette(gazette);
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.P);
     model.addAttribute("gazette", gazette);
     model.addAttribute("applicantGazette", applicantGazette);
     model.addAttribute("applyingRanks", ApplyingRank.values());
