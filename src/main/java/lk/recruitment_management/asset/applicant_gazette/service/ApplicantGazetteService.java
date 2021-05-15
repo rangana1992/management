@@ -14,6 +14,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -68,7 +69,29 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
     return applicantGazetteDao.countByApplicantGazetteStatusAndGazette(applicantGazetteStatus, gazette);
   }
 
-  public List<ApplicantGazette> findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette) {
-  return applicantGazetteDao.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus,gazette);
+  public List< ApplicantGazette > findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus applicantGazetteStatus, Gazette gazette) {
+    return applicantGazetteDao.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus, gazette);
+  }
+
+  public ApplicantGazette findByGazetteAndApplicant(Gazette gazette, Applicant applicant) {
+    return applicantGazetteDao.findByGazetteAndApplicant(gazette, applicant);
+  }
+
+  public List< ApplicantGazette > findByGazettes(List< Gazette > gazettes) {
+    List< ApplicantGazette > applicantGazettes = new ArrayList<>();
+    gazettes.forEach(x -> applicantGazettes.addAll(applicantGazetteDao.findByGazette(x)));
+    return applicantGazettes;
+  }
+
+  public ApplicantGazette lastApplicantGazette() {
+    return applicantGazetteDao.findFirstByOrderByIdDesc();
+  }
+
+  public List< ApplicantGazette> findByGazette(Gazette gazette) {
+  return applicantGazetteDao.findByGazette(gazette);
+  }
+
+  public ApplicantGazette findByCode(String code) {
+    return applicantGazetteDao.findByCode(code);
   }
 }

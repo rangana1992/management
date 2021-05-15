@@ -196,7 +196,7 @@
                             <!--/* when O/L result update state */-->
                             <tbody >
                             <tr data-th-each="studentResult, index : ${applicantDetail.applicantResults}"
-                                data-th-if="${#strings.equals(studentResult.streamLevel,'OL')}" >
+                                data-th-if="${#strings.equals(studentResult.streamLevel,'OL')} and ${studentResult.subjectName != null}" >
                               <td data-th-text="${studentResult.subjectName}" >
                               </td >
                               <td data-th-text="${studentResult.subjectResult.subjectResult}" >
@@ -235,7 +235,7 @@
                             <!--/*when A/L result update state*/-->
                             <tbody >
                             <tr data-th-each="studentResult, index : ${applicantDetail.applicantResults}"
-                                data-th-if="${#strings.equals(studentResult.streamLevel,'AL')}" >
+                                data-th-if="${#strings.equals(studentResult.streamLevel,'AL')} and ${studentResult.subjectName != null}" >
                               <td data-th-text="${studentResult.subjectName}" ></td >
                               <td data-th-if="${studentResult.mark== null}" ><span
                                     data-th-text="${studentResult.subjectResult.subjectResult}" >                             </span >
@@ -332,7 +332,9 @@
                             <th >Summary Of Gazette</th >
                             <th >Applied Rank</th >
                             <th >Current Status</th >
-                            <th data-sec-authorize="not hasRole('ROLE_APPLICANT')" >Action</th >
+                            <th data-sec-authorize="not hasRole('ROLE_APPLICANT')" >
+                           <span data-th-if="${addStatus==false}"> Action</span>
+                            </th >
                           </tr >
                           </thead >
                           <tbody >
@@ -344,10 +346,10 @@
                             <td data-th-text="${applicantGazette.applicantGazetteStatus.applicantGazetteStatus}" ></td >
                             <td data-sec-authorize="not hasRole('ROLE_APPLICANT')" >
                               <div class="row" >
-                                <a data-th-href="${'/applicantGazette/approve/' + applicantGazette.id}"
+                                <a data-th-if="${addStatus==false}" data-th-href="${'/applicantGazette/approve/' + applicantGazette.id}"
                                      class="btn btn-success btn-sm" ><i
                                     class="fa fa-edit" ></i >&nbsp;Approved</a >
-                                <a data-th-href="${'/applicantGazette/reject/' + applicantGazette.id}"
+                                <a data-th-if="${addStatus==false}" data-th-href="${'/applicantGazette/reject/' + applicantGazette.id}"
                                    class="btn btn-danger btn-sm ml-1" ><i
                                       class="fa fa-edit" ></i >&nbsp;Reject</a >
                               </div >

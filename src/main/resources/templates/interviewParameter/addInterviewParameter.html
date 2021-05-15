@@ -44,6 +44,17 @@
                                                        th:errors="*{name}">Error Name</p>
                                                 </div>
                                             </div>
+                                            <!--min-->
+                                            <div class="form-group row">
+                                                <label th:for="${'min'}" class="col-sm-4 col-form-label ">
+                                                    Max Value : </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" th:field="*{min}"
+                                                           required>
+                                                    <p class="text-danger" th:if="${#fields.hasErrors('min')}"
+                                                       th:errors="*{min}">Error Name</p>
+                                                </div>
+                                            </div>
                                             <!--Max-->
                                             <div class="form-group row">
                                                 <label th:for="${'max'}" class="col-sm-4 col-form-label ">

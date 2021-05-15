@@ -64,7 +64,7 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
 </div >
 
 <div class="container-fluid" >
-  <table class="table  table-hover " id="myTable" >
+  <table class="table  table-hover " id="myTable" data-th-if="${not #lists.isEmpty(agOffices)}">
     <thead >
     <tr >
       <th > Index</th >
@@ -76,12 +76,12 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
     </tr >
     </thead >
     <tbody >
-    <tr data-th-each="applicant, rowCount : ${applicants}" >
+    <tr data-th-each="applicantGazette, rowCount : ${applicantGazettes}" >
       <td data-th-text="${rowCount.count}" ></td >
       <td data-th-text="${rowCount.code}" ></td >
-      <td data-th-text="${applicant.nameWithInitial}" ></td >
-      <td data-th-text="${applicant.applyingRank}" ></td >
-      <td data-th-text="${applicant.gramaNiladhari.policeStation.name}" ></td >
+      <td data-th-text="${applicantGazette.applicant.nameWithInitial}" ></td >
+      <td data-th-text="${applicantGazette.applyingRank.applyingRank}" ></td >
+      <td data-th-text="${applicantGazette.applicant.gramaNiladhari.policeStation.name}" ></td >
       <td data-th-if="${addStatus}" >
         <!--result enter button-->
         <a data-th-href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
@@ -106,20 +106,14 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
   </strong >
 </div >
 
-<script >
+
+<!-- content-wrapper end -->
+<div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
+<!-- wrapper end -->
+<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+        
+        <script >
     $(".alert").alert();
 </script >
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous" ></script >
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous" ></script >
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous" ></script >
 </body >
 </html >

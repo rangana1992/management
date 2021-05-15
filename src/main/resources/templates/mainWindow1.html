@@ -5,94 +5,206 @@
 <div class="wrapper"><!-- wrapper start -->
     <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
     <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
-    <div class="content-wrapper" style="background-size:100% auto; background-image:url('./img/mainbg.jpg');"><!-- content-wrapper Start -->
+    <div class="content-wrapper" style="background-size:70% auto; background-image:url('./img/mainbg.jpg');"><!-- content-wrapper Start -->
 
         <div class="content-header mt-5">
             <div class="container-fluid" >
                 <div class="row">
-                    <spam style="height: 50px">&nbsp;</spam>
+                    <spam style="height: 100px">&nbsp;</spam>
                 </div>
                 <div class="row">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4" style="opacity: 0.7";  >
-                              <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
-                              <span style="font-size: large; font-weight: bold">Module One</span> <br/>
+                            <div class="col-sm-3" style="opacity: 0.7" ;  >
+                              <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
+                                  <span style="font-size: 28px; font-weight: bold">General Management</span><hr/>
                                     <small>
                                         <ul>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                    </ul></small>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" style="opacity: 0.7";  >
-                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
-                                    <span style="font-size: large; font-weight: bold">Module One</span> <br/>
-                                    <small>
-                                        <ul>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
+
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/district" style="color: #ffffff;" >District</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/agOffice" style="color: #ffffff;" >AG Office</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/policeStation" style="color: #ffffff;" >Police Station</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/gramaNiladhari" style="color: #ffffff;" >Grama Niladhari</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/gazette" style="color: #ffffff;" >Gazette</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee" style="color: #ffffff;" >Employee</a></li>
+
+
+
                                         </ul></small>
                                 </div>
                             </div>
-                            <div class="col-sm-4" style="opacity: 0.7";  >
-                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
-                                    <span style="font-size: large; font-weight: bold">Module One</span> <br/>
+                            <div class="col-sm-3" style="opacity: 0.7";  >
+<!--                                height: 180px;-->
+                                <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
+                                    <span style="font-size: 28px; font-weight: bold">Process Management</span><hr/>
                                     <small>
                                         <ul>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
-                                            <li>list item</li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewSchedule" style="color: #ffffff;" >Interview Schedule</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewSchedule/add" style="color: #ffffff;" >Interview Schedule Add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interview" style="color: #ffffff;" >Interview</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interview/add" style="color: #ffffff;" >Interview Add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewBoard" style="color: #ffffff;" >Interview Board</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewBoard/add" style="color: #ffffff;" >Interview Board Add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewManage/manage" style="color: #ffffff;" >Interview Manage</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewParameter" style="color: #ffffff;" >Interview Parameter</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewParameter/add" style="color: #ffffff;" >Interview Parameter Add</a></li>
                                         </ul></small>
                                 </div>
                             </div>
+                            <div class="col-sm-3" style="opacity: 0.7" ;  >
+                                <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
+                                    <span style="font-size: 28px; font-weight: bold">Report Management</span><hr/>
+                                    <small>
+                                        <ul>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/agOffice" style="color: #ffffff;" >AG Office Details</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/agOffice/add" style="color: #ffffff;" >Add AG Office</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/district" style="color: #ffffff;" >district</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee/add" style="color: #ffffff;" >employee/add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee/search" style="color: #ffffff;" >employee/search</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee" style="color: #ffffff;" >employee</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interview" style="color: #ffffff;" >interview</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interview/add" style="color: #ffffff;" >interview/add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewBoard" style="color: #ffffff;" >interviewBoard</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewBoard/add" style="color: #ffffff;" >interviewBoard/add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewManage/manage" style="color: #ffffff;" >interviewManage/manage</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewParameter" style="color: #ffffff;" >interviewParameter</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewParameter/add" style="color: #ffffff;" >interviewParameter/add</a></li>
+
+
+                                        </ul></small>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" style="opacity: 0.7" ;  >
+                                <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
+                                    <span style="font-size: 28px; font-weight: bold">Settings</span><hr/>
+                                    <small>
+                                        <ul>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role" style="color: #ffffff;" >Role Mgt</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role/add" style="color: #ffffff;" >Role Add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user" style="color: #ffffff;" >User Mgt</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/add" style="color: #ffffff;" >User Add</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee/search" style="color: #ffffff;" >Password Change</a></li>
+                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/url" style="color: #ffffff;" >Log Out</a></li>
+
+
+
+                                        </ul></small>
+                                </div>
+                            </div>
+<!--                            <div class="col-sm-4" style="opacity: 0.7";  >-->
+<!--                                &lt;!&ndash;                                height: 180px;&ndash;&gt;-->
+<!--                                <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">-->
+<!--                                    <span style="font-size: 28px; font-weight: bold">Site Map for Officer</span><hr/>-->
+<!--                                    <small>-->
+<!--                                        <ul>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewSchedule" style="color: #ffffff;" >interviewSchedule</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewSchedule/add" style="color: #ffffff;" >interviewSchedule/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/nonRelative" style="color: #ffffff;" >nonRelative</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/nonRelative/new" style="color: #ffffff;" >nonRelative/new</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/policeStation" style="color: #ffffff;" >policeStation</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/policeStation/add" style="color: #ffffff;" >policeStation/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role/add" style="color: #ffffff;" >role/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role/search" style="color: #ffffff;" >role/search</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role" style="color: #ffffff;" >role</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/workingPlace" style="color: #ffffff;" >user/workingPlace</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/add" style="color: #ffffff;" >user/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/update" style="color: #ffffff;" >user/update</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user" style="color: #ffffff;" >user</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/search" style="color: #ffffff;" >user/search</a></li>-->
+
+<!--                                        </ul></small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-4" style="opacity: 0.7" ;  >-->
+<!--                                <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">-->
+<!--                                    <span style="font-size: 28px; font-weight: bold">Site Map for Staff</span><hr/>-->
+<!--                                    <small>-->
+<!--                                        <ul>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/agOffice" style="color: #ffffff;" >AG Office Details</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/agOffice/add" style="color: #ffffff;" >Add AG Office</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/district" style="color: #ffffff;" >district</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee/add" style="color: #ffffff;" >employee/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee/search" style="color: #ffffff;" >employee/search</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/employee" style="color: #ffffff;" >employee</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interview" style="color: #ffffff;" >interview</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interview/add" style="color: #ffffff;" >interview/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewBoard" style="color: #ffffff;" >interviewBoard</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewBoard/add" style="color: #ffffff;" >interviewBoard/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewManage/manage" style="color: #ffffff;" >interviewManage/manage</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewParameter" style="color: #ffffff;" >interviewParameter</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewParameter/add" style="color: #ffffff;" >interviewParameter/add</a></li>-->
+
+
+<!--                                        </ul></small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-4" style="opacity: 0.7";  >-->
+<!--                                &lt;!&ndash;                                height: 180px;&ndash;&gt;-->
+<!--                                <div  class="position-relative p-3 bg-gray" style="background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">-->
+<!--                                    <span style="font-size: 28px; font-weight: bold">Site Map for Officer</span><hr/>-->
+<!--                                    <small>-->
+<!--                                        <ul>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewSchedule" style="color: #ffffff;" >interviewSchedule</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/interviewSchedule/add" style="color: #ffffff;" >interviewSchedule/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/nonRelative" style="color: #ffffff;" >nonRelative</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/nonRelative/new" style="color: #ffffff;" >nonRelative/new</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/policeStation" style="color: #ffffff;" >policeStation</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/policeStation/add" style="color: #ffffff;" >policeStation/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role/add" style="color: #ffffff;" >role/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role/search" style="color: #ffffff;" >role/search</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/role" style="color: #ffffff;" >role</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/workingPlace" style="color: #ffffff;" >user/workingPlace</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/add" style="color: #ffffff;" >user/add</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/update" style="color: #ffffff;" >user/update</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user" style="color: #ffffff;" >user</a></li>-->
+<!--                                            <li style="font-size: x-large" class="nav-item" data-th-if="${#authorization.expression('hasAnyRole(''ROLE_ADMIN'',''ROLE_HOSS'')')}"><a href="/user/search" style="color: #ffffff;" >user/search</a></li>-->
+
+<!--                                        </ul></small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-4" style="opacity: 0.7";  >
-                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
-                                    <span style="font-size: large; font-weight: bold">Employee Management</span> <br/>
-                                    <small>
-                                        <ul>
+                </div>
+<!--                <div class="row">-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-4" style="opacity: 0.7";  >-->
+<!--                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">-->
+<!--                                    <span style="font-size: large; font-weight: bold">Employee Management</span> <br/>-->
+<!--                                    <small>-->
+<!--                                        <ul>-->
 
-                                        </ul></small>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" style="opacity: 0.7";  >
-                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
-                                <div class="ribbon-wrapper ribbon-lg">
-                                        <div class="ribbon bg-info">
-                                            SMS alert add
-                                        </div>
-                                    </div>
-                                    <span style="font-size: large; font-weight: bold">Account Management</span> <br/>
-                                    <small><ul>
-                                    </ul></small>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" style="opacity: 0.7";  >
-                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">
-                                <span style="font-size: large; font-weight: bold">Notification Management</span> <br/>
+<!--                                        </ul></small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-4" style="opacity: 0.7";  >-->
+<!--                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">-->
+<!--                                <div class="ribbon-wrapper ribbon-lg">-->
+<!--                                        <div class="ribbon bg-info">-->
+<!--                                            SMS alert add-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <span style="font-size: large; font-weight: bold">Account Management</span> <br/>-->
+<!--                                    <small><ul>-->
+<!--                                    </ul></small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-4" style="opacity: 0.7";  >-->
+<!--                                <div  class="position-relative p-3 bg-gray" style="height: 180px;background-size:100% auto; border-radius:8px; box-shadow: 5px 10px #0e4377; ">-->
+<!--                                <span style="font-size: large; font-weight: bold">Notification Management</span> <br/>-->
 
-                                    <small>
-                                        <ul>
-                                        </ul>
-                                    </small>
+<!--                                    <small>-->
+<!--                                        <ul>-->
+<!--                                        </ul>-->
+<!--                                    </small>-->
 
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 </div>
             </div>
         </div>

@@ -17,6 +17,8 @@ import java.util.List;
 public class InterviewSchedule {
   private int id;
 
+  private String massage;
+
   @Enumerated( EnumType.STRING )
   private ApplicantGazetteStatus interviewNumber;
 

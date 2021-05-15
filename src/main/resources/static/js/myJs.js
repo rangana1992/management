@@ -14,7 +14,7 @@ $(document).ready(function () {
 
 
     /*//--------------- data table short using - data table plugin ------- start //*/
-    if ($("#myTable tr").val()) {
+    if ($("#myTable tr").length) {
         $("#myTable").DataTable({
             "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
             "ordering": false,
@@ -24,22 +24,23 @@ $(document).ready(function () {
     /*//--------------- data table short using - data table plugin ------- start //*/
 
     /*When edit employee if there is a nic number need to select relevant gender*/
-    if ($("#nic").val()) {
-        $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked', true);
+    if ($("#nic").val()){
+        $("input:radio[name=gender]").filter(`[value=${calculateGender($("#nic").val())}]`).prop('checked',true);
     }
-
 
     /* Patient and employee Nic Validation - start*/
     $("#nic").bind('keyup', function () {
         let nic = $(this).val();
         $("#dateOfBirth").val(calculateDateOfBirth(nic));
-        //access our front-end gender*/
-        $("input:radio[name=gender]").filter(`[value=${calculateGender(nic)}]`).prop('checked', true);
+//access our front-end gender*/
+        $("input:radio[name=gender]").filter(`[value=${calculateGender(nic)}]`).prop('checked',true);
 
     });
     /* Patient and employee Nic Validation - end*/
     //input type date can not be selected future date
-
+    /*    $('[type="date"]').prop('max', function () {
+            return new Date().toJSON().split('T')[0];
+        });*/
 
 });
 
@@ -49,8 +50,10 @@ let nicRegex = /^([0-9]{9}[vV|xX])|^([0-9]{12})$/;
 let mobileRegex = /^([0][7][\d]{8}$)|^([7][\d]{8})$/;
 let landRegex = /^0((11)|(2(1|[3-7]))|(3[1-8])|(4(1|5|7))|(5(1|2|4|5|7))|(6(3|[5-7]))|([8-9]1))([2-4]|5|7|9)[0-9]{6}$/;
 let nameRegex = /^[a-zA-Z .-]{5}[ a-zA-Z.-]+$/;
+let lastNameRegex = /^[a-zA-Z .-]{1}[ a-zA-Z.-]+$/;
 let numberRegex = /^([eE][hH][sS][\d]+)$/;
 let invoiceNumberRegex = /^[0-9]{10}$/;
+// let epfRegex = /^[0-9]{5}$/;
 
 
 //Nic - data of birth - start
@@ -279,10 +282,24 @@ $("#name").bind("keyup", function () {
         backgroundColourChangeBad($(this));
     }
 });
+
+//Full Name validation
+$("#fullName").bind("keyup", function () {
+    let name = $(this).val();
+    if (nameRegex.test(name)) {
+        backgroundColourChangeGood($(this));
+    } else if (name.length === 0) {
+        backgroundColourChangeNothingToChange($(this));
+    } else {
+        backgroundColourChangeBad($(this));
+    }
+});
+
+
 //calling Name validation
 $("#callingName").bind("keyup", function () {
     let name = $(this).val();
-    if (nameRegex.test(name)) {
+    if (lastNameRegex.test(name)) {
         backgroundColourChangeGood($(this));
     } else if (name.length === 0) {
         backgroundColourChangeNothingToChange($(this));
@@ -294,6 +311,16 @@ $("#callingName").bind("keyup", function () {
 $("#invoiceNumber").bind("keyup", function () {
     let invoiceNumber = $(this).val();
     if (invoiceNumberRegex.test(invoiceNumber)) {
+        backgroundColourChangeGood($(this));
+    } else {
+        backgroundColourChangeBad($(this));
+    }
+});
+
+//epfNumber validation
+$("#epf").bind("keyup", function () {
+    let epf = $(this).val();
+    if (epfRegex.test(epf)) {
         backgroundColourChangeGood($(this));
     } else {
         backgroundColourChangeBad($(this));
@@ -415,31 +442,22 @@ $("#invoiceFindValue").bind("keyup", function () {
 //custom invoice search page validation - end
 
 //search form date validation - start
-const milliSecondToDay = Date.parse(new Date());
-
-$("#startDate").bind("input", function () {
+$("#startDate, #endDate").bind("click", function () {
     let startDate = document.getElementById("startDate").value;
-
-//only start date has value
-    if (startDate.length !== 0) {
-        let milliSecondStartDate = Date.parse(startDate);
-        if (milliSecondToDay > milliSecondStartDate) {
-            backgroundColourChangeGood($(this));
-        } else {
-            backgroundColourChangeBad($(this));
-        }
-    } else {
-        backgroundColourChangeNothingToChange($(this));
-    }
-});
-
-$("#endDate").bind("input", function () {
     let endDate = document.getElementById("endDate").value;
 
-//only start date has value
     if (endDate.length !== 0) {
-        let milliSecondStartDate = Date.parse(endDate);
-        if (milliSecondToDay > milliSecondStartDate) {
+        $('#startDate').attr('max', $('#endDate').val());
+    }
+    if (startDate.length !== 0) {
+        $('#endDate').attr('min', $('#startDate').val());
+    }
+
+//only start date has value
+    if (startDate.length !== 0 && endDate.length !== 0) {
+        let milliSecondStartDate = Date.parse(startDate);
+        let milliSecondEndDate = Date.parse(endDate);
+        if (milliSecondEndDate > milliSecondStartDate) {
             backgroundColourChangeGood($(this));
         } else {
             backgroundColourChangeBad($(this));
@@ -449,21 +467,7 @@ $("#endDate").bind("input", function () {
     }
 });
 
-$('#endDate, #startDate').on('click', function () {
-    let endValue = $('#endDate').val();
-    let startValue = $('#startDate').val();
-    console.log(" end " + endValue + "  start " + startValue);
-    if (endValue !== null) {
-        $('#startDate').attr('max', $('#endDate').val());
-        console.log("1 end " + endValue + "  start " + startValue);
-    }
-    if (startValue !== null) {
-        $('#endDate').attr('min', $('#startDate').val());
-        console.log("2 end " + endValue + "  start " + startValue);
-    }
-});
-
-$("#btnSummaryFind").bind("mouseover", function () {
+$("#btnSummaryFind").bind("click", function () {
     let endDate = document.getElementById("endDate").value;
     let startDate = document.getElementById("startDate").value;
 
@@ -547,16 +551,6 @@ let deleteAllTableRow = function (tableName) {
     }
 };
 
-/*jquery - ui function*/
-//$( "input" ).checkboxradio;
-
-// $(function () {
-//     $("#").resizable({
-//         autoHide: true,
-//         aspectRatio: true,
-//         ghost: true,
-//     });
-// });
 
 //$( ".login" ).draggable();
 //$( "#dateOfBirth" ).datepicker;
@@ -565,17 +559,17 @@ let deleteAllTableRow = function (tableName) {
 
 //password validator user add
 $('#password').keyup(function () {
-    $(this).attr('min', 6);
+    $(this).attr('min', 4);
     $('#result').html(checkStrength($(this).val(), $('#result')));
 });
 //new password validator
 $('#npsw').keyup(function () {
-    $(this).attr('min', 6);
+    $(this).attr('min', 4);
     $('#resultOne').html(checkStrength($(this).val(), $('#resultOne')));
 });
 //new re enter password validator
 $('#nrepsw').keyup(function () {
-    $(this).attr('min', 6);
+    $(this).attr('min', 4);
     $('#resultTwo').html(checkStrength($(this).val(), $('#resultTwo')));
 });
 //password match
@@ -593,7 +587,6 @@ $('#nrepsw, #npsw').keyup(function () {
         matchPassword.html('Password is not match value');
     }
 });
-
 //filed validator
 let checkStrength = function (password, filedId) {
     let strength = 0;
@@ -627,9 +620,7 @@ let checkStrength = function (password, filedId) {
         return ` Strong , Password length : ${password.length}`;
     }
 };
-
 //password show hide button
-
 $(".reveal").on('click', function () {
     let $pwd = $(".pwd");
     if ($pwd.attr('type') === 'password') {
@@ -639,22 +630,6 @@ $(".reveal").on('click', function () {
         $pwd.attr('type', 'password');
     }
 });
-
-/* -------headerDate-------*/
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1;
-var yyyy = today.getFullYear();
-if (dd < 10) {
-    dd = '0' + dd;
-}
-if (mm < 10) {
-    mm = '0' + mm;
-}
-today = mm + '-' + dd + '-' + yyyy;
-// console.log(today);
-// document.getElementById("headerDate").innerText=today;
-
 /*
 console.log(today);
 today = mm+'/'+dd+'/'+yyyy;
@@ -664,3 +639,14 @@ console.log(today);
 today = dd+'/'+mm+'/'+yyyy;
 console.log(today);*/
 /* -------headerDate end-------*/
+
+function confirmDelete(obj) {
+    swal("Are you sure to delete this?", {
+        dangerMode: true,
+        buttons: true,
+    }).then((x) => {
+        if (x) {
+            self.location = location.protocol + "//" + location.host + obj.getAttribute('id');
+        }
+    });
+}

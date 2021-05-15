@@ -15,13 +15,16 @@ import lk.recruitment_management.asset.district.service.DistrictService;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.asset.gazette.entity.enums.GazetteStatus;
 import lk.recruitment_management.asset.gazette.service.GazetteService;
+import lk.recruitment_management.asset.interview_board.entity.InterviewBoard;
 import lk.recruitment_management.asset.interview_board.entity.enums.InterviewBoardStatus;
 import lk.recruitment_management.asset.interview_board.service.InterviewBoardService;
+import lk.recruitment_management.util.service.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,18 +36,21 @@ public class InterviewScheduleController {
   private final GazetteService gazetteService;
   private final ApplicantGazetteInterviewService applicantGazetteInterviewService;
   private final ApplicantGazetteService applicantGazetteService;
+  private final EmailService emailService;
 
   private final DistrictService districtService;
 
   public InterviewScheduleController(ApplicantService applicantService, InterviewBoardService interviewBoardService,
                                      GazetteService gazetteService,
                                      ApplicantGazetteInterviewService applicantGazetteInterviewService,
-                                     ApplicantGazetteService applicantGazetteService, DistrictService districtService) {
+                                     ApplicantGazetteService applicantGazetteService, EmailService emailService,
+                                     DistrictService districtService) {
     this.applicantService = applicantService;
     this.interviewBoardService = interviewBoardService;
     this.gazetteService = gazetteService;
     this.applicantGazetteInterviewService = applicantGazetteInterviewService;
     this.applicantGazetteService = applicantGazetteService;
+    this.emailService = emailService;
     this.districtService = districtService;
   }
 
@@ -66,9 +72,9 @@ public class InterviewScheduleController {
                        applicantGazetteService.countByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A,
                                                                                        gazette));
     model.addAttribute("interviewBoard", interviewBoardService.findAll()
-                           .stream()
-                           .filter(x -> x.getInterviewBoardStatus().equals(InterviewBoardStatus.ACT))
-                           .collect(Collectors.toList())                      );
+        .stream()
+        .filter(x -> x.getInterviewBoardStatus().equals(InterviewBoardStatus.ACT))
+        .collect(Collectors.toList()));
     List< ApplicantGazetteStatus > applicantGazetteStatuses = new ArrayList<>();
     applicantGazetteStatuses.add(ApplicantGazetteStatus.FST);
     applicantGazetteStatuses.add(ApplicantGazetteStatus.SND);
@@ -79,15 +85,16 @@ public class InterviewScheduleController {
     model.addAttribute("interviewSchedule", new InterviewSchedule());
     return "interviewSchedule/addInterviewSchedule";
   }
-//todo-> tomorrow 11/05/2021
+
   @PostMapping
   public String dateCount(@ModelAttribute InterviewSchedule interviewSchedule, Model model) {
     Gazette gazette = gazetteService.findById(interviewSchedule.getId());
+    HashSet< ApplicantGazetteInterview > applicantGazetteInterviews = new HashSet<>();
     List< ApplicantGazette > applicantGazettes = new ArrayList<>();
-
     for ( District district : districtService.findAll() ) {
-      for ( ApplicantGazette applicantGazette : applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A,
-                                                                                                  gazette)) {
+      for ( ApplicantGazette applicantGazette :
+          applicantGazetteService.findByApplicantGazetteStatusAndGazette(ApplicantGazetteStatus.A,
+                                                                         gazette) ) {
         if ( applicantGazette.getApplicant().getGramaNiladhari().getPoliceStation().getAgOffice().getDistrict().equals(district) ) {
           applicantGazettes.add(applicantGazette);
         }
@@ -95,42 +102,53 @@ public class InterviewScheduleController {
     }
     int startCount = 0;
     for ( InterviewScheduleList interviewScheduleList : interviewSchedule.getInterviewScheduleLists() ) {
-      int endCount = interviewScheduleList.getCount() + 1;
+      int endCount = interviewScheduleList.getCount();
+      InterviewBoard interviewBoard = interviewBoardService.findById(interviewScheduleList.getInterviewBoardId());
+      interviewBoard.setMessage(interviewSchedule.getMassage());
+
 
       for ( ApplicantGazette applicantGazette : applicantGazettes.subList(startCount, endCount) ) {
         applicantGazette.setApplicantGazetteStatus(interviewSchedule.getInterviewNumber());
         //new applicant interview
         ApplicantGazetteInterview applicantGazetteInterview = new ApplicantGazetteInterview();
 
-        applicantGazetteInterview.setInterviewBoard(interviewBoardService.findById(interviewScheduleList
-        .getInterviewBoardId()));
+        applicantGazetteInterview.setInterviewBoard(interviewBoard);
+        ApplicantGazette applicantGazetteDB = applicantGazetteService.persist(applicantGazette);
         //save  applicant and set to applicant interview
-        applicantGazetteInterview.setApplicantGazette(applicantGazetteService.persist(applicantGazette));
+        applicantGazetteInterview.setApplicantGazette(applicantGazetteDB);
+        applicantGazetteInterview.setMessage(interviewScheduleList.getMessage());
         applicantGazetteInterview.setInterviewDate(interviewScheduleList.getDate());
         applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.ACT);
-        applicantGazetteInterviewService.persist(applicantGazetteInterview);
+        applicantGazetteInterviews.add(applicantGazetteInterviewService.persist(applicantGazetteInterview));
       }
+      interviewBoard = interviewBoardService.persist(interviewBoard);
 
       startCount = endCount - 1;
     }
+    gazette.setGazetteStatus(GazetteStatus.IN);
+    gazetteService.persist(gazette);
 
-    model.addAttribute("applicantInterviews",
-                       applicantGazetteInterviewService.findAll()
-                           .stream()
-                           .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
-                           .ACT))
-                           .collect(Collectors.toList()));
-    return "interviewSchedule/interviewSchedule";
+    for ( ApplicantGazetteInterview applicantGazetteInterview : applicantGazetteInterviews ) {
+      Applicant applicantDB =
+          applicantService.findById(applicantGazetteInterview.getApplicantGazette().getApplicant().getId());
+      InterviewBoard interviewBoard = applicantGazetteInterview.getInterviewBoard();
+      String message = " Dear " + applicantDB.getNameInFullName() + "\n Like to inform that your interview would be " +
+          "held on " + applicantGazetteInterview.getInterviewDate().toString() + "\n" + applicantGazetteInterview.getMessage() + "\n Thanks \n Sri Lanka Police \n Administrative Branch \n Police Head Quarters \n Colombo";
+      emailService.sendEmail(applicantDB.getEmail(), "Regarding " + interviewBoard.getName(),
+                             message);
+    }
+    return "redirect:/interviewSchedule/add";
   }
-/*
+
   @GetMapping( "/deactivate/{id}" )
   public String deactivate(@PathVariable Integer id, Model model) {
 
     ApplicantGazetteInterview applicantGazetteInterview = applicantGazetteInterviewService.findById(id);
 
-    Applicant applicant = applicantGazetteInterview.getApplicant();
-    applicant.setApplicantStatus(ApplicantStatus.REJ);
-    applicantService.persist(applicant);
+
+    ApplicantGazette applicantGazette = applicantGazetteInterview.getApplicantGazette();
+    applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.A);
+    applicantGazetteService.persist(applicantGazette);
 
     applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.CL);
     applicantGazetteInterviewService.persist(applicantGazetteInterview);
@@ -139,10 +157,9 @@ public class InterviewScheduleController {
                        applicantGazetteInterviewService.findAll()
                            .stream()
                            .filter(x -> x.getApplicantGazetteInterviewStatus().equals(ApplicantGazetteInterviewStatus
-                           .ACT))
+                                                                                          .ACT))
                            .collect(Collectors.toList()));
-    return "interviewSchedule/interviewSchedule";
+    return "redirect:/interviewSchedule/add";
   }
-*/
 
 }
