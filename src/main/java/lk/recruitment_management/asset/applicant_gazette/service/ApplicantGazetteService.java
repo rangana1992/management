@@ -58,7 +58,7 @@ public class ApplicantGazetteService implements AbstractService< ApplicantGazett
   }
 
   public List< ApplicantGazette > findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(LocalDateTime dateTimeToLocalDateStartInDay, LocalDateTime dateTimeToLocalDateEndInDay, ApplicantGazetteStatus applicantGazetteStatus, ApplyingRank applyingRank) {
-    return applicantGazetteDao.findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(dateTimeToLocalDateEndInDay, dateTimeToLocalDateEndInDay, applicantGazetteStatus, applyingRank);
+    return applicantGazetteDao.findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(dateTimeToLocalDateStartInDay, dateTimeToLocalDateEndInDay, applicantGazetteStatus, applyingRank);
   }
 
   public int countByApplicantGazetteStatus(ApplicantGazetteStatus applicantGazetteStatus) {
