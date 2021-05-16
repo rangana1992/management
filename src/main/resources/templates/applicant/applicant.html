@@ -158,11 +158,11 @@
                           <td th:if="${addStatus}" data-sec-authorize="not hasRole('ROLE_APPLICANT')" >
                             <p >
                               <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                      data-th-attr="data-target=${'#contentId'+rowCount.count}" aria-expanded="false" >
+                                      data-th-attr="data-target=${'#contentId'+rowCount.index}" aria-expanded="false" >
                                 Show Applied Gazette Detail
                               </button >
                             </p >
-                            <div class="collapse" data-th-id="${'contentId'+rowCount}" >
+                            <div class="collapse" data-th-id="${'contentId'+rowCount.index}" >
                               <table class="table table-striped table-inverse" >
                                 <thead class="thead-inverse" >
                                 <tr >
