@@ -13,24 +13,27 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- <h4>First sud Header</h4>-->
+                                <form role="form">
+                                    <div align="right">
+                                        <a class="btn btn-success" id="newDistrict" th:href="${'/interview'}">
+                                            <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; View Interview </a>
+                                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                                            <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col-md-12">
                         <div class="row">
-<!--                            <div class="col-md-3">-->
-<!--                                <div class="card">-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h4>First sud Header</h4>-->
-<!--                                        <form role="form">-->
-<!--                                            <a href="/interview">-->
-<!--                                                <button class="btn btn-primary">-->
 
-<!--                                                    <i class="fa fa-step-backward mr-1"></i>Back-->
-<!--                                                </button>-->
-<!--                                            </a>-->
-
-<!--                                        </form>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -45,26 +48,29 @@
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Name </label>
-<!--                                                <div class="col-sm-10">-->
-<!--                                                    <p class="display_detail"-->
-<!--                                                       data-th-text="${interviewDetail.name}"></p>-->
-<!--                                                </div>-->
+                                                <div class="col-sm-10">
+                                                    <p class="display_detail"
+                                                       data-th-text="${interviewDetail.interviewName.interviewName}"></p>
+                                                </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label "> Interview Status </label>
-<!--                                                <div class="col-sm-10">-->
-<!--                                                    <p class="display_detail"-->
-<!--                                                       data-th-text="${interviewDetail.interviewStatus.interviewStatus}"></p>-->
-<!--                                                </div>-->
+                                                <div class="col-sm-10">
+                                                    <p class="display_detail"
+                                                       data-th-text="${interviewDetail.interviewStatus.interviewStatus}"></p>
+                                                </div>
                                             </div>
 
 
                                             <div class="form-group row">
-                                                <label class="col-sm-2 form-label "> Interview Parameter </label>
-<!--                                                <div class="col-sm-10" data-th-each="interviewParameter : ${interviewDetail.interviewParameters}" data-th-text="${interviewParameter.name} + ${'  '}+${interviewParameter.max}"></>-->
+                                                <label class="col-sm-2 form-label "> Interview Parameter </label><br/>
+                                                <div  data-th-each="interviewParameter : ${interviewDetail.interviewParameters}"                                                     >
+<h6 data-th-text="${interviewParameter.name} + ${' ['}+${interviewParameter.min} + ${' - '}+${interviewParameter.max}+ ${' ] ,   '}" ></h6>
 
-<!--                                                </div>-->
+
+                                                </div>
+
                                             </div>
                                         </div>
 
@@ -76,6 +82,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
         </div><!-- content-wrapper end -->
         <footer data-th-replace="~{fragments/footerSection :: footerSectionFragment}"></footer><!-- footer Section -->
     </div><!-- wrapper end -->
