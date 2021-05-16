@@ -151,6 +151,10 @@ public class ApplicantController {
   @GetMapping( value = "/edit/{id}" )
   public String editApplicantForm(@PathVariable( "id" ) Integer id, Model model) {
     Applicant applicant = applicantService.findById(id);
+    return applicantEdit(model,applicant);
+  }
+
+  public String applicantEdit(Model model,Applicant applicant){
     model.addAttribute("applicant", applicant);
     model.addAttribute("addStatus", false);
     model.addAttribute("file", applicantFilesService.applicantFileDownloadLinks(applicant));

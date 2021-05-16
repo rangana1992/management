@@ -205,6 +205,7 @@ iframe {
   z-index: 1;
 }
 
+
 .login100-more::before {
   content: "";
   display: block;
@@ -219,7 +220,7 @@ iframe {
   background: -o-linear-gradient(bottom, #e8519e, #c77ff2);
   background: -moz-linear-gradient(bottom, #e8519e, #c77ff2);
   background: linear-gradient(bottom, #e8519e, #c77ff2);
-  /*background-image: url("../img/loginimage.jpg");*/
+  background-image: url("../img/9.jpg");
   background-repeat: no-repeat;
   opacity: 0.5;
 }

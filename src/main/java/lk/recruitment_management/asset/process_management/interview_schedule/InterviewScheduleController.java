@@ -128,14 +128,16 @@ public class InterviewScheduleController {
     gazette.setGazetteStatus(GazetteStatus.IN);
     gazetteService.persist(gazette);
 
+
     for ( ApplicantGazetteInterview applicantGazetteInterview : applicantGazetteInterviews ) {
-      Applicant applicantDB =
-          applicantService.findById(applicantGazetteInterview.getApplicantGazette().getApplicant().getId());
-      InterviewBoard interviewBoard = applicantGazetteInterview.getInterviewBoard();
-      String message = " Dear " + applicantDB.getNameInFullName() + "\n Like to inform that your interview would be " +
-          "held on " + applicantGazetteInterview.getInterviewDate().toString() + "\n" + applicantGazetteInterview.getMessage() + "\n Thanks \n Sri Lanka Police \n Administrative Branch \n Police Head Quarters \n Colombo";
-      emailService.sendEmail(applicantDB.getEmail(), "Regarding " + interviewBoard.getName(),
-                             message);
+      System.out.println(" email send ");
+    Applicant applicantDB =
+        applicantService.findById(applicantGazetteInterview.getApplicantGazette().getApplicant().getId());
+    InterviewBoard interviewBoard = applicantGazetteInterview.getInterviewBoard();
+    String message = " Dear " + applicantDB.getNameInFullName() + "\n Like to inform that your interview would be " +
+        "held on " + applicantGazetteInterview.getInterviewDate().toString() + "\n" + applicantGazetteInterview.getMessage() + "\n Thanks \n Sri Lanka Police \n Administrative Branch \n Police Head Quarters \n Colombo";
+    emailService.sendEmail(applicantDB.getEmail(), "Regarding " + interviewBoard.getName(),
+                           message);
     }
     return "redirect:/interviewSchedule/add";
   }

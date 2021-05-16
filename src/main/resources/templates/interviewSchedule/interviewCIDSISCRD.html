@@ -18,13 +18,15 @@
       <button type="button" class="btn btn-info" data-th-text="${btnTextCID}" ></button >
     </a >
     <form data-th-action="${'/interviewManage/'+formAction}" method="post" enctype="multipart/form-data" >
-      <input type="hidden" name="internalDivision" data-th-value="${internalDivisionCID}" required/>
+      <input type="hidden" name="internalDivision" data-th-value="${internalDivisionCID}" required />
+      <input type="hidden" name="gazetteId" data-th-value="${gazetteId}" required />
       <label > Please Select Result Enter File :
         <input type="file" name="multipartFile" accept=".csv, .xls, .xlsx, text/csv, application/csv,
 text/comma-separated-values, application/csv, application/excel,
 application/vnd.msexcel, text/anytext, application/vnd. ms-excel,
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required />
       </label >
+
       <button type="submit" class="btn btn-primary" >Save Result</button >
       <button type="reset" class="btn btn-warning" >Clear</button >
     </form >
@@ -34,12 +36,13 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
       <button type="button" class="btn btn-info" data-th-text="${btnTextSIS}" ></button >
     </a >
     <form data-th-action="${'/interviewManage/'+formAction}" method="post" enctype="multipart/form-data" >
-      <input type="hidden" name="internalDivision" data-th-value="${internalDivisionSIS}" required/>
+      <input type="hidden" name="internalDivision" data-th-value="${internalDivisionSIS}" required />
+      <input type="hidden" name="gazetteId" data-th-value="${gazetteId}" required />
       <label > Please Select Result Enter File :
         <input type="file" name="multipartFile" accept=".csv, .xls, .xlsx, text/csv, application/csv,
 text/comma-separated-values, application/csv, application/excel,
 application/vnd.msexcel, text/anytext, application/vnd. ms-excel,
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required />
       </label >
       <button type="submit" class="btn btn-primary" >Save Result</button >
       <button type="reset" class="btn btn-warning" >Clear</button >
@@ -50,12 +53,13 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
       <button type="button" class="btn btn-info" data-th-text="${btnTextCRD}" ></button >
     </a >
     <form data-th-action="${'/interviewManage/'+formAction}" method="post" enctype="multipart/form-data" >
-      <input type="hidden" name="internalDivision" data-th-value="${internalDivisionCRD}" required/>
+      <input type="hidden" name="internalDivision" data-th-value="${internalDivisionCRD}" required />
+      <input type="hidden" name="gazetteId" data-th-value="${gazetteId}" required />
       <label > Please Select Result Enter File :
         <input type="file" name="multipartFile" accept=".csv, .xls, .xlsx, text/csv, application/csv,
 text/comma-separated-values, application/csv, application/excel,
 application/vnd.msexcel, text/anytext, application/vnd. ms-excel,
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required />
       </label >
       <button type="submit" class="btn btn-primary" >Save Result</button >
       <button type="reset" class="btn btn-warning" >Clear</button >
@@ -64,7 +68,7 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
 </div >
 
 <div class="container-fluid" >
-  <table class="table  table-hover " id="myTable" data-th-if="${not #lists.isEmpty(agOffices)}">
+  <table class="table  table-hover " id="myTable" data-th-if="${not #lists.isEmpty(applicantGazettes)}" >
     <thead >
     <tr >
       <th > Index</th >
@@ -72,37 +76,29 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
       <th > Name</th >
       <th > Rank</th >
       <th > Police Station</th >
-      <th > Modify</th >
+      <th >Current Status</th >
     </tr >
     </thead >
     <tbody >
     <tr data-th-each="applicantGazette, rowCount : ${applicantGazettes}" >
       <td data-th-text="${rowCount.count}" ></td >
-      <td data-th-text="${rowCount.code}" ></td >
+      <td data-th-text="${applicantGazette.code}" ></td >
       <td data-th-text="${applicantGazette.applicant.nameWithInitial}" ></td >
       <td data-th-text="${applicantGazette.applyingRank.applyingRank}" ></td >
       <td data-th-text="${applicantGazette.applicant.gramaNiladhari.policeStation.name}" ></td >
-      <td data-th-if="${addStatus}" >
-        <!--result enter button-->
-        <a data-th-href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
-              class="fa fa-folder-open" ></i >&nbsp;Result Enter</a >
-        <!--absent mark-->
-        <a data-th-href="${'/applicant/remove/' + applicant.id}"
-           data-th-if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
-           class="btn btn-danger btn-sm" ><i class="fa fa-trash" ></i >
-          Absent</a >
-      </td >
+      <td data-th-text="${applicantGazette.applicantGazetteStatus.applicantGazetteStatus}" ></td >
     </tr >
   </table >
 
 </div >
 
-<div class="alert alert-warning alert-dismissible fade show" role="alert" data-th-if="${not #strings.isEmpty(message)}">
+<div class="alert alert-warning alert-dismissible fade show" role="alert"
+     data-th-if="${not #strings.isEmpty(message)}" >
   <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
     <span aria-hidden="true" >&times;</span >
   </button >
   <strong >
-    <span data-th-text="${message}"></span>
+    <span data-th-text="${message}" ></span >
   </strong >
 </div >
 
@@ -111,8 +107,8 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
 <div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
 <!-- wrapper end -->
 <div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
-        
-        <script >
+
+<script >
     $(".alert").alert();
 </script >
 </body >

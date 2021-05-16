@@ -1,16 +1,42 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="~{fragments/header :: headerFragment}" >
-  <meta charset="UTF-8" >
-  <title >Thymeleaf Springboot </title >
-</head >
-<body >
-<nav th:replace="~{fragments/navBar :: navBarFragment}" ></nav >
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+  <div class="content-wrapper"><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+    <!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
+    <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
-<div class="container-fluid mt-4" >
-  <div class="form-row" >
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+                        <a class="btn btn-success" id="newDistrict" th:href="${'/district/add'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Add District </a>
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+<div class="row">
     <!-- published gazette    -->
-    <div class="col-6" >
+    <div class="col-md-6" >
+      <div class="card">
+        <div class="card-header"><h4>Applicable published gazette</h4></div>
+        <div class="card-body">
       <p class="text-center" >
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId"
                 aria-expanded="false"
@@ -39,8 +65,13 @@
         </table >
       </div >
     </div >
+      </div>
+    </div>
     <!--    Applied gazette -->
-    <div class="col-6" >
+    <div class="col-md-6" >
+      <div class="card">
+        <div class="card-header"><h4>Application progress<h4></div>
+        <div class="card-body">
       <p class="text-center" >
         <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#contentIdOne"
                 aria-expanded="false"
@@ -68,15 +99,23 @@
           </tbody >
         </table >
       </div >
+        </div>
+      </div>
     </div >
-  </div >
+  </div ></div>
 </div >
 
-<!--footer include-->
-<div th:replace="~{fragments/footer :: footerFragment}" ></div >
-<!--script include-->
-<div th:replace="~{fragments/script :: scriptFragment}" ></div >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-</body >
-</html >
 
+<div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
+</body>
+</html>

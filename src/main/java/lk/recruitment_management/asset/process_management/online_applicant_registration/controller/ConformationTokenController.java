@@ -56,7 +56,7 @@ public class ConformationTokenController {
   }
 
   @PostMapping( value = {"/register"} )
-  private String sendTokenToEmail(@RequestParam( "email" ) String email, @RequestParam( "newOrOld" ) String newOrOld, RedirectAttributes redirectAttributes,
+  private String sendTokenToEmail(@RequestParam( "email" ) String email, @RequestParam( "newOrOld" ) String newOrOld,
                                   Model model, HttpServletRequest request) {
     //if not email
     // !  false = true
@@ -71,7 +71,6 @@ public class ConformationTokenController {
     //before create the token need to check there is user on current email
     // if not create token else send forgotten password form to fill
     if ( user != null && newOrOld == null ) {
-      model.addAttribute("newOrOld", newOrOld);
       model.addAttribute("message", "There is an user on system please forgotten password reset option.");
       return "user/register";
     }

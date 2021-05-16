@@ -18,7 +18,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Secondary Header</h4>
+                                        <h4>Interview Parameter Add</h4>
                                         <form th:action="${addStatus==false?'/interviewParameter/save' :'/interviewParameter/update'}"
                                               method="post" th:object="${interviewParameter}"
                                               class="mt-3">
@@ -47,7 +47,7 @@
                                             <!--min-->
                                             <div class="form-group row">
                                                 <label th:for="${'min'}" class="col-sm-4 col-form-label ">
-                                                    Max Value : </label>
+                                                    Min Value : </label>
                                                 <div class="col-sm-8">
                                                     <input type="text" class="form-control" th:field="*{min}"
                                                            required>

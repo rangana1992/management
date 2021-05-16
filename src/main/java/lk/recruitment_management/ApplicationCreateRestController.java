@@ -36,7 +36,7 @@ public class ApplicationCreateRestController {
     @GetMapping( "/select/user" )
     public String saveUser() {
         //roles list start
-        String[] roles = {"ADMIN","Applicant"};
+        String[] roles = {"ADMIN","Applicant","Director","OIC","Clerk"};
         for ( String s : roles ) {
             Role role = new Role();
             role.setRoleName(s);
@@ -56,6 +56,7 @@ public class ApplicationCreateRestController {
         employee.setDateOfBirth(LocalDate.now().minusYears(18));
         employee.setDateOfAssignment(LocalDate.now());
         Employee employeeDb = employeeService.persist(employee);
+
 
 
         //admin user one

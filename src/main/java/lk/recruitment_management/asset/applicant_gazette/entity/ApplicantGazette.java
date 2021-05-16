@@ -5,7 +5,7 @@ import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplyingRank;
 import lk.recruitment_management.asset.applicant_gazette_interview.entity.ApplicantGazetteInterview;
-import lk.recruitment_management.asset.applicant_sis_crd_cid_result.entity.ApplicantSisCrdCid;
+import lk.recruitment_management.asset.applicant_gazette_sis_crd_cid_result.entity.ApplicantGazetteSisCrdCid;
 import lk.recruitment_management.asset.gazette.entity.Gazette;
 import lk.recruitment_management.util.audit.AuditEntity;
 import lombok.AllArgsConstructor;
@@ -43,7 +43,7 @@ public class ApplicantGazette extends AuditEntity {
   private List< ApplicantGazetteInterview > applicantGazetteInterviews;
 
   @OneToMany( mappedBy = "applicantGazette" )
-  private List< ApplicantSisCrdCid > applicantSisCrdCids;
+  private List< ApplicantGazetteSisCrdCid > applicantGazetteSisCrdCids;
 
 
 }
