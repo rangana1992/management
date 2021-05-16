@@ -148,26 +148,6 @@
         return html;
     }
 
-    // function interviewBoard(obj) {
-    //     let selectedFiledId = obj.getAttribute('id');
-    //     let interviewBoard = {};
-    //     interviewBoard.value = $(`#${selectedFiledId}`).val();
-    //     interviewBoard.name = $(`#${selectedFiledId} option:selected`).html();
-    //     console.log(interviewBoard)
-    //
-    //     if (!interviewBoards.includes(interviewBoard)) {
-    //         console.log(" in the array " + $(`#${selectedFiledId}`).val())
-    //         interviewBoards = interviewBoards.filter(function (obj) {
-    //             return obj.value !== $(`#${selectedFiledId}`).val();
-    //         })
-    //         console.log(" after remove size "+ interviewBoards.length)
-    //     } else {
-    //         console.log(" befire not in array" + interviewBoards.length )
-    //         interviewBoards.push(interviewBoard);
-    //         console.log("after add remove size "+ interviewBoards.length)
-    //     }
-    // }
-
     $("#newSchedule").bind("click", function () {
         let rowLength = $('#interviewSchedule tbody > tr').length;
         let optionTag = optionTagCreate();
