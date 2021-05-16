@@ -310,6 +310,8 @@ public class ApplicantController {
                                                                     .dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
                                                                 dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
         , twoDate.getApplicantGazetteStatus(), twoDate.getApplyingRank()).forEach(x->applicants.add(x.getApplicant()));
+
+    System.out.println("applicant cointu ");
     return commonApplicant(model,applicants);
   }
 }
