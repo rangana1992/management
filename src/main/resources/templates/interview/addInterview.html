@@ -21,22 +21,6 @@
           <div class="row" >
             <div class="col-md-12" >
               <div class="row" >
-                <!--                                <div class="col-md-3">-->
-                <!--                                    <div class="card">-->
-                <!--                                        <div class="card-body">-->
-                <!--                                            <h4>First sud Header</h4>-->
-                <!--                                            <form role="form">-->
-
-                <!--                                                <span id="formHeader"-->
-                <!--                                                      data-th-text="${addStatus==false?'New Interview':'Update Interview'}"></span>-->
-                <!--                                                <a href="/interview" class="btn btn-primary">-->
-                <!--                                                    <i class="fa fa-list"></i>&nbsp; View List-->
-                <!--                                                </a>-->
-
-                <!--                                            </form>-->
-                <!--                                        </div>-->
-                <!--                                    </div>-->
-                <!--                                </div>-->
                 <div class="col-md-12" >
                   <div class="card" >
                     <div class="card-body" >
@@ -121,13 +105,14 @@
                                 Interview Parameters </label ></th >
                             <td >
                               <select class="form-control" data-th-field="*{interviewParameters}" required multiple
-                                      row="6" >
+                                      row="15" >
                                 <option data-th-each="interviewParameter : ${interviewParameters}"
-                                        data-th-text="${interviewParameter.name+' Max Value : '+interviewParameter.max}"
+                                        data-th-text="${interviewParameter.name+' Max Value : '+interviewParameter.min}"
                                         data-th-value="${interviewParameter.id}" >
 
                                 </option >
-                              </select ></td >
+                              </select >
+                              <sup>* Multiple select can with shift key</sup></td >
                           </tr >
 
                           <tr >
