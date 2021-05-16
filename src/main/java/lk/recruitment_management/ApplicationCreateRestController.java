@@ -58,6 +58,7 @@ public class ApplicationCreateRestController {
         Employee employeeDb = employeeService.persist(employee);
 
 
+
         //admin user one
         User user = new User();
         user.setEmployee(employeeDb);

@@ -48,7 +48,7 @@
                                                 <tbody>
                                                 <tr th:each="gramaNiladhari, rowCount : ${gramaNiladharis}" scope="row">
                                                     <th th:text="${rowCount.count}"></th>
-                                                    <th th:text="${gramaNiladhari.policeStation.agOffice.district.province.province}"></th>
+                                                    <th th:text="${gramaNiladhari.policeStation.agOffice.district.province}"></th>
                                                     <th th:text="${gramaNiladhari.name}"></th>
 
                                                     <th><a class="btn btn-success btn-sm" th:href="${'/gramaNiladhari/' + gramaNiladhari.id}" id="gramaNiladhariView"><i
