@@ -11,12 +11,13 @@ import lk.recruitment_management.asset.interview.service.InterviewService;
 import lk.recruitment_management.util.service.DateTimeAgeService;
 import lk.recruitment_management.util.service.FileHandelService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletContext;
 
 @Controller
-@RequestMapping("/report")
+@RequestMapping( "/report" )
 public class ReportController {
   private final ApplicantService applicantService;
   private final FileHandelService fileHandelService;
@@ -30,7 +31,13 @@ public class ReportController {
   private final DateTimeAgeService dateTimeAgeService;
   private final ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService;
 
-  public ReportController(ApplicantService applicantService, FileHandelService fileHandelService, ServletContext context, ApplicantGazetteSisCrdCidService applicantGazetteSisCrdCidService, InterviewService interviewService, ApplicantGazetteInterviewService applicantGazetteInterviewService, GazetteService gazetteService, ApplicantGazetteService applicantGazetteService, ApplicantFilesService applicantFilesService, DateTimeAgeService dateTimeAgeService, ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService) {
+  public ReportController(ApplicantService applicantService, FileHandelService fileHandelService,
+                          ServletContext context, ApplicantGazetteSisCrdCidService applicantGazetteSisCrdCidService,
+                          InterviewService interviewService,
+                          ApplicantGazetteInterviewService applicantGazetteInterviewService,
+                          GazetteService gazetteService, ApplicantGazetteService applicantGazetteService,
+                          ApplicantFilesService applicantFilesService, DateTimeAgeService dateTimeAgeService,
+                          ApplicantGazetteInterviewResultService applicantGazetteInterviewResultService) {
     this.applicantService = applicantService;
     this.fileHandelService = fileHandelService;
     this.context = context;
@@ -42,6 +49,11 @@ public class ReportController {
     this.applicantFilesService = applicantFilesService;
     this.dateTimeAgeService = dateTimeAgeService;
     this.applicantGazetteInterviewResultService = applicantGazetteInterviewResultService;
+  }
+
+  @GetMapping( "/gazette" )
+  public String accordingToGazette() {
+    return "report/gazetteReport";
   }
 
 
