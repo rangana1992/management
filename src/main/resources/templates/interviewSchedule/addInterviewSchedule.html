@@ -20,9 +20,9 @@
                     <form role="form" >
                       <div align="right" >
 
-                        <a class="btn btn-success"  th:href="${'/employee/add'}" >
+                        <a class="btn btn-success" th:href="${'/employee/add'}" >
                           <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Add Applicant </a >
-                        <a class="btn btn-info"  th:href="${'/home'}" >
+                        <a class="btn btn-info" th:href="${'/home'}" >
                           <i class="far fa-building" style="font-size: 18px;" ></i > &nbsp; Back to Home </a >
                       </div >
                     </form >
@@ -32,79 +32,80 @@
 
             </div >
           </div >
-        </div>
+        </div >
         <div class="container-fluid" >
           <div class="row" >
             <div class="col-md-12" >
-            <div class="card" >
-              <div class="card-header" ><h4 >Interview Schedule</h4 ></div >
-              <div class="card-body" >
-                <form action="/interviewSchedule" method="post" >
+              <div class="card" >
+                <div class="card-header" ><h4 >Interview Schedule</h4 ></div >
+                <div class="card-body" >
+                  <form action="/interviewSchedule" method="post" >
+                    <input type="hidden" data-th-value="${gazette.id}" name="id" >
+                    <h5 ></h5 >
 
-                  <h5> </h5>
-
-                    <table class="table">
-                      <tr>
-                        <th>
+                    <table class="table" >
+                      <tr >
+                        <th >
                           Total Applicant Count
-                        </th>
-                        <td>
-                          <input type="text" readonly  data-th-value="${totalApplicantCount}"
-                                                                     id="totalApplicantCount">
-                        </td>
-                        <th>Interview Number =</th>
-                        <td><select class="form-control" name="interviewNumber">
-                          <option value="">Please select</option>
+                        </th >
+                        <td >
+                          <input type="text" class="form-control" readonly data-th-value="${totalApplicantCount}"
+                                 id="totalApplicantCount" >
+                        </td >
+                        <th >Interview Number =</th >
+                        <td ><select class="form-control" name="interviewNumber" >
+                          <option value="" >Please select</option >
                           <option data-th-each="interviewBoardNumber : ${interviewBoardNumbers}"
                                   data-th-value="${interviewBoardNumber}"
-                                  data-th-text="${interviewBoardNumber.applicantGazetteStatus}"></option>
-                        </select></td>
-                      </tr>
-                    </table>
+                                  data-th-text="${interviewBoardNumber.applicantGazetteStatus}" ></option >
+                        </select ></td >
+                      </tr >
+                    </table >
 
-                  <table class="table table-responsive" id="interviewSchedule" >
-                    <thead class="thead-inverse" >
-                    <tr >
-                      <th >Date</th >
-                      <th >Interview Board Name</th >
-                      <th >Applicant Count</th >
-                      <th >Remaining Count</th >
-                      <th >Modify</th >
-                    </tr >
-                    </thead >
-                    <tbody >
-                    <tr >
-                      <td ><input type="date" class="form-control" name="interviewScheduleLists[0].date" ></td >
-                      <td >
-                        <select class="form-control" name="interviewScheduleLists[0].interviewBoardId" >
-                          <option value="" >Please select</option >
-                          <option data-th-each="interviewBoardOne : ${interviewBoard}"
-                                  data-th-value="${interviewBoardOne.id}"
-                                  data-th-text="${interviewBoardOne.name}" ></option >
-                        </select >
-                      </td >
-                      <td ><input type="number" id="co0" onkeyup="countFind(this)" class="form-control count"
-                                  name="interviewScheduleLists[0].count" ></td >
-                      <td ><input type="text" class="form-control" id="rm0" value="" readonly ></td >
-                      <td ><textarea id="me0" class="form-control"
-                                     name="interviewScheduleLists[0].message" cols="50" rows="2" ></textarea ></td >
-                      <td >
-                        <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger" >Remove
-                        </button >
-                      </td >
-                    </tr >
-                    </tbody >
-                  </table >
-                  <div style="text-align: right" >
-                    <button class="btn btn-info " type="button" id="newSchedule" >New Schedule</button >
-                    <button class="btn btn-warning "
-                            type="reset" >
-                      Clear
-                    </button >
-                    <button class="btn btn-success" type="submit" ><span data-th-text="${'Save'}" ></span >
-                    </button >
-                  </div >
-                </form >
+                    <table class="table table-responsive" id="interviewSchedule" >
+                      <thead class="thead-inverse" >
+                      <tr >
+                        <th >Date</th >
+                        <th >Interview Board Name</th >
+                        <th >Applicant Count</th >
+                        <th >Remaining Count</th >
+                        <th >Message</th >
+                        <th >Modify</th >
+                      </tr >
+                      </thead >
+                      <tbody >
+                      <tr >
+                        <td ><input type="date" class="form-control" name="interviewScheduleLists[0].date" ></td >
+                        <td >
+                          <select class="form-control" name="interviewScheduleLists[0].interviewBoardId" id="ib0"
+                                  >
+                            <option value="" >Please select</option >
+
+                          </select >
+                        </td >
+                        <td ><input type="number" id="co0" onkeyup="countFind(this)" class="form-control count"
+                                    name="interviewScheduleLists[0].count" ></td >
+                        <td ><input type="text" class="form-control" id="rm0" value="" readonly ></td >
+                        <td ><textarea id="me0" class="form-control"
+                                       name="interviewScheduleLists[0].message" cols="50" rows="2" ></textarea ></td >
+                        <td >
+                          <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger" >Remove
+                          </button >
+                        </td >
+                      </tr >
+                      </tbody >
+                    </table >
+                    <div style="text-align: right" >
+                      <button class="btn btn-info " type="button" id="newSchedule" >New Schedule</button >
+                      <button class="btn btn-warning "
+                              type="reset" >
+                        Clear
+                      </button >
+                      <button class="btn btn-success" type="submit" ><span data-th-text="${'Save'}" ></span >
+                      </button >
+                    </div >
+                  </form >
+                </div >
               </div >
             </div >
           </div >
@@ -113,28 +114,49 @@
     </div >
   </div >
 </div >
-
-
+<select name="" id="interviewBoard" >
+  <option data-th-each="interviewBoardOne : ${interviewBoard}"
+          data-th-value="${interviewBoardOne.id}"
+          data-th-text="${interviewBoardOne.name}" ></option >
+</select >
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div >
 <div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div >
 
 <script >
+    let interviewBoards = new Array();
     $(document).ready(function () {
         $('[type="date"]').prop('min', function () {
             return new Date().toJSON().split('T')[0];
         });
+        $("#interviewBoard option").each(function () {
+            let interviewBoard = {};
+            interviewBoard.value = $(this).val();
+            interviewBoard.name = $(this).html();
+            interviewBoards.push(interviewBoard);
+        });
+
+        $("#ib0").append(optionTagCreate());
     })
+
+    function optionTagCreate() {
+        let html = ``;
+        interviewBoards.forEach((x) => {
+            html += `<option value="${x.value}"> ${x.name}</option>`;
+        });
+        return html;
+    }
 
     $("#newSchedule").bind("click", function () {
         let rowLength = $('#interviewSchedule tbody > tr').length;
+        let optionTag = optionTagCreate();
         let html = `<tr>
-           <td scope="row"><input type="date" class="form-control" name="interviewScheduleLists[${rowLength}].date"></td>
+           <td ><input type="date" class="form-control" name="interviewScheduleLists[${rowLength}].date"></td>
            <td>
-           <select class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId">
+           <select class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId" id="ib${rowLength}" >
             <option value="" >Please select</option >
-            <option data-th-each="interviewBoardOne : ${'${interviewBoard}" data-th-value="${interviewBoardOne.id}"  data-th-text="${interviewBoardOne.name}"'}></option >
+            ${optionTag}
           </select >
            </td>
            <td><input type="text" id="co${rowLength}" onkeyup="countFind(this)" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
@@ -154,16 +176,14 @@
         let totalCount = 0;
         let countArray = document.getElementsByClassName("count");
         for (let i = 0; i < countArray.length; i++) {
-            // console.log(countArray[i].value + " sdsdasdsada")
             totalCount += parseInt(countArray[i].value)
         }
 
-        console.log(totalCount)
         let remainCount = parseInt(document.getElementById("totalApplicantCount").innerHTML) - totalCount;
 
-        console.log(remainCount)
         if (remainCount >= 0) {
             $(`#rm${selectedFiledId}`).val(remainCount);
+            $("#newSchedule").show();
         } else {
             swal({
                 title: "Please count again",
@@ -171,6 +191,7 @@
                 text: "There is no more applicant to create new interview ",
             });
             $(`#rm${selectedFiledId}`).val(0);
+            $("#newSchedule").hide();
         }
     }
 </script >
