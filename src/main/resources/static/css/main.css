@@ -182,6 +182,7 @@ iframe {
   flex-wrap: wrap;
   align-items: stretch;
   flex-wrap: wrap;
+
 }
 
 
@@ -222,6 +223,8 @@ iframe {
   background: linear-gradient(bottom, #e8519e, #c77ff2);
   background-image: url("../img/9.jpg");
   background-repeat: no-repeat;
+  background-size: cover;
+
   opacity: 0.5;
 }
 
@@ -237,6 +240,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
 }
 
 .login100-form-title {
@@ -528,6 +532,7 @@ iframe {
   .wrap-login100 {
     padding-left: 15px;
     padding-right: 15px;
+
   }
 }
 

@@ -51,10 +51,10 @@
 
 
           <tr>
-            <th><label class="control-label" for="name" >Name :</label ></th>
+            <th><label class="control-label" for="name1" >Name :</label ></th>
 
             <td>
-              <input class="form-control" data-th-field="*{name}" id="name" required tabindex="4"
+              <input class="form-control" data-th-field="*{name}" id="name1" required tabindex="4"
                      type="text" />
               <span class="error" data-th-errors="*{name}"
                     data-th-if="${#fields.hasErrors('name')}" id="nameError" >Error Name</span >
@@ -117,7 +117,7 @@
                     data-th-text="${addStatus==true?'Save': 'Update'}"
                     id="submit" ></span >
             </button >
-              <button class="btn btn-danger" tabindex="21" type="clear" >
+              <button class="btn btn-danger" tabindex="21" type="reset" >
                 <i class="fa fa-save " style="font-size: 20px" ></i >&nbsp; &nbsp;<span
                       data-th-text="${addStatus==true?'Clear': 'Reset'}"
                       id="submit" ></span >
