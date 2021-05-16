@@ -50,6 +50,7 @@ let nicRegex = /^([0-9]{9}[vV|xX])|^([0-9]{12})$/;
 let mobileRegex = /^([0][7][\d]{8}$)|^([7][\d]{8})$/;
 let landRegex = /^0((11)|(2(1|[3-7]))|(3[1-8])|(4(1|5|7))|(5(1|2|4|5|7))|(6(3|[5-7]))|([8-9]1))([2-4]|5|7|9)[0-9]{6}$/;
 let nameRegex = /^[a-zA-Z .-]{5}[ a-zA-Z.-]+$/;
+let nameRegex1 = /^[a-zA-Z .-]{2}[ a-zA-Z.-]+$/;
 let lastNameRegex = /^[a-zA-Z .-]{1}[ a-zA-Z.-]+$/;
 let numberRegex = /^([eE][hH][sS][\d]+)$/;
 let invoiceNumberRegex = /^[0-9]{10}$/;
@@ -275,6 +276,18 @@ $("#nic").bind("keyup", function () {
 $("#name").bind("keyup", function () {
     let name = $(this).val();
     if (nameRegex.test(name)) {
+        backgroundColourChangeGood($(this));
+    } else if (name.length === 0) {
+        backgroundColourChangeNothingToChange($(this));
+    } else {
+        backgroundColourChangeBad($(this));
+    }
+});
+
+//Name validation
+$("#name1").bind("keyup", function () {
+    let name = $(this).val();
+    if (nameRegex1.test(name)) {
         backgroundColourChangeGood($(this));
     } else if (name.length === 0) {
         backgroundColourChangeNothingToChange($(this));
