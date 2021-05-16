@@ -53,6 +53,12 @@ public class ReportController {
 
   @GetMapping( "/gazette" )
   public String accordingToGazette() {
+    return commonGazette();
+
+  }
+
+  private String commonGazette() {
+
     return "report/gazetteReport";
   }
 

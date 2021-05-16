@@ -237,7 +237,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     }
   }
 
-  private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD | Font.UNDERLINE);
+  private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD | Font.UNDERLINE);
   private final Font secondaryFont = FontFactory.getFont("Arial", 8, BaseColor.BLACK);
   private final Font tableHeader = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
   private final Font tableHeaderOnly = FontFactory.getFont("Arial", 12, BaseColor.BLACK);
@@ -245,7 +245,9 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   public ByteArrayInputStream createPDF(Integer id, ApplicantGazetteStatus applicantGazetteStatus) throws DocumentException, IOException {
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
-
+    Document document = new Document(PageSize.A4, 20, 20, 20, 20);
+    PdfWriter.getInstance(document, out);
+    document.open();
     for ( ApplicantGazette applicantGazette :
         applicantGazetteService.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus,
                                                                        gazetteService.findById(id)) ) {
@@ -256,9 +258,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       } else {
         interviewName = InterviewName.SECOND;
       }
-      Document document = new Document(PageSize.A4, 20, 20, 20, 20);
-      PdfWriter.getInstance(document, out);
-      document.open();
+
       //page size
       Rectangle page = document.getPageSize();
       // add title to the form
@@ -266,24 +266,24 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 
 
       Paragraph preface = new Paragraph();
-      // We add one empty line
-      addEmptyLine(preface, 1);
       // Lets write a big header
       preface.add(new Paragraph("Sri Lanka Police Department - Recruitment Division", mainHeadingFont));
+      preface.setAlignment(Element.ALIGN_CENTER);
+      addEmptyLine(preface, 2);
       document.add(preface);
-      ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(applicantGazette.getApplicant());
+      //     ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(applicantGazette.getApplicant());
 //      image
-      if ( applicantFiles != null ) {
-
-        if ( applicantFiles.getPic() != null ) {
-          Image image = Image.getInstance(applicantFiles.getPic());
-          //image.scalePercent(25f);
-          //image.scaleAbsoluteWidth(520f);
-          // image.setAbsolutePosition(40f, 725f);
-          image.scaleToFit(100f, 100f);
-          document.add(image);
-        }
-      }
+//      if ( applicantFiles != null ) {
+//
+//        if ( applicantFiles.getPic() != null ) {
+//          Image image = Image.getInstance(applicantFiles.getPic());
+//          //image.scalePercent(25f);
+//          //image.scaleAbsoluteWidth(520f);
+//          // image.setAbsolutePosition(40f, 725f);
+//          image.scaleToFit(100f, 100f);
+//          document.add(image);
+//        }
+//      }
 
       Paragraph header = new Paragraph();
       addEmptyLine(header, 1);
@@ -303,7 +303,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       // personal details
       Paragraph personalDetails = new Paragraph();
       personalDetails.add(new Paragraph("Personal Detail", mainHeadingFont));
-      addEmptyLine(personalDetails, 2);
+      addEmptyLine(personalDetails, 1);
       document.add(personalDetails);
 
       PdfPTable applicantDetailTable = new PdfPTable(4);//column amount
@@ -648,16 +648,57 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 
       interviewParameter(document, interviewName);
       // interviewBoardName(document, applicantGazette);
-      document.close();
-    }
+      PdfPTable interviewBoardMemberOne = new PdfPTable(2);//column amount
+      interviewBoardMemberOne.setWidthPercentage(100);
+      interviewBoardMemberOne.setSpacingBefore(10f);
+      interviewBoardMemberOne.setSpacingAfter(10);
+      interviewBoardMemberOne.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
 
+      PdfPCell codeLine = new PdfPCell(new Paragraph("Signature : __________________ ", tableHeader));
+      pdfCellCommonStyle(codeLine);
+      PdfPCell codeSign = new PdfPCell(new Paragraph("Member Name :  __________________", tableHeader));
+      pdfCellCommonStyle(codeSign);
+      PdfPCell codeSignDate = new PdfPCell(new Paragraph("Date : __________________", tableHeader));
+      pdfCellCommonStyle(codeSignDate);
+      // member detail
+      interviewBoardMemberOne.addCell(codeLine);
+      interviewBoardMemberOne.addCell(codeSign);
+      interviewBoardMemberOne.addCell(codeSignDate);
+      // member detail
+      interviewBoardMemberOne.addCell(codeLine);
+      interviewBoardMemberOne.addCell(codeSign);
+      interviewBoardMemberOne.addCell(codeSignDate);
+      document.add(interviewBoardMemberOne);
+
+      PdfPTable interviewBoardMemberTwo = new PdfPTable(2);//column amount
+      interviewBoardMemberTwo.setWidthPercentage(100);
+      interviewBoardMemberTwo.setSpacingBefore(10f);
+      interviewBoardMemberTwo.setSpacingAfter(10);
+      interviewBoardMemberTwo.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
+      // member detail
+      interviewBoardMemberTwo.addCell(codeLine);
+      interviewBoardMemberTwo.addCell(codeSign);
+      interviewBoardMemberTwo.addCell(codeSignDate);
+      // member detail
+      interviewBoardMemberTwo.addCell(codeLine);
+      interviewBoardMemberTwo.addCell(codeSign);
+      interviewBoardMemberTwo.addCell(codeSignDate);
+      document.add(interviewBoardMemberTwo);
+
+
+      document.newPage();
+    }
+    document.close();
     return new ByteArrayInputStream(out.toByteArray());
   }
 
   private void interviewParameter(Document document, InterviewName interviewName) throws DocumentException {
     //take interview parameter from db and create table
     // index parameterName result max remark
-    PdfPTable firstInterviewTable = new PdfPTable(5);
+    PdfPTable firstInterviewTable = new PdfPTable(6);
+    firstInterviewTable.setWidthPercentage(100);
+    firstInterviewTable.setSpacingBefore(10f);
+    firstInterviewTable.setSpacingAfter(10);
     firstInterviewTable.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin());
 
     List< InterviewParameter > interviewParameters =
@@ -680,6 +721,10 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     pdfCellHeaderCommonStyle(maxCell);
     firstInterviewTable.addCell(maxCell);
 
+    PdfPCell minCell = new PdfPCell(new Phrase("Min ", secondaryFont));
+    pdfCellHeaderCommonStyle(minCell);
+    firstInterviewTable.addCell(minCell);
+
     PdfPCell remarkCell = new PdfPCell(new Phrase("Remark ", secondaryFont));
     pdfCellHeaderCommonStyle(remarkCell);
     firstInterviewTable.addCell(remarkCell);
@@ -701,6 +746,10 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       PdfPCell max = new PdfPCell(new Paragraph(interviewParameters.get(i).getMax(), tableHeader));
       pdfCellBodyCommonStyle(max);
       firstInterviewTable.addCell(max);
+
+      PdfPCell min = new PdfPCell(new Paragraph(interviewParameters.get(i).getMin(), tableHeader));
+      pdfCellBodyCommonStyle(min);
+      firstInterviewTable.addCell(min);
 
       PdfPCell remark = new PdfPCell(new Paragraph(" ", tableHeader));
       pdfCellBodyCommonStyle(remark);
