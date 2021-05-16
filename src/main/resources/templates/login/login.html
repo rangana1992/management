@@ -5,7 +5,7 @@
     <title>Thymeleaf Springboot </title>
 </head>
 
-<body class="loginPrasad-more" >
+<body class="login-more" >
 <style>
     .checkbox-round {
         width: 1.3em;
@@ -16,7 +16,15 @@
         border: 1px solid #ddd;
         -webkit-appearance: none;
         outline: none;
-        cursor: pointer;
+        cursor: pointer;}
+
+    #center{
+        align-items: center !important;
+        align-content: center !important;
+        text-align: center !important;
+        text-align-all: center !important;
+
+
     }
 
     .checkbox-round:checked {
@@ -25,7 +33,8 @@
 </style>
 <div class="limiter">
     <div class="container-login100">
-        <div class="login100-more" style="background-image: url('../img/8.jpg');"></div>
+<!--        <div class="login100-more" style="background-image: url('../img/8.jpg');"></div>-->
+        <div class="login100-more"></div>
 
         <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
             <form class="login100-form validate-form" th:action="${'/login'}" method="post">
@@ -46,25 +55,28 @@
                            required>
                     <span class="focus-input100"></span>
                 </div>
-                <div class="form-group">
-                    <label style="align: center">
-                        <input type="checkbox" class="checkbox-round" name="remember-me"/> Remember me
-                    </label>
-                    <p style="align: center">
-                        <a href="/forgottenPassword">Forgotten Password</a>
-                    </p>
-                </div>
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn "></div>
-                        <button class="login100-form-btn" type="submit">
-                            Login
-                        </button>
+
+                <div id="center">
+                    <div class="form-group ">
+                        <h5>  <label style="align: center">
+                          <input type="checkbox" class="checkbox-round" name="remember-me"/> Remember me
+                        </label></h5>
+
+                        <a href="/forgottenPassword"><h5 style="color: #a028bf">Forgotten Password</h5></a>
+                        
                     </div>
-                </div>
-                <div class="container-fluid ">
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn "></div>
+                            <button class="login100-form-btn" type="submit">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container-fluid ">
                     <span id="errorMessage" th:text="${#request.getParameter('err')}"
                           class="bg-white text-capitalize text-danger text-lg-center"></span>
+                    </div>
                 </div>
 
 
