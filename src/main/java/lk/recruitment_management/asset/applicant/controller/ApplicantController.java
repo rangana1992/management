@@ -297,7 +297,7 @@ public class ApplicantController {
     model.addAttribute("applicants", applicants);
     model.addAttribute("contendHeader", "Applicant Registration");
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatuses", ApplicantGazetteStatus.values());
+    model.addAttribute("applicantGazetteStatuses", ApplicantGazetteStatus.values());
     model.addAttribute("addStatus", true);
     return "applicant/applicant";
   }
