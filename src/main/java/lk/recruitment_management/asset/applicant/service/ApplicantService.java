@@ -9,6 +9,7 @@ import com.itextpdf.text.Font;
 import lk.recruitment_management.asset.applicant.dao.ApplicantDao;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
+import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
 import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
@@ -270,13 +271,19 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       // Lets write a big header
       preface.add(new Paragraph("Sri Lanka Police Department - Recruitment Division", mainHeadingFont));
       document.add(preface);
+      ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(applicantGazette.getApplicant());
 //      image
-      Image image = Image.getInstance(applicantFilesService.findByApplicant(applicantGazette.getApplicant()).getPic());
-      //image.scalePercent(25f);
-      //image.scaleAbsoluteWidth(520f);
-      // image.setAbsolutePosition(40f, 725f);
-      image.scaleToFit(100f, 100f);
-      document.add(image);
+      if ( applicantFiles != null ) {
+
+        if ( applicantFiles.getPic() != null ) {
+          Image image = Image.getInstance(applicantFiles.getPic());
+          //image.scalePercent(25f);
+          //image.scaleAbsoluteWidth(520f);
+          // image.setAbsolutePosition(40f, 725f);
+          image.scaleToFit(100f, 100f);
+          document.add(image);
+        }
+      }
 
       Paragraph header = new Paragraph();
       addEmptyLine(header, 1);
