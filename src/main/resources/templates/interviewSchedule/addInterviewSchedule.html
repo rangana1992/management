@@ -122,7 +122,7 @@
            <td>
            <select class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId">
             <option value="" >Please select</option >
-            <option data-th-each="interviewBordOne : ${'${interviewBoard}" data-th-value="${interviewBordOne.id}"  data-th-text="${interviewBordOne.name}"'}></option >
+            <option data-th-each="interviewBoardOne : ${'${interviewBoard}" data-th-value="${interviewBoardOne.id}"  data-th-text="${interviewBoardOne.name}"'}></option >
           </select >
            </td>
            <td><input type="text" id="co${rowLength}" onkeyup="countFind(this)" class="form-control count" name="interviewScheduleLists[${rowLength}].count"></td>
