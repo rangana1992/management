@@ -112,6 +112,7 @@ public class InterviewScheduleController {
         ApplicantGazetteInterview applicantGazetteInterview = new ApplicantGazetteInterview();
 
         applicantGazetteInterview.setInterviewBoard(interviewBoard);
+        applicantGazette.setApplicantGazetteStatus(ApplicantGazetteStatus.FST);
         ApplicantGazette applicantGazetteDB = applicantGazetteService.persist(applicantGazette);
         //save  applicant and set to applicant interview
         applicantGazetteInterview.setApplicantGazette(applicantGazetteDB);

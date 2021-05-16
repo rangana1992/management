@@ -149,10 +149,12 @@
     }
 
     $("#newSchedule").bind("click", function () {
-        let rowLength = $('#interviewSchedule tbody > tr').length;
-        let optionTag = optionTagCreate();
-        let html = `<tr>
-           <td ><input type="date" class="form-control" name="interviewScheduleLists[${rowLength}].date"></td>
+      let rowLength = $('#interviewSchedule tbody > tr').length;
+      let optionTag = optionTagCreate();
+      let minDate =  new Date().toJSON().split('T')[0];
+
+      let html = `<tr>
+           <td ><input type="date" class="form-control" name="interviewScheduleLists[${rowLength}].date" min="${minDate}"></td>
            <td>
            <select class="form-control" name="interviewScheduleLists[${rowLength}].interviewBoardId" id="ib${rowLength}" >
             <option value="" >Please select</option >
@@ -164,7 +166,7 @@
            <td><textarea class="form-control "  cols="10" rows="5"  id="me${rowLength}" name="interviewScheduleLists[${rowLength}].message"></textarea></td>
            <td> <button type="button" onclick="removeScheduleInterview(this)" class="btn btn-danger">Remove</button></td>
           </tr>`
-        $('#interviewSchedule > tbody:last-child').append(html);
+      $('#interviewSchedule > tbody:last-child').append(html);
     });
 
     function removeScheduleInterview(obj) {
@@ -172,26 +174,35 @@
     }
 
     function countFind(obj) {
-        let selectedFiledId = obj.getAttribute('id').slice(2);
+      let idOnly = obj.getAttribute('id');
+      let selectedFiledId = idOnly.slice(2);
         let totalCount = 0;
         let countArray = document.getElementsByClassName("count");
         for (let i = 0; i < countArray.length; i++) {
-            totalCount += parseInt(countArray[i].value)
+          if (countArray[i].value){
+            totalCount += parseInt(countArray[i].value);
+          }
         }
+      console.log("total count "+totalCount)
+        let remainCount = parseInt(document.getElementById("totalApplicantCount").value) - totalCount;
+      console.log("remain count "+remainCount)
 
-        let remainCount = parseInt(document.getElementById("totalApplicantCount").innerHTML) - totalCount;
+      $(`#rm${selectedFiledId}`).val(remainCount);
 
-        if (remainCount >= 0) {
-            $(`#rm${selectedFiledId}`).val(remainCount);
-            $("#newSchedule").show();
-        } else {
+      if (remainCount ===0){
+        $("#newSchedule").hide();
+      }else {
+        $("#newSchedule").show();
+      }
+        if (remainCount < 0) {
             swal({
                 title: "Please count again",
                 icon: "warning",
                 text: "There is no more applicant to create new interview ",
             });
-            $(`#rm${selectedFiledId}`).val(0);
-            $("#newSchedule").hide();
+          $(`#rm${selectedFiledId}`).val(0);
+          $(`#${idOnly}`).val(0);
+          $("#newSchedule").hide();
         }
     }
 </script >

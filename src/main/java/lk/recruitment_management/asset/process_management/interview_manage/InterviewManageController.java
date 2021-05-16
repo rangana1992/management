@@ -180,7 +180,7 @@ public class InterviewManageController {
         .fromMethodName(InterviewManageController.class, "pdfPrint", id, ApplicantGazetteStatus.FST)
         .toUriString());
     model.addAttribute("redirectUrl", MvcUriComponentsBuilder
-        .fromMethodName(InterviewManageController.class, "firstInterview", id)
+        .fromMethodName(InterviewManageController.class, "firstInterview/"+id,"")
         .toUriString());
     return "print/pdfSilentPrint";
   }
