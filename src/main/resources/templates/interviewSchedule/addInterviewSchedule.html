@@ -2,12 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head th:replace="~{fragments/headerSection :: headerSectionFragment}" ></head >
 <body class="hold-transition sidebar-mini layout-fixed" >
+
 <div class="wrapper" ><!-- wrapper start -->
   <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}" ></nav ><!-- navbar Section -->
   <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}" ></aside ><!-- navbar Section -->
   <div class="content-wrapper" ><!-- content-wrapper Start -->
     <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}" ></section >
-    <div ><br /><br /></div >
+    <div ><br /></div >
     <div class="content-header" >
       <div class="container-fluid" >
         <div class="row" >
@@ -31,27 +32,36 @@
 
             </div >
           </div >
-          <div class="container-fluid" >
+        </div>
+        <div class="container-fluid" >
+          <div class="row" >
+            <div class="col-md-12" >
             <div class="card" >
               <div class="card-header" ><h4 >Interview Schedule</h4 ></div >
               <div class="card-body" >
                 <form action="/interviewSchedule" method="post" >
-                  <div class="container" >
-                    <div class="com-6" >
-                      Total Applicant Count = <span data-th-text="${totalApplicantCount}"
-                                                    id="totalApplicantCount" ></span >
-                    </div >
-                    <div class="com-6" >
-                      <div class="form-row" >Interview Number =
-                        <select class="form-control" name="interviewNumber" >
-                          <option value="" >Please select</option >
+
+                  <h5> </h5>
+
+                    <table class="table">
+                      <tr>
+                        <th>
+                          Total Applicant Count
+                        </th>
+                        <td>
+                          <input type="text" readonly  data-th-value="${totalApplicantCount}"
+                                                                     id="totalApplicantCount">
+                        </td>
+                        <th>Interview Number =</th>
+                        <td><select class="form-control" name="interviewNumber">
+                          <option value="">Please select</option>
                           <option data-th-each="interviewBoardNumber : ${interviewBoardNumbers}"
                                   data-th-value="${interviewBoardNumber}"
-                                  data-th-text="${interviewBoardNumber.applicantGazetteStatus}" ></option >
-                        </select >
-                      </div >
-                    </div >
-                  </div >
+                                  data-th-text="${interviewBoardNumber.applicantGazetteStatus}"></option>
+                        </select></td>
+                      </tr>
+                    </table>
+
                   <table class="table table-responsive" id="interviewSchedule" >
                     <thead class="thead-inverse" >
                     <tr >
@@ -103,6 +113,8 @@
     </div >
   </div >
 </div >
+
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div >
