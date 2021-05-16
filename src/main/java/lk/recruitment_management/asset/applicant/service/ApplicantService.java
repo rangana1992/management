@@ -237,7 +237,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     }
   }
 
-  private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD | Font.UNDERLINE);
+  private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD | Font.UNDERLINE);
   private final Font secondaryFont = FontFactory.getFont("Arial", 8, BaseColor.BLACK);
   private final Font tableHeader = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
   private final Font tableHeaderOnly = FontFactory.getFont("Arial", 12, BaseColor.BLACK);
@@ -271,19 +271,19 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       // Lets write a big header
       preface.add(new Paragraph("Sri Lanka Police Department - Recruitment Division", mainHeadingFont));
       document.add(preface);
-      ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(applicantGazette.getApplicant());
+      //     ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(applicantGazette.getApplicant());
 //      image
-      if ( applicantFiles != null ) {
-
-        if ( applicantFiles.getPic() != null ) {
-          Image image = Image.getInstance(applicantFiles.getPic());
-          //image.scalePercent(25f);
-          //image.scaleAbsoluteWidth(520f);
-          // image.setAbsolutePosition(40f, 725f);
-          image.scaleToFit(100f, 100f);
-          document.add(image);
-        }
-      }
+//      if ( applicantFiles != null ) {
+//
+//        if ( applicantFiles.getPic() != null ) {
+//          Image image = Image.getInstance(applicantFiles.getPic());
+//          //image.scalePercent(25f);
+//          //image.scaleAbsoluteWidth(520f);
+//          // image.setAbsolutePosition(40f, 725f);
+//          image.scaleToFit(100f, 100f);
+//          document.add(image);
+//        }
+//      }
 
       Paragraph header = new Paragraph();
       addEmptyLine(header, 1);
@@ -303,7 +303,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       // personal details
       Paragraph personalDetails = new Paragraph();
       personalDetails.add(new Paragraph("Personal Detail", mainHeadingFont));
-      addEmptyLine(personalDetails, 2);
+      addEmptyLine(personalDetails, 1);
       document.add(personalDetails);
 
       PdfPTable applicantDetailTable = new PdfPTable(4);//column amount
