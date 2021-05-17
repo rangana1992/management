@@ -663,3 +663,71 @@ function confirmDelete(obj) {
         }
     });
 }
+
+
+//genaral duplicate number catch on same page
+$(".mobile").keyup(function () {
+    if (mobileRegex.test($(this).val())) {
+        mobileValid($(this).val());
+    }
+});
+
+function mobileValid(val) {
+    let mobileNumber = [];
+    let mobileValues = document.getElementsByClassName('mobile');
+    for (let i = 0; i < mobileValues.length; i++) {
+        if (mobileRegex.test(mobileValues[i].value)) {
+            mobileNumber.push(mobileValues[i].value);
+        }
+    }
+    var count = 0;
+    if (mobileValues.length > 2 && mobileNumber.includes(val)) {
+        for (let i = 0; i < mobileNumber.length; i++) {
+            let mobileTrue = mobileNumber[i] === val;
+            if (mobileTrue) {
+                count = count + 1;
+            }
+        }
+    }
+    if (count >= 2) {
+        $(".mobile").addClass("bg-warning");
+    } else {
+        console.log("remove class")
+        $(".mobile").removeClass("bg-warning");
+
+    }
+    count = 0;
+}
+
+$(".land").keyup(function () {
+    if (landRegex.test($(this).val())) {
+        landValid($(this).val());
+    }
+});
+
+function landValid(val) {
+    let landNumber = [];
+    let landValues = document.getElementsByClassName('land');
+    for (let i = 0; i < landValues.length; i++) {
+        if (landRegex.test(landValues[i].value)) {
+            landNumber.push(landValues[i].value);
+        }
+    }
+    let count = 0;
+    if (landValues.length > 2 && landNumber.includes(val)) {
+        for (let i = 0; i < landNumber.length; i++) {
+            let landTrue = landNumber[i] === val;
+            if (landTrue) {
+                count = count + 1;
+            }
+        }
+    }
+    if (count >= 2) {
+        $(".land").addClass("bg-warning");
+    } else {
+        console.log("remove class")
+        $(".land").removeClass("bg-warning");
+
+    }
+    count = 0;
+}

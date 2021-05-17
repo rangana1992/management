@@ -2072,28 +2072,30 @@
         document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
 
     }
-//todo -> need to validate mobile number add applivant and edit applicant
+
+
     let mobileNumber = [];
-    $(".mobile").keyup(() => {
-        $(".mobile").each(function () {
-            if (mobileNumber.length > 0) {
-                for (let mobileNumberElement of mobileNumber) {
-                    let mobile = $(this).val();
-                    console.log(" moile "+ mobileNumber.includes(mobile))
-                    if (mobileNumber.includes(mobile)) {
-                        $(".mobile").addClass('bg-danger');
-                        break;
-                    }else {
-                        mobileNumber.push(mobile);
-                    }
-                }
-            } else {
-                mobileNumber.push($(this).val())
-            }
-        });
+
+
+    $(".mobile").keyup(function () {
+        if (mobileRegex.test($(this).val())) {
+            mobileValid($(this).val());
+        }
     });
 
+    function mobileValid(val) {
+        console.log(val + " value")
+        let mobileValues = document.getElementsByClassName('mobile');
+        for (let i = 0; i < mobileValues.length; i++) {
+            if (mobileRegex.test(mobileValues[i].value)) {
+                mobileNumber.push(mobileValues[i].value);
+            }
+        }
+        if (mobileValues.length > 2 && mobileValues.includes(val)) {
+            $(".mobile").addClass("bg-warning");
+        }
 
+    }
 
 </script >
 </body >

@@ -52,7 +52,7 @@
 
                             <label class="control-label" for="code" >Code :</label >
                             <input class="form-control" id="id" readonly data-th-field="*{id}"
-                                   type="text" hidden/>
+                                   type="text" hidden />
                             <input class="form-control" id="code" readonly data-th-field="*{code}"
                                    type="text" />
 
@@ -193,7 +193,7 @@
                           <div class="form-group" >
                             <label class="control-label" for="land" >Land No
                                                                      :</label >
-                            <input class="form-control" id="land" type="text"
+                            <input class="form-control land" id="land" type="text"
                                    minlength="9" maxlength="10" tabindex="5" data-th-field="*{land}"
                             />
                             <span class="error" id="landError"
@@ -215,7 +215,7 @@
                           </div >
                         </div >
                         <!--Gramaniladari find-->
-                        <div class="form-row mb-2 col-md-12">
+                        <div class="form-row mb-2 col-md-12" >
                           <!--Height-->
                           <div class="col-4" >
 
@@ -249,7 +249,7 @@
                                    data-th-field="*{chest}" type="number" min="0" />
                             <span ><i ><small >(Chest must be 34cm(Male) & 36cm(Female))</small ></i ></span >
                           </div >
-                        </div>
+                        </div >
                         <div class="form-row mb-2 col-md-12" >
                           <!--Province-->
                           <div class=" col-md-2" >
@@ -590,23 +590,27 @@
                         <div class="container-fluid" >
                           <h3 >No Relatives</h3 >
                         </div ><!--non relative one-->
-                        <div class="form-group col-md-6 col-sm-6 text-left flex-column" data-th-each="applicantNonRelative, index : ${applicant.applicantNonRelatives}" >
+                        <div class="form-group col-md-6 col-sm-6 text-left flex-column"
+                             data-th-each="applicantNonRelative, index : ${applicant.applicantNonRelatives}" >
                           <!-- Name-->
                           <div class="form-group" >
                             <label class="control-label" >Name :</label >
                             <input class="form-control"
                                    data-th-value="${applicantNonRelative.id}"
-                                   data-th-name="${'applicantNonRelatives[__${index.index}__].id'}" type="text" required hidden/>
+                                   data-th-name="${'applicantNonRelatives[__${index.index}__].id'}" type="text" required
+                                   hidden />
                             <input class="form-control"
                                    data-th-value="${applicantNonRelative.name}"
-                                   data-th-name="${'applicantNonRelatives[__${index.index}__].name'}" type="text" required/>
+                                   data-th-name="${'applicantNonRelatives[__${index.index}__].name'}" type="text"
+                                   required />
                           </div >
                           <!--Address-->
                           <div class="form-group" >
                             <label class="control-label" for="address" >Address :</label >
                             <textarea class="form-control text-black"
                                       data-th-utext="${applicantNonRelative.address}"
-                                      data-th-name="${'applicantNonRelatives[__${index.index}__].address'}" rows="4" required>
+                                      data-th-name="${'applicantNonRelatives[__${index.index}__].address'}" rows="4"
+                                      required >
                             </textarea >
                           </div >
                           <!--Mobile Number-->
@@ -1116,27 +1120,6 @@
         document.getElementById("degreeTable").deleteRow(obj.parentNode.parentNode.rowIndex);
 
     }
-    //todo -> need to validate mobile number add applivant and edit applicant
-    let mobileNumber = [];
-    $(".mobile").keyup(() => {
-        $(".mobile").each(function () {
-            if (mobileNumber.length > 0) {
-                for (let mobileNumberElement of mobileNumber) {
-                    let mobile = $(this).val();
-                    console.log(" moile "+ mobileNumber.includes(mobile))
-                    if (mobileNumber.includes(mobile)) {
-                        $(".mobile").addClass('bg-danger');
-                        break;
-                    }else {
-                        mobileNumber.push(mobile);
-                    }
-                }
-            } else {
-                mobileNumber.push($(this).val())
-            }
-        });
-    });
-
 
 
 </script >
