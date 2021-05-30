@@ -1,12 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
-
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
-
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper"><!-- wrapper start -->
@@ -14,13 +10,39 @@
   <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
   <div class="content-wrapper"><!-- content-wrapper Start -->
     <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
-    <!-- Form Header  Path -->
+    <!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
     <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
 
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/interviewManage/manage'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Interview Printing Docs </a>
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header" ><h4 data-th-text="${headerTitle}" ></h4>
+                </div>
 
+                  <div class="card-body">
+
+<!-- Bootstrap CSS -->
 
 <div class="container-fluid form-row" >
-  <div class="col" ><span data-th-text="${headerTitle}" ></span ></div >
   <div class="col"  data-th-if="${uriExcel!=null}">
     <a data-th-href="${'/interviewManage/'+uriExcel}" >
       <button type="button" class="btn btn-info" data-th-text="${btnTextExcel}" >      </button >
@@ -38,12 +60,9 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <strong><span data-th-text="${message}"></span></strong> 
+    <strong><span data-th-text="${message}"></span></strong>
   </div>
-  
-  <script>
-    $(".alert").alert();
-  </script>
+  <div class="row">&nbsp;</div>
 
 </div>
 
@@ -84,24 +103,34 @@
 </div>
 
   </div>
-  <!-- content-wrapper end -->
-  <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
-<!-- wrapper end -->
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- content-wrapper end -->
+<div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
 <div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
 <script>
-function resultEnter(obj){
-  swal({
-  content: {
-    element: "input",
-    attributes: {
-      placeholder: "Type your password",
-      type: "date",
-    },
-  },
-}).then((x) => {
-        if (x) {          
-            self.location = location.protocol + "/" + location.host +'/'+ obj.getAttribute('id')+'/'+x;
-        }
+  function resultEnter(obj){
+    swal({
+      content: {
+        element: "input",
+        attributes: {
+          placeholder: "Type your password",
+          type: "date",
+        },
+      },
+    }).then((x) => {
+      if (x) {
+        self.location = location.protocol + "/" + location.host +'/'+ obj.getAttribute('id')+'/'+x;
+      }
     });
   }
 </script>

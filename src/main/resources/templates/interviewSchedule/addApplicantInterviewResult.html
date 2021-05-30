@@ -1,16 +1,41 @@
 <!doctype html>
-<html lang="en" >
-<head >
-  <title >Title</title >
-  <!-- Required meta tags -->
-  <meta charset="utf-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/headerSection :: headerSectionFragment}"></head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" >
-</head >
-<body >
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper"><!-- wrapper start -->
+  <nav th:replace="~{fragments/navbarSection :: navbarSectionFragment}"></nav><!-- navbar Section -->
+  <aside th:replace="~{fragments/sidebarSection :: sidebarSectionFragment}"></aside><!-- navbar Section -->
+  <div class="content-wrapper"><!-- content-wrapper Start -->
+    <section th:replace="~{fragments/contentHeader :: contentHeaderSectionFragment}"></section>
+    <!--        &lt;!&ndash; Form Header  Path &ndash;&gt;-->
+    <!--        <section th:replace="~{fragments/smallBoxSection :: smallBoxSectionFragment}"></section>&lt;!&ndash; Small Box Set &ndash;&gt;-->
+
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
+                    <!--                                        <h4>First sud Header</h4>-->
+                    <form role="form">
+                      <div align="right">
+                        <a class="btn btn-success" id="newDistrict" th:href="${'/district/add'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Add District </a>
+                        <a class="btn btn-info" id="newDistrict" th:href="${'/home'}">
+                          <i class="far fa-building" style="font-size: 18px;"></i> &nbsp; Back to Home </a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body">
 
 <div class="container-fluid" >
   <div id="accordianId" role="tablist" aria-multiselectable="true" >
@@ -179,34 +204,41 @@
   </form >
 </div >
 
-
-<!-- content-wrapper end -->
-<div data-th-replace="~{fragments/footerSection :: footerSectionFragment}" ></div ><!-- footer Section -->
-<!-- wrapper end -->
-<div data-th-replace="~{fragments/scriptSection :: scriptSectionFragment}" ></div ><!-- script Fragment -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- content-wrapper end -->
+  <div th:replace="~{fragments/footerSection :: footerSectionFragment}"></div><!-- footer Section -->
+</div><!-- wrapper end -->
+<div th:replace="~{fragments/scriptSection :: scriptSectionFragment}"></div><!-- script Fragment -->
 
 <script >
 
-    //test result validation : check whether the entered value is within the given range
-    function testResultValidation(obj) {
-        let selectedFiledId = obj.getAttribute('id').slice(2);
-        let resultEnterFiled = $(`#rs${selectedFiledId}`);
-        let min = parseInt($(`#min${selectedFiledId}`).val());
-        let max = parseInt($(`#max${selectedFiledId}`).val());
-        let testResult = parseInt(resultEnterFiled.val());
+  //test result validation : check whether the entered value is within the given range
+  function testResultValidation(obj) {
+    let selectedFiledId = obj.getAttribute('id').slice(2);
+    let resultEnterFiled = $(`#rs${selectedFiledId}`);
+    let min = parseInt($(`#min${selectedFiledId}`).val());
+    let max = parseInt($(`#max${selectedFiledId}`).val());
+    let testResult = parseInt(resultEnterFiled.val());
 
-        if (testResult >= min && testResult <= max) {
-            resultEnterFiled.attr("class", "bg-success form-control");
-            $(`#sts${selectedFiledId}`).val("PASS")
-        } else {
-            resultEnterFiled.attr("class", "bg-danger form-control");
-            $(`#sts${selectedFiledId}`).val("FAIL")
-        }
-        if (testResult === 0 || testResult === "") {
-            resultEnterFiled.attr("class", "bg-warning form-control");
-        }
+    if (testResult >= min && testResult <= max) {
+      resultEnterFiled.attr("class", "bg-success form-control");
+      $(`#sts${selectedFiledId}`).val("PASS")
+    } else {
+      resultEnterFiled.attr("class", "bg-danger form-control");
+      $(`#sts${selectedFiledId}`).val("FAIL")
     }
+    if (testResult === 0 || testResult === "") {
+      resultEnterFiled.attr("class", "bg-warning form-control");
+    }
+  }
 
 </script >
-</body >
-</html >
+</body>
+</html>
