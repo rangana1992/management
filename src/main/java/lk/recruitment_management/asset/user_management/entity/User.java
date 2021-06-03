@@ -25,7 +25,6 @@ import java.util.List;
 public class User extends AuditEntity {
 
     @OneToOne
-    @NotNull
     private Employee employee;
 
 

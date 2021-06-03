@@ -180,7 +180,7 @@ public class InterviewManageController {
         .fromMethodName(InterviewManageController.class, "pdfPrint", id, ApplicantGazetteStatus.FST)
         .toUriString());
     model.addAttribute("redirectUrl", MvcUriComponentsBuilder
-        .fromMethodName(InterviewManageController.class, "firstInterview", id)
+        .fromMethodName(InterviewManageController.class, "firstInterview",id, ApplicantGazetteStatus.FST)
         .toUriString());
     return "print/pdfSilentPrint";
   }
@@ -314,7 +314,7 @@ public class InterviewManageController {
         .fromMethodName(InterviewManageController.class, "pdfPrint", id, ApplicantGazetteStatus.SND)
         .toUriString());
     model.addAttribute("redirectUrl", MvcUriComponentsBuilder
-        .fromMethodName(InterviewManageController.class, "secondInterview", id)
+        .fromMethodName(InterviewManageController.class, "secondInterview", id,ApplicantGazetteStatus.SND)
         .toUriString());
     return "print/pdfSilentPrint";
   }

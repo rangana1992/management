@@ -9,6 +9,7 @@ import com.itextpdf.text.Font;
 import lk.recruitment_management.asset.applicant.dao.ApplicantDao;
 import lk.recruitment_management.asset.applicant.entity.Applicant;
 import lk.recruitment_management.asset.applicant_degree_result.entity.ApplicantDegreeResult;
+import lk.recruitment_management.asset.applicant_file.entity.ApplicantFiles;
 import lk.recruitment_management.asset.applicant_file.service.ApplicantFilesService;
 import lk.recruitment_management.asset.applicant_gazette.entity.ApplicantGazette;
 import lk.recruitment_management.asset.applicant_gazette.entity.enums.ApplicantGazetteStatus;
@@ -236,7 +237,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     }
   }
 
-  private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD | Font.UNDERLINE);
+  private final Font mainHeadingFont = new Font(Font.FontFamily.TIMES_ROMAN, 15, Font.BOLD | Font.UNDERLINE);
   private final Font secondaryFont = FontFactory.getFont("Arial", 8, BaseColor.BLACK);
   private final Font tableHeader = FontFactory.getFont("Arial", 10, BaseColor.BLACK);
   private final Font tableHeaderOnly = FontFactory.getFont("Arial", 12, BaseColor.BLACK);
@@ -244,7 +245,9 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
   public ByteArrayInputStream createPDF(Integer id, ApplicantGazetteStatus applicantGazetteStatus) throws DocumentException, IOException {
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
-
+    Document document = new Document(PageSize.A4, 20, 20, 20, 20);
+    PdfWriter.getInstance(document, out);
+    document.open();
     for ( ApplicantGazette applicantGazette :
         applicantGazetteService.findByApplicantGazetteStatusAndGazette(applicantGazetteStatus,
                                                                        gazetteService.findById(id)) ) {
@@ -255,9 +258,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       } else {
         interviewName = InterviewName.SECOND;
       }
-      Document document = new Document(PageSize.A4, 20, 20, 20, 20);
-      PdfWriter.getInstance(document, out);
-      document.open();
+
       //page size
       Rectangle page = document.getPageSize();
       // add title to the form
@@ -265,18 +266,24 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 
 
       Paragraph preface = new Paragraph();
-      // We add one empty line
-      addEmptyLine(preface, 1);
       // Lets write a big header
       preface.add(new Paragraph("Sri Lanka Police Department - Recruitment Division", mainHeadingFont));
+      preface.setAlignment(Element.ALIGN_CENTER);
+      addEmptyLine(preface, 2);
       document.add(preface);
+      //     ApplicantFiles applicantFiles = applicantFilesService.findByApplicant(applicantGazette.getApplicant());
 //      image
-      Image image = Image.getInstance(applicantFilesService.findByApplicant(applicantGazette.getApplicant()).getPic());
-      //image.scalePercent(25f);
-      //image.scaleAbsoluteWidth(520f);
-      // image.setAbsolutePosition(40f, 725f);
-      image.scaleToFit(100f, 100f);
-      document.add(image);
+//      if ( applicantFiles != null ) {
+//
+//        if ( applicantFiles.getPic() != null ) {
+//          Image image = Image.getInstance(applicantFiles.getPic());
+//          //image.scalePercent(25f);
+//          //image.scaleAbsoluteWidth(520f);
+//          // image.setAbsolutePosition(40f, 725f);
+//          image.scaleToFit(100f, 100f);
+//          document.add(image);
+//        }
+//      }
 
       Paragraph header = new Paragraph();
       addEmptyLine(header, 1);
@@ -296,7 +303,7 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       // personal details
       Paragraph personalDetails = new Paragraph();
       personalDetails.add(new Paragraph("Personal Detail", mainHeadingFont));
-      addEmptyLine(personalDetails, 2);
+      addEmptyLine(personalDetails, 1);
       document.add(personalDetails);
 
       PdfPTable applicantDetailTable = new PdfPTable(4);//column amount
@@ -461,22 +468,30 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
 
 
         for ( ApplicantResult value : applicantResultOL ) {
-          PdfPCell subjectNameValue = new PdfPCell(new Paragraph(checkNullOrNot(value.getSubjectName()), tableHeader));
+          PdfPCell subjectNameValue = new PdfPCell(new Paragraph(checkNullOrNot(value.getSubjectName() != null ?
+                                                                                    value.getSubjectName() : null
+                                                                               ), tableHeader));
           pdfCellBodyCommonStyle(subjectNameValue);
           OLResults.addCell(subjectNameValue);
 
           PdfPCell resultValue =
-              new PdfPCell(new Paragraph(checkNullOrNot(value.getSubjectResult().getSubjectResult()), tableHeader));
+              new PdfPCell(new Paragraph(checkNullOrNot(value.getSubjectResult() != null ?
+                                                            value.getSubjectResult().getSubjectResult() : null
+                                                       ), tableHeader));
           pdfCellBodyCommonStyle(resultValue);
           OLResults.addCell(resultValue);
 
           PdfPCell attemptValue =
-              new PdfPCell(new Paragraph(checkNullOrNot(value.getAttempt().getAttempt()), tableHeader));
+              new PdfPCell(new Paragraph(checkNullOrNot(value.getAttempt() != null ?
+                                                            value.getAttempt().getAttempt() : null
+                                                       ), tableHeader));
           pdfCellBodyCommonStyle(attemptValue);
           OLResults.addCell(attemptValue);
 
           PdfPCell indexValue =
-              new PdfPCell(new Paragraph(checkNullOrNot(value.getIndexNumber()), tableHeader));
+              new PdfPCell(new Paragraph(checkNullOrNot(value.getIndexNumber() != null ?
+                                                            value.getIndexNumber() : null
+                                                       ), tableHeader));
           pdfCellBodyCommonStyle(indexValue);
           OLResults.addCell(indexValue);
         }
@@ -632,10 +647,48 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
       firstInterview.add(new Paragraph("Interview Parameters ", mainHeadingFont));
 
       interviewParameter(document, interviewName);
-     // interviewBoardName(document, applicantGazette);
-      document.close();
-    }
+      // interviewBoardName(document, applicantGazette);
+      PdfPTable interviewBoardMemberOne = new PdfPTable(2);//column amount
+      interviewBoardMemberOne.setWidthPercentage(100);
+      interviewBoardMemberOne.setSpacingBefore(10f);
+      interviewBoardMemberOne.setSpacingAfter(10);
+      interviewBoardMemberOne.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
 
+      PdfPCell codeLine = new PdfPCell(new Paragraph("Signature : __________________ ", tableHeader));
+      pdfCellCommonStyle(codeLine);
+      PdfPCell codeSign = new PdfPCell(new Paragraph("Member Name :  __________________", tableHeader));
+      pdfCellCommonStyle(codeSign);
+      PdfPCell codeSignDate = new PdfPCell(new Paragraph("Date : __________________", tableHeader));
+      pdfCellCommonStyle(codeSignDate);
+      // member detail
+      interviewBoardMemberOne.addCell(codeLine);
+      interviewBoardMemberOne.addCell(codeSign);
+      interviewBoardMemberOne.addCell(codeSignDate);
+      // member detail
+      interviewBoardMemberOne.addCell(codeLine);
+      interviewBoardMemberOne.addCell(codeSign);
+      interviewBoardMemberOne.addCell(codeSignDate);
+      document.add(interviewBoardMemberOne);
+
+      PdfPTable interviewBoardMemberTwo = new PdfPTable(2);//column amount
+      interviewBoardMemberTwo.setWidthPercentage(100);
+      interviewBoardMemberTwo.setSpacingBefore(10f);
+      interviewBoardMemberTwo.setSpacingAfter(10);
+      interviewBoardMemberTwo.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
+      // member detail
+      interviewBoardMemberTwo.addCell(codeLine);
+      interviewBoardMemberTwo.addCell(codeSign);
+      interviewBoardMemberTwo.addCell(codeSignDate);
+      // member detail
+      interviewBoardMemberTwo.addCell(codeLine);
+      interviewBoardMemberTwo.addCell(codeSign);
+      interviewBoardMemberTwo.addCell(codeSignDate);
+      document.add(interviewBoardMemberTwo);
+
+
+      document.newPage();
+    }
+    document.close();
     return new ByteArrayInputStream(out.toByteArray());
   }
 
@@ -643,6 +696,9 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     //take interview parameter from db and create table
     // index parameterName result max remark
     PdfPTable firstInterviewTable = new PdfPTable(6);
+    firstInterviewTable.setWidthPercentage(100);
+    firstInterviewTable.setSpacingBefore(10f);
+    firstInterviewTable.setSpacingAfter(10);
     firstInterviewTable.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin());
 
     List< InterviewParameter > interviewParameters =
@@ -708,9 +764,11 @@ public class ApplicantService implements AbstractService< Applicant, Integer > {
     //take interview parameter from db and create table
     // index parameterName result max remark
     PdfPTable interviewBoardDetail = new PdfPTable(5);
-    interviewBoardDetail.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin());
+    interviewBoardDetail.setTotalWidth(document.getPageSize().getWidth() - document.leftMargin() - document
+    .rightMargin());
 
-    ApplicantGazetteInterview applicantGazetteInterview =        applicantGazetteInterviewService.findByApplicantGazette(applicantGazette);
+    ApplicantGazetteInterview applicantGazetteInterview =        applicantGazetteInterviewService
+    .findByApplicantGazette(applicantGazette);
 
 
     PdfPCell indexCell = new PdfPCell(new Phrase("Index ", secondaryFont));

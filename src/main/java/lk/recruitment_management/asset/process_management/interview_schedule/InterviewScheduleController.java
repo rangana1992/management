@@ -100,18 +100,16 @@ public class InterviewScheduleController {
         }
       }
     }
+    System.out.println(" size sample  "+applicantGazettes.size());
     int startCount = 0;
     for ( InterviewScheduleList interviewScheduleList : interviewSchedule.getInterviewScheduleLists() ) {
       int endCount = interviewScheduleList.getCount();
       InterviewBoard interviewBoard = interviewBoardService.findById(interviewScheduleList.getInterviewBoardId());
-      interviewBoard.setMessage(interviewSchedule.getMassage());
-
 
       for ( ApplicantGazette applicantGazette : applicantGazettes.subList(startCount, endCount) ) {
         applicantGazette.setApplicantGazetteStatus(interviewSchedule.getInterviewNumber());
         //new applicant interview
         ApplicantGazetteInterview applicantGazetteInterview = new ApplicantGazetteInterview();
-
         applicantGazetteInterview.setInterviewBoard(interviewBoard);
         ApplicantGazette applicantGazetteDB = applicantGazetteService.persist(applicantGazette);
         //save  applicant and set to applicant interview
@@ -121,9 +119,9 @@ public class InterviewScheduleController {
         applicantGazetteInterview.setApplicantGazetteInterviewStatus(ApplicantGazetteInterviewStatus.ACT);
         applicantGazetteInterviews.add(applicantGazetteInterviewService.persist(applicantGazetteInterview));
       }
-      interviewBoard = interviewBoardService.persist(interviewBoard);
 
-      startCount = endCount - 1;
+
+      startCount = interviewScheduleList.getCount() - 1;
     }
     gazette.setGazetteStatus(GazetteStatus.IN);
     gazetteService.persist(gazette);

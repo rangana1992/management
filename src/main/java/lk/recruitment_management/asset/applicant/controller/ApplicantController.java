@@ -297,7 +297,7 @@ public class ApplicantController {
     model.addAttribute("applicants", applicants);
     model.addAttribute("contendHeader", "Applicant Registration");
     model.addAttribute("applyingRanks", ApplyingRank.values());
-    model.addAttribute("applicantStatuses", ApplicantGazetteStatus.values());
+    model.addAttribute("applicantGazetteStatuses", ApplicantGazetteStatus.values());
     model.addAttribute("addStatus", true);
     return "applicant/applicant";
   }
@@ -305,11 +305,14 @@ public class ApplicantController {
   @PostMapping( "/all/search" )
   public String getAllPaymentToPayBetweenTwoDate(@ModelAttribute TwoDate twoDate, Model model) {
     List<Applicant> applicants = new ArrayList<>();
-
+    System.out.println(" two datesa  "+twoDate.toString());
     applicantGazetteService.findByCreatedAtIsBetweenAndApplicantGazetteStatusAndApplyingRank(dateTimeAgeService
                                                                     .dateTimeToLocalDateStartInDay(twoDate.getStartDate()),
                                                                 dateTimeAgeService.dateTimeToLocalDateEndInDay(twoDate.getEndDate())
-        , twoDate.getApplicantGazetteStatus(), twoDate.getApplyingRank()).forEach(x->applicants.add(x.getApplicant()));
+        , twoDate.getApplicantGazetteStatus(), twoDate.getApplyingRank())
+            .forEach(x->applicants.add(applicantService.findById(x.getApplicant().getId())));
+
+    System.out.println("applicant cointu " + applicants.size());
     return commonApplicant(model,applicants);
   }
 }

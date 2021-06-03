@@ -51,7 +51,7 @@
                             <h4 class="text-info" ><b > Custom Search</b ></h4 >
                             <div class="container" >
                               <table class=" table" >
-                                <form class="form-inline" data-th-action="@{/applicant/all/search}"
+                                <form class="form-inline" data-th-action="@{/report/applicant/search}"
                                       data-th-method="POST" >
 
                                   <tr >
@@ -129,19 +129,64 @@
                   </div >
                 </div >
               </div >
+              <div class="col-8">
+                <p >
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId"
+                          aria-expanded="false"
+                          aria-controls="contentId" >
+                    Show Gazette Detail
+                  </button >
+                </p >
+                <div class="collapse" id="contentId" >
+                  <div class="col" data-th-if="${not #lists.isEmpty(gazettes)}">
+                    <table class="table table-hover table-striped" id="myTable">
+                      <thead>
+                      <tr>
+                        <th> Index</th>
+                        <th> Name </th>
+                        <th> Request Maximum Age</th>
+                        <th> Status </th>
+                        <th> Summary </th>
+                        <th> Modify</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr data-th-each="gazette, rowCount : ${gazettes}">
+                        <th data-th-text="${rowCount.count}"></th>
+                        <th data-th-text="${gazette.name}"></th>
+                        <th data-th-text="${gazette.age}"></th>
+                        <th data-th-text="${gazette.gazetteStatus.gazetteStatus}"></th>
+                        <th data-th-utext="${gazette.summary}"></th>
+                        <th>
+                          <a data-th-href="${'/report/gazette/' + gazette.id}"
+                             class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>&nbsp;View Status Report</a>
+                        </th>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div >
+              </div>
               <div class="col-md-8" >
-                <div class="card" >
+                <p >
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId1"
+                          aria-expanded="false"
+                          aria-controls="contentId1" >
+                    Show Applicant Detail
+                  </button >
+                </p >
+                <div class="collapse" id="contentId1" >
+                <div data-th-if="${not #lists.isEmpty(applicants)}" class="card" >
                   <div class="card-body" >
                     <h4 >Applicant Details</h4 >
                     <div class="card-body" >
-                      <table class="table  table-hover " id="myTable" th:fragment="applicantFragment" >
+                      <table class="table  table-hover "   >
                         <thead >
                         <tr >
                           <th > Index</th >
                           <th > Name</th >
                           <th > Police Station</th >
-                          <th th:if="${addStatus}" > Modify</th >
-                          <th th:if="${addStatus}" data-sec-authorize="not hasRole('ROLE_APPLICANT')" > Applied Gazette
+                          <th > Applied Gazette
                                                                                                         Detail
                           </th >
                         </tr >
@@ -151,11 +196,7 @@
                           <td th:text="${rowCount.count}" ></td >
                           <td th:text="${applicant.nameWithInitial}" ></td >
                           <td th:text="${applicant.gramaNiladhari.policeStation.name}" ></td >
-                          <td th:if="${addStatus}" >
-                            <a th:href="${'/applicant/' + applicant.id}" class="btn btn-success btn-sm" ><i
-                                  class="fa fa-folder-open" ></i >&nbsp;View / Approve</a >
-                          </td >
-                          <td th:if="${addStatus}" data-sec-authorize="not hasRole('ROLE_APPLICANT')" >
+                          <td >
                             <p >
                               <button class="btn btn-primary" type="button" data-toggle="collapse"
                                       data-th-attr="data-target=${'#contentId'+rowCount.index}" aria-expanded="false" >
@@ -218,7 +259,8 @@
                       </div >
                     </div >
                   </div >
-                </div >
+                </div   >
+                </div>
               </div >
             </div >
           </div >

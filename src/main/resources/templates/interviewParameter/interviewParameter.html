@@ -44,6 +44,7 @@
                                                 <tr>
                                                     <th>S No</th>
                                                     <th>Parameter Name</th>
+                                                    <th>Min</th>
                                                     <th>Max</th>
 
 
@@ -54,7 +55,8 @@
                                                 <tr th:each="interviewParameter, rowCount : ${interviewParameters}" scope="row">
                                                     <th th:text="${rowCount.count}"></th>
                                                     <th th:text="${interviewParameter.name}"></th>
-                                                    <th th:text="${interviewParameter.max}"></th>
+                                                    <th th:text="${interviewParameter.min}"></th>
+                                                    <th th:text="${interviewParameter.Max}"></th>
 
 
 
